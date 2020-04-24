@@ -1,0 +1,41 @@
+﻿<Properties StartupConfiguration="{360C43CB-6BB7-DC45-1E25-08789470ECC8}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MyCube.cs">
+    <Files>
+      <File FileName="Assets/Scripts/MyPlayer.cs" Line="164" Column="23" />
+      <File FileName="Assets/Scripts/MyGame.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MyCube.cs" Line="549" Column="1" />
+      <File FileName="Assets/Scripts/MainCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/InputData.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/FacePanelNew.cs" Line="114" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Rubix" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Actions" expanded="True" />
+              <Node name="Scripts" expanded="True">
+                <Node name="MyCube.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="f1aca6ae-07bf-47aa-a570-0ff1001a0093" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Samples/Input System/1.0.0-preview.3/Simple Demo/SimpleController_UsingPlayerInput.cs" relfile="Assets/Samples/Input System/1.0.0-preview.3/Simple Demo/SimpleController_UsingPlayerInput.cs" line="31" column="1" />
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Scripts/6kqb138i.a8m~" relfile="Assets/Scripts/6kqb138i.a8m~" line="29" column="1" />
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Scripts/6kqb138i.a8m~" relfile="Assets/Scripts/6kqb138i.a8m~" line="33" column="1" />
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Scripts/6kqb138i.a8m~" relfile="Assets/Scripts/6kqb138i.a8m~" line="40" column="1" />
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Samples/Input System/1.0.0-preview.3/Simple Demo/SimpleControls.cs" relfile="Assets/Samples/Input System/1.0.0-preview.3/Simple Demo/SimpleControls.cs" line="249" column="1" />
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Samples/Input System/1.0.0-preview.3/Simple Demo/SimpleControls.cs" relfile="Assets/Samples/Input System/1.0.0-preview.3/Simple Demo/SimpleControls.cs" line="194" column="1" />
+      <Breakpoint enabled="false" file="/Users/Nick/Documents/GitHub/Rubix/Assets/Scripts/8od17cpm.hyq~" relfile="Assets/Scripts/8od17cpm.hyq~" line="47" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
