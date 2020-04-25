@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEditor;
 
 
-public class FacePanelNew : MonoBehaviour
+public class FacePanel : MonoBehaviour
 {
     public GameObject pRoot;
     private Image iRootImage;
