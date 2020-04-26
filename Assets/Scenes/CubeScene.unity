@@ -852,6 +852,9 @@ MonoBehaviour:
   myGame: {fileID: 978969262}
   mainCamera: {fileID: 963194229}
   myCube: {fileID: 1806485317}
+  front: {fileID: 1911183429}
+  back: {fileID: 73197698}
+  materialX: {fileID: 0}
 --- !u!1 &296277992
 GameObject:
   m_ObjectHideFlags: 0

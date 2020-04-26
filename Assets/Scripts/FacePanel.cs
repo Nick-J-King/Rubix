@@ -9,14 +9,13 @@ using UnityEditor;
 public class FacePanel : MonoBehaviour
 {
     public GameObject pRoot;
-    private Image iRootImage;
 
-    private Image[,] panelImages = new Image[5,5];
+    public Image[,] panelImages = new Image[5,5];
 
 
     // PRIVATE members --------------------------
 
-    private GameObject[,] pFacelets;
+    public GameObject[,] pFacelets;
     private DefaultControls.Resources uiResources;
 
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
@@ -62,8 +61,6 @@ public class FacePanel : MonoBehaviour
     public void Initialise(Color col)
     {
         uiResources = new DefaultControls.Resources();
-
-        iRootImage = pRoot.GetComponent<Image>();
 
         //isAnimating = false;
         pFacelets = new GameObject[5, 5];
