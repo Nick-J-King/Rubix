@@ -852,9 +852,12 @@ MonoBehaviour:
   myGame: {fileID: 978969262}
   mainCamera: {fileID: 963194229}
   myCube: {fileID: 1806485317}
-  front: {fileID: 1911183429}
-  back: {fileID: 73197698}
-  materialX: {fileID: 0}
+  frontPanel: {fileID: 1911183429}
+  backPanel: {fileID: 73197698}
+  leftPanel: {fileID: 904768161}
+  rightPanel: {fileID: 1833996270}
+  upPanel: {fileID: 400510028}
+  downPanel: {fileID: 769891484}
 --- !u!1 &296277992
 GameObject:
   m_ObjectHideFlags: 0
