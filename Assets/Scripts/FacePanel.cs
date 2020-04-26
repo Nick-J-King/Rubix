@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEditor;
 
 
@@ -20,13 +19,9 @@ public class FacePanel : MonoBehaviour
 
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
-    private int[,] faceColours;    // <<<
-
 
     public void Start()
     {
-        Debug.Log("Panel = " + name);
-
         Color col = UnityEngine.Color.red;
 
         switch (name)
@@ -62,7 +57,6 @@ public class FacePanel : MonoBehaviour
     {
         uiResources = new DefaultControls.Resources();
 
-        //isAnimating = false;
         pFacelets = new GameObject[5, 5];
         
         for (int x = 0; x < 5; x++)
@@ -94,7 +88,9 @@ public class FacePanel : MonoBehaviour
 
         Image img = facelet.GetComponent<Image>();
 
-        img.sprite = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
+        // Use a "plain" sprite for now...
+        img.sprite = pRoot.GetComponent<Image>().sprite;
+        // img.sprite = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
 
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 40.0f);
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 40.0f);
@@ -104,8 +100,6 @@ public class FacePanel : MonoBehaviour
 
         img.color = col;
 
-
-
         return facelet;
     }
 
@@ -113,6 +107,6 @@ public class FacePanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // >>> Put animation code here, perhaps...
     }
 }

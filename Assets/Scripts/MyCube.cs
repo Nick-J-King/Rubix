@@ -6,7 +6,6 @@ public class MyCube : MonoBehaviour
 {
     public GameObject cubeRoot;
 
-
     // Materials.
     public Material faceMaterialBlue;
     public Material faceMaterialGreen;
@@ -18,9 +17,6 @@ public class MyCube : MonoBehaviour
     public Material faceMaterialOrange;
 
     public Material faceMaterialBlack;  // For the "innards"
-
-    public enum CubeAxis { x = 0, y = 1, z = 2 };
-    public enum CubeSlices { s0 = 0, s01 = 1, s1 = 2, s2 = 3, s3 = 4, s34 = 5, s4 = 6 };
 
     // Animation
     public bool isAnimating;
@@ -36,9 +32,6 @@ public class MyCube : MonoBehaviour
     private GameObject[,,] mfCubelets;
 
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
-
-    private int[,,] faceColours;    // <<<
-
 
 
     // Use this for initialization
@@ -57,7 +50,6 @@ public class MyCube : MonoBehaviour
                 }
             }
         }
-
     }
 
 
@@ -487,12 +479,11 @@ public class MyCube : MonoBehaviour
 
         }
 
-
         currentAngle += deltaAngle;
     }
 
 
-    public void DoAnimX(CubeSlices slices)
+    public void DoAnim(CubeAxis axis, CubeSlices slices)
     {
         if (isAnimating)
         {
@@ -502,44 +493,27 @@ public class MyCube : MonoBehaviour
         isAnimating = true;
         currentAngle = 0.0f;
         finalAngle = 90.0f;
-        deltaAngle = 1.0f;
+        deltaAngle = 5.0f;
 
-        cubeAxis = CubeAxis.x;
+        cubeAxis = axis;
         cubeSlices = slices;
+    }
+
+    public void DoAnimX(CubeSlices slices)
+    {
+        DoAnim(CubeAxis.x, slices);
     }
 
 
     public void DoAnimY(CubeSlices slices)
     {
-        if (isAnimating)
-        {
-            return;
-        }
-
-        isAnimating = true;
-        currentAngle = 0.0f;
-        finalAngle = 90.0f;
-        deltaAngle = 1.0f;
-
-        cubeAxis = CubeAxis.y;
-        cubeSlices = slices;
+        DoAnim(CubeAxis.y, slices);
     }
 
 
     public void DoAnimZ(CubeSlices slices)
     {
-        if (isAnimating)
-        {
-            return;
-        }
-
-        isAnimating = true;
-        currentAngle = 0.0f;
-        finalAngle = 90.0f;
-        deltaAngle = 1.0f;
-
-        cubeAxis = CubeAxis.z;
-        cubeSlices = slices;
+        DoAnim(CubeAxis.z, slices);
     }
 
 
@@ -610,7 +584,6 @@ public class MyCube : MonoBehaviour
         Cycle4Cublelets(new Vector3Int(xSlice, 1, 2), new Vector3Int(xSlice, 2, 3), new Vector3Int(xSlice, 3, 2), new Vector3Int(xSlice, 2, 1));
     }
 
-
     // Rotate the array of cublets themselves!
     void RotateCubeletArrayAboutYAxisSlice(int ySlice)
     {
@@ -623,7 +596,7 @@ public class MyCube : MonoBehaviour
         Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1));
     }
 
-
+    // Rotate the array of cublets themselves!
     void RotateCubeletArrayAboutZAxisSlice(int zSlice)
     {
         Cycle4Cublelets(new Vector3Int(0, 0, zSlice), new Vector3Int(0, 4, zSlice), new Vector3Int(4, 4, zSlice), new Vector3Int(4, 0, zSlice));
@@ -636,8 +609,7 @@ public class MyCube : MonoBehaviour
     }
 
 
-
-
+    // Cycle the cubelets.
 
     void Cycle4Cublelets(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3)
     {
