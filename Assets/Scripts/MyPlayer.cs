@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
-using UnityEngine.EventSystems;
-using UnityEditor;
 using UnityEngine.UI;
 
 
@@ -33,9 +29,6 @@ public class MyPlayer : MonoBehaviour
     private readonly int lastAnimationStep = 18;
 
     private bool isAnimating;
-    private float currentAngle;
-    private float finalAngle;
-    private float deltaAngle;
     private CubeAxis cubeAxis;       // Which axis we are currently rotating about.
     private CubeSlices cubeSlices;   // Which slices we are currently rotating.
 
@@ -43,6 +36,16 @@ public class MyPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    }
+
+    // Determine whether to "cycle" the facelets on "strips".
+    private bool IsAnimationOnStep()
+    {
+        return (animationStep == firstStep
+        || animationStep == secondStep
+        || animationStep == thirdStep
+        || animationStep == fourthStep
+        || animationStep == fifthStep);
     }
 
     // Update is called once per frame
@@ -60,13 +63,9 @@ public class MyPlayer : MonoBehaviour
             {
                 upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFirstSliceFromTop();
+                    CycleSliceFromTop(0);
                 }
 
                 if (upPanel.transform.localEulerAngles.z <= 270.0f)
@@ -76,21 +75,16 @@ public class MyPlayer : MonoBehaviour
                     isAnimating = false;
                 }
             }
-
 
             // First two slices from top.
             if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s34)
             {
                 upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFirstSliceFromTop();
-                    CycleSecondSliceFromTop();
+                    CycleSliceFromTop(0);
+                    CycleSliceFromTop(1);
                 }
 
                 if (upPanel.transform.localEulerAngles.z <= 270.0f)
@@ -101,17 +95,12 @@ public class MyPlayer : MonoBehaviour
                 }
             }
 
-
             // Second slice from top.
             if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s3)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleSecondSliceFromTop();
+                    CycleSliceFromTop(1);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -123,13 +112,9 @@ public class MyPlayer : MonoBehaviour
             // Third slice from top.
             if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s2)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleThirdSliceFromTop();
+                    CycleSliceFromTop(2);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -141,13 +126,9 @@ public class MyPlayer : MonoBehaviour
             // Fourth slice from top.
             if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s1)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFourthSliceFromTop();
+                    CycleSliceFromTop(3);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -156,19 +137,15 @@ public class MyPlayer : MonoBehaviour
                 }
             }
 
-            // Fourth and Fifth two slices from top.
+            // Fourth and Fifth slices from top.
             if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01)
             {
                 downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFourthSliceFromTop();
-                    CycleFifthSliceFromTop();
+                    CycleSliceFromTop(3);
+                    CycleSliceFromTop(4);
                 }
 
                 if (downPanel.transform.localEulerAngles.z >= 90.0f)
@@ -185,13 +162,9 @@ public class MyPlayer : MonoBehaviour
             {
                 downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFifthSliceFromTop();
+                    CycleSliceFromTop(4);
                 }
 
                 if (downPanel.transform.localEulerAngles.z >= 90.0f)
@@ -209,13 +182,9 @@ public class MyPlayer : MonoBehaviour
             {
                 rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFirstSliceFromRight();
+                    CycleSliceFromRight(0);
                 }
 
                 if (rightPanel.transform.localEulerAngles.z <= 270.0f)
@@ -231,14 +200,10 @@ public class MyPlayer : MonoBehaviour
             {
                 rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFirstSliceFromRight();
-                    CycleSecondSliceFromRight();
+                    CycleSliceFromRight(0);
+                    CycleSliceFromRight(1);
                 }
 
                 if (rightPanel.transform.localEulerAngles.z <= 270.0f)
@@ -252,13 +217,9 @@ public class MyPlayer : MonoBehaviour
             // Second slice from right.
             if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s3)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleSecondSliceFromRight();
+                    CycleSliceFromRight(1);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -270,13 +231,9 @@ public class MyPlayer : MonoBehaviour
             // Third (middle) slice from right.
             if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s2)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleThirdSliceFromRight();
+                    CycleSliceFromRight(2);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -289,13 +246,9 @@ public class MyPlayer : MonoBehaviour
             // Fourth slice from right.
             if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s1)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFourthSliceFromRight();
+                    CycleSliceFromRight(3);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -309,14 +262,10 @@ public class MyPlayer : MonoBehaviour
             {
                 leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFourthSliceFromRight();
-                    CycleFifthSliceFromRight();
+                    CycleSliceFromRight(3);
+                    CycleSliceFromRight(4);
                 }
 
                 if (leftPanel.transform.localEulerAngles.z >= 90.0f)
@@ -332,13 +281,9 @@ public class MyPlayer : MonoBehaviour
             {
                 leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFifthSliceFromRight();
+                    CycleSliceFromRight(4);
                 }
 
                 if (leftPanel.transform.localEulerAngles.z >= 90.0f)
@@ -356,13 +301,9 @@ public class MyPlayer : MonoBehaviour
             {
                 frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFirstSliceFromFront();
+                    CycleSliceFromFront(0);
                 }
 
                 if (frontPanel.transform.localEulerAngles.z >= 90.0f)
@@ -378,14 +319,10 @@ public class MyPlayer : MonoBehaviour
             {
                 frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFirstSliceFromFront();
-                    CycleSecondSliceFromFront();
+                    CycleSliceFromFront(0);
+                    CycleSliceFromFront(1);
                 }
 
                 if (frontPanel.transform.localEulerAngles.z >= 90.0f)
@@ -400,13 +337,9 @@ public class MyPlayer : MonoBehaviour
             // Second slice from front.
             if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s1)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleSecondSliceFromFront();
+                    CycleSliceFromFront(1);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -418,13 +351,9 @@ public class MyPlayer : MonoBehaviour
             // Third slice from front.
             if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s2)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleThirdSliceFromFront();
+                    CycleSliceFromFront(2);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -436,13 +365,9 @@ public class MyPlayer : MonoBehaviour
             // Fourth slice from front.
             if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s3)
             {
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFourthSliceFromFront();
+                    CycleSliceFromFront(3);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -456,14 +381,10 @@ public class MyPlayer : MonoBehaviour
             {
                 backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFourthSliceFromFront();
-                    CycleFifthSliceFromFront();
+                    CycleSliceFromFront(3);
+                    CycleSliceFromFront(4);
                 }
 
                 if (backPanel.transform.localEulerAngles.z <= 270.0f)
@@ -479,13 +400,9 @@ public class MyPlayer : MonoBehaviour
             {
                 backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
 
-                if (animationStep == firstStep
-                    || animationStep == secondStep
-                    || animationStep == thirdStep
-                    || animationStep == fourthStep
-                    || animationStep == fifthStep)
+                if (IsAnimationOnStep())
                 {
-                    CycleFifthSliceFromFront();
+                    CycleSliceFromFront(4);
                 }
 
                 if (backPanel.transform.localEulerAngles.z <= 270.0f)
@@ -514,491 +431,106 @@ public class MyPlayer : MonoBehaviour
 
     // Y axis
 
-    public void CycleFirstSliceFromTop()
+    // nSlice = 0 is Top. nSlice = 4 is Bottom.
+    public void CycleSliceFromTop(int nSlice)
     {
-        // Cycle the second slice from the top...
-        GameObject [] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[0, 4];
-        a[1] = frontPanel.pFacelets[1, 4];
-        a[2] = frontPanel.pFacelets[2, 4];
-        a[3] = frontPanel.pFacelets[3, 4];
-        a[4] = frontPanel.pFacelets[4, 4];
-
-        a[5] = rightPanel.pFacelets[0, 4];
-        a[6] = rightPanel.pFacelets[1, 4];
-        a[7] = rightPanel.pFacelets[2, 4];
-        a[8] = rightPanel.pFacelets[3, 4];
-        a[9] = rightPanel.pFacelets[4, 4];
-
-        a[10] = backPanel.pFacelets[4, 0];
-        a[11] = backPanel.pFacelets[3, 0];
-        a[12] = backPanel.pFacelets[2, 0];
-        a[13] = backPanel.pFacelets[1, 0];
-        a[14] = backPanel.pFacelets[0, 0];
-
-        a[15] = leftPanel.pFacelets[0, 4];
-        a[16] = leftPanel.pFacelets[1, 4];
-        a[17] = leftPanel.pFacelets[2, 4];
-        a[18] = leftPanel.pFacelets[3, 4];
-        a[19] = leftPanel.pFacelets[4, 4];
-
-        CycleFacelets20(a);
-
-    }
-
-    public void CycleSecondSliceFromTop()
-    {
-        // Cycle the second slice from the top...
         GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[0, 3];
-        a[1] = frontPanel.pFacelets[1, 3];
-        a[2] = frontPanel.pFacelets[2, 3];
-        a[3] = frontPanel.pFacelets[3, 3];
-        a[4] = frontPanel.pFacelets[4, 3];
 
-        a[5] = rightPanel.pFacelets[0, 3];
-        a[6] = rightPanel.pFacelets[1, 3];
-        a[7] = rightPanel.pFacelets[2, 3];
-        a[8] = rightPanel.pFacelets[3, 3];
-        a[9] = rightPanel.pFacelets[4, 3];
+        a[0] = frontPanel.pFacelets[0, 4 - nSlice];
+        a[1] = frontPanel.pFacelets[1, 4 - nSlice];
+        a[2] = frontPanel.pFacelets[2, 4 - nSlice];
+        a[3] = frontPanel.pFacelets[3, 4 - nSlice];
+        a[4] = frontPanel.pFacelets[4, 4 - nSlice];
 
-        a[10] = backPanel.pFacelets[4, 1];
-        a[11] = backPanel.pFacelets[3, 1];
-        a[12] = backPanel.pFacelets[2, 1];
-        a[13] = backPanel.pFacelets[1, 1];
-        a[14] = backPanel.pFacelets[0, 1];
+        a[5] = rightPanel.pFacelets[0, 4 - nSlice];
+        a[6] = rightPanel.pFacelets[1, 4 - nSlice];
+        a[7] = rightPanel.pFacelets[2, 4 - nSlice];
+        a[8] = rightPanel.pFacelets[3, 4 - nSlice];
+        a[9] = rightPanel.pFacelets[4, 4 - nSlice];
 
-        a[15] = leftPanel.pFacelets[0, 3];
-        a[16] = leftPanel.pFacelets[1, 3];
-        a[17] = leftPanel.pFacelets[2, 3];
-        a[18] = leftPanel.pFacelets[3, 3];
-        a[19] = leftPanel.pFacelets[4, 3];
+        a[10] = backPanel.pFacelets[4, nSlice];
+        a[11] = backPanel.pFacelets[3, nSlice];
+        a[12] = backPanel.pFacelets[2, nSlice];
+        a[13] = backPanel.pFacelets[1, nSlice];
+        a[14] = backPanel.pFacelets[0, nSlice];
 
-        CycleFacelets20(a);
-
-    }
-
-    public void CycleThirdSliceFromTop()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[0, 2];
-        a[1] = frontPanel.pFacelets[1, 2];
-        a[2] = frontPanel.pFacelets[2, 2];
-        a[3] = frontPanel.pFacelets[3, 2];
-        a[4] = frontPanel.pFacelets[4, 2];
-
-        a[5] = rightPanel.pFacelets[0, 2];
-        a[6] = rightPanel.pFacelets[1, 2];
-        a[7] = rightPanel.pFacelets[2, 2];
-        a[8] = rightPanel.pFacelets[3, 2];
-        a[9] = rightPanel.pFacelets[4, 2];
-
-        a[10] = backPanel.pFacelets[4, 2];
-        a[11] = backPanel.pFacelets[3, 2];
-        a[12] = backPanel.pFacelets[2, 2];
-        a[13] = backPanel.pFacelets[1, 2];
-        a[14] = backPanel.pFacelets[0, 2];
-
-        a[15] = leftPanel.pFacelets[0, 2];
-        a[16] = leftPanel.pFacelets[1, 2];
-        a[17] = leftPanel.pFacelets[2, 2];
-        a[18] = leftPanel.pFacelets[3, 2];
-        a[19] = leftPanel.pFacelets[4, 2];
+        a[15] = leftPanel.pFacelets[0, 4 - nSlice];
+        a[16] = leftPanel.pFacelets[1, 4 - nSlice];
+        a[17] = leftPanel.pFacelets[2, 4 - nSlice];
+        a[18] = leftPanel.pFacelets[3, 4 - nSlice];
+        a[19] = leftPanel.pFacelets[4, 4 - nSlice];
 
         CycleFacelets20(a);
-
-    }
-
-    public void CycleFourthSliceFromTop()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[0, 1];
-        a[1] = frontPanel.pFacelets[1, 1];
-        a[2] = frontPanel.pFacelets[2, 1];
-        a[3] = frontPanel.pFacelets[3, 1];
-        a[4] = frontPanel.pFacelets[4, 1];
-
-        a[5] = rightPanel.pFacelets[0, 1];
-        a[6] = rightPanel.pFacelets[1, 1];
-        a[7] = rightPanel.pFacelets[2, 1];
-        a[8] = rightPanel.pFacelets[3, 1];
-        a[9] = rightPanel.pFacelets[4, 1];
-
-        a[10] = backPanel.pFacelets[4, 3];
-        a[11] = backPanel.pFacelets[3, 3];
-        a[12] = backPanel.pFacelets[2, 3];
-        a[13] = backPanel.pFacelets[1, 3];
-        a[14] = backPanel.pFacelets[0, 3];
-
-        a[15] = leftPanel.pFacelets[0, 1];
-        a[16] = leftPanel.pFacelets[1, 1];
-        a[17] = leftPanel.pFacelets[2, 1];
-        a[18] = leftPanel.pFacelets[3, 1];
-        a[19] = leftPanel.pFacelets[4, 1];
-
-        CycleFacelets20(a);
-
-    }
-
-    public void CycleFifthSliceFromTop()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[0, 0];
-        a[1] = frontPanel.pFacelets[1, 0];
-        a[2] = frontPanel.pFacelets[2, 0];
-        a[3] = frontPanel.pFacelets[3, 0];
-        a[4] = frontPanel.pFacelets[4, 0];
-
-        a[5] = rightPanel.pFacelets[0, 0];
-        a[6] = rightPanel.pFacelets[1, 0];
-        a[7] = rightPanel.pFacelets[2, 0];
-        a[8] = rightPanel.pFacelets[3, 0];
-        a[9] = rightPanel.pFacelets[4, 0];
-
-        a[10] = backPanel.pFacelets[4, 4];
-        a[11] = backPanel.pFacelets[3, 4];
-        a[12] = backPanel.pFacelets[2, 4];
-        a[13] = backPanel.pFacelets[1, 4];
-        a[14] = backPanel.pFacelets[0, 4];
-
-        a[15] = leftPanel.pFacelets[0, 0];
-        a[16] = leftPanel.pFacelets[1, 0];
-        a[17] = leftPanel.pFacelets[2, 0];
-        a[18] = leftPanel.pFacelets[3, 0];
-        a[19] = leftPanel.pFacelets[4, 0];
-
-        CycleFacelets20(a);
-
     }
 
     // X axis
 
-    public void CycleFirstSliceFromRight()
+    // nSlice = 0 is Right. nSlice = 4 is Left.
+    public void CycleSliceFromRight(int nSlice)
     {
-        // Cycle the second slice from the top...
         GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[4, 0];
-        a[1] = frontPanel.pFacelets[4, 1];
-        a[2] = frontPanel.pFacelets[4, 2];
-        a[3] = frontPanel.pFacelets[4, 3];
-        a[4] = frontPanel.pFacelets[4, 4];
 
-        a[5] = upPanel.pFacelets[4, 0];
-        a[6] = upPanel.pFacelets[4, 1];
-        a[7] = upPanel.pFacelets[4, 2];
-        a[8] = upPanel.pFacelets[4, 3];
-        a[9] = upPanel.pFacelets[4, 4];
+        a[0] = frontPanel.pFacelets[4 - nSlice, 0];
+        a[1] = frontPanel.pFacelets[4 - nSlice, 1];
+        a[2] = frontPanel.pFacelets[4 - nSlice, 2];
+        a[3] = frontPanel.pFacelets[4 - nSlice, 3];
+        a[4] = frontPanel.pFacelets[4 - nSlice, 4];
 
-        a[10] = backPanel.pFacelets[4, 0];
-        a[11] = backPanel.pFacelets[4, 1];
-        a[12] = backPanel.pFacelets[4, 2];
-        a[13] = backPanel.pFacelets[4, 3];
-        a[14] = backPanel.pFacelets[4, 4];
+        a[5] = upPanel.pFacelets[4 - nSlice, 0];
+        a[6] = upPanel.pFacelets[4 - nSlice, 1];
+        a[7] = upPanel.pFacelets[4 - nSlice, 2];
+        a[8] = upPanel.pFacelets[4 - nSlice, 3];
+        a[9] = upPanel.pFacelets[4 - nSlice, 4];
 
-        a[15] = downPanel.pFacelets[4, 0];
-        a[16] = downPanel.pFacelets[4, 1];
-        a[17] = downPanel.pFacelets[4, 2];
-        a[18] = downPanel.pFacelets[4, 3];
-        a[19] = downPanel.pFacelets[4, 4];
+        a[10] = backPanel.pFacelets[4 - nSlice, 0];
+        a[11] = backPanel.pFacelets[4 - nSlice, 1];
+        a[12] = backPanel.pFacelets[4 - nSlice, 2];
+        a[13] = backPanel.pFacelets[4 - nSlice, 3];
+        a[14] = backPanel.pFacelets[4 - nSlice, 4];
+
+        a[15] = downPanel.pFacelets[4 - nSlice, 0];
+        a[16] = downPanel.pFacelets[4 - nSlice, 1];
+        a[17] = downPanel.pFacelets[4 - nSlice, 2];
+        a[18] = downPanel.pFacelets[4 - nSlice, 3];
+        a[19] = downPanel.pFacelets[4 - nSlice, 4];
 
         CycleFacelets20A(a);
-
-    }
-
-    public void CycleSecondSliceFromRight()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[3, 0];
-        a[1] = frontPanel.pFacelets[3, 1];
-        a[2] = frontPanel.pFacelets[3, 2];
-        a[3] = frontPanel.pFacelets[3, 3];
-        a[4] = frontPanel.pFacelets[3, 4];
-
-        a[5] = upPanel.pFacelets[3, 0];
-        a[6] = upPanel.pFacelets[3, 1];
-        a[7] = upPanel.pFacelets[3, 2];
-        a[8] = upPanel.pFacelets[3, 3];
-        a[9] = upPanel.pFacelets[3, 4];
-
-        a[10] = backPanel.pFacelets[3, 0];
-        a[11] = backPanel.pFacelets[3, 1];
-        a[12] = backPanel.pFacelets[3, 2];
-        a[13] = backPanel.pFacelets[3, 3];
-        a[14] = backPanel.pFacelets[3, 4];
-
-        a[15] = downPanel.pFacelets[3, 0];
-        a[16] = downPanel.pFacelets[3, 1];
-        a[17] = downPanel.pFacelets[3, 2];
-        a[18] = downPanel.pFacelets[3, 3];
-        a[19] = downPanel.pFacelets[3, 4];
-
-        CycleFacelets20A(a);
-
-    }
-
-
-    public void CycleThirdSliceFromRight()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[2, 0];
-        a[1] = frontPanel.pFacelets[2, 1];
-        a[2] = frontPanel.pFacelets[2, 2];
-        a[3] = frontPanel.pFacelets[2, 3];
-        a[4] = frontPanel.pFacelets[2, 4];
-
-        a[5] = upPanel.pFacelets[2, 0];
-        a[6] = upPanel.pFacelets[2, 1];
-        a[7] = upPanel.pFacelets[2, 2];
-        a[8] = upPanel.pFacelets[2, 3];
-        a[9] = upPanel.pFacelets[2, 4];
-
-        a[10] = backPanel.pFacelets[2, 0];
-        a[11] = backPanel.pFacelets[2, 1];
-        a[12] = backPanel.pFacelets[2, 2];
-        a[13] = backPanel.pFacelets[2, 3];
-        a[14] = backPanel.pFacelets[2, 4];
-
-        a[15] = downPanel.pFacelets[2, 0];
-        a[16] = downPanel.pFacelets[2, 1];
-        a[17] = downPanel.pFacelets[2, 2];
-        a[18] = downPanel.pFacelets[2, 3];
-        a[19] = downPanel.pFacelets[2, 4];
-
-        CycleFacelets20A(a);
-
-    }
-
-
-    public void CycleFourthSliceFromRight()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[1, 0];
-        a[1] = frontPanel.pFacelets[1, 1];
-        a[2] = frontPanel.pFacelets[1, 2];
-        a[3] = frontPanel.pFacelets[1, 3];
-        a[4] = frontPanel.pFacelets[1, 4];
-
-        a[5] = upPanel.pFacelets[1, 0];
-        a[6] = upPanel.pFacelets[1, 1];
-        a[7] = upPanel.pFacelets[1, 2];
-        a[8] = upPanel.pFacelets[1, 3];
-        a[9] = upPanel.pFacelets[1, 4];
-
-        a[10] = backPanel.pFacelets[1, 0];
-        a[11] = backPanel.pFacelets[1, 1];
-        a[12] = backPanel.pFacelets[1, 2];
-        a[13] = backPanel.pFacelets[1, 3];
-        a[14] = backPanel.pFacelets[1, 4];
-
-        a[15] = downPanel.pFacelets[1, 0];
-        a[16] = downPanel.pFacelets[1, 1];
-        a[17] = downPanel.pFacelets[1, 2];
-        a[18] = downPanel.pFacelets[1, 3];
-        a[19] = downPanel.pFacelets[1, 4];
-
-        CycleFacelets20A(a);
-
-    }
-
-
-    public void CycleFifthSliceFromRight()
-    {
-        // Cycle the second slice from the top...
-        GameObject[] a = new GameObject[20];
-        a[0] = frontPanel.pFacelets[0, 0];
-        a[1] = frontPanel.pFacelets[0, 1];
-        a[2] = frontPanel.pFacelets[0, 2];
-        a[3] = frontPanel.pFacelets[0, 3];
-        a[4] = frontPanel.pFacelets[0, 4];
-
-        a[5] = upPanel.pFacelets[0, 0];
-        a[6] = upPanel.pFacelets[0, 1];
-        a[7] = upPanel.pFacelets[0, 2];
-        a[8] = upPanel.pFacelets[0, 3];
-        a[9] = upPanel.pFacelets[0, 4];
-
-        a[10] = backPanel.pFacelets[0, 0];
-        a[11] = backPanel.pFacelets[0, 1];
-        a[12] = backPanel.pFacelets[0, 2];
-        a[13] = backPanel.pFacelets[0, 3];
-        a[14] = backPanel.pFacelets[0, 4];
-
-        a[15] = downPanel.pFacelets[0, 0];
-        a[16] = downPanel.pFacelets[0, 1];
-        a[17] = downPanel.pFacelets[0, 2];
-        a[18] = downPanel.pFacelets[0, 3];
-        a[19] = downPanel.pFacelets[0, 4];
-
-        CycleFacelets20A(a);
-
     }
 
     // Z axis
 
-    public void CycleFirstSliceFromFront()
+    // nSlice = 0 is Front. nSlice = 4 is Back.
+    public void CycleSliceFromFront(int nSlice)
     {
         GameObject[] a = new GameObject[20];
-        a[0] = downPanel.pFacelets[0, 4];
-        a[1] = downPanel.pFacelets[1, 4];
-        a[2] = downPanel.pFacelets[2, 4];
-        a[3] = downPanel.pFacelets[3, 4];
-        a[4] = downPanel.pFacelets[4, 4];
 
-        a[5] = rightPanel.pFacelets[0, 0];
-        a[6] = rightPanel.pFacelets[0, 1];
-        a[7] = rightPanel.pFacelets[0, 2];
-        a[8] = rightPanel.pFacelets[0, 3];
-        a[9] = rightPanel.pFacelets[0, 4];
+        a[0] = downPanel.pFacelets[0, 4 - nSlice];
+        a[1] = downPanel.pFacelets[1, 4 - nSlice];
+        a[2] = downPanel.pFacelets[2, 4 - nSlice];
+        a[3] = downPanel.pFacelets[3, 4 - nSlice];
+        a[4] = downPanel.pFacelets[4, 4 - nSlice];
 
-        a[10] = upPanel.pFacelets[4, 0];
-        a[11] = upPanel.pFacelets[3, 0];
-        a[12] = upPanel.pFacelets[2, 0];
-        a[13] = upPanel.pFacelets[1, 0];
-        a[14] = upPanel.pFacelets[0, 0];
+        a[5] = rightPanel.pFacelets[nSlice, 0];
+        a[6] = rightPanel.pFacelets[nSlice, 1];
+        a[7] = rightPanel.pFacelets[nSlice, 2];
+        a[8] = rightPanel.pFacelets[nSlice, 3];
+        a[9] = rightPanel.pFacelets[nSlice, 4];
 
-        a[15] = leftPanel.pFacelets[4, 4];
-        a[16] = leftPanel.pFacelets[4, 3];
-        a[17] = leftPanel.pFacelets[4, 2];
-        a[18] = leftPanel.pFacelets[4, 1];
-        a[19] = leftPanel.pFacelets[4, 0];
+        a[10] = upPanel.pFacelets[4, nSlice];
+        a[11] = upPanel.pFacelets[3, nSlice];
+        a[12] = upPanel.pFacelets[2, nSlice];
+        a[13] = upPanel.pFacelets[1, nSlice];
+        a[14] = upPanel.pFacelets[0, nSlice];
 
-        CycleFacelets20A(a);
-
-    }
-
-
-    public void CycleSecondSliceFromFront()
-    {
-        GameObject[] a = new GameObject[20];
-        a[0] = downPanel.pFacelets[0, 3];
-        a[1] = downPanel.pFacelets[1, 3];
-        a[2] = downPanel.pFacelets[2, 3];
-        a[3] = downPanel.pFacelets[3, 3];
-        a[4] = downPanel.pFacelets[4, 3];
-
-        a[5] = rightPanel.pFacelets[1, 0];
-        a[6] = rightPanel.pFacelets[1, 1];
-        a[7] = rightPanel.pFacelets[1, 2];
-        a[8] = rightPanel.pFacelets[1, 3];
-        a[9] = rightPanel.pFacelets[1, 4];
-
-        a[10] = upPanel.pFacelets[4, 1];
-        a[11] = upPanel.pFacelets[3, 1];
-        a[12] = upPanel.pFacelets[2, 1];
-        a[13] = upPanel.pFacelets[1, 1];
-        a[14] = upPanel.pFacelets[0, 1];
-
-        a[15] = leftPanel.pFacelets[3, 4];
-        a[16] = leftPanel.pFacelets[3, 3];
-        a[17] = leftPanel.pFacelets[3, 2];
-        a[18] = leftPanel.pFacelets[3, 1];
-        a[19] = leftPanel.pFacelets[3, 0];
+        a[15] = leftPanel.pFacelets[4 - nSlice, 4];
+        a[16] = leftPanel.pFacelets[4 - nSlice, 3];
+        a[17] = leftPanel.pFacelets[4 - nSlice, 2];
+        a[18] = leftPanel.pFacelets[4 - nSlice, 1];
+        a[19] = leftPanel.pFacelets[4 - nSlice, 0];
 
         CycleFacelets20A(a);
-
     }
 
-
-    public void CycleThirdSliceFromFront()
-    {
-        GameObject[] a = new GameObject[20];
-        a[0] = downPanel.pFacelets[0, 2];
-        a[1] = downPanel.pFacelets[1, 2];
-        a[2] = downPanel.pFacelets[2, 2];
-        a[3] = downPanel.pFacelets[3, 2];
-        a[4] = downPanel.pFacelets[4, 2];
-
-        a[5] = rightPanel.pFacelets[2, 0];
-        a[6] = rightPanel.pFacelets[2, 1];
-        a[7] = rightPanel.pFacelets[2, 2];
-        a[8] = rightPanel.pFacelets[2, 3];
-        a[9] = rightPanel.pFacelets[2, 4];
-
-        a[10] = upPanel.pFacelets[4, 2];
-        a[11] = upPanel.pFacelets[3, 2];
-        a[12] = upPanel.pFacelets[2, 2];
-        a[13] = upPanel.pFacelets[1, 2];
-        a[14] = upPanel.pFacelets[0, 2];
-
-        a[15] = leftPanel.pFacelets[2, 4];
-        a[16] = leftPanel.pFacelets[2, 3];
-        a[17] = leftPanel.pFacelets[2, 2];
-        a[18] = leftPanel.pFacelets[2, 1];
-        a[19] = leftPanel.pFacelets[2, 0];
-
-        CycleFacelets20A(a);
-
-    }
-
-
-    public void CycleFourthSliceFromFront()
-    {
-        GameObject[] a = new GameObject[20];
-        a[0] = downPanel.pFacelets[0, 1];
-        a[1] = downPanel.pFacelets[1, 1];
-        a[2] = downPanel.pFacelets[2, 1];
-        a[3] = downPanel.pFacelets[3, 1];
-        a[4] = downPanel.pFacelets[4, 1];
-
-        a[5] = rightPanel.pFacelets[3, 0];
-        a[6] = rightPanel.pFacelets[3, 1];
-        a[7] = rightPanel.pFacelets[3, 2];
-        a[8] = rightPanel.pFacelets[3, 3];
-        a[9] = rightPanel.pFacelets[3, 4];
-
-        a[10] = upPanel.pFacelets[4, 3];
-        a[11] = upPanel.pFacelets[3, 3];
-        a[12] = upPanel.pFacelets[2, 3];
-        a[13] = upPanel.pFacelets[1, 3];
-        a[14] = upPanel.pFacelets[0, 3];
-
-        a[15] = leftPanel.pFacelets[1, 4];
-        a[16] = leftPanel.pFacelets[1, 3];
-        a[17] = leftPanel.pFacelets[1, 2];
-        a[18] = leftPanel.pFacelets[1, 1];
-        a[19] = leftPanel.pFacelets[1, 0];
-
-        CycleFacelets20A(a);
-
-    }
-
-
-    public void CycleFifthSliceFromFront()
-    {
-        GameObject[] a = new GameObject[20];
-        a[0] = downPanel.pFacelets[0, 0];
-        a[1] = downPanel.pFacelets[1, 0];
-        a[2] = downPanel.pFacelets[2, 0];
-        a[3] = downPanel.pFacelets[3, 0];
-        a[4] = downPanel.pFacelets[4, 0];
-
-        a[5] = rightPanel.pFacelets[4, 0];
-        a[6] = rightPanel.pFacelets[4, 1];
-        a[7] = rightPanel.pFacelets[4, 2];
-        a[8] = rightPanel.pFacelets[4, 3];
-        a[9] = rightPanel.pFacelets[4, 4];
-
-        a[10] = upPanel.pFacelets[4, 4];
-        a[11] = upPanel.pFacelets[3, 4];
-        a[12] = upPanel.pFacelets[2, 4];
-        a[13] = upPanel.pFacelets[1, 4];
-        a[14] = upPanel.pFacelets[0, 4];
-
-        a[15] = leftPanel.pFacelets[0, 4];
-        a[16] = leftPanel.pFacelets[0, 3];
-        a[17] = leftPanel.pFacelets[0, 2];
-        a[18] = leftPanel.pFacelets[0, 1];
-        a[19] = leftPanel.pFacelets[0, 0];
-
-        CycleFacelets20A(a);
-
-    }
 
 
     public void RotateFaceCW90(FacePanel face)
