@@ -22,6 +22,7 @@ public class MyCube : MonoBehaviour
     public float currentAngle;
     public float finalAngle;
     public float deltaAngle;
+    public RotationDirection rotationDirection;
     public CubeAxis cubeAxis;       // Which axis we are currently rotating about.
     public CubeSlices cubeSlices;   // Which slices we are currently rotating.
 
@@ -373,7 +374,7 @@ public class MyCube : MonoBehaviour
                     isAnimating = false;
 
                     // Adjust the cubelet array now the rotation has finished.
-                    RotateCubeletArrayAboutXAxis(cubeSlices);   // for now, just 90 degrees anticlockwise !!!
+                    RotateCubeletArrayAboutXAxis(cubeSlices, rotationDirection);   // for now, just 90 degrees anticlockwise !!!
                     return;
                 }
 
@@ -409,7 +410,7 @@ public class MyCube : MonoBehaviour
                     isAnimating = false;
 
                     // Adjust the cubelet array now the rotation has finished.
-                    RotateCubeletArrayAboutYAxis(cubeSlices);
+                    RotateCubeletArrayAboutYAxis(cubeSlices, rotationDirection);
                     return;
                 }
 
@@ -444,7 +445,7 @@ public class MyCube : MonoBehaviour
                     isAnimating = false;
 
                     // Adjust the cubelet array now the rotation has finished.
-                    RotateCubeletArrayAboutZAxis(cubeSlices);
+                    RotateCubeletArrayAboutZAxis(cubeSlices, rotationDirection);
                     return;
                 }
 
@@ -474,11 +475,14 @@ public class MyCube : MonoBehaviour
 
         }
 
-        currentAngle += deltaAngle;
+        if (rotationDirection == RotationDirection.normal)
+            currentAngle += deltaAngle;
+        else
+            currentAngle -= deltaAngle;
     }
 
 
-    public void DoAnim(CubeAxis axis, CubeSlices slices)
+    public void DoAnim(CubeAxis axis, CubeSlices slices, RotationDirection direction)
     {
         if (isAnimating)
         {
@@ -488,27 +492,32 @@ public class MyCube : MonoBehaviour
         isAnimating = true;
         currentAngle = 0.0f;
         finalAngle = 90.0f;
-        deltaAngle = 5.0f;
+
+        rotationDirection = direction;
+        if (direction == RotationDirection.normal)
+            deltaAngle = 5.0f;
+        else
+            deltaAngle = -5.0f;
 
         cubeAxis = axis;
         cubeSlices = slices;
     }
 
-    public void DoAnimX(CubeSlices slices)
+    public void DoAnimX(CubeSlices slices, RotationDirection direction)
     {
-        DoAnim(CubeAxis.x, slices);
+        DoAnim(CubeAxis.x, slices, direction);
     }
 
 
-    public void DoAnimY(CubeSlices slices)
+    public void DoAnimY(CubeSlices slices, RotationDirection direction)
     {
-        DoAnim(CubeAxis.y, slices);
+        DoAnim(CubeAxis.y, slices, direction);
     }
 
 
-    public void DoAnimZ(CubeSlices slices)
+    public void DoAnimZ(CubeSlices slices, RotationDirection direction)
     {
-        DoAnim(CubeAxis.z, slices);
+        DoAnim(CubeAxis.z, slices, direction);
     }
 
 
@@ -516,98 +525,104 @@ public class MyCube : MonoBehaviour
     //-----------------------------------------------------
 
 
-    void RotateCubeletArrayAboutXAxis(CubeSlices cubeSlicesIn)
+    void RotateCubeletArrayAboutXAxis(CubeSlices cubeSlicesIn, RotationDirection direction)
     {
         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutXAxisSlice(0);
+            RotateCubeletArrayAboutXAxisSlice(0, direction);
         if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutXAxisSlice(1);
+            RotateCubeletArrayAboutXAxisSlice(1, direction);
 
         if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutXAxisSlice(2);
+            RotateCubeletArrayAboutXAxisSlice(2, direction);
 
         if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutXAxisSlice(3);
+            RotateCubeletArrayAboutXAxisSlice(3, direction);
         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutXAxisSlice(4);
+            RotateCubeletArrayAboutXAxisSlice(4, direction);
     }
 
 
-    void RotateCubeletArrayAboutYAxis(CubeSlices cubeSlicesIn)
+    void RotateCubeletArrayAboutYAxis(CubeSlices cubeSlicesIn, RotationDirection direction)
     {
         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutYAxisSlice(0);
+            RotateCubeletArrayAboutYAxisSlice(0, direction);
         if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutYAxisSlice(1);
+            RotateCubeletArrayAboutYAxisSlice(1, direction);
 
         if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutYAxisSlice(2);
+            RotateCubeletArrayAboutYAxisSlice(2, direction);
 
         if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutYAxisSlice(3);
+            RotateCubeletArrayAboutYAxisSlice(3, direction);
         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutYAxisSlice(4);
+            RotateCubeletArrayAboutYAxisSlice(4, direction);
     }
 
 
-    void RotateCubeletArrayAboutZAxis(CubeSlices cubeSlicesIn)
+    void RotateCubeletArrayAboutZAxis(CubeSlices cubeSlicesIn, RotationDirection direction)
     {
         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutZAxisSlice(0);
+            RotateCubeletArrayAboutZAxisSlice(0, direction);
         if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutZAxisSlice(1);
+            RotateCubeletArrayAboutZAxisSlice(1, direction);
 
         if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutZAxisSlice(2);
+            RotateCubeletArrayAboutZAxisSlice(2, direction);
 
         if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutZAxisSlice(3);
+            RotateCubeletArrayAboutZAxisSlice(3, direction);
         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-            RotateCubeletArrayAboutZAxisSlice(4);
+            RotateCubeletArrayAboutZAxisSlice(4, direction);
     }
 
 
     // Rotate the array of cublets themselves!
-    void RotateCubeletArrayAboutXAxisSlice(int xSlice)
+    void RotateCubeletArrayAboutXAxisSlice(int xSlice, RotationDirection direction)
     {
-        Cycle4Cublelets(new Vector3Int(xSlice, 0, 0), new Vector3Int(xSlice, 0, 4), new Vector3Int(xSlice, 4, 4), new Vector3Int(xSlice, 4, 0));
-        Cycle4Cublelets(new Vector3Int(xSlice, 0, 1), new Vector3Int(xSlice, 1, 4), new Vector3Int(xSlice, 4, 3), new Vector3Int(xSlice, 3, 0));
-        Cycle4Cublelets(new Vector3Int(xSlice, 0, 2), new Vector3Int(xSlice, 2, 4), new Vector3Int(xSlice, 4, 2), new Vector3Int(xSlice, 2, 0));
-        Cycle4Cublelets(new Vector3Int(xSlice, 0, 3), new Vector3Int(xSlice, 3, 4), new Vector3Int(xSlice, 4, 1), new Vector3Int(xSlice, 1, 0));
+        Cycle4Cublelets(new Vector3Int(xSlice, 0, 0), new Vector3Int(xSlice, 0, 4), new Vector3Int(xSlice, 4, 4), new Vector3Int(xSlice, 4, 0), direction);
+        Cycle4Cublelets(new Vector3Int(xSlice, 0, 1), new Vector3Int(xSlice, 1, 4), new Vector3Int(xSlice, 4, 3), new Vector3Int(xSlice, 3, 0), direction);
+        Cycle4Cublelets(new Vector3Int(xSlice, 0, 2), new Vector3Int(xSlice, 2, 4), new Vector3Int(xSlice, 4, 2), new Vector3Int(xSlice, 2, 0), direction);
+        Cycle4Cublelets(new Vector3Int(xSlice, 0, 3), new Vector3Int(xSlice, 3, 4), new Vector3Int(xSlice, 4, 1), new Vector3Int(xSlice, 1, 0), direction);
 
-        Cycle4Cublelets(new Vector3Int(xSlice, 1, 1), new Vector3Int(xSlice, 1, 3), new Vector3Int(xSlice, 3, 3), new Vector3Int(xSlice, 3, 1));
-        Cycle4Cublelets(new Vector3Int(xSlice, 1, 2), new Vector3Int(xSlice, 2, 3), new Vector3Int(xSlice, 3, 2), new Vector3Int(xSlice, 2, 1));
+        Cycle4Cublelets(new Vector3Int(xSlice, 1, 1), new Vector3Int(xSlice, 1, 3), new Vector3Int(xSlice, 3, 3), new Vector3Int(xSlice, 3, 1), direction);
+        Cycle4Cublelets(new Vector3Int(xSlice, 1, 2), new Vector3Int(xSlice, 2, 3), new Vector3Int(xSlice, 3, 2), new Vector3Int(xSlice, 2, 1), direction);
     }
 
     // Rotate the array of cublets themselves!
-    void RotateCubeletArrayAboutYAxisSlice(int ySlice)
+    void RotateCubeletArrayAboutYAxisSlice(int ySlice, RotationDirection direction)
     {
-        Cycle4CubleletsR(new Vector3Int(0, ySlice, 0), new Vector3Int(0, ySlice, 4), new Vector3Int(4, ySlice, 4), new Vector3Int(4, ySlice, 0));
-        Cycle4CubleletsR(new Vector3Int(0, ySlice, 1), new Vector3Int(1, ySlice, 4), new Vector3Int(4, ySlice, 3), new Vector3Int(3, ySlice, 0));
-        Cycle4CubleletsR(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 4), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 0));
-        Cycle4CubleletsR(new Vector3Int(0, ySlice, 3), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(1, ySlice, 0));
+        Cycle4CubleletsR(new Vector3Int(0, ySlice, 0), new Vector3Int(0, ySlice, 4), new Vector3Int(4, ySlice, 4), new Vector3Int(4, ySlice, 0), direction);
+        Cycle4CubleletsR(new Vector3Int(0, ySlice, 1), new Vector3Int(1, ySlice, 4), new Vector3Int(4, ySlice, 3), new Vector3Int(3, ySlice, 0), direction);
+        Cycle4CubleletsR(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 4), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 0), direction);
+        Cycle4CubleletsR(new Vector3Int(0, ySlice, 3), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(1, ySlice, 0), direction);
 
-        Cycle4CubleletsR(new Vector3Int(1, ySlice, 1), new Vector3Int(1, ySlice, 3), new Vector3Int(3, ySlice, 3), new Vector3Int(3, ySlice, 1));
-        Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1));
+        Cycle4CubleletsR(new Vector3Int(1, ySlice, 1), new Vector3Int(1, ySlice, 3), new Vector3Int(3, ySlice, 3), new Vector3Int(3, ySlice, 1), direction);
+        Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1), direction);
     }
 
     // Rotate the array of cublets themselves!
-    void RotateCubeletArrayAboutZAxisSlice(int zSlice)
+    void RotateCubeletArrayAboutZAxisSlice(int zSlice, RotationDirection direction)
     {
-        Cycle4Cublelets(new Vector3Int(0, 0, zSlice), new Vector3Int(0, 4, zSlice), new Vector3Int(4, 4, zSlice), new Vector3Int(4, 0, zSlice));
-        Cycle4Cublelets(new Vector3Int(0, 1, zSlice), new Vector3Int(1, 4, zSlice), new Vector3Int(4, 3, zSlice), new Vector3Int(3, 0, zSlice));
-        Cycle4Cublelets(new Vector3Int(0, 2, zSlice), new Vector3Int(2, 4, zSlice), new Vector3Int(4, 2, zSlice), new Vector3Int(2, 0, zSlice));
-        Cycle4Cublelets(new Vector3Int(0, 3, zSlice), new Vector3Int(3, 4, zSlice), new Vector3Int(4, 1, zSlice), new Vector3Int(1, 0, zSlice));
+        Cycle4Cublelets(new Vector3Int(0, 0, zSlice), new Vector3Int(0, 4, zSlice), new Vector3Int(4, 4, zSlice), new Vector3Int(4, 0, zSlice), direction);
+        Cycle4Cublelets(new Vector3Int(0, 1, zSlice), new Vector3Int(1, 4, zSlice), new Vector3Int(4, 3, zSlice), new Vector3Int(3, 0, zSlice), direction);
+        Cycle4Cublelets(new Vector3Int(0, 2, zSlice), new Vector3Int(2, 4, zSlice), new Vector3Int(4, 2, zSlice), new Vector3Int(2, 0, zSlice), direction);
+        Cycle4Cublelets(new Vector3Int(0, 3, zSlice), new Vector3Int(3, 4, zSlice), new Vector3Int(4, 1, zSlice), new Vector3Int(1, 0, zSlice), direction);
 
-        Cycle4Cublelets(new Vector3Int(1, 1, zSlice), new Vector3Int(1, 3, zSlice), new Vector3Int(3, 3, zSlice), new Vector3Int(3, 1, zSlice));
-        Cycle4Cublelets(new Vector3Int(1, 2, zSlice), new Vector3Int(2, 3, zSlice), new Vector3Int(3, 2, zSlice), new Vector3Int(2, 1, zSlice));
+        Cycle4Cublelets(new Vector3Int(1, 1, zSlice), new Vector3Int(1, 3, zSlice), new Vector3Int(3, 3, zSlice), new Vector3Int(3, 1, zSlice), direction);
+        Cycle4Cublelets(new Vector3Int(1, 2, zSlice), new Vector3Int(2, 3, zSlice), new Vector3Int(3, 2, zSlice), new Vector3Int(2, 1, zSlice), direction);
     }
 
 
     // Cycle the cubelets.
 
-    void Cycle4Cublelets(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3)
+    void Cycle4Cublelets(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3, RotationDirection direction)
     {
+        if (direction == RotationDirection.reverse)
+        {
+            Cycle4CubleletsR(c0, c1, c2, c3, RotationDirection.normal);
+            return;
+        }
+
         GameObject t = mfCubelets[c0.x, c0.y, c0.z];
         mfCubelets[c0.x, c0.y, c0.z] = mfCubelets[c1.x, c1.y, c1.z];
         mfCubelets[c1.x, c1.y, c1.z] = mfCubelets[c2.x, c2.y, c2.z];
@@ -616,8 +631,14 @@ public class MyCube : MonoBehaviour
     }
 
 
-    void Cycle4CubleletsR(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3)
+    void Cycle4CubleletsR(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3, RotationDirection direction)
     {
+        if (direction == RotationDirection.reverse)
+        {
+            Cycle4Cublelets(c0, c1, c2, c3, RotationDirection.normal);
+            return;
+        }
+
         GameObject t = mfCubelets[c3.x, c3.y, c3.z];
         mfCubelets[c3.x, c3.y, c3.z] = mfCubelets[c2.x, c2.y, c2.z];
         mfCubelets[c2.x, c2.y, c2.z] = mfCubelets[c1.x, c1.y, c1.z];

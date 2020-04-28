@@ -16,7 +16,8 @@ public class MyPlayer : MonoBehaviour
     public FacePanel upPanel;
     public FacePanel downPanel;
 
-    private readonly float angleStep = 5.0f;
+    private readonly float baseAngleStep = 5.0f;
+    private float angleStep; // Same as base for normal direction, negative for reverse.
 
     private readonly int firstStep = 2;
     private readonly int secondStep = 4;
@@ -29,6 +30,7 @@ public class MyPlayer : MonoBehaviour
     private readonly int lastAnimationStep = 18;
 
     private bool isAnimating;
+    private RotationDirection rotationDirection;
     private CubeAxis cubeAxis;       // Which axis we are currently rotating about.
     private CubeSlices cubeSlices;   // Which slices we are currently rotating.
 
@@ -66,17 +68,17 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(0);
-                    CycleSliceFromTop(1);
-                    CycleSliceFromTop(2);
-                    CycleSliceFromTop(3);
-                    CycleSliceFromTop(4);
+                    CycleSliceFromTop(0, rotationDirection);
+                    CycleSliceFromTop(1, rotationDirection);
+                    CycleSliceFromTop(2, rotationDirection);
+                    CycleSliceFromTop(3, rotationDirection);
+                    CycleSliceFromTop(4, rotationDirection);
                 }
 
-                if (upPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(downPanel);
-                    RotateFaceCW90(upPanel);
+                    RotateFaceACW90(downPanel, rotationDirection);
+                    RotateFaceCW90(upPanel, rotationDirection);
                     downPanel.transform.localEulerAngles = Vector3.zero;
                     upPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
@@ -90,12 +92,12 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(0);
+                    CycleSliceFromTop(0, rotationDirection);
                 }
 
-                if (upPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(upPanel);
+                    RotateFaceCW90(upPanel, rotationDirection);
                     upPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -108,13 +110,13 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(0);
-                    CycleSliceFromTop(1);
+                    CycleSliceFromTop(0, rotationDirection);
+                    CycleSliceFromTop(1, rotationDirection);
                 }
 
-                if (upPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(upPanel);
+                    RotateFaceCW90(upPanel, rotationDirection);
                     upPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -125,7 +127,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(1);
+                    CycleSliceFromTop(1, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -139,7 +141,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(2);
+                    CycleSliceFromTop(2, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -153,7 +155,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(3);
+                    CycleSliceFromTop(3, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -169,13 +171,13 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(3);
-                    CycleSliceFromTop(4);
+                    CycleSliceFromTop(3, rotationDirection);
+                    CycleSliceFromTop(4, rotationDirection);
                 }
 
-                if (downPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(downPanel);
+                    RotateFaceACW90(downPanel, rotationDirection);
                     downPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -189,12 +191,12 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromTop(4);
+                    CycleSliceFromTop(4, rotationDirection);
                 }
 
-                if (downPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(downPanel);
+                    RotateFaceACW90(downPanel, rotationDirection);
                     downPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -210,17 +212,17 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(0);
-                    CycleSliceFromRight(1);
-                    CycleSliceFromRight(2);
-                    CycleSliceFromRight(3);
-                    CycleSliceFromRight(4);
+                    CycleSliceFromRight(0, rotationDirection);
+                    CycleSliceFromRight(1, rotationDirection);
+                    CycleSliceFromRight(2, rotationDirection);
+                    CycleSliceFromRight(3, rotationDirection);
+                    CycleSliceFromRight(4, rotationDirection);
                 }
 
-                if (rightPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(leftPanel);
-                    RotateFaceCW90(rightPanel);
+                    RotateFaceACW90(leftPanel, rotationDirection);
+                    RotateFaceCW90(rightPanel, rotationDirection);
                     leftPanel.transform.localEulerAngles = Vector3.zero;
                     rightPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
@@ -234,12 +236,12 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(0);
+                    CycleSliceFromRight(0, rotationDirection);
                 }
 
-                if (rightPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(rightPanel);
+                    RotateFaceCW90(rightPanel, rotationDirection);
                     rightPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -252,13 +254,13 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(0);
-                    CycleSliceFromRight(1);
+                    CycleSliceFromRight(0, rotationDirection);
+                    CycleSliceFromRight(1, rotationDirection);
                 }
 
-                if (rightPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(rightPanel);
+                    RotateFaceCW90(rightPanel, rotationDirection);
                     rightPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -269,7 +271,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(1);
+                    CycleSliceFromRight(1, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -283,7 +285,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(2);
+                    CycleSliceFromRight(2, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -298,7 +300,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(3);
+                    CycleSliceFromRight(3, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -314,13 +316,13 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(3);
-                    CycleSliceFromRight(4);
+                    CycleSliceFromRight(3, rotationDirection);
+                    CycleSliceFromRight(4, rotationDirection);
                 }
 
-                if (leftPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(leftPanel);
+                    RotateFaceACW90(leftPanel, rotationDirection);
                     leftPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -333,12 +335,12 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromRight(4);
+                    CycleSliceFromRight(4, rotationDirection);
                 }
 
-                if (leftPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(leftPanel);
+                    RotateFaceACW90(leftPanel, rotationDirection);
                     leftPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -354,17 +356,17 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(0);
-                    CycleSliceFromFront(1);
-                    CycleSliceFromFront(2);
-                    CycleSliceFromFront(3);
-                    CycleSliceFromFront(4);
+                    CycleSliceFromFront(0, rotationDirection);
+                    CycleSliceFromFront(1, rotationDirection);
+                    CycleSliceFromFront(2, rotationDirection);
+                    CycleSliceFromFront(3, rotationDirection);
+                    CycleSliceFromFront(4, rotationDirection);
                 }
 
-                if (frontPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(backPanel);
-                    RotateFaceACW90(frontPanel);
+                    RotateFaceCW90(backPanel, rotationDirection);
+                    RotateFaceACW90(frontPanel, rotationDirection);
                     backPanel.transform.localEulerAngles = Vector3.zero;
                     frontPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
@@ -378,12 +380,12 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(0);
+                    CycleSliceFromFront(0, rotationDirection);
                 }
 
-                if (frontPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(frontPanel);
+                    RotateFaceACW90(frontPanel, rotationDirection);
                     frontPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -396,13 +398,13 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(0);
-                    CycleSliceFromFront(1);
+                    CycleSliceFromFront(0, rotationDirection);
+                    CycleSliceFromFront(1, rotationDirection);
                 }
 
-                if (frontPanel.transform.localEulerAngles.z >= 90.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceACW90(frontPanel);
+                    RotateFaceACW90(frontPanel, rotationDirection);
                     frontPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -414,7 +416,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(1);
+                    CycleSliceFromFront(1, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -428,7 +430,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(2);
+                    CycleSliceFromFront(2, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -442,7 +444,7 @@ public class MyPlayer : MonoBehaviour
             {
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(3);
+                    CycleSliceFromFront(3, rotationDirection);
                 }
 
                 if (animationStep == lastAnimationStep)
@@ -458,13 +460,13 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(3);
-                    CycleSliceFromFront(4);
+                    CycleSliceFromFront(3, rotationDirection);
+                    CycleSliceFromFront(4, rotationDirection);
                 }
 
-                if (backPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(backPanel);
+                    RotateFaceCW90(backPanel, rotationDirection);
                     backPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -477,12 +479,12 @@ public class MyPlayer : MonoBehaviour
 
                 if (IsAnimationOnStep())
                 {
-                    CycleSliceFromFront(4);
+                    CycleSliceFromFront(4, rotationDirection);
                 }
 
-                if (backPanel.transform.localEulerAngles.z <= 270.0f)
+                if (animationStep == lastAnimationStep)
                 {
-                    RotateFaceCW90(backPanel);
+                    RotateFaceCW90(backPanel, rotationDirection);
                     backPanel.transform.localEulerAngles = Vector3.zero;
                     isAnimating = false;
                 }
@@ -507,7 +509,7 @@ public class MyPlayer : MonoBehaviour
     // Y axis
 
     // nSlice = 0 is Top. nSlice = 4 is Bottom.
-    public void CycleSliceFromTop(int nSlice)
+    public void CycleSliceFromTop(int nSlice, RotationDirection rotationDirection)
     {
         GameObject[] a = new GameObject[20];
 
@@ -535,13 +537,16 @@ public class MyPlayer : MonoBehaviour
         a[18] = leftPanel.pFacelets[3, 4 - nSlice];
         a[19] = leftPanel.pFacelets[4, 4 - nSlice];
 
-        CycleFacelets20(a);
+        if (rotationDirection == RotationDirection.normal)
+            CycleFacelets20(a);
+        else
+            CycleFacelets20A(a);
     }
 
     // X axis
 
     // nSlice = 0 is Right. nSlice = 4 is Left.
-    public void CycleSliceFromRight(int nSlice)
+    public void CycleSliceFromRight(int nSlice, RotationDirection rotationDirection)
     {
         GameObject[] a = new GameObject[20];
 
@@ -569,13 +574,16 @@ public class MyPlayer : MonoBehaviour
         a[18] = downPanel.pFacelets[4 - nSlice, 3];
         a[19] = downPanel.pFacelets[4 - nSlice, 4];
 
-        CycleFacelets20A(a);
+        if (rotationDirection == RotationDirection.normal)
+            CycleFacelets20A(a);
+        else
+            CycleFacelets20(a);
     }
 
     // Z axis
 
     // nSlice = 0 is Front. nSlice = 4 is Back.
-    public void CycleSliceFromFront(int nSlice)
+    public void CycleSliceFromFront(int nSlice, RotationDirection direction)
     {
         GameObject[] a = new GameObject[20];
 
@@ -603,13 +611,22 @@ public class MyPlayer : MonoBehaviour
         a[18] = leftPanel.pFacelets[4 - nSlice, 1];
         a[19] = leftPanel.pFacelets[4 - nSlice, 0];
 
-        CycleFacelets20A(a);
+        if (direction == RotationDirection.normal)
+            CycleFacelets20A(a);
+        else
+            CycleFacelets20(a);
     }
 
 
 
-    public void RotateFaceCW90(FacePanel face)
+    public void RotateFaceCW90(FacePanel face, RotationDirection direction)
     {
+        if (direction == RotationDirection.reverse)
+        {
+            RotateFaceACW90(face, RotationDirection.normal);
+            return;
+        }
+
         GameObject[] a = new GameObject[4];
 
         // The outer edge.
@@ -664,8 +681,14 @@ public class MyPlayer : MonoBehaviour
         */
     }
 
-    public void RotateFaceACW90(FacePanel face)
+    public void RotateFaceACW90(FacePanel face, RotationDirection direction)
     {
+        if (direction == RotationDirection.reverse)
+        {
+            RotateFaceCW90(face, RotationDirection.normal);
+            return;
+        }
+
         GameObject[] a = new GameObject[4];
 
         // The outer edge.
@@ -814,7 +837,18 @@ public class MyPlayer : MonoBehaviour
         if (isAnimating || myCube.isAnimating)
             return;
 
-        myCube.DoAnim(axis, slices);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            rotationDirection = RotationDirection.reverse;
+            angleStep = -baseAngleStep;
+        }
+        else
+        {
+            rotationDirection = RotationDirection.normal;
+            angleStep = baseAngleStep;
+        }
+
+        myCube.DoAnim(axis, slices, rotationDirection);
 
         cubeSlices = slices;
         cubeAxis = axis;
