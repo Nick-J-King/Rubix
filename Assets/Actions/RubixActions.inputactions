@@ -204,6 +204,30 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "AllLR",
+                    "type": "Button",
+                    "id": "bb19e40a-4a5b-4e3e-97f1-72fb84ec4b62",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "AllUD",
+                    "type": "Button",
+                    "id": "4ecaa6b5-f4af-41d6-bf33-ddf9b87b6d18",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "AllFB",
+                    "type": "Button",
+                    "id": "2634f9b3-22f4-4022-b44b-f4f4ba83629e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
@@ -479,6 +503,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "MidFB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ce3881e-d336-49b1-af8b-1fb3d179e693",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AllLR",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02a37fbb-4a10-482b-9f2f-bfeeed0ca889",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AllUD",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59f63c3f-d822-41ef-8369-1646a600aa56",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AllFB",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

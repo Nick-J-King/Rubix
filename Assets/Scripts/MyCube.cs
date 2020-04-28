@@ -52,7 +52,6 @@ public class MyCube : MonoBehaviour
     }
 
 
-
     public GameObject CreateCubelet(int x, int y, int z)
     {
         string codeNumber = string.Format("{0}{1}{2}", x, y, z);
@@ -343,9 +342,6 @@ public class MyCube : MonoBehaviour
     }
 
 
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -385,21 +381,21 @@ public class MyCube : MonoBehaviour
                 {
                     for (int z = 0; z < 5; z++)
                     {
-                        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01)
+                        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[0, y, z], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01)
+                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[1, y, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s2)
+                        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[2, y, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34)
+                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[3, y, z], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34)
+                        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[4, y, z], deltaAngle);
                     }
                 }
@@ -421,21 +417,21 @@ public class MyCube : MonoBehaviour
                 {
                     for (int z = 0; z < 5; z++)
                     {
-                        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01)
+                        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 0, z], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01)
+                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 1, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s2)
+                        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 2, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34)
+                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                              RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34)
+                        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 4, z], deltaAngle);
                     }
                 }
@@ -456,21 +452,21 @@ public class MyCube : MonoBehaviour
                 {
                     for (int y = 0; y < 5; y++)
                     {
-                        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01)
+                        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 0], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01)
+                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 1], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s2)
+                        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 2], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34)
+                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 3], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34)
+                        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 4], deltaAngle);
                     }
                 }
@@ -522,51 +518,51 @@ public class MyCube : MonoBehaviour
 
     void RotateCubeletArrayAboutXAxis(CubeSlices cubeSlicesIn)
     {
-        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01)
+        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(0);
-        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01)
+        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(1);
 
-        if (cubeSlices == CubeSlices.s2)
+        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(2);
 
-        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34)
+        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(3);
-        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34)
+        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(4);
     }
 
 
     void RotateCubeletArrayAboutYAxis(CubeSlices cubeSlicesIn)
     {
-        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01)
+        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(0);
-        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01)
+        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(1);
 
-        if (cubeSlices == CubeSlices.s2)
+        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(2);
 
-        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34)
+        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(3);
-        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34)
+        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(4);
     }
 
 
     void RotateCubeletArrayAboutZAxis(CubeSlices cubeSlicesIn)
     {
-        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01)
+        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(0);
-        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01)
+        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(1);
 
-        if (cubeSlices == CubeSlices.s2)
+        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(2);
 
-        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34)
+        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(3);
-        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34)
+        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(4);
     }
 

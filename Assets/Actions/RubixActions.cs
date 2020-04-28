@@ -217,6 +217,30 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""AllLR"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb19e40a-4a5b-4e3e-97f1-72fb84ec4b62"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""AllUD"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ecaa6b5-f4af-41d6-bf33-ddf9b87b6d18"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""AllFB"",
+                    ""type"": ""Button"",
+                    ""id"": ""2634f9b3-22f4-4022-b44b-f4f4ba83629e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
@@ -494,6 +518,39 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""action"": ""MidFB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ce3881e-d336-49b1-af8b-1fb3d179e693"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AllLR"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02a37fbb-4a10-482b-9f2f-bfeeed0ca889"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AllUD"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59f63c3f-d822-41ef-8369-1646a600aa56"",
+                    ""path"": ""<Keyboard>/comma"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AllFB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -593,6 +650,9 @@ public class @Rubix : IInputActionCollection, IDisposable
         m_Player_MidLR = m_Player.FindAction("MidLR", throwIfNotFound: true);
         m_Player_MidUD = m_Player.FindAction("MidUD", throwIfNotFound: true);
         m_Player_MidFB = m_Player.FindAction("MidFB", throwIfNotFound: true);
+        m_Player_AllLR = m_Player.FindAction("AllLR", throwIfNotFound: true);
+        m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
+        m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -667,6 +727,9 @@ public class @Rubix : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_MidLR;
     private readonly InputAction m_Player_MidUD;
     private readonly InputAction m_Player_MidFB;
+    private readonly InputAction m_Player_AllLR;
+    private readonly InputAction m_Player_AllUD;
+    private readonly InputAction m_Player_AllFB;
     public struct PlayerActions
     {
         private @Rubix m_Wrapper;
@@ -696,6 +759,9 @@ public class @Rubix : IInputActionCollection, IDisposable
         public InputAction @MidLR => m_Wrapper.m_Player_MidLR;
         public InputAction @MidUD => m_Wrapper.m_Player_MidUD;
         public InputAction @MidFB => m_Wrapper.m_Player_MidFB;
+        public InputAction @AllLR => m_Wrapper.m_Player_AllLR;
+        public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
+        public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -780,6 +846,15 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @MidFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
                 @MidFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
                 @MidFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
+                @AllLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
+                @AllLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
+                @AllLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
+                @AllUD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
+                @AllUD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
+                @AllUD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
+                @AllFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
+                @AllFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
+                @AllFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -859,6 +934,15 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @MidFB.started += instance.OnMidFB;
                 @MidFB.performed += instance.OnMidFB;
                 @MidFB.canceled += instance.OnMidFB;
+                @AllLR.started += instance.OnAllLR;
+                @AllLR.performed += instance.OnAllLR;
+                @AllLR.canceled += instance.OnAllLR;
+                @AllUD.started += instance.OnAllUD;
+                @AllUD.performed += instance.OnAllUD;
+                @AllUD.canceled += instance.OnAllUD;
+                @AllFB.started += instance.OnAllFB;
+                @AllFB.performed += instance.OnAllFB;
+                @AllFB.canceled += instance.OnAllFB;
             }
         }
     }
@@ -944,5 +1028,8 @@ public class @Rubix : IInputActionCollection, IDisposable
         void OnMidLR(InputAction.CallbackContext context);
         void OnMidUD(InputAction.CallbackContext context);
         void OnMidFB(InputAction.CallbackContext context);
+        void OnAllLR(InputAction.CallbackContext context);
+        void OnAllUD(InputAction.CallbackContext context);
+        void OnAllFB(InputAction.CallbackContext context);
     }
 }

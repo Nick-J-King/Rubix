@@ -58,6 +58,31 @@ public class MyPlayer : MonoBehaviour
 
             // Y axis
 
+            // All slices from top to bottom.
+            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01234)
+            {
+                downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (IsAnimationOnStep())
+                {
+                    CycleSliceFromTop(0);
+                    CycleSliceFromTop(1);
+                    CycleSliceFromTop(2);
+                    CycleSliceFromTop(3);
+                    CycleSliceFromTop(4);
+                }
+
+                if (upPanel.transform.localEulerAngles.z <= 270.0f)
+                {
+                    RotateFaceACW90(downPanel);
+                    RotateFaceCW90(upPanel);
+                    downPanel.transform.localEulerAngles = Vector3.zero;
+                    upPanel.transform.localEulerAngles = Vector3.zero;
+                    isAnimating = false;
+                }
+            }
+
             // First slice from top.
             if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s4)
             {
@@ -177,6 +202,31 @@ public class MyPlayer : MonoBehaviour
 
             // X axis
 
+            // All slices from left to right.
+            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01234)
+            {
+                leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (IsAnimationOnStep())
+                {
+                    CycleSliceFromRight(0);
+                    CycleSliceFromRight(1);
+                    CycleSliceFromRight(2);
+                    CycleSliceFromRight(3);
+                    CycleSliceFromRight(4);
+                }
+
+                if (rightPanel.transform.localEulerAngles.z <= 270.0f)
+                {
+                    RotateFaceACW90(leftPanel);
+                    RotateFaceCW90(rightPanel);
+                    leftPanel.transform.localEulerAngles = Vector3.zero;
+                    rightPanel.transform.localEulerAngles = Vector3.zero;
+                    isAnimating = false;
+                }
+            }
+
             // First slice from right.
             if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s4)
             {
@@ -295,6 +345,31 @@ public class MyPlayer : MonoBehaviour
             }
 
             // Z axis
+
+            // All slices from front to back.
+            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01234)
+            {
+                backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (IsAnimationOnStep())
+                {
+                    CycleSliceFromFront(0);
+                    CycleSliceFromFront(1);
+                    CycleSliceFromFront(2);
+                    CycleSliceFromFront(3);
+                    CycleSliceFromFront(4);
+                }
+
+                if (frontPanel.transform.localEulerAngles.z >= 90.0f)
+                {
+                    RotateFaceCW90(backPanel);
+                    RotateFaceACW90(frontPanel);
+                    backPanel.transform.localEulerAngles = Vector3.zero;
+                    frontPanel.transform.localEulerAngles = Vector3.zero;
+                    isAnimating = false;
+                }
+            }
 
             // First slice from front.
             if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s0)
@@ -748,6 +823,22 @@ public class MyPlayer : MonoBehaviour
         animationStep = 0;
     }
 
+    // ALL
+
+    public void OnRotateAllLR(InputAction.CallbackContext context)
+    {
+        OnRotate(context, CubeAxis.x, CubeSlices.s01234);
+    }
+
+    public void OnRotateAllUD(InputAction.CallbackContext context)
+    {
+        OnRotate(context, CubeAxis.y, CubeSlices.s01234);
+    }
+
+    public void OnRotateAllFB(InputAction.CallbackContext context)
+    {
+        OnRotate(context, CubeAxis.z, CubeSlices.s01234);
+    }
 
     // Outer
     public void OnRotateOuterL(InputAction.CallbackContext context)
