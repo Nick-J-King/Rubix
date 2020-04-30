@@ -10,6 +10,9 @@ public class MyPlayer : MonoBehaviour
     public MyCube myCube;
     public DragWindow map;
 
+    private float cubeX = 0.0f;
+    private float cubeY = 0.0f;
+
     public FacePanel frontPanel;
     public FacePanel backPanel;
     public FacePanel leftPanel;
@@ -1030,6 +1033,21 @@ public class MyPlayer : MonoBehaviour
         if (Mouse.current.leftButton.isPressed)
         {
             mainCamera.OrbitCamera(move);
+        }
+
+        if (Mouse.current.rightButton.isPressed)
+        {
+            cubeX += move.x;
+            cubeY += move.y;
+
+            //mainCamera.PanCamera(move);
+            //myCube.transform.rotation = Quaternion.Euler(cubeY, cubeX, 0.0f);
+            //mainCamera.rec =
+            float x = mainCamera.cam.pixelRect.x;
+            float y = mainCamera.cam.pixelRect.y;
+            float w = mainCamera.cam.pixelRect.width;
+            float h = mainCamera.cam.pixelRect.height;
+            mainCamera.cam.pixelRect = new Rect(x + move.x * 5.0f, y, w - move.x * 5.0f, h);
         }
     }
 }

@@ -28,6 +28,7 @@ public class MainCamera : MonoBehaviour
     public AzimuthElevation azimuthElevation;
     public XYZ xyz;
 
+    public Camera cam;
 
     private void Awake()
     {
@@ -60,6 +61,15 @@ public class MainCamera : MonoBehaviour
        // OrbitCamera();
     }
 
+    public void PanCamera(Vector2 lookDelta)
+    {
+        Vector3 newPos;
+        newPos.x = transform.position.x + lookDelta.x;
+        newPos.y = transform.position.y + lookDelta.y;
+        newPos.z = transform.position.z;
+
+        transform.position = newPos;
+    }
 
     public void OrbitCamera(Vector2 lookDelta)
     {
@@ -90,5 +100,7 @@ public class MainCamera : MonoBehaviour
 
         transform.position = rotatedVector;
         transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
+
+
     }
 }
