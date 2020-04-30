@@ -6,14 +6,6 @@
             "id": "3aabd3db-640b-4bc8-9b2d-2c52c825556a",
             "actions": [
                 {
-                    "name": "Fire",
-                    "type": "Button",
-                    "id": "3e88c8b0-10a2-4c1b-a48d-94e77e6918db",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap"
-                },
-                {
                     "name": "Look",
                     "type": "Button",
                     "id": "cf87789b-136a-4d74-9cc8-b00cbdc9bb5b",
@@ -228,20 +220,17 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "Wheel",
+                    "type": "Button",
+                    "id": "577621ae-37ee-47a6-9617-74dad8e85e36",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse;Gamepad;Touch;KeyboardAndMouse;Joystick;XR",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "ad742599-c79d-4abf-a95d-b52f62d035e2",
@@ -536,6 +525,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "AllFB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a71d0dc4-3d15-46b0-b6e0-9453a81fbef3",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

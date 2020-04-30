@@ -19,14 +19,6 @@ public class @Rubix : IInputActionCollection, IDisposable
             ""id"": ""3aabd3db-640b-4bc8-9b2d-2c52c825556a"",
             ""actions"": [
                 {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""3e88c8b0-10a2-4c1b-a48d-94e77e6918db"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
-                },
-                {
                     ""name"": ""Look"",
                     ""type"": ""Button"",
                     ""id"": ""cf87789b-136a-4d74-9cc8-b00cbdc9bb5b"",
@@ -241,20 +233,17 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Wheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""577621ae-37ee-47a6-9617-74dad8e85e36"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse;Gamepad;Touch;KeyboardAndMouse;Joystick;XR"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""ad742599-c79d-4abf-a95d-b52f62d035e2"",
@@ -551,6 +540,17 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""action"": ""AllFB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a71d0dc4-3d15-46b0-b6e0-9453a81fbef3"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -625,7 +625,6 @@ public class @Rubix : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_OuterL = m_Player.FindAction("OuterL", throwIfNotFound: true);
@@ -653,6 +652,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         m_Player_AllLR = m_Player.FindAction("AllLR", throwIfNotFound: true);
         m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
         m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
+        m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -702,7 +702,6 @@ public class @Rubix : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_OuterL;
@@ -730,11 +729,11 @@ public class @Rubix : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_AllLR;
     private readonly InputAction m_Player_AllUD;
     private readonly InputAction m_Player_AllFB;
+    private readonly InputAction m_Player_Wheel;
     public struct PlayerActions
     {
         private @Rubix m_Wrapper;
         public PlayerActions(@Rubix wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @OuterL => m_Wrapper.m_Player_OuterL;
@@ -762,6 +761,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         public InputAction @AllLR => m_Wrapper.m_Player_AllLR;
         public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
         public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
+        public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -771,9 +771,6 @@ public class @Rubix : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
@@ -855,13 +852,13 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @AllFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
                 @AllFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
                 @AllFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
+                @Wheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                @Wheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                @Wheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Fire.started += instance.OnFire;
-                @Fire.performed += instance.OnFire;
-                @Fire.canceled += instance.OnFire;
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
@@ -943,6 +940,9 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @AllFB.started += instance.OnAllFB;
                 @AllFB.performed += instance.OnAllFB;
                 @AllFB.canceled += instance.OnAllFB;
+                @Wheel.started += instance.OnWheel;
+                @Wheel.performed += instance.OnWheel;
+                @Wheel.canceled += instance.OnWheel;
             }
         }
     }
@@ -1003,7 +1003,6 @@ public class @Rubix : IInputActionCollection, IDisposable
     }
     public interface IPlayerActions
     {
-        void OnFire(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnOuterL(InputAction.CallbackContext context);
@@ -1031,5 +1030,6 @@ public class @Rubix : IInputActionCollection, IDisposable
         void OnAllLR(InputAction.CallbackContext context);
         void OnAllUD(InputAction.CallbackContext context);
         void OnAllFB(InputAction.CallbackContext context);
+        void OnWheel(InputAction.CallbackContext context);
     }
 }

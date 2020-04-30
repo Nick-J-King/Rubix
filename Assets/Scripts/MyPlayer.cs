@@ -8,6 +8,7 @@ public class MyPlayer : MonoBehaviour
     public MyGame myGame;
     public MainCamera mainCamera;
     public MyCube myCube;
+    public DragWindow map;
 
     public FacePanel frontPanel;
     public FacePanel backPanel;
@@ -493,19 +494,6 @@ public class MyPlayer : MonoBehaviour
         }
     }
 
-    public void OnFire(InputAction.CallbackContext context)
-    {
-    }
-
-    public void OnSpace(InputAction.CallbackContext context)
-    {
-        if (context.phase != InputActionPhase.Started)
-                return;
-
-        // >> If camera IS in the reset state, reset the cube...
-        mainCamera.Start();
-    }
-
     // Y axis
 
     // nSlice = 0 is Top. nSlice = 4 is Bottom.
@@ -989,7 +977,42 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.z, CubeSlices.s2);
     }
 
+    public void OnSpace(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
 
+        // TODO>>> If camera IS in the reset state, reset the cube...
+        mainCamera.Start();
+        map.ResetPositionAndScale();
+    }
+
+
+    public void OnScroll(InputAction.CallbackContext context)
+    {
+        var d = Input.GetAxis("Mouse ScrollWheel");
+
+        if (d > 0.0f)
+        {
+            // scroll up
+            float ls = map.transform.localScale.x;
+            ls += 0.1f;
+            if (ls > 10.0f)
+                ls = 10.0f;
+
+            map.transform.localScale = new Vector3(ls, ls, 1.0f);
+        }
+        else if (d < 0.0f)
+        {
+            // scroll down
+            float ls = map.transform.localScale.x;
+            ls -= 0.1f;
+            if (ls < 0.1f)
+                ls = 0.1f;
+
+            map.transform.localScale = new Vector3(ls, ls, 1.0f);
+        }
+    }
 
     public void OnEscape(InputAction.CallbackContext context)
     {
@@ -999,6 +1022,9 @@ public class MyPlayer : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        if (map.isDragging)
+            return;
+
         Vector2 move = context.ReadValue<Vector2>();
 
         if (Mouse.current.leftButton.isPressed)
