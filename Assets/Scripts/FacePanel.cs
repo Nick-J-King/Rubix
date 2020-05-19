@@ -19,7 +19,7 @@ public class FacePanel : MonoBehaviour
 
     public void Start()
     {
-        Color col = UnityEngine.Color.red;
+        Color col = UnityEngine.Color.black;
 
         switch (name)
         {
@@ -42,6 +42,9 @@ public class FacePanel : MonoBehaviour
                 break;
             case "PanelBack":
                 col = UnityEngine.Color.white;
+                break;
+            default:
+                col = UnityEngine.Color.black;
                 break;
         }
 
@@ -86,8 +89,8 @@ public class FacePanel : MonoBehaviour
         Image img = facelet.GetComponent<Image>();
 
         // Use a "plain" sprite for now...
-        img.sprite = pRoot.GetComponent<Image>().sprite;
-        // img.sprite = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
+        //img.sprite = pRoot.GetComponent<Image>().sprite;
+        img.sprite = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
 
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 40.0f);
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 40.0f);

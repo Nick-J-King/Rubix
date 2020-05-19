@@ -661,7 +661,7 @@ public class MyPlayer : MonoBehaviour
         CycleFacelets4(a);
 
         // Now, rotate the facelets about their centres.
-        /*
+        
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
@@ -669,7 +669,7 @@ public class MyPlayer : MonoBehaviour
                 face.pFacelets[x,y].transform.Rotate(0.0f, 0.0f, -90.0f);
             }
         }
-        */
+        
     }
 
     public void RotateFaceACW90(FacePanel face, RotationDirection direction)
@@ -723,7 +723,7 @@ public class MyPlayer : MonoBehaviour
         CycleFacelets4A(a);
 
         // Now, rotate the facelets about their centres.
-        /*
+        
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
@@ -731,7 +731,7 @@ public class MyPlayer : MonoBehaviour
                 face.pFacelets[x, y].transform.Rotate(0.0f, 0.0f, 90.0f);
             }
         }
-        */
+        
     }
 
     public void CycleFacelets4(GameObject[] f)
@@ -744,15 +744,15 @@ public class MyPlayer : MonoBehaviour
         }
 
         Color c0 = imgs[0].color;
-        //Sprite s0 = imgs[0].sprite;
+        Sprite s0 = imgs[0].sprite;
 
         for (int i = 0; i < 3; i++)
         {
             imgs[i].color = imgs[i + 1].color;
-            //imgs[i].sprite = imgs[i + 1].sprite;
+            imgs[i].sprite = imgs[i + 1].sprite;
         }
         imgs[3].color = c0;
-        //imgs[3].sprite = s0;
+        imgs[3].sprite = s0;
     }
 
     public void CycleFacelets4A(GameObject[] f)
@@ -765,15 +765,15 @@ public class MyPlayer : MonoBehaviour
         }
 
         Color c3 = imgs[3].color;
-        //Sprite s3 = imgs[3].sprite;
+        Sprite s3 = imgs[3].sprite;
 
         for (int i = 2; i >= 0; i--)
         {
             imgs[i + 1].color = imgs[i].color;
-            //imgs[i + 1].sprite = imgs[i].sprite;
+            imgs[i + 1].sprite = imgs[i].sprite;
         }
         imgs[0].color = c3;
-        //imgs[0].sprite = s3;
+        imgs[0].sprite = s3;
     }
 
     public void CycleFacelets20(GameObject[] f)
@@ -786,15 +786,15 @@ public class MyPlayer : MonoBehaviour
         }
 
         Color c0 = imgs[0].color;
-        //Sprite s0 = imgs[0].sprite;
+        Sprite s0 = imgs[0].sprite;
 
         for (int i = 0; i < 19; i++)
         {
             imgs[i].color = imgs[i + 1].color;
-            //imgs[i].sprite = imgs[i + 1].sprite;
+            imgs[i].sprite = imgs[i + 1].sprite;
         }
         imgs[19].color = c0;
-        //imgs[19].sprite = s0;
+        imgs[19].sprite = s0;
     }
 
     public void CycleFacelets20A(GameObject[] f)
@@ -807,15 +807,15 @@ public class MyPlayer : MonoBehaviour
         }
 
         Color c19 = imgs[19].color;
-        //Sprite s19 = imgs[19].sprite;
+        Sprite s19 = imgs[19].sprite;
 
         for (int i = 18; i >= 0; i--)
         {
             imgs[i + 1].color = imgs[i].color;
-            //imgs[i + 1].sprite = imgs[i].sprite;
+            imgs[i + 1].sprite = imgs[i].sprite;
         }
         imgs[0].color = c19;
-        //imgs[0].sprite = s19;
+        imgs[0].sprite = s19;
     }
 
 
