@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class MouseManager : MonoBehaviour
 {
     public LayerMask clickableLayer;
+    public Canvas canvas;
 
     public Texture2D pointer;
     public Texture2D cube;
@@ -21,7 +22,7 @@ public class MouseManager : MonoBehaviour
     void Start()
     {
         //Fetch the Raycaster from the GameObject (the Canvas)
-        m_Raycaster = GetComponent<GraphicRaycaster>();
+        m_Raycaster = canvas.GetComponent<GraphicRaycaster>();
         //Fetch the Event System from the Scene
         m_EventSystem = GetComponent<EventSystem>();
     }
@@ -30,8 +31,10 @@ public class MouseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool mapHit = false;
+
         //Check if the left Mouse button is clicked
-        if (Input.GetKey(KeyCode.Mouse0))
+        //if (Input.GetKey(KeyCode.Mouse0))
         {
             //Set up the new Pointer Event
             m_PointerEventData = new PointerEventData(m_EventSystem);
@@ -47,13 +50,17 @@ public class MouseManager : MonoBehaviour
             //For every result returned, output the name of the GameObject on the Canvas hit by the Ray
             foreach (RaycastResult result in results)
             {
-                Debug.Log("Hit " + result.gameObject.name);
+                if (result.gameObject.name == "PanelMap")
+                    mapHit = true;
             }
         }
 
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, clickableLayer.value))
+        if (mapHit)
         {
-            bool mapHit = false;
+            Cursor.SetCursor(map, new Vector2(16, 16), CursorMode.Auto);
+        }
+        else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, clickableLayer.value))
+        {
             if (hit.collider.gameObject.tag == "Map")
             {
                 Cursor.SetCursor(map, new Vector2(16, 16), CursorMode.Auto);
@@ -61,12 +68,12 @@ public class MouseManager : MonoBehaviour
             }
             else
             {
-                Cursor.SetCursor(cube, new Vector2(26, 16), CursorMode.Auto);
+                Cursor.SetCursor(cube, new Vector2(16, 16), CursorMode.Auto);
             }
         }
         else
         {
-            Cursor.SetCursor(pointer, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(pointer, new Vector2(16, 16), CursorMode.Auto);
         }
     }
 }

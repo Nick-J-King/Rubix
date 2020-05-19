@@ -4,6 +4,7 @@
 public class MyCube : MonoBehaviour
 {
     public GameObject cubeRoot;
+    public GameObject cubePlaceholder;
 
     // Materials.
     public Material faceMaterialBlue;
@@ -37,6 +38,8 @@ public class MyCube : MonoBehaviour
     // Use this for initialization
     public void Initialise()
     {
+        cubePlaceholder.SetActive(false);
+
         isAnimating = false;
         mfCubelets = new GameObject[5, 5, 5];
 
