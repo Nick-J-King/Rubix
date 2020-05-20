@@ -9,6 +9,7 @@ public class MyPlayer : MonoBehaviour
     public MainCamera mainCamera;
     public MyCube myCube;
     public DragWindow map;
+    public MouseManager mouseManager;
 
     private float cubeX = 0.0f;
     private float cubeY = 0.0f;
@@ -995,25 +996,51 @@ public class MyPlayer : MonoBehaviour
     {
         var d = Input.GetAxis("Mouse ScrollWheel");
 
-        if (d > 0.0f)
-        {
-            // scroll up
-            float ls = map.transform.localScale.x;
-            ls += 0.1f;
-            if (ls > 10.0f)
-                ls = 10.0f;
+        if (mouseManager.isMapHit)
+        { 
+            if (d > 0.0f)
+            {
+                // scroll up
+                float ls = map.transform.localScale.x;
+                ls += 0.1f;
+                if (ls > 10.0f)
+                    ls = 10.0f;
 
-            map.transform.localScale = new Vector3(ls, ls, 1.0f);
+                map.transform.localScale = new Vector3(ls, ls, 1.0f);
+            }
+            else if (d < 0.0f)
+            {
+                // scroll down
+                float ls = map.transform.localScale.x;
+                ls -= 0.1f;
+                if (ls < 0.1f)
+                    ls = 0.1f;
+
+                map.transform.localScale = new Vector3(ls, ls, 1.0f);
+            }
         }
-        else if (d < 0.0f)
+        else if (mouseManager.isCubeHit)
         {
-            // scroll down
-            float ls = map.transform.localScale.x;
-            ls -= 0.1f;
-            if (ls < 0.1f)
-                ls = 0.1f;
+            if (d > 0.0f)
+            {
+                // scroll up
+                float ls = myCube.transform.localScale.x;
+                ls += 0.05f;
+                if (ls > 2.0f)
+                    ls = 2.0f;
 
-            map.transform.localScale = new Vector3(ls, ls, 1.0f);
+                myCube.transform.localScale = new Vector3(ls, ls, ls);
+            }
+            else if (d < 0.0f)
+            {
+                // scroll down
+                float ls = myCube.transform.localScale.x;
+                ls -= 0.05f;
+                if (ls < 0.05f)
+                    ls = 0.05f;
+
+                myCube.transform.localScale = new Vector3(ls, ls, ls);
+            }
         }
     }
 

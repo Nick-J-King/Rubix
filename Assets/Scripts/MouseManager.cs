@@ -21,6 +21,9 @@ public class MouseManager : MonoBehaviour
     PointerEventData m_PointerEventData;
     EventSystem m_EventSystem;
 
+    public bool isMapHit = false;
+    public bool isCubeHit = false;
+
 
     void Start()
     {
@@ -34,7 +37,8 @@ public class MouseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool mapHit = false;
+        isMapHit = false;
+        isCubeHit = false;
 
         //Check if the left Mouse button is clicked
         //if (Input.GetKey(KeyCode.Mouse0))
@@ -54,11 +58,11 @@ public class MouseManager : MonoBehaviour
             foreach (RaycastResult result in results)
             {
                 if (result.gameObject.name == "PanelMap")
-                    mapHit = true;
+                    isMapHit = true;
             }
         }
 
-        if (mapHit)
+        if (isMapHit)
         {
             Cursor.SetCursor(map, new Vector2(16, 16), CursorMode.Auto);
             mapPanel.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 0.4f);
@@ -68,11 +72,13 @@ public class MouseManager : MonoBehaviour
         {
             mapPanel.GetComponent<Image>().color = new Color(0.4f, 0.4f, 0.4f, 0.2f);
         }
+
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, clickableLayer.value))
         {
             if (hit.collider.gameObject.tag == "Cubelet")
             {
                 Cursor.SetCursor(cube, new Vector2(16, 16), CursorMode.Auto);
+                isCubeHit = true;
             }
             else
             {
