@@ -35,6 +35,26 @@ public class MyCube : MonoBehaviour
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
 
+    private bool IsOuterCubelet(int x, int y, int z)
+    {
+        if (x == 0 || x == 4)
+            return true;
+        if (y == 0 || y == 4)
+            return true;
+        if (z == 0 || z == 4)
+            return true;
+        return false;
+    }
+
+    private bool IsOuterCubelet(int x, int y)
+    {
+        if (x == 0 || x == 4)
+            return true;
+        if (y == 0 || y == 4)
+            return true;
+        return false;
+    }
+
     // Use this for initialization
     public void Initialise()
     {
@@ -49,7 +69,14 @@ public class MyCube : MonoBehaviour
             {
                 for (int z = 0; z < 5; z++)
                 {
-                    mfCubelets[x, y, z] = CreateCubelet(x, y, z);
+                    if (IsOuterCubelet(x,y,z))
+                    { 
+                        mfCubelets[x, y, z] = CreateCubelet(x, y, z);
+                    }
+                    else
+                    {
+                        mfCubelets[x, y, z] = null;
+                    }
                 }
             }
         }
@@ -392,17 +419,19 @@ public class MyCube : MonoBehaviour
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[0, y, z], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutXAxis(mfCubelets[1, y, z], deltaAngle);
+                        if (IsOuterCubelet(y,z))
+                        {
+                            if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutXAxis(mfCubelets[1, y, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutXAxis(mfCubelets[2, y, z], deltaAngle);
+                            if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutXAxis(mfCubelets[2, y, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutXAxis(mfCubelets[3, y, z], deltaAngle);
-
+                            if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutXAxis(mfCubelets[3, y, z], deltaAngle);
+                        }
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[4, y, z], deltaAngle);
                     }
@@ -428,16 +457,19 @@ public class MyCube : MonoBehaviour
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 0, z], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutYAxis(mfCubelets[x, 1, z], deltaAngle);
+                        if (IsOuterCubelet(x,z))
+                        {
+                            if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutYAxis(mfCubelets[x, 1, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutYAxis(mfCubelets[x, 2, z], deltaAngle);
+                            if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutYAxis(mfCubelets[x, 2, z], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                             RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
+                            if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+                                 RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
+                        }
 
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 4, z], deltaAngle);
@@ -463,16 +495,19 @@ public class MyCube : MonoBehaviour
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 0], deltaAngle);
 
-                        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutZAxis(mfCubelets[x, y, 1], deltaAngle);
+                        if (IsOuterCubelet(x,y))
+                        {
+                            if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutZAxis(mfCubelets[x, y, 1], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutZAxis(mfCubelets[x, y, 2], deltaAngle);
+                            if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutZAxis(mfCubelets[x, y, 2], deltaAngle);
 
 
-                        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutZAxis(mfCubelets[x, y, 3], deltaAngle);
+                            if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutZAxis(mfCubelets[x, y, 3], deltaAngle);
+                        }
 
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 4], deltaAngle);
@@ -591,8 +626,11 @@ public class MyCube : MonoBehaviour
         Cycle4Cublelets(new Vector3Int(xSlice, 0, 2), new Vector3Int(xSlice, 2, 4), new Vector3Int(xSlice, 4, 2), new Vector3Int(xSlice, 2, 0), direction);
         Cycle4Cublelets(new Vector3Int(xSlice, 0, 3), new Vector3Int(xSlice, 3, 4), new Vector3Int(xSlice, 4, 1), new Vector3Int(xSlice, 1, 0), direction);
 
-        Cycle4Cublelets(new Vector3Int(xSlice, 1, 1), new Vector3Int(xSlice, 1, 3), new Vector3Int(xSlice, 3, 3), new Vector3Int(xSlice, 3, 1), direction);
-        Cycle4Cublelets(new Vector3Int(xSlice, 1, 2), new Vector3Int(xSlice, 2, 3), new Vector3Int(xSlice, 3, 2), new Vector3Int(xSlice, 2, 1), direction);
+        if (xSlice == 0 || xSlice == 4)
+        { 
+            Cycle4Cublelets(new Vector3Int(xSlice, 1, 1), new Vector3Int(xSlice, 1, 3), new Vector3Int(xSlice, 3, 3), new Vector3Int(xSlice, 3, 1), direction);
+            Cycle4Cublelets(new Vector3Int(xSlice, 1, 2), new Vector3Int(xSlice, 2, 3), new Vector3Int(xSlice, 3, 2), new Vector3Int(xSlice, 2, 1), direction);
+        }
     }
 
     // Rotate the array of cublets themselves!
@@ -603,8 +641,11 @@ public class MyCube : MonoBehaviour
         Cycle4CubleletsR(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 4), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 0), direction);
         Cycle4CubleletsR(new Vector3Int(0, ySlice, 3), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(1, ySlice, 0), direction);
 
-        Cycle4CubleletsR(new Vector3Int(1, ySlice, 1), new Vector3Int(1, ySlice, 3), new Vector3Int(3, ySlice, 3), new Vector3Int(3, ySlice, 1), direction);
-        Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1), direction);
+        if (ySlice == 0 || ySlice == 4)
+        { 
+            Cycle4CubleletsR(new Vector3Int(1, ySlice, 1), new Vector3Int(1, ySlice, 3), new Vector3Int(3, ySlice, 3), new Vector3Int(3, ySlice, 1), direction);
+            Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1), direction);
+        }
     }
 
     // Rotate the array of cublets themselves!
@@ -615,8 +656,11 @@ public class MyCube : MonoBehaviour
         Cycle4Cublelets(new Vector3Int(0, 2, zSlice), new Vector3Int(2, 4, zSlice), new Vector3Int(4, 2, zSlice), new Vector3Int(2, 0, zSlice), direction);
         Cycle4Cublelets(new Vector3Int(0, 3, zSlice), new Vector3Int(3, 4, zSlice), new Vector3Int(4, 1, zSlice), new Vector3Int(1, 0, zSlice), direction);
 
-        Cycle4Cublelets(new Vector3Int(1, 1, zSlice), new Vector3Int(1, 3, zSlice), new Vector3Int(3, 3, zSlice), new Vector3Int(3, 1, zSlice), direction);
-        Cycle4Cublelets(new Vector3Int(1, 2, zSlice), new Vector3Int(2, 3, zSlice), new Vector3Int(3, 2, zSlice), new Vector3Int(2, 1, zSlice), direction);
+        if (zSlice == 0 || zSlice == 4)
+        { 
+            Cycle4Cublelets(new Vector3Int(1, 1, zSlice), new Vector3Int(1, 3, zSlice), new Vector3Int(3, 3, zSlice), new Vector3Int(3, 1, zSlice), direction);
+            Cycle4Cublelets(new Vector3Int(1, 2, zSlice), new Vector3Int(2, 3, zSlice), new Vector3Int(3, 2, zSlice), new Vector3Int(2, 1, zSlice), direction);
+        }
     }
 
 
