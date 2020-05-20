@@ -10,9 +10,12 @@ public class MouseManager : MonoBehaviour
     public LayerMask clickableLayer;
     public Canvas canvas;
 
+    public GameObject mapPanel;
+
     public Texture2D pointer;
     public Texture2D cube;
     public Texture2D map;
+    public Texture2D sphere;
 
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
@@ -58,17 +61,22 @@ public class MouseManager : MonoBehaviour
         if (mapHit)
         {
             Cursor.SetCursor(map, new Vector2(16, 16), CursorMode.Auto);
+            mapPanel.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 0.4f);
+            return;
         }
-        else if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, clickableLayer.value))
+        else
         {
-            if (hit.collider.gameObject.tag == "Map")
+            mapPanel.GetComponent<Image>().color = new Color(0.4f, 0.4f, 0.4f, 0.2f);
+        }
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, clickableLayer.value))
+        {
+            if (hit.collider.gameObject.tag == "Cubelet")
             {
-                Cursor.SetCursor(map, new Vector2(16, 16), CursorMode.Auto);
-                mapHit = true;
+                Cursor.SetCursor(cube, new Vector2(16, 16), CursorMode.Auto);
             }
             else
             {
-                Cursor.SetCursor(cube, new Vector2(16, 16), CursorMode.Auto);
+                Cursor.SetCursor(sphere, new Vector2(16, 16), CursorMode.Auto);
             }
         }
         else

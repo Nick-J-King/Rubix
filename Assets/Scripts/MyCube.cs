@@ -342,6 +342,10 @@ public class MyCube : MonoBehaviour
         mRight.RecalculateBounds();
         mRight.RecalculateNormals();
 
+        cubelet.AddComponent<BoxCollider>();
+        cubelet.tag = "Cubelet";
+        cubelet.layer = 8;  //"Clickable";
+
         return cubelet;
     }
 
