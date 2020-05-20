@@ -370,6 +370,7 @@ public class MyCube : MonoBehaviour
         mRight.RecalculateNormals();
 
         cubelet.AddComponent<BoxCollider>();
+
         cubelet.tag = "Cubelet";
         cubelet.layer = 8;  //"Clickable";
 
