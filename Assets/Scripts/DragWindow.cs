@@ -11,6 +11,12 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public bool isDragging = false;     // Whether we are currently dragging...
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        isDragging = false;
+    }
+
 
     void Update()
     {
@@ -25,6 +31,7 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         dragRectTransform.localPosition = localPoint - localStartPoint + localStartPosition;
     }
 
+
     public void OnPointerDown(PointerEventData eventData)
     {
         isDragging = true;
@@ -36,10 +43,12 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         localStartPosition = dragRectTransform.localPosition;
     }
 
+
     public void OnPointerUp(PointerEventData eventData)
     {
         isDragging = false;
     }
+
 
     public void ResetPosition()
     {
@@ -47,6 +56,7 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         dragRectTransform.localPosition = new Vector3(-width / 2.0f + 20.0f, 0.0f);
     }
+
 
     public void ResetPositionAndScale()
     {
@@ -56,9 +66,4 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         dragRectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        isDragging = false;
-    }
 }
