@@ -897,14 +897,8 @@ MonoBehaviour:
   myGame: {fileID: 978969262}
   mainCamera: {fileID: 963194229}
   myCube: {fileID: 1806485317}
-  map: {fileID: 296277996}
   mouseManager: {fileID: 2037798674}
-  frontPanel: {fileID: 1911183429}
-  backPanel: {fileID: 73197698}
-  leftPanel: {fileID: 904768161}
-  rightPanel: {fileID: 1833996270}
-  upPanel: {fileID: 400510028}
-  downPanel: {fileID: 769891484}
+  faceMap: {fileID: 296277996}
 --- !u!1 &296277992
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,12 +989,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 296277992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd422fd52a2c748c08e7198fcea77451, type: 3}
+  m_Script: {fileID: 11500000, guid: c7e61333a86af424895a71b7858d6b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dragRectTransform: {fileID: 296277993}
   canvasRt: {fileID: 33800782}
   isDragging: 0
+  frontPanel: {fileID: 1911183429}
+  backPanel: {fileID: 73197698}
+  leftPanel: {fileID: 904768161}
+  rightPanel: {fileID: 1833996270}
+  upPanel: {fileID: 400510028}
+  downPanel: {fileID: 769891484}
 --- !u!1 &400510026
 GameObject:
   m_ObjectHideFlags: 0
