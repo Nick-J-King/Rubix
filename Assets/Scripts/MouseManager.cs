@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class MouseManager : MonoBehaviour
 {
+//    enum CursorType { pointer = 0, cube = 1, map = 2, sphere = 3 }
+
     // The manager configuration
 
     public LayerMask clickableLayer;    // Layer that is checked.

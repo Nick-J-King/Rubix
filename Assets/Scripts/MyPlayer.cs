@@ -11,26 +11,23 @@ public class MyPlayer : MonoBehaviour
     public MouseManager mouseManager;
     public FaceMap faceMap;
 
-    private float cubeX = 0.0f;
-    private float cubeY = 0.0f;
+    readonly float baseAngleStep = 5.0f;
+    float angleStep; // Same as base for normal direction, negative for reverse.
 
-    private readonly float baseAngleStep = 5.0f;
-    private float angleStep; // Same as base for normal direction, negative for reverse.
-
-    private readonly int firstStep = 2;
-    private readonly int secondStep = 4;
-    private readonly int thirdStep = 9;
-    private readonly int fourthStep = 14;
-    private readonly int fifthStep = 16;
+    readonly int firstStep = 2;
+    readonly int secondStep = 4;
+    readonly int thirdStep = 9;
+    readonly int fourthStep = 14;
+    readonly int fifthStep = 16;
 
     // Animation
-    private int animationStep;
-    private readonly int lastAnimationStep = 18;
+    int animationStep;
+    readonly int lastAnimationStep = 18;
 
-    private bool isAnimating;
-    private RotationDirection rotationDirection;
-    private CubeAxis cubeAxis;       // Which axis we are currently rotating about.
-    private CubeSlices cubeSlices;   // Which slices we are currently rotating.
+    bool isAnimating;
+    RotationDirection rotationDirection;
+    CubeAxis cubeAxis;       // Which axis we are currently rotating about.
+    CubeSlices cubeSlices;   // Which slices we are currently rotating.
 
 
     // Start is called before the first frame update
@@ -39,7 +36,7 @@ public class MyPlayer : MonoBehaviour
     }
 
     // Determine whether to "cycle" the facelets on "strips".
-    private bool IsAnimationOnStep()
+    bool IsAnimationOnStep()
     {
         return (animationStep == firstStep
         || animationStep == secondStep
@@ -736,12 +733,9 @@ public class MyPlayer : MonoBehaviour
 
         if (Mouse.current.rightButton.isPressed)
         {
-            cubeX += move.x;
-            cubeY += move.y;
+            //cubeX += move.x;
+            //cubeY += move.y;
 
-            //mainCamera.PanCamera(move);
-            //myCube.transform.rotation = Quaternion.Euler(cubeY, cubeX, 0.0f);
-            //mainCamera.rec =
             float x = mainCamera.cam.pixelRect.x;
             float y = mainCamera.cam.pixelRect.y;
             float w = mainCamera.cam.pixelRect.width;

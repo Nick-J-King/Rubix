@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class FaceMap : DragWindow
 {
-
+    // The panels for each face in this map.
     public FacePanel frontPanel;
     public FacePanel backPanel;
     public FacePanel leftPanel;
@@ -14,20 +14,8 @@ public class FaceMap : DragWindow
     public FacePanel upPanel;
     public FacePanel downPanel;
 
-    /*
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    */
-        // Y axis
+    // Y axis
 
     // nSlice = 0 is Top. nSlice = 4 is Bottom.
     public void CycleSliceFromTop(int nSlice, RotationDirection rotationDirection)
@@ -347,6 +335,5 @@ public class FaceMap : DragWindow
         imgs[0].color = c19;
         imgs[0].sprite = s19;
     }
-
 
 }

@@ -35,7 +35,7 @@ public class MyCube : MonoBehaviour
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
 
-    private bool IsOuterCubelet(int x, int y, int z)
+    bool IsOuterCubelet(int x, int y, int z)
     {
         if (x == 0 || x == 4)
             return true;
@@ -46,7 +46,7 @@ public class MyCube : MonoBehaviour
         return false;
     }
 
-    private bool IsOuterCubelet(int x, int y)
+    bool IsOuterCubelet(int x, int y)
     {
         if (x == 0 || x == 4)
             return true;
@@ -54,6 +54,14 @@ public class MyCube : MonoBehaviour
             return true;
         return false;
     }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Initialise();
+    }
+
 
     // Use this for initialization
     public void Initialise()
@@ -375,13 +383,6 @@ public class MyCube : MonoBehaviour
         cubelet.layer = 8;  //"Clickable";
 
         return cubelet;
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Initialise();
     }
 
 

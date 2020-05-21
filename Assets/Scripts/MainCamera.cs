@@ -76,7 +76,7 @@ public class MainCamera : MonoBehaviour
         azimuthElevation.azimuth += lookDelta.x * RotateAmount;
         azimuthElevation.elevation += lookDelta.y * RotateAmount;
 
-        azimuthElevation.azimuth = azimuthElevation.azimuth % 360;
+        azimuthElevation.azimuth %= 360;
         while (azimuthElevation.azimuth >= 360.0f) azimuthElevation.azimuth -= 360.0f;
         while (azimuthElevation.azimuth < 0.0f) azimuthElevation.azimuth += 360.0f;
 
@@ -99,8 +99,6 @@ public class MainCamera : MonoBehaviour
         xyz.z = rotatedVector.z;
 
         transform.position = rotatedVector;
-        transform.LookAt(new Vector3(0.0f, 0.0f, 0.0f));
-
-
+        transform.LookAt(Vector3.zero);
     }
 }

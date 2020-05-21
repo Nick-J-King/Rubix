@@ -4,17 +4,17 @@ using UnityEngine.UI;
 
 public class FacePanel : MonoBehaviour
 {
-    public GameObject pRoot;
-
-    public Image[,] panelImages = new Image[5,5];
-
-
-    // PRIVATE members --------------------------
-
-    public GameObject[,] pFacelets;
-    private DefaultControls.Resources uiResources;
-
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
+
+    public GameObject pRoot;
+        // The "map" this face panel is in.
+    
+    public GameObject[,] pFacelets;
+        // These must be accessed by the FaceMap...
+ 
+    DefaultControls.Resources uiResources;
+    Image[,] panelImages = new Image[5,5];
+        // Internals...
 
 
     public void Start()
@@ -52,8 +52,8 @@ public class FacePanel : MonoBehaviour
     }
 
 
-    // Use this for initialization
-    public void Initialise(Color col)
+    // Use this for initialization...
+    void Initialise(Color col)
     {
         uiResources = new DefaultControls.Resources();
 
@@ -70,7 +70,7 @@ public class FacePanel : MonoBehaviour
     }
 
 
-    public GameObject CreateFacelet(int x, int y, Color col)
+    GameObject CreateFacelet(int x, int y, Color col)
     {
         string codeNumber = string.Format("{0}{1}", x, y);
 
@@ -103,10 +103,9 @@ public class FacePanel : MonoBehaviour
         return facelet;
     }
 
-
     // Update is called once per frame
-    void Update()
-    {
-        // >>> Put animation code here, perhaps...
-    }
+    //void Update()
+    //{
+    //    // >>> Put animation code here, perhaps...
+    //}
 }

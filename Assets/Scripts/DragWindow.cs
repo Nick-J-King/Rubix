@@ -23,10 +23,8 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!isDragging)
             return;
 
-        Vector2 localPoint;
-
         // Convert eventData position to canvas rt position
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRt, Input.mousePosition, null, out localPoint);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRt, Input.mousePosition, null, out Vector2 localPoint);
 
         dragRectTransform.localPosition = localPoint - localStartPoint + localStartPosition;
     }
