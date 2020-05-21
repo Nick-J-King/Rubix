@@ -102,7 +102,6 @@ public class MyCube : MonoBehaviour
         string codeName = "Cubelet" + codeNumber;
 
         GameObject cubelet = new GameObject(codeName);
-        //cubelet.tag = codeName;
 
         GameObject cubeletTop = new GameObject(codeName + "Top");
         GameObject cubeletBottom = new GameObject(codeName + "Bottom");
@@ -122,20 +121,21 @@ public class MyCube : MonoBehaviour
 
         cubelet.transform.Translate(xTrans, yTrans, zTrans);
 
-        MeshFilter mfTop = cubeletTop.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        MeshFilter mfBottom = cubeletBottom.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        MeshFilter mfFront = cubeletFront.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        MeshFilter mfBack = cubeletBack.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        MeshFilter mfLeft = cubeletLeft.AddComponent(typeof(MeshFilter)) as MeshFilter;
-        MeshFilter mfRight = cubeletRight.AddComponent(typeof(MeshFilter)) as MeshFilter;
+        System.Type filterType = typeof(MeshFilter);
+        MeshFilter mfTop = cubeletTop.AddComponent(filterType) as MeshFilter;
+        MeshFilter mfBottom = cubeletBottom.AddComponent(filterType) as MeshFilter;
+        MeshFilter mfFront = cubeletFront.AddComponent(filterType) as MeshFilter;
+        MeshFilter mfBack = cubeletBack.AddComponent(filterType) as MeshFilter;
+        MeshFilter mfLeft = cubeletLeft.AddComponent(filterType) as MeshFilter;
+        MeshFilter mfRight = cubeletRight.AddComponent(filterType) as MeshFilter;
 
-        //MeshRenderer mr = cubelet.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-        MeshRenderer mrTop = cubeletTop.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-        MeshRenderer mrBottom = cubeletBottom.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-        MeshRenderer mrFront = cubeletFront.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-        MeshRenderer mrBack = cubeletBack.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-        MeshRenderer mrLeft = cubeletLeft.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
-        MeshRenderer mrRight = cubeletRight.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+        System.Type rendererType = typeof(MeshRenderer);
+        MeshRenderer mrTop = cubeletTop.AddComponent(rendererType) as MeshRenderer;
+        MeshRenderer mrBottom = cubeletBottom.AddComponent(rendererType) as MeshRenderer;
+        MeshRenderer mrFront = cubeletFront.AddComponent(rendererType) as MeshRenderer;
+        MeshRenderer mrBack = cubeletBack.AddComponent(rendererType) as MeshRenderer;
+        MeshRenderer mrLeft = cubeletLeft.AddComponent(rendererType) as MeshRenderer;
+        MeshRenderer mrRight = cubeletRight.AddComponent(rendererType) as MeshRenderer;
 
         if (y == 4)
         {
@@ -194,28 +194,28 @@ public class MyCube : MonoBehaviour
 
         // Top --------------------
 
-        Mesh mTop = new Mesh();
-
-        mTop.vertices = new Vector3[]
+        Mesh mTop = new Mesh
         {
-            new Vector3(-0.5f, 0.5f, -0.5f),
-            new Vector3(-0.5f, 0.5f, 0.5f),
-            new Vector3(0.5f, 0.5f, 0.5f),
-            new Vector3(0.5f, 0.5f, -0.5f)
+            vertices = new Vector3[]
+            {
+                new Vector3(-0.5f, 0.5f, -0.5f),
+                new Vector3(-0.5f, 0.5f, 0.5f),
+                new Vector3(0.5f, 0.5f, 0.5f),
+                new Vector3(0.5f, 0.5f, -0.5f)
+            },
 
-        };
+            uv = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,1),
+                new Vector2(1,1),
+                new Vector2(1,0)
+            },
 
-        mTop.uv = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,1),
-            new Vector2(1,0)
-        };
-
-        mTop.triangles = new int[]
-        {
-            0,1,2, 0,2,3
+            triangles = new int[]
+            {
+                0,1,2, 0,2,3
+            }
         };
 
         mfTop.mesh = mTop;
@@ -225,28 +225,28 @@ public class MyCube : MonoBehaviour
 
         // Bottom -----------------
 
-        Mesh mBottom = new Mesh();
-
-        mBottom.vertices = new Vector3[]
+        Mesh mBottom = new Mesh
         {
-            new Vector3(-0.5f, -0.5f, -0.5f),
-            new Vector3(0.5f, -0.5f, -0.5f),
-            new Vector3(0.5f, -0.5f, 0.5f),
-            new Vector3(-0.5f, -0.5f, 0.5f)
+            vertices = new Vector3[]
+            {
+                new Vector3(-0.5f, -0.5f, -0.5f),
+                new Vector3(0.5f, -0.5f, -0.5f),
+                new Vector3(0.5f, -0.5f, 0.5f),
+                new Vector3(-0.5f, -0.5f, 0.5f)
+            },
 
-        };
+            uv = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,1),
+                new Vector2(1,1),
+                new Vector2(1,0)
+            },
 
-        mBottom.uv = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,1),
-            new Vector2(1,0)
-        };
-
-        mBottom.triangles = new int[]
-        {
-            0,1,2, 0,2,3
+            triangles = new int[]
+            {
+                0,1,2, 0,2,3
+            }
         };
 
         mfBottom.mesh = mBottom;
@@ -256,28 +256,28 @@ public class MyCube : MonoBehaviour
 
         // Front ------------------
 
-        Mesh mFront = new Mesh();
-
-        mFront.vertices = new Vector3[]
+        Mesh mFront = new Mesh
         {
-            new Vector3(-0.5f, -0.5f, -0.5f),
-            new Vector3(-0.5f, 0.5f, -0.5f),
-            new Vector3(0.5f, 0.5f, -0.5f),
-            new Vector3(0.5f, -0.5f, -0.5f)
+            vertices = new Vector3[]
+            {
+                new Vector3(-0.5f, -0.5f, -0.5f),
+                new Vector3(-0.5f, 0.5f, -0.5f),
+                new Vector3(0.5f, 0.5f, -0.5f),
+                new Vector3(0.5f, -0.5f, -0.5f)
+            },
 
-        };
+            uv = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,1),
+                new Vector2(1,1),
+                new Vector2(1,0)
+            },
 
-        mFront.uv = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,1),
-            new Vector2(1,0)
-        };
-
-        mFront.triangles = new int[]
-        {
-            0,1,2, 0,2,3
+            triangles = new int[]
+            {
+                0,1,2, 0,2,3
+            }
         };
 
         mfFront.mesh = mFront;
@@ -287,28 +287,28 @@ public class MyCube : MonoBehaviour
 
         // Back -------------------
 
-        Mesh mBack = new Mesh();
-
-        mBack.vertices = new Vector3[]
+        Mesh mBack = new Mesh
         {
-            new Vector3(-0.5f, -0.5f, 0.5f),
-            new Vector3(0.5f, -0.5f, 0.5f),
-            new Vector3(0.5f, 0.5f, 0.5f),
-            new Vector3(-0.5f, 0.5f, 0.5f)
+            vertices = new Vector3[]
+            {
+                new Vector3(-0.5f, -0.5f, 0.5f),
+                new Vector3(0.5f, -0.5f, 0.5f),
+                new Vector3(0.5f, 0.5f, 0.5f),
+                new Vector3(-0.5f, 0.5f, 0.5f)
+            },
 
-        };
+            uv = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,1),
+                new Vector2(1,1),
+                new Vector2(1,0)
+            },
 
-        mBack.uv = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,1),
-            new Vector2(1,0)
-        };
-
-        mBack.triangles = new int[]
-        {
-            0,1,2, 0,2,3
+            triangles = new int[]
+            {
+                0,1,2, 0,2,3
+            }
         };
 
         mfBack.mesh = mBack;
@@ -318,28 +318,28 @@ public class MyCube : MonoBehaviour
 
         // Left -------------------
 
-        Mesh mLeft = new Mesh();
-
-        mLeft.vertices = new Vector3[]
+        Mesh mLeft = new Mesh
         {
-            new Vector3(-0.5f, -0.5f, -0.5f),
-            new Vector3(-0.5f, -0.5f, 0.5f),
-            new Vector3(-0.5f, 0.5f, 0.5f),
-            new Vector3(-0.5f, 0.5f, -0.5f)
+            vertices = new Vector3[]
+            {
+                new Vector3(-0.5f, -0.5f, -0.5f),
+                new Vector3(-0.5f, -0.5f, 0.5f),
+                new Vector3(-0.5f, 0.5f, 0.5f),
+                new Vector3(-0.5f, 0.5f, -0.5f)
+            },
 
-        };
+            uv = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,1),
+                new Vector2(1,1),
+                new Vector2(1,0)
+            },
 
-        mLeft.uv = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,1),
-            new Vector2(1,0)
-        };
-
-        mLeft.triangles = new int[]
-        {
-            0,1,2, 0,2,3
+            triangles = new int[]
+            {
+                0,1,2, 0,2,3
+            }
         };
 
         mfLeft.mesh = mLeft;
@@ -349,28 +349,28 @@ public class MyCube : MonoBehaviour
 
         // Right ------------------
 
-        Mesh mRight = new Mesh();
-
-        mRight.vertices = new Vector3[]
+        Mesh mRight = new Mesh
         {
-                    new Vector3(0.5f, -0.5f, -0.5f),
-                    new Vector3(0.5f, 0.5f, -0.5f),
-                    new Vector3(0.5f, 0.5f, 0.5f),
-                    new Vector3(0.5f, -0.5f, 0.5f)
+            vertices = new Vector3[]
+            {
+                new Vector3(0.5f, -0.5f, -0.5f),
+                new Vector3(0.5f, 0.5f, -0.5f),
+                new Vector3(0.5f, 0.5f, 0.5f),
+                new Vector3(0.5f, -0.5f, 0.5f)
+             },
 
-         };
+            uv = new Vector2[]
+            {
+                new Vector2(0,0),
+                new Vector2(0,1),
+                new Vector2(1,1),
+                new Vector2(1,0)
+             },
 
-        mRight.uv = new Vector2[]
-         {
-                    new Vector2(0,0),
-                    new Vector2(0,1),
-                    new Vector2(1,1),
-                    new Vector2(1,0)
-         };
-
-        mRight.triangles = new int[]
-        {
-            0,1,2, 0,2,3
+            triangles = new int[]
+            {
+                0,1,2, 0,2,3
+            }
         };
 
         mfRight.mesh = mRight;
