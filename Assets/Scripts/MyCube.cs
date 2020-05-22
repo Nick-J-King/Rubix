@@ -30,7 +30,9 @@ public class MyCube : MonoBehaviour
 
     // PRIVATE members --------------------------
 
-    private GameObject[,,] mfCubelets;
+    public GameObject[,,] mfOrigCubelets;
+    public GameObject[,,] mfCubelets;
+    public TransformData[,,] mfOrigTransformData;
 
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
@@ -55,6 +57,32 @@ public class MyCube : MonoBehaviour
         return false;
     }
 
+    // Diagnostics
+    public void DebugMe()
+    {
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                for (int z = 0; z < 5; z++)
+                {
+                    Debug.Log("<color=green>" + x + ", " + y + ", " + z + "</color>");
+
+                    if (IsOuterCubelet(x, y, z))
+                    {
+                        Debug.Log("Curr cubelet: " + mfCubelets[x,y,z].name + " - " + mfCubelets[x,y,z].transform.position);
+                        Debug.Log("Orig cubelet: " + mfOrigCubelets[x,y,z].name + " - " + mfOrigCubelets[x,y,z].transform.position);
+                    }
+                    else
+                    {
+                        Debug.Log("Inner cubelet.");
+                        Debug.Log("Inner cubelet.");
+                    }
+                }
+            }
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +98,8 @@ public class MyCube : MonoBehaviour
 
         isAnimating = false;
         mfCubelets = new GameObject[5, 5, 5];
+        mfOrigCubelets = new GameObject[5, 5, 5];
+        mfOrigTransformData = new TransformData[5, 5, 5];
 
         for (int x = 0; x < 5; x++)
         {
@@ -77,9 +107,47 @@ public class MyCube : MonoBehaviour
             {
                 for (int z = 0; z < 5; z++)
                 {
-                    if (IsOuterCubelet(x,y,z))
-                    { 
+                    if (IsOuterCubelet(x, y, z))
+                    {
                         mfCubelets[x, y, z] = CreateCubelet(x, y, z);
+                        mfOrigCubelets[x, y, z] = mfCubelets[x, y, z];
+                        mfOrigTransformData[x, y, z] = new TransformData(mfCubelets[x, y, z].transform);
+                    }
+                    else
+                    {
+                        mfCubelets[x, y, z] = null;
+                        mfOrigCubelets[x, y, z] = null;
+                        mfOrigTransformData[x, y, z] = null;
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void ResetCube()
+    {
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                for (int z = 0; z < 5; z++)
+                {
+                    if (IsOuterCubelet(x, y, z))
+                    {
+                        GameObject cubeShow = mfCubelets[x, y, z];
+                        GameObject cubeOrig = mfOrigCubelets[x, y, z];
+
+                        Debug.Log("{" + x + ", " + y + ", " + z + "}");
+
+                        Debug.Log(cubeShow.transform.position);
+                        Debug.Log(cubeOrig.transform.position);
+                        Debug.Log(".");
+
+                        mfCubelets[x, y, z] = mfOrigCubelets[x, y, z];
+                        GameObject cubeNow = mfCubelets[x, y, z];
+
+                        mfOrigTransformData[x, y, z].ApplyTo(mfCubelets[x, y, z].transform);
                     }
                     else
                     {
@@ -378,6 +446,8 @@ public class MyCube : MonoBehaviour
         mRight.RecalculateNormals();
 
         cubelet.AddComponent<BoxCollider>();
+        ///Rigidbody rb = cubelet.AddComponent<Rigidbody>();
+        ///rb.useGravity = true;
 
         cubelet.tag = "Cubelet";
         cubelet.layer = 8;  //"Clickable";
@@ -421,7 +491,7 @@ public class MyCube : MonoBehaviour
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[0, y, z], deltaAngle);
 
-                        if (IsOuterCubelet(y,z))
+                        if (IsOuterCubelet(y, z))
                         {
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutXAxis(mfCubelets[1, y, z], deltaAngle);
@@ -459,7 +529,7 @@ public class MyCube : MonoBehaviour
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutYAxis(mfCubelets[x, 0, z], deltaAngle);
 
-                        if (IsOuterCubelet(x,z))
+                        if (IsOuterCubelet(x, z))
                         {
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutYAxis(mfCubelets[x, 1, z], deltaAngle);
@@ -470,7 +540,7 @@ public class MyCube : MonoBehaviour
 
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                 RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
+                                RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
                         }
 
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
@@ -497,7 +567,7 @@ public class MyCube : MonoBehaviour
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutZAxis(mfCubelets[x, y, 0], deltaAngle);
 
-                        if (IsOuterCubelet(x,y))
+                        if (IsOuterCubelet(x, y))
                         {
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutZAxis(mfCubelets[x, y, 1], deltaAngle);
@@ -629,7 +699,7 @@ public class MyCube : MonoBehaviour
         Cycle4Cublelets(new Vector3Int(xSlice, 0, 3), new Vector3Int(xSlice, 3, 4), new Vector3Int(xSlice, 4, 1), new Vector3Int(xSlice, 1, 0), direction);
 
         if (xSlice == 0 || xSlice == 4)
-        { 
+        {
             Cycle4Cublelets(new Vector3Int(xSlice, 1, 1), new Vector3Int(xSlice, 1, 3), new Vector3Int(xSlice, 3, 3), new Vector3Int(xSlice, 3, 1), direction);
             Cycle4Cublelets(new Vector3Int(xSlice, 1, 2), new Vector3Int(xSlice, 2, 3), new Vector3Int(xSlice, 3, 2), new Vector3Int(xSlice, 2, 1), direction);
         }
@@ -644,7 +714,7 @@ public class MyCube : MonoBehaviour
         Cycle4CubleletsR(new Vector3Int(0, ySlice, 3), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(1, ySlice, 0), direction);
 
         if (ySlice == 0 || ySlice == 4)
-        { 
+        {
             Cycle4CubleletsR(new Vector3Int(1, ySlice, 1), new Vector3Int(1, ySlice, 3), new Vector3Int(3, ySlice, 3), new Vector3Int(3, ySlice, 1), direction);
             Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1), direction);
         }
@@ -659,7 +729,7 @@ public class MyCube : MonoBehaviour
         Cycle4Cublelets(new Vector3Int(0, 3, zSlice), new Vector3Int(3, 4, zSlice), new Vector3Int(4, 1, zSlice), new Vector3Int(1, 0, zSlice), direction);
 
         if (zSlice == 0 || zSlice == 4)
-        { 
+        {
             Cycle4Cublelets(new Vector3Int(1, 1, zSlice), new Vector3Int(1, 3, zSlice), new Vector3Int(3, 3, zSlice), new Vector3Int(3, 1, zSlice), direction);
             Cycle4Cublelets(new Vector3Int(1, 2, zSlice), new Vector3Int(2, 3, zSlice), new Vector3Int(3, 2, zSlice), new Vector3Int(2, 1, zSlice), direction);
         }

@@ -3,7 +3,16 @@ guid: 938b36570d28742a6a6df11673b204ee
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cubeRoot: {instanceID: 0}
+  - cubePlaceholder: {instanceID: 0}
+  - faceMaterialBlue: {fileID: 2100000, guid: cfceae38d627b4c33acc7382007ef620, type: 2}
+  - faceMaterialGreen: {instanceID: 0}
+  - faceMaterialYellow: {instanceID: 0}
+  - faceMaterialWhite: {instanceID: 0}
+  - faceMaterialRed: {instanceID: 0}
+  - faceMaterialOrange: {instanceID: 0}
+  - faceMaterialBlack: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

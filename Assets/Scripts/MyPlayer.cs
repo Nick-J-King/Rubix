@@ -518,6 +518,11 @@ public class MyPlayer : MonoBehaviour
         animationStep = 0;
     }
 
+    public void OnDebugMe(InputAction.CallbackContext context)
+    {
+        myCube.DebugMe();
+    }
+
     // ALL
 
     public void OnRotateAllLR(InputAction.CallbackContext context)
@@ -658,6 +663,7 @@ public class MyPlayer : MonoBehaviour
         // TODO>>> If camera IS in the reset state, reset the cube...
         mainCamera.Start();
         faceMap.ResetPositionAndScale();
+        myCube.ResetCube();
     }
 
 

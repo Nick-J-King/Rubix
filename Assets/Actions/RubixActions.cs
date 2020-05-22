@@ -241,6 +241,14 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""45cee9f6-0db4-4d8a-b069-906fae2aa9c6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
@@ -551,6 +559,17 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""action"": ""Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""494219e4-15d2-4a8b-98a1-b7a846ac3f48"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -653,6 +672,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
         m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
         m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
+        m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -730,6 +750,7 @@ public class @Rubix : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_AllUD;
     private readonly InputAction m_Player_AllFB;
     private readonly InputAction m_Player_Wheel;
+    private readonly InputAction m_Player_Debug;
     public struct PlayerActions
     {
         private @Rubix m_Wrapper;
@@ -762,6 +783,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
         public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
         public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
+        public InputAction @Debug => m_Wrapper.m_Player_Debug;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -855,6 +877,9 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @Wheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
                 @Wheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
                 @Wheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -943,6 +968,9 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @Wheel.started += instance.OnWheel;
                 @Wheel.performed += instance.OnWheel;
                 @Wheel.canceled += instance.OnWheel;
+                @Debug.started += instance.OnDebug;
+                @Debug.performed += instance.OnDebug;
+                @Debug.canceled += instance.OnDebug;
             }
         }
     }
@@ -1031,5 +1059,6 @@ public class @Rubix : IInputActionCollection, IDisposable
         void OnAllUD(InputAction.CallbackContext context);
         void OnAllFB(InputAction.CallbackContext context);
         void OnWheel(InputAction.CallbackContext context);
+        void OnDebug(InputAction.CallbackContext context);
     }
 }
