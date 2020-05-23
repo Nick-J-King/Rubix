@@ -7,35 +7,7 @@ public class MyCube : MonoBehaviour
     public GameObject cubePlaceholder;
 
     // Textures
-    public Texture facelet00t;
-    public Texture facelet01t;
-    public Texture facelet02t;
-    public Texture facelet03t;
-    public Texture facelet04t;
-
-    public Texture facelet10t;
-    public Texture facelet11t;
-    public Texture facelet12t;
-    public Texture facelet13t;
-    public Texture facelet14t;
-
-    public Texture facelet20t;
-    public Texture facelet21t;
-    public Texture facelet22t;
-    public Texture facelet23t;
-    public Texture facelet24t;
-
-    public Texture facelet30t;
-    public Texture facelet31t;
-    public Texture facelet32t;
-    public Texture facelet33t;
-    public Texture facelet34t;
-
-    public Texture facelet40t;
-    public Texture facelet41t;
-    public Texture facelet42t;
-    public Texture facelet43t;
-    public Texture facelet44t;
+    Texture [,] faceletTextures;
 
     // Materials.
     public Material faceMaterialBlue;
@@ -67,64 +39,21 @@ public class MyCube : MonoBehaviour
 
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
-    Texture GetTextureByIndex(int x, int y)
+
+    // Load up the textures for the faces.
+    void Awake()
     {
-        if (x == 0 && y == 0)
-            return facelet00t;
-        if (x == 0 && y == 1)
-            return facelet01t;
-        if (x == 0 && y == 2)
-            return facelet02t;
-        if (x == 0 && y == 3)
-            return facelet03t;
-        if (x == 0 && y == 4)
-            return facelet04t;
+        faceletTextures = new Texture[5,5];
 
-        if (x == 1 && y == 0)
-            return facelet10t;
-        if (x == 1 && y == 1)
-            return facelet11t;
-        if (x == 1 && y == 2)
-            return facelet12t;
-        if (x == 1 && y == 3)
-            return facelet13t;
-        if (x == 1 && y == 4)
-            return facelet14t;
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                string codeNumber = string.Format("{0}{1}", x, y);
 
-        if (x == 2 && y == 0)
-            return facelet20t;
-        if (x == 2 && y == 1)
-            return facelet21t;
-        if (x == 2 && y == 2)
-            return facelet22t;
-        if (x == 2 && y == 3)
-            return facelet23t;
-        if (x == 2 && y == 4)
-            return facelet24t;
-
-        if (x == 3 && y == 0)
-            return facelet30t;
-        if (x == 3 && y == 1)
-            return facelet31t;
-        if (x == 3 && y == 2)
-            return facelet32t;
-        if (x == 3 && y == 3)
-            return facelet33t;
-        if (x == 3 && y == 4)
-            return facelet34t;
-
-        if (x == 4 && y == 0)
-            return facelet40t;
-        if (x == 4 && y == 1)
-            return facelet41t;
-        if (x == 4 && y == 2)
-            return facelet42t;
-        if (x == 4 && y == 3)
-            return facelet43t;
-        if (x == 4 && y == 4)
-            return facelet44t;
-
-        return null;
+                faceletTextures[x,y] = Resources.Load<Texture>("Textures/Facelet" + codeNumber + "t");
+            }
+        }
     }
 
 
@@ -299,7 +228,7 @@ public class MyCube : MonoBehaviour
         if (y == 4)
         {
             mrTop.material = faceMaterialBlue;
-            mrTop.materials[0].mainTexture = GetTextureByIndex(x, z);    // OK!
+            mrTop.materials[0].mainTexture = faceletTextures[x, z];    // OK!
         }
         else
         {
@@ -309,7 +238,7 @@ public class MyCube : MonoBehaviour
         if (y == 0)
         {
             mrBottom.material = faceMaterialGreen;
-            mrBottom.materials[0].mainTexture = GetTextureByIndex(x, 4 - z); // OK!
+            mrBottom.materials[0].mainTexture = faceletTextures[x, 4 - z]; // OK!
         }
         else
         {
@@ -319,7 +248,7 @@ public class MyCube : MonoBehaviour
         if (z == 0)
         {
             mrFront.material = faceMaterialYellow;
-            mrFront.materials[0].mainTexture = GetTextureByIndex(x, y);  // OK!
+            mrFront.materials[0].mainTexture = faceletTextures[x, y];  // OK!
 
         }
         else
@@ -330,7 +259,7 @@ public class MyCube : MonoBehaviour
         if (z == 4)
         {
             mrBack.material = faceMaterialWhite;
-            mrBack.materials[0].mainTexture = GetTextureByIndex(4 - x, y);   // OK! NOTE: On map, the FacePanel is thereby rotated 180 degrees.
+            mrBack.materials[0].mainTexture = faceletTextures[4 - x, y];   // OK! NOTE: On map, the FacePanel is thereby rotated 180 degrees.
         }
         else
         {
@@ -340,7 +269,7 @@ public class MyCube : MonoBehaviour
         if (x == 0)
         {
             mrLeft.material = faceMaterialRed;
-            mrLeft.materials[0].mainTexture = GetTextureByIndex(4 - z, y); // OK!
+            mrLeft.materials[0].mainTexture = faceletTextures[4 - z, y]; // OK!
         }
         else
         {
@@ -350,7 +279,7 @@ public class MyCube : MonoBehaviour
         if (x == 4)
         {
             mrRight.material = faceMaterialOrange;
-            mrRight.materials[0].mainTexture = GetTextureByIndex(z,y);  // OK!
+            mrRight.materials[0].mainTexture = faceletTextures[z,y];  // OK!
         }
         else
         {
