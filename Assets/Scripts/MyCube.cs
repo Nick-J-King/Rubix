@@ -7,7 +7,7 @@ public class MyCube : MonoBehaviour
     public GameObject cubePlaceholder;
 
     // Textures
-    Texture [,] faceletTextures;
+    Texture[,] cubeFaceletTextures;
 
     // Materials.
     public Material faceMaterialBlue;
@@ -33,8 +33,9 @@ public class MyCube : MonoBehaviour
 
     // PRIVATE members --------------------------
 
-    public GameObject[,,] mfOrigCubelets;
     public GameObject[,,] mfCubelets;
+
+    public GameObject[,,] mfOrigCubelets;
     public TransformData[,,] mfOrigTransformData;
 
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
@@ -43,7 +44,7 @@ public class MyCube : MonoBehaviour
     // Load up the textures for the faces.
     void Awake()
     {
-        faceletTextures = new Texture[5,5];
+        cubeFaceletTextures = new Texture[5, 5];
 
         for (int x = 0; x < 5; x++)
         {
@@ -51,7 +52,7 @@ public class MyCube : MonoBehaviour
             {
                 string codeNumber = string.Format("{0}{1}", x, y);
 
-                faceletTextures[x,y] = Resources.Load<Texture>("Textures/Facelet" + codeNumber + "t");
+                cubeFaceletTextures[x, y] = Resources.Load<Texture>("Textures/Facelet" + codeNumber + "t");
             }
         }
     }
@@ -90,8 +91,8 @@ public class MyCube : MonoBehaviour
 
                     if (IsOuterCubelet(x, y, z))
                     {
-                        Debug.Log("Curr cubelet: " + mfCubelets[x,y,z].name + " - " + mfCubelets[x,y,z].transform.position);
-                        Debug.Log("Orig cubelet: " + mfOrigCubelets[x,y,z].name + " - " + mfOrigCubelets[x,y,z].transform.position);
+                        Debug.Log("Curr cubelet: " + mfCubelets[x, y, z].name + " - " + mfCubelets[x, y, z].transform.position);
+                        Debug.Log("Orig cubelet: " + mfOrigCubelets[x, y, z].name + " - " + mfOrigCubelets[x, y, z].transform.position);
                     }
                     else
                     {
@@ -103,6 +104,13 @@ public class MyCube : MonoBehaviour
         }
 
     }
+
+
+    public void ResetScale()
+    {
+        transform.localScale = Vector3.one;
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -172,9 +180,9 @@ public class MyCube : MonoBehaviour
     {
         string codeNumber = string.Format("{0}{1}{2}", x, y, z);
 
-        float xTrans = (x - 2) * 1.04f;
-        float yTrans = (y - 2) * 1.04f;
-        float zTrans = (z - 2) * 1.04f;
+        float xTrans = (x - 2) * 1.0f;
+        float yTrans = (y - 2) * 1.0f;
+        float zTrans = (z - 2) * 1.0f;
 
         string codeName = "Cubelet" + codeNumber;
 
@@ -217,7 +225,7 @@ public class MyCube : MonoBehaviour
         if (y == 4)
         {
             mrTop.material = faceMaterialBlue;
-            mrTop.materials[0].mainTexture = faceletTextures[x, z];    // OK!
+            mrTop.materials[0].mainTexture = cubeFaceletTextures[x, z];    // OK!
         }
         else
         {
@@ -227,7 +235,7 @@ public class MyCube : MonoBehaviour
         if (y == 0)
         {
             mrBottom.material = faceMaterialGreen;
-            mrBottom.materials[0].mainTexture = faceletTextures[x, 4 - z]; // OK!
+            mrBottom.materials[0].mainTexture = cubeFaceletTextures[x, 4 - z]; // OK!
         }
         else
         {
@@ -237,7 +245,7 @@ public class MyCube : MonoBehaviour
         if (z == 0)
         {
             mrFront.material = faceMaterialYellow;
-            mrFront.materials[0].mainTexture = faceletTextures[x, y];  // OK!
+            mrFront.materials[0].mainTexture = cubeFaceletTextures[x, y];  // OK!
 
         }
         else
@@ -248,7 +256,7 @@ public class MyCube : MonoBehaviour
         if (z == 4)
         {
             mrBack.material = faceMaterialWhite;
-            mrBack.materials[0].mainTexture = faceletTextures[4 - x, y];   // OK! NOTE: On map, the FacePanel is thereby rotated 180 degrees.
+            mrBack.materials[0].mainTexture = cubeFaceletTextures[4 - x, y];   // OK! NOTE: On map, the FacePanel is thereby rotated 180 degrees.
         }
         else
         {
@@ -258,7 +266,7 @@ public class MyCube : MonoBehaviour
         if (x == 0)
         {
             mrLeft.material = faceMaterialRed;
-            mrLeft.materials[0].mainTexture = faceletTextures[4 - z, y]; // OK!
+            mrLeft.materials[0].mainTexture = cubeFaceletTextures[4 - z, y]; // OK!
         }
         else
         {
@@ -268,18 +276,18 @@ public class MyCube : MonoBehaviour
         if (x == 4)
         {
             mrRight.material = faceMaterialOrange;
-            mrRight.materials[0].mainTexture = faceletTextures[z,y];  // OK!
+            mrRight.materials[0].mainTexture = cubeFaceletTextures[z, y];  // OK!
         }
         else
         {
             mrRight.material = faceMaterialBlack;
         }
 
-        int [] stdTriangles = new int[] { 0,1,2, 0,2,3 };
+        int[] stdTriangles = new int[] { 0, 1, 2, 0, 2, 3 };
 
-        Vector2 [] stdUV = new Vector2[]
+        Vector2[] stdUV = new Vector2[]
         {
-            new Vector2(0,0), 
+            new Vector2(0,0),
             new Vector2(0,1),
             new Vector2(1,1),
             new Vector2(1,0)

@@ -236,6 +236,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "ResetConfiguration",
+                    "type": "Button",
+                    "id": "e7d2b206-3664-4b8e-abb5-5f8e0520aa07",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
@@ -555,6 +563,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6cd1832-c87c-4df9-a9f5-99d08a18b4b3",
+                    "path": "<Keyboard>/home",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetConfiguration",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

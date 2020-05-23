@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -15,16 +13,17 @@ public class FaceMap : DragWindow
     public FacePanel upPanel;
     public FacePanel downPanel;
 
-    // Sprites.
+    // Sprites for use by the face panels.
     // Initialised in code.
     public Sprite [,] faceSprites;
     public Sprite [,] faceSpritesInverted;
 
-    // Load up the sprites for the 6 Face panels.
+
+    // Load up the sprites for the 6 Face panels to use.
     void Awake()
     {
-        faceSprites = new Sprite[5,5];
-        faceSpritesInverted = new Sprite[5,5];
+        faceSprites = new Sprite[5, 5];
+        faceSpritesInverted = new Sprite[5, 5];
 
         for (int x = 0; x < 5; x++)
         {
@@ -33,12 +32,13 @@ public class FaceMap : DragWindow
                 string codeNumber = string.Format("{0}{1}", x, y);
 
                 faceSprites[x,y] = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
-                faceSpritesInverted[x,y] = InvertSprite(faceSprites[x,y]);
+                faceSpritesInverted[x, y] = InvertSprite(faceSprites[x, y]);
             }
         }
     }
 
 
+    // Reset all the face panels in this map.
     public void ResetMap()
     {
         frontPanel.ResetFace();
@@ -49,6 +49,7 @@ public class FaceMap : DragWindow
         downPanel.ResetFace();
     }
 
+
     Sprite InvertSprite(Sprite originalSprite)
     {
         Texture2D originalTexture = originalSprite.texture;
@@ -57,8 +58,6 @@ public class FaceMap : DragWindow
         int height = originalTexture.height;
 
         Texture2D invertedTexture = new Texture2D(width, height);
-
-        //Sprite invertedSprite = new Sprite(originalTexture.width, originalTexture.height);
 
         for (int x = 0; x < width; x++)
         {
@@ -70,6 +69,8 @@ public class FaceMap : DragWindow
         invertedTexture.Apply();
 
         Sprite invertedSprite = Sprite.Create(invertedTexture, new Rect(0, 0, width, height), Vector2.zero);
+            // >>> Set ALL the parameters like the uninverted ones...
+
         return invertedSprite;
     }
 

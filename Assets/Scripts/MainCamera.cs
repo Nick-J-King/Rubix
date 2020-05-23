@@ -30,6 +30,7 @@ public class MainCamera : MonoBehaviour
 
     public Camera cam;
 
+
     private void Awake()
     {
         //Cursor.lockState = CursorLockMode.Locked;

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-
+// Used to conveniently copy and set transforms.
 //..[Serializable]
 public class TransformData
 {

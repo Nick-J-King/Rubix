@@ -249,6 +249,14 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""ResetConfiguration"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7d2b206-3664-4b8e-abb5-5f8e0520aa07"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
@@ -570,6 +578,17 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6cd1832-c87c-4df9-a9f5-99d08a18b4b3"",
+                    ""path"": ""<Keyboard>/home"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetConfiguration"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -673,6 +692,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
         m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
+        m_Player_ResetConfiguration = m_Player.FindAction("ResetConfiguration", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -751,6 +771,7 @@ public class @Rubix : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_AllFB;
     private readonly InputAction m_Player_Wheel;
     private readonly InputAction m_Player_Debug;
+    private readonly InputAction m_Player_ResetConfiguration;
     public struct PlayerActions
     {
         private @Rubix m_Wrapper;
@@ -784,6 +805,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
         public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
         public InputAction @Debug => m_Wrapper.m_Player_Debug;
+        public InputAction @ResetConfiguration => m_Wrapper.m_Player_ResetConfiguration;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -880,6 +902,9 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                 @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                 @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                @ResetConfiguration.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
+                @ResetConfiguration.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
+                @ResetConfiguration.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -971,6 +996,9 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @Debug.started += instance.OnDebug;
                 @Debug.performed += instance.OnDebug;
                 @Debug.canceled += instance.OnDebug;
+                @ResetConfiguration.started += instance.OnResetConfiguration;
+                @ResetConfiguration.performed += instance.OnResetConfiguration;
+                @ResetConfiguration.canceled += instance.OnResetConfiguration;
             }
         }
     }
@@ -1060,5 +1088,6 @@ public class @Rubix : IInputActionCollection, IDisposable
         void OnAllFB(InputAction.CallbackContext context);
         void OnWheel(InputAction.CallbackContext context);
         void OnDebug(InputAction.CallbackContext context);
+        void OnResetConfiguration(InputAction.CallbackContext context);
     }
 }

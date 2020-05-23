@@ -12,17 +12,16 @@ public class FacePanel : MonoBehaviour
     public bool inverted;           // Whether to invert this panel (rotate 180 degrees).
     
     public GameObject[,] pFacelets;
-        // These must be accessed by the FaceMap...
+        // These facelet panels must be accessed by the FaceMap...
 
     Color[,] pOrigColor;
     Sprite[,] pOrigSprite;
         // Used to "reset" the face panel.
 
     DefaultControls.Resources uiResources;
-    //Image[,] panelImages = new Image[5,5];
-        // Internals...
 
 
+    // The Face map has been initialised in Awake, so we can use its facelet sprites.
     public void Start()
     {
         Color col = UnityEngine.Color.black;
@@ -90,7 +89,7 @@ public class FacePanel : MonoBehaviour
     }
 
 
-    // Reset the facelets to their original colour and sprite.
+    // Reset the facelets to their original colour, sprite and orientation.
     public void ResetFace()
     {
         transform.rotation = Quaternion.identity;
@@ -101,8 +100,9 @@ public class FacePanel : MonoBehaviour
             {
                 pFacelets[x, y].transform.rotation = Quaternion.identity;
 
-                pFacelets[x, y].GetComponent<Image>().color = pOrigColor[x, y];
-                pFacelets[x, y].GetComponent<Image>().sprite = pOrigSprite[x, y];
+                Image faceImage = pFacelets[x, y].GetComponent<Image>();
+                faceImage.color = pOrigColor[x, y];
+                faceImage.sprite = pOrigSprite[x, y];
             }
         }
     }
@@ -124,16 +124,11 @@ public class FacePanel : MonoBehaviour
 
         GameObject facelet = DefaultControls.CreatePanel(uiResources);
         facelet.name = codeName;
-
         facelet.transform.SetParent(panelFace.transform, false);
 
-
-        RectTransform rt = facelet.GetComponent<RectTransform>();
-
         Image img = facelet.GetComponent<Image>();
+        img.color = col;
 
-        // Use a "plain" sprite for now...
-        //img.sprite = panelFace.GetComponent<Image>().sprite;
         if (inverted)
         {
             img.sprite = panelMap.faceSpritesInverted[x,y];
@@ -143,12 +138,12 @@ public class FacePanel : MonoBehaviour
             img.sprite = panelMap.faceSprites[x,y];
         }
 
+        RectTransform rt = facelet.GetComponent<RectTransform>();
+
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 40.0f);
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 40.0f);
 
         rt.Translate(xTrans, yTrans, 0.0f);
-
-        img.color = col;
 
         return facelet;
     }

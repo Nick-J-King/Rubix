@@ -655,14 +655,23 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.z, CubeSlices.s2);
     }
 
+
     public void OnSpace(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Started)
             return;
 
-        // TODO>>> If camera IS in the reset state, reset the cube...
         mainCamera.Start();
         faceMap.ResetPositionAndScale();
+        myCube.ResetScale();
+    }
+
+
+    public void OnResetConfiguration(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
         myCube.ResetCube();
         faceMap.ResetMap();
     }
