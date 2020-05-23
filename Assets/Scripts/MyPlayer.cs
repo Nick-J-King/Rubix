@@ -677,7 +677,7 @@ public class MyPlayer : MonoBehaviour
     }
 
 
-    public void OnDestroy(InputAction.CallbackContext context)
+    public void OnMyDestroy(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Started)
             return;

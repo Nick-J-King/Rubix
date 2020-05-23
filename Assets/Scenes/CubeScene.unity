@@ -364,7 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4165ec0398d4fbe9d169849f297f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pRoot: {fileID: 73197696}
+  panelMap: {fileID: 296277996}
+  panelFace: {fileID: 73197698}
+  inverted: 1
 --- !u!114 &73197699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,6 +865,51 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 577621ae-37ee-47a6-9617-74dad8e85e36
     m_ActionName: Player/Wheel[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 139313360}
+        m_MethodName: OnDebugMe
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 45cee9f6-0db4-4d8a-b069-906fae2aa9c6
+    m_ActionName: Player/Debug[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 139313360}
+        m_MethodName: OnResetConfiguration
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e7d2b206-3664-4b8e-abb5-5f8e0520aa07
+    m_ActionName: Player/ResetConfiguration[/Keyboard/home]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 139313360}
+        m_MethodName: OnMyDestroy
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c452cf2a-9248-49dc-aa66-ea9fc950779f
+    m_ActionName: Player/Destroy[/Keyboard/end]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1051,7 +1098,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4165ec0398d4fbe9d169849f297f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pRoot: {fileID: 400510026}
+  panelMap: {fileID: 296277996}
+  panelFace: {fileID: 400510028}
+  inverted: 0
 --- !u!114 &400510029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,7 +1280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4165ec0398d4fbe9d169849f297f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pRoot: {fileID: 769891482}
+  panelMap: {fileID: 296277996}
+  panelFace: {fileID: 769891484}
+  inverted: 0
 --- !u!114 &769891485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,7 +1462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4165ec0398d4fbe9d169849f297f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pRoot: {fileID: 904768159}
+  panelMap: {fileID: 296277996}
+  panelFace: {fileID: 904768161}
+  inverted: 0
 --- !u!114 &904768162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1954,7 +2007,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 84ea8787f6965458c8bf95b86d581815, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2178,7 +2231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4165ec0398d4fbe9d169849f297f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pRoot: {fileID: 1833996268}
+  panelMap: {fileID: 296277996}
+  panelFace: {fileID: 1833996270}
+  inverted: 0
 --- !u!114 &1833996271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2303,7 +2358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd4165ec0398d4fbe9d169849f297f41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pRoot: {fileID: 1911183425}
+  panelMap: {fileID: 296277996}
+  panelFace: {fileID: 1911183429}
+  inverted: 0
 --- !u!1 &2037798673
 GameObject:
   m_ObjectHideFlags: 0
