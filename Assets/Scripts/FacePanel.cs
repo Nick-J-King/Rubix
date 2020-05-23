@@ -14,6 +14,9 @@ public class FacePanel : MonoBehaviour
     public GameObject[,] pFacelets;
         // These must be accessed by the FaceMap...
 
+    Color[,] pOrigColor;
+    Sprite[,] pOrigSprite;
+        // Used to "reset" the face panel.
 
     DefaultControls.Resources uiResources;
     //Image[,] panelImages = new Image[5,5];
@@ -70,11 +73,36 @@ public class FacePanel : MonoBehaviour
 
         pFacelets = new GameObject[5, 5];
 
+        pOrigColor = new Color[5, 5];
+        pOrigSprite = new Sprite[5, 5];
+
+
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
             {
                 pFacelets[x, y] = CreateFacelet(x, y, col);
+
+                pOrigColor[x, y] = col;
+                pOrigSprite[x, y] = pFacelets[x, y].GetComponent<Image>().sprite;
+            }
+        }
+    }
+
+
+    // Reset the facelets to their original colour and sprite.
+    public void ResetFace()
+    {
+        transform.rotation = Quaternion.identity;
+
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                pFacelets[x, y].transform.rotation = Quaternion.identity;
+
+                pFacelets[x, y].GetComponent<Image>().color = pOrigColor[x, y];
+                pFacelets[x, y].GetComponent<Image>().sprite = pOrigSprite[x, y];
             }
         }
     }

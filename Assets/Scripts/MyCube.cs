@@ -155,18 +155,7 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        GameObject cubeShow = mfCubelets[x, y, z];
-                        GameObject cubeOrig = mfOrigCubelets[x, y, z];
-
-                        Debug.Log("{" + x + ", " + y + ", " + z + "}");
-
-                        Debug.Log(cubeShow.transform.position);
-                        Debug.Log(cubeOrig.transform.position);
-                        Debug.Log(".");
-
                         mfCubelets[x, y, z] = mfOrigCubelets[x, y, z];
-                        GameObject cubeNow = mfCubelets[x, y, z];
-
                         mfOrigTransformData[x, y, z].ApplyTo(mfCubelets[x, y, z].transform);
                     }
                     else

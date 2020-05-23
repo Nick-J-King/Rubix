@@ -664,6 +664,7 @@ public class MyPlayer : MonoBehaviour
         mainCamera.Start();
         faceMap.ResetPositionAndScale();
         myCube.ResetCube();
+        faceMap.ResetMap();
     }
 
 

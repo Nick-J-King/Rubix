@@ -39,6 +39,16 @@ public class FaceMap : DragWindow
     }
 
 
+    public void ResetMap()
+    {
+        frontPanel.ResetFace();
+        backPanel.ResetFace();
+        leftPanel.ResetFace();
+        rightPanel.ResetFace();
+        upPanel.ResetFace();
+        downPanel.ResetFace();
+    }
+
     Sprite InvertSprite(Sprite originalSprite)
     {
         Texture2D originalTexture = originalSprite.texture;
@@ -63,43 +73,6 @@ public class FaceMap : DragWindow
         return invertedSprite;
     }
 
-
-    // Y axis
-
-    // nSlice = 0 is Top. nSlice = 4 is Bottom.
-    public void CycleSliceFromTop(int nSlice, RotationDirection rotationDirection)
-    {
-        GameObject[] a = new GameObject[20];
-
-        a[0] = frontPanel.pFacelets[0, 4 - nSlice];
-        a[1] = frontPanel.pFacelets[1, 4 - nSlice];
-        a[2] = frontPanel.pFacelets[2, 4 - nSlice];
-        a[3] = frontPanel.pFacelets[3, 4 - nSlice];
-        a[4] = frontPanel.pFacelets[4, 4 - nSlice];
-
-        a[5] = rightPanel.pFacelets[0, 4 - nSlice];
-        a[6] = rightPanel.pFacelets[1, 4 - nSlice];
-        a[7] = rightPanel.pFacelets[2, 4 - nSlice];
-        a[8] = rightPanel.pFacelets[3, 4 - nSlice];
-        a[9] = rightPanel.pFacelets[4, 4 - nSlice];
-
-        a[10] = backPanel.pFacelets[4, nSlice];
-        a[11] = backPanel.pFacelets[3, nSlice];
-        a[12] = backPanel.pFacelets[2, nSlice];
-        a[13] = backPanel.pFacelets[1, nSlice];
-        a[14] = backPanel.pFacelets[0, nSlice];
-
-        a[15] = leftPanel.pFacelets[0, 4 - nSlice];
-        a[16] = leftPanel.pFacelets[1, 4 - nSlice];
-        a[17] = leftPanel.pFacelets[2, 4 - nSlice];
-        a[18] = leftPanel.pFacelets[3, 4 - nSlice];
-        a[19] = leftPanel.pFacelets[4, 4 - nSlice];
-
-        if (rotationDirection == RotationDirection.normal)
-            CycleFacelets20(a);
-        else
-            CycleFacelets20A(a);
-    }
 
     // X axis
 
@@ -136,6 +109,43 @@ public class FaceMap : DragWindow
             CycleFacelets20A(a);
         else
             CycleFacelets20(a);
+    }
+
+    // Y axis
+
+    // nSlice = 0 is Top. nSlice = 4 is Bottom.
+    public void CycleSliceFromTop(int nSlice, RotationDirection rotationDirection)
+    {
+        GameObject[] a = new GameObject[20];    // An array of the little "facelet" panels.
+
+        a[0] = frontPanel.pFacelets[0, 4 - nSlice];
+        a[1] = frontPanel.pFacelets[1, 4 - nSlice];
+        a[2] = frontPanel.pFacelets[2, 4 - nSlice];
+        a[3] = frontPanel.pFacelets[3, 4 - nSlice];
+        a[4] = frontPanel.pFacelets[4, 4 - nSlice];
+
+        a[5] = rightPanel.pFacelets[0, 4 - nSlice];
+        a[6] = rightPanel.pFacelets[1, 4 - nSlice];
+        a[7] = rightPanel.pFacelets[2, 4 - nSlice];
+        a[8] = rightPanel.pFacelets[3, 4 - nSlice];
+        a[9] = rightPanel.pFacelets[4, 4 - nSlice];
+
+        a[10] = backPanel.pFacelets[4, nSlice];
+        a[11] = backPanel.pFacelets[3, nSlice];
+        a[12] = backPanel.pFacelets[2, nSlice];
+        a[13] = backPanel.pFacelets[1, nSlice];
+        a[14] = backPanel.pFacelets[0, nSlice];
+
+        a[15] = leftPanel.pFacelets[0, 4 - nSlice];
+        a[16] = leftPanel.pFacelets[1, 4 - nSlice];
+        a[17] = leftPanel.pFacelets[2, 4 - nSlice];
+        a[18] = leftPanel.pFacelets[3, 4 - nSlice];
+        a[19] = leftPanel.pFacelets[4, 4 - nSlice];
+
+        if (rotationDirection == RotationDirection.normal)
+            CycleFacelets20(a);
+        else
+            CycleFacelets20A(a);
     }
 
     // Z axis
@@ -300,6 +310,9 @@ public class FaceMap : DragWindow
         }
         
     }
+
+
+    // Low level facelet cycling code...
 
     public void CycleFacelets4(GameObject[] f)
     {
