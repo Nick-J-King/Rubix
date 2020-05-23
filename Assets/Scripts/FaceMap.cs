@@ -18,11 +18,13 @@ public class FaceMap : DragWindow
     // Sprites.
     // Initialised in code.
     public Sprite [,] faceSprites;
+    public Sprite [,] faceSpritesInverted;
 
     // Load up the sprites for the 6 Face panels.
     void Awake()
     {
         faceSprites = new Sprite[5,5];
+        faceSpritesInverted = new Sprite[5,5];
 
         for (int x = 0; x < 5; x++)
         {
@@ -31,9 +33,36 @@ public class FaceMap : DragWindow
                 string codeNumber = string.Format("{0}{1}", x, y);
 
                 faceSprites[x,y] = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
+                faceSpritesInverted[x,y] = InvertSprite(faceSprites[x,y]);
             }
         }
     }
+
+
+    Sprite InvertSprite(Sprite originalSprite)
+    {
+        Texture2D originalTexture = originalSprite.texture;
+
+        int width = originalTexture.width;
+        int height = originalTexture.height;
+
+        Texture2D invertedTexture = new Texture2D(width, height);
+
+        //Sprite invertedSprite = new Sprite(originalTexture.width, originalTexture.height);
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                invertedTexture.SetPixel(width - x - 1, height - y - 1, originalTexture.GetPixel(x, y));
+            }
+        }
+        invertedTexture.Apply();
+
+        Sprite invertedSprite = Sprite.Create(invertedTexture, new Rect(0, 0, width, height), Vector2.zero);
+        return invertedSprite;
+    }
+
 
     // Y axis
 

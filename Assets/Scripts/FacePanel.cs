@@ -92,9 +92,7 @@ public class FacePanel : MonoBehaviour
         }
 
         string codeNumber = string.Format("{0}{1}", x, y);
-
         string codeName = "Facelet" + codeNumber;
-
 
         GameObject facelet = DefaultControls.CreatePanel(uiResources);
         facelet.name = codeName;
@@ -107,21 +105,20 @@ public class FacePanel : MonoBehaviour
         Image img = facelet.GetComponent<Image>();
 
         // Use a "plain" sprite for now...
-        //img.sprite = pRoot.GetComponent<Image>().sprite;
-        img.sprite = panelMap.faceSprites[x,y]; //Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
+        //img.sprite = panelFace.GetComponent<Image>().sprite;
+        if (inverted)
+        {
+            img.sprite = panelMap.faceSpritesInverted[x,y];
+        }
+        else
+        {
+            img.sprite = panelMap.faceSprites[x,y];
+        }
 
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 40.0f);
         rt.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 40.0f);
 
         rt.Translate(xTrans, yTrans, 0.0f);
-
-
-        if (inverted)
-        {
-            rt.Rotate(0.0f, 0.0f, 180.0f, Space.Self);
-            //panelImages[4 - x, 4 - y] = img;
-        }
-
 
         img.color = col;
 
