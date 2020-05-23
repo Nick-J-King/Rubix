@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class FaceMap : DragWindow
 {
     // The panels for each face in this map.
+    // Initialised in Unity IDE.
     public FacePanel frontPanel;
     public FacePanel backPanel;
     public FacePanel leftPanel;
@@ -14,6 +15,25 @@ public class FaceMap : DragWindow
     public FacePanel upPanel;
     public FacePanel downPanel;
 
+    // Sprites.
+    // Initialised in code.
+    public Sprite [,] faceSprites;
+
+    // Load up the sprites for the 6 Face panels.
+    void Awake()
+    {
+        faceSprites = new Sprite[5,5];
+
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                string codeNumber = string.Format("{0}{1}", x, y);
+
+                faceSprites[x,y] = Resources.Load<Sprite>("Sprites/Facelet" + codeNumber);
+            }
+        }
+    }
 
     // Y axis
 

@@ -299,7 +299,7 @@ public class MyCube : MonoBehaviour
         if (y == 4)
         {
             mrTop.material = faceMaterialBlue;
-            mrTop.materials[0].mainTexture = GetTextureByIndex(x,y);
+            mrTop.materials[0].mainTexture = GetTextureByIndex(x, z);    // OK!
         }
         else
         {
@@ -309,7 +309,7 @@ public class MyCube : MonoBehaviour
         if (y == 0)
         {
             mrBottom.material = faceMaterialGreen;
-            mrBottom.materials[0].mainTexture = GetTextureByIndex(x,y);
+            mrBottom.materials[0].mainTexture = GetTextureByIndex(x, 4 - z); // OK!
         }
         else
         {
@@ -319,7 +319,7 @@ public class MyCube : MonoBehaviour
         if (z == 0)
         {
             mrFront.material = faceMaterialYellow;
-            mrFront.materials[0].mainTexture = GetTextureByIndex(x,y);  // OK!
+            mrFront.materials[0].mainTexture = GetTextureByIndex(x, y);  // OK!
 
         }
         else
@@ -330,7 +330,7 @@ public class MyCube : MonoBehaviour
         if (z == 4)
         {
             mrBack.material = faceMaterialWhite;
-            mrBack.materials[0].mainTexture = GetTextureByIndex(x,y);
+            mrBack.materials[0].mainTexture = GetTextureByIndex(4 - x, y);   // OK! NOTE: On map, the FacePanel is thereby rotated 180 degrees.
         }
         else
         {
@@ -340,7 +340,7 @@ public class MyCube : MonoBehaviour
         if (x == 0)
         {
             mrLeft.material = faceMaterialRed;
-            mrLeft.materials[0].mainTexture = GetTextureByIndex(x,y);
+            mrLeft.materials[0].mainTexture = GetTextureByIndex(4 - z, y); // OK!
         }
         else
         {
@@ -350,13 +350,22 @@ public class MyCube : MonoBehaviour
         if (x == 4)
         {
             mrRight.material = faceMaterialOrange;
-            mrRight.materials[0].mainTexture = GetTextureByIndex(x,y);
+            mrRight.materials[0].mainTexture = GetTextureByIndex(z,y);  // OK!
         }
         else
         {
             mrRight.material = faceMaterialBlack;
         }
 
+        int [] stdTriangles = new int[] { 0,1,2, 0,2,3 };
+
+        Vector2 [] stdUV = new Vector2[]
+        {
+            new Vector2(0,0), 
+            new Vector2(0,1),
+            new Vector2(1,1),
+            new Vector2(1,0)
+        };
 
         // Top --------------------
 
@@ -370,18 +379,8 @@ public class MyCube : MonoBehaviour
                 new Vector3(0.5f, 0.5f, -0.5f)
             },
 
-            uv = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(1,1),
-                new Vector2(1,0)
-            },
-
-            triangles = new int[]
-            {
-                0,1,2, 0,2,3
-            }
+            uv = stdUV,
+            triangles = stdTriangles
         };
 
         mfTop.mesh = mTop;
@@ -395,24 +394,14 @@ public class MyCube : MonoBehaviour
         {
             vertices = new Vector3[]
             {
+                new Vector3(-0.5f, -0.5f, 0.5f),
                 new Vector3(-0.5f, -0.5f, -0.5f),
                 new Vector3(0.5f, -0.5f, -0.5f),
-                new Vector3(0.5f, -0.5f, 0.5f),
-                new Vector3(-0.5f, -0.5f, 0.5f)
+                new Vector3(0.5f, -0.5f, 0.5f)
             },
 
-            uv = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(1,1),
-                new Vector2(1,0)
-            },
-
-            triangles = new int[]
-            {
-                0,1,2, 0,2,3
-            }
+            uv = stdUV,
+            triangles = stdTriangles
         };
 
         mfBottom.mesh = mBottom;
@@ -432,18 +421,8 @@ public class MyCube : MonoBehaviour
                 new Vector3(0.5f, -0.5f, -0.5f)
             },
 
-            uv = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(1,1),
-                new Vector2(1,0)
-            },
-
-            triangles = new int[]
-            {
-                0,1,2, 0,2,3
-            }
+            uv = stdUV,
+            triangles = stdTriangles
         };
 
         mfFront.mesh = mFront;
@@ -457,24 +436,14 @@ public class MyCube : MonoBehaviour
         {
             vertices = new Vector3[]
             {
-                new Vector3(-0.5f, -0.5f, 0.5f),
                 new Vector3(0.5f, -0.5f, 0.5f),
                 new Vector3(0.5f, 0.5f, 0.5f),
-                new Vector3(-0.5f, 0.5f, 0.5f)
+                new Vector3(-0.5f, 0.5f, 0.5f),
+                new Vector3(-0.5f, -0.5f, 0.5f)
             },
 
-            uv = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(1,1),
-                new Vector2(1,0)
-            },
-
-            triangles = new int[]
-            {
-                0,1,2, 0,2,3
-            }
+            uv = stdUV,
+            triangles = stdTriangles
         };
 
         mfBack.mesh = mBack;
@@ -488,24 +457,14 @@ public class MyCube : MonoBehaviour
         {
             vertices = new Vector3[]
             {
-                new Vector3(-0.5f, -0.5f, -0.5f),
                 new Vector3(-0.5f, -0.5f, 0.5f),
                 new Vector3(-0.5f, 0.5f, 0.5f),
-                new Vector3(-0.5f, 0.5f, -0.5f)
-            },
+                new Vector3(-0.5f, 0.5f, -0.5f),
+                new Vector3(-0.5f, -0.5f, -0.5f)
+          },
 
-            uv = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(1,1),
-                new Vector2(1,0)
-            },
-
-            triangles = new int[]
-            {
-                0,1,2, 0,2,3
-            }
+            uv = stdUV,
+            triangles = stdTriangles
         };
 
         mfLeft.mesh = mLeft;
@@ -525,18 +484,8 @@ public class MyCube : MonoBehaviour
                 new Vector3(0.5f, -0.5f, 0.5f)
              },
 
-            uv = new Vector2[]
-            {
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(1,1),
-                new Vector2(1,0)
-             },
-
-            triangles = new int[]
-            {
-                0,1,2, 0,2,3
-            }
+            uv = stdUV,
+            triangles = stdTriangles
         };
 
         mfRight.mesh = mRight;
