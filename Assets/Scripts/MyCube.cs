@@ -102,13 +102,33 @@ public class MyCube : MonoBehaviour
                 }
             }
         }
-
     }
 
 
     public void ResetScale()
     {
         transform.localScale = Vector3.one;
+    }
+
+
+    // FUN! Turn on gravity and physics!
+    public void DoMyDestroy()
+    {
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                for (int z = 0; z < 5; z++)
+                {
+                    if (IsOuterCubelet(x, y, z))
+                    {
+                        Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb.useGravity = true;
+                        rb.isKinematic = false;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -164,6 +184,9 @@ public class MyCube : MonoBehaviour
                     if (IsOuterCubelet(x, y, z))
                     {
                         mfCubelets[x, y, z] = mfOrigCubelets[x, y, z];
+                        Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb.useGravity = false;
+                        rb.isKinematic = true;
                         mfOrigTransformData[x, y, z].ApplyTo(mfCubelets[x, y, z].transform);
                     }
                     else
@@ -419,8 +442,9 @@ public class MyCube : MonoBehaviour
         mRight.RecalculateNormals();
 
         cubelet.AddComponent<BoxCollider>();
-        ///Rigidbody rb = cubelet.AddComponent<Rigidbody>();
-        ///rb.useGravity = true;
+        Rigidbody rb = cubelet.AddComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = true;
 
         cubelet.tag = "Cubelet";
         cubelet.layer = 8;  //"Clickable";

@@ -677,6 +677,15 @@ public class MyPlayer : MonoBehaviour
     }
 
 
+    public void OnDestroy(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        myCube.DoMyDestroy();
+    }
+
+
     public void OnScroll(InputAction.CallbackContext context)
     {
         var d = Input.GetAxis("Mouse ScrollWheel");

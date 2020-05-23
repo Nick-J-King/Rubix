@@ -244,6 +244,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "Destroy",
+                    "type": "Button",
+                    "id": "c452cf2a-9248-49dc-aa66-ea9fc950779f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
@@ -574,6 +582,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ResetConfiguration",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdf22ecf-ee38-44fe-9482-a2551f537782",
+                    "path": "<Keyboard>/end",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Destroy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
