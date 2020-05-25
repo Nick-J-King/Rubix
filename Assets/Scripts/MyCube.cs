@@ -6,9 +6,6 @@ public class MyCube : MonoBehaviour
     public GameObject cubeRoot;
     public GameObject cubePlaceholder;
 
-    // Textures
-    Texture[,] cubeFaceletTextures;
-
     // Materials.
     public Material faceMaterialBlue;
     public Material faceMaterialGreen;
@@ -21,22 +18,20 @@ public class MyCube : MonoBehaviour
 
     public Material faceMaterialBlack;  // For the "innards"
 
+    // Textures
+    Texture[,] cubeFaceletTextures;
+        // Loaded up from Resources
+
     //-------------------------------------------------
     //
     // Animation stuff...
 
     public bool isAnimating;
-    int animationStep;
 
     CubeAxis cubeAxis;                      // Which axis we are currently rotating about.
-    RotationDirection rotationDirection;    // "normal" or "reverse"
     CubeSlices cubeSlices;                  // Which slices we are currently rotating.
+    RotationDirection rotationDirection;    // "normal" or "reverse"
         // AnimationSpecification
-
-    public float currentAngle;
-    public float finalAngle;
-    public float deltaAngle;
-    public float angleStep;
 
     //-------------------------------------------------
 
@@ -46,7 +41,7 @@ public class MyCube : MonoBehaviour
     public GameObject[,,] mfOrigCubelets;
     public TransformData[,,] mfOrigTransformData;
 
-    enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
+    //enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
 
     void Awake()
@@ -158,9 +153,11 @@ public class MyCube : MonoBehaviour
                     if (IsOuterCubelet(x, y, z))
                     {
                         mfCubelets[x, y, z] = mfOrigCubelets[x, y, z];
+
                         Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
                         rb.useGravity = false;
                         rb.isKinematic = true;
+
                         mfOrigTransformData[x, y, z].ApplyTo(mfCubelets[x, y, z].transform);
                     }
                     else
@@ -290,9 +287,11 @@ public class MyCube : MonoBehaviour
             new Vector2(1,0)
         };
 
+        // x axis points right. y axis points up. z axis points into the screen.
+
         // Top --------------------
 
-        Mesh mTop = new Mesh
+        mfTop.mesh = new Mesh
         {
             vertices = new Vector3[]
             {
@@ -306,14 +305,12 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfTop.mesh = mTop;
-        mTop.RecalculateBounds();
-        mTop.RecalculateNormals();
-
+        mfTop.mesh.RecalculateBounds();
+        mfTop.mesh.RecalculateNormals();
 
         // Bottom -----------------
 
-        Mesh mBottom = new Mesh
+        mfBottom.mesh = new Mesh
         {
             vertices = new Vector3[]
             {
@@ -327,14 +324,12 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfBottom.mesh = mBottom;
-        mBottom.RecalculateBounds();
-        mBottom.RecalculateNormals();
-
+        mfBottom.mesh.RecalculateBounds();
+        mfBottom.mesh.RecalculateNormals();
 
         // Front ------------------
 
-        Mesh mFront = new Mesh
+        mfFront.mesh = new Mesh
         {
             vertices = new Vector3[]
             {
@@ -348,14 +343,12 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfFront.mesh = mFront;
-        mFront.RecalculateBounds();
-        mFront.RecalculateNormals();
-
+        mfFront.mesh.RecalculateBounds();
+        mfFront.mesh.RecalculateNormals();
 
         // Back -------------------
 
-        Mesh mBack = new Mesh
+        mfBack.mesh = new Mesh
         {
             vertices = new Vector3[]
             {
@@ -369,14 +362,12 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfBack.mesh = mBack;
-        mBack.RecalculateBounds();
-        mBack.RecalculateNormals();
-
+        mfBack.mesh.RecalculateBounds();
+        mfBack.mesh.RecalculateNormals();
 
         // Left -------------------
 
-        Mesh mLeft = new Mesh
+        mfLeft.mesh = new Mesh
         {
             vertices = new Vector3[]
             {
@@ -390,14 +381,12 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfLeft.mesh = mLeft;
-        mLeft.RecalculateBounds();
-        mLeft.RecalculateNormals();
-
+        mfLeft.mesh.RecalculateBounds();
+        mfLeft.mesh.RecalculateNormals();
 
         // Right ------------------
 
-        Mesh mRight = new Mesh
+        mfRight.mesh = new Mesh
         {
             vertices = new Vector3[]
             {
@@ -411,11 +400,12 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfRight.mesh = mRight;
-        mRight.RecalculateBounds();
-        mRight.RecalculateNormals();
+        mfRight.mesh.RecalculateBounds();
+        mfRight.mesh.RecalculateNormals();
 
+        // Now, set up the extra cubelet stuff.
         cubelet.AddComponent<BoxCollider>();
+
         Rigidbody rb = cubelet.AddComponent<Rigidbody>();
         rb.useGravity = false;
         rb.isKinematic = true;
@@ -429,13 +419,12 @@ public class MyCube : MonoBehaviour
 
     // Specify the animation to do.
     // Initialise...
-    public void SpecifyAnimation(CubeAxis cubeAxisIn, CubeSlices cubeSlicesIn, RotationDirection rotationDirectionIn)
+    public void SpecifyAnimation(AnimationSpecification animationSpecification)
     {
-        cubeAxis = cubeAxisIn;
-        cubeSlices = cubeSlicesIn;
-        rotationDirection = rotationDirectionIn;
+        cubeAxis = animationSpecification.cubeAxis;
+        cubeSlices = animationSpecification.cubeSlices;
+        rotationDirection = animationSpecification.rotationDirection;
 
-        currentAngle = 0.0f;        // No rotation so far.
         isAnimating = true;
     }
 
@@ -529,12 +518,6 @@ public class MyCube : MonoBehaviour
                 }
                 break;
         }
-
-        // Keep track internally of the "current angle"...
-        if (rotationDirection == RotationDirection.normal)
-            currentAngle += deltaAngle;
-        else
-            currentAngle -= deltaAngle;
     }
 
 

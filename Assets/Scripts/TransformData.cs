@@ -2,6 +2,7 @@
 
 
 // Used to conveniently copy and set transforms.
+
 //..[Serializable]
 public class TransformData
 {

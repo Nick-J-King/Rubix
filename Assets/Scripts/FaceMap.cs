@@ -22,9 +22,7 @@ public class FaceMap : DragWindow
     //
     // Animation stuff...
     public bool isAnimating;
-
-    int animationStep;
-
+        
     public RotationDirection rotationDirection;
     public CubeAxis cubeAxis;       // Which axis we are currently rotating about.
     public CubeSlices cubeSlices;   // Which slices we are currently rotating.
@@ -532,7 +530,6 @@ public class FaceMap : DragWindow
         isAnimating = false;
     }
 
-
     //----------------------------------------------------
 
     // X axis
@@ -647,7 +644,6 @@ public class FaceMap : DragWindow
     }
 
 
-
     public void RotateFaceCW90(FacePanel face, RotationDirection direction)
     {
         if (direction == RotationDirection.reverse)
@@ -707,8 +703,8 @@ public class FaceMap : DragWindow
                 face.pFacelets[x,y].transform.Rotate(0.0f, 0.0f, -90.0f);
             }
         }
-        
     }
+
 
     public void RotateFaceACW90(FacePanel face, RotationDirection direction)
     {
@@ -769,7 +765,6 @@ public class FaceMap : DragWindow
                 face.pFacelets[x, y].transform.Rotate(0.0f, 0.0f, 90.0f);
             }
         }
-        
     }
 
 
@@ -796,6 +791,7 @@ public class FaceMap : DragWindow
         imgs[3].sprite = s0;
     }
 
+
     public void CycleFacelets4A(GameObject[] f)
     {
         Image[] imgs = new Image[4];
@@ -816,6 +812,7 @@ public class FaceMap : DragWindow
         imgs[0].color = c3;
         imgs[0].sprite = s3;
     }
+
 
     public void CycleFacelets20(GameObject[] f)
     {
@@ -838,6 +835,7 @@ public class FaceMap : DragWindow
         imgs[19].sprite = s0;
     }
 
+
     public void CycleFacelets20A(GameObject[] f)
     {
         Image[] imgs = new Image[20];
@@ -858,5 +856,4 @@ public class FaceMap : DragWindow
         imgs[0].color = c19;
         imgs[0].sprite = s19;
     }
-
 }

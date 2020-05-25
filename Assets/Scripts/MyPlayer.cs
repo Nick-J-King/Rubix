@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 
 public class MyPlayer : MonoBehaviour
 {
-    public MyGame myGame;
     public MainCamera mainCamera;
     public MyCube myCube;
-    public MouseManager mouseManager;
     public FaceMap faceMap;
+
+    public MouseManager mouseManager;
     public AnimationController animationController;
 
 
@@ -203,6 +202,8 @@ public class MyPlayer : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
+        animationController.StopAnimation();
+
         myCube.ResetCube();
         faceMap.ResetMap();
     }
@@ -212,6 +213,8 @@ public class MyPlayer : MonoBehaviour
     {
         if (context.phase != InputActionPhase.Started)
             return;
+
+        animationController.StopAnimation();
 
         myCube.DoMyDestroy();
     }
@@ -291,9 +294,6 @@ public class MyPlayer : MonoBehaviour
 
         if (Mouse.current.rightButton.isPressed)
         {
-            //cubeX += move.x;
-            //cubeY += move.y;
-
             float x = mainCamera.cam.pixelRect.x;
             float y = mainCamera.cam.pixelRect.y;
             float w = mainCamera.cam.pixelRect.width;

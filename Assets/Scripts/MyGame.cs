@@ -6,9 +6,9 @@
 // MyGame figures out how to responsd to player actions...
 public class MyGame : MonoBehaviour
 {
-    public MyCube myCube;
-    public FaceMap faceMap;
-    public MouseManager mouseManager;
+    //public MyCube myCube;
+    //public FaceMap faceMap;
+    //public MouseManager mouseManager;
 
 
     void Start()
