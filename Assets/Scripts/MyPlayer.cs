@@ -10,520 +10,41 @@ public class MyPlayer : MonoBehaviour
     public MyCube myCube;
     public MouseManager mouseManager;
     public FaceMap faceMap;
-
-    readonly float baseAngleStep = 5.0f;
-    float angleStep; // Same as base for normal direction, negative for reverse.
-
-    readonly int firstStep = 2;
-    readonly int secondStep = 4;
-    readonly int thirdStep = 9;
-    readonly int fourthStep = 14;
-    readonly int fifthStep = 16;
-
-    // Animation
-    int animationStep;
-    readonly int lastAnimationStep = 18;
-
-    bool isAnimating;
-    RotationDirection rotationDirection;
-    CubeAxis cubeAxis;       // Which axis we are currently rotating about.
-    CubeSlices cubeSlices;   // Which slices we are currently rotating.
+    public AnimationController animationController;
 
 
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Determine whether to "cycle" the facelets on "strips".
-    bool IsAnimationOnStep()
-    {
-        return (animationStep == firstStep
-        || animationStep == secondStep
-        || animationStep == thirdStep
-        || animationStep == fourthStep
-        || animationStep == fifthStep);
-    }
 
-    // Update is called once per frame
-
-    void Update()
-    {
-        if (isAnimating)
-        {
-            animationStep += 1;
-
-            // Y axis
-
-            // All slices from top to bottom.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01234)
-            {
-                faceMap.downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-                faceMap.upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(0, rotationDirection);
-                    faceMap.CycleSliceFromTop(1, rotationDirection);
-                    faceMap.CycleSliceFromTop(2, rotationDirection);
-                    faceMap.CycleSliceFromTop(3, rotationDirection);
-                    faceMap.CycleSliceFromTop(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.downPanel, rotationDirection);
-                    faceMap.RotateFaceCW90(faceMap.upPanel, rotationDirection);
-                    faceMap.downPanel.transform.localEulerAngles = Vector3.zero;
-                    faceMap.upPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // First slice from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s4)
-            {
-                faceMap.upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(0, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.upPanel, rotationDirection);
-                    faceMap.upPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // First two slices from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s34)
-            {
-                faceMap.upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(0, rotationDirection);
-                    faceMap.CycleSliceFromTop(1, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.upPanel, rotationDirection);
-                    faceMap.upPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // Second slice from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s3)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(1, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Third slice from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s2)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(2, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Fourth slice from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s1)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(3, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Fourth and Fifth slices from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01)
-            {
-                faceMap.downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(3, rotationDirection);
-                    faceMap.CycleSliceFromTop(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.downPanel, rotationDirection);
-                    faceMap.downPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-
-            // Fifth slice from top.
-            if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s0)
-            {
-                faceMap.downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromTop(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.downPanel, rotationDirection);
-                    faceMap.downPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // X axis
-
-            // All slices from left to right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01234)
-            {
-                faceMap.leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-                faceMap.rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(0, rotationDirection);
-                    faceMap.CycleSliceFromRight(1, rotationDirection);
-                    faceMap.CycleSliceFromRight(2, rotationDirection);
-                    faceMap.CycleSliceFromRight(3, rotationDirection);
-                    faceMap.CycleSliceFromRight(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.leftPanel, rotationDirection);
-                    faceMap.RotateFaceCW90(faceMap.rightPanel, rotationDirection);
-                    faceMap.leftPanel.transform.localEulerAngles = Vector3.zero;
-                    faceMap.rightPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // First slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s4)
-            {
-                faceMap.rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(0, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.rightPanel, rotationDirection);
-                    faceMap.rightPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // First and second slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s34)
-            {
-                faceMap.rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(0, rotationDirection);
-                    faceMap.CycleSliceFromRight(1, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.rightPanel, rotationDirection);
-                    faceMap.rightPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // Second slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s3)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(1, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Third (middle) slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s2)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(2, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-
-            // Fourth slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s1)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(3, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Fourth and fifth slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01)
-            {
-                faceMap.leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(3, rotationDirection);
-                    faceMap.CycleSliceFromRight(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.leftPanel, rotationDirection);
-                    faceMap.leftPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // Fifth slice from right.
-            if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s0)
-            {
-                faceMap.leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromRight(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.leftPanel, rotationDirection);
-                    faceMap.leftPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // Z axis
-
-            // All slices from front to back.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01234)
-            {
-                faceMap.backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-                faceMap.frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(0, rotationDirection);
-                    faceMap.CycleSliceFromFront(1, rotationDirection);
-                    faceMap.CycleSliceFromFront(2, rotationDirection);
-                    faceMap.CycleSliceFromFront(3, rotationDirection);
-                    faceMap.CycleSliceFromFront(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.backPanel, rotationDirection);
-                    faceMap.RotateFaceACW90(faceMap.frontPanel, rotationDirection);
-                    faceMap.backPanel.transform.localEulerAngles = Vector3.zero;
-                    faceMap.frontPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // First slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s0)
-            {
-                faceMap.frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(0, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.frontPanel, rotationDirection);
-                    faceMap.frontPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // First and second slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01)
-            {
-                faceMap.frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(0, rotationDirection);
-                    faceMap.CycleSliceFromFront(1, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceACW90(faceMap.frontPanel, rotationDirection);
-                    faceMap.frontPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-
-            // Second slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s1)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(1, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Third slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s2)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(2, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Fourth slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s3)
-            {
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(3, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    isAnimating = false;
-                }
-            }
-
-            // Fourth and fifth slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s34)
-            {
-                faceMap.backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(3, rotationDirection);
-                    faceMap.CycleSliceFromFront(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.backPanel, rotationDirection);
-                    faceMap.backPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-            // Fifth slice from front.
-            if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s4)
-            {
-                faceMap.backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-                if (IsAnimationOnStep())
-                {
-                    faceMap.CycleSliceFromFront(4, rotationDirection);
-                }
-
-                if (animationStep == lastAnimationStep)
-                {
-                    faceMap.RotateFaceCW90(faceMap.backPanel, rotationDirection);
-                    faceMap.backPanel.transform.localEulerAngles = Vector3.zero;
-                    isAnimating = false;
-                }
-            }
-
-        }
-    }
-
-
-    // Initiate animation of rotation...
+    // Get the AnimationController to do the animation of the Cube and the Map.
     public void OnRotate(InputAction.CallbackContext context, CubeAxis axis, CubeSlices slices)
     {
         if (context.phase != InputActionPhase.Started)
             return;
 
-        if (isAnimating || myCube.isAnimating)
+        if (myCube.isAnimating || faceMap.isAnimating)
             return;
+
+        AnimationSpecification animationSpecification;
+        animationSpecification.cubeAxis = axis;
+        animationSpecification.cubeSlices = slices;
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            rotationDirection = RotationDirection.reverse;
-            angleStep = -baseAngleStep;
+            animationSpecification.rotationDirection = RotationDirection.reverse;
         }
         else
         {
-            rotationDirection = RotationDirection.normal;
-            angleStep = baseAngleStep;
+            animationSpecification.rotationDirection = RotationDirection.normal;
         }
 
-        myCube.DoAnim(axis, slices, rotationDirection);
-
-        cubeSlices = slices;
-        cubeAxis = axis;
-
-        isAnimating = true;
-        animationStep = 0;
+        animationController.StartAnimation(animationSpecification);
     }
 
-    public void OnDebugMe(InputAction.CallbackContext context)
-    {
-        myCube.DebugMe();
-    }
 
-    // ALL
+    // All (entire cube).
 
     public void OnRotateAllLR(InputAction.CallbackContext context)
     {
@@ -540,7 +61,9 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.z, CubeSlices.s01234);
     }
 
-    // Outer
+
+    // Outer slices.
+
     public void OnRotateOuterL(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.x, CubeSlices.s0);
@@ -573,7 +96,9 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.z, CubeSlices.s4);
     }
 
-    // Both
+
+    // Both slices (outermost and next one in).
+
     public void OnRotateBothL(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.x, CubeSlices.s01);
@@ -606,7 +131,9 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.z, CubeSlices.s34);
     }
 
-    // Inner
+
+    // Inner slices.
+
     public void OnRotateInnerL(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.x, CubeSlices.s1);
@@ -640,6 +167,8 @@ public class MyPlayer : MonoBehaviour
     }
 
 
+    // Midline slices.
+
     public void OnRotateMidLR(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.x, CubeSlices.s2);
@@ -655,6 +184,8 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.z, CubeSlices.s2);
     }
 
+
+    // Miscellaneous
 
     public void OnSpace(InputAction.CallbackContext context)
     {
@@ -738,11 +269,13 @@ public class MyPlayer : MonoBehaviour
         }
     }
 
+
     public void OnEscape(InputAction.CallbackContext context)
     {
         Application.Quit();
         //EditorApplication.isPlaying = false;
     }
+
 
     public void OnLook(InputAction.CallbackContext context)
     {
@@ -767,5 +300,11 @@ public class MyPlayer : MonoBehaviour
             float h = mainCamera.cam.pixelRect.height;
             mainCamera.cam.pixelRect = new Rect(x + move.x * 5.0f, y, w - move.x * 5.0f, h);
         }
+    }
+
+
+    public void OnDebugMe(InputAction.CallbackContext context)
+    {
+        //myCube.DebugMe();
     }
 }

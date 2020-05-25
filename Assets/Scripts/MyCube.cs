@@ -21,17 +21,25 @@ public class MyCube : MonoBehaviour
 
     public Material faceMaterialBlack;  // For the "innards"
 
-    // Animation
+    //-------------------------------------------------
+    //
+    // Animation stuff...
+
     public bool isAnimating;
+    int animationStep;
+
+    CubeAxis cubeAxis;                      // Which axis we are currently rotating about.
+    RotationDirection rotationDirection;    // "normal" or "reverse"
+    CubeSlices cubeSlices;                  // Which slices we are currently rotating.
+        // AnimationSpecification
+
     public float currentAngle;
     public float finalAngle;
     public float deltaAngle;
-    public RotationDirection rotationDirection;
-    public CubeAxis cubeAxis;       // Which axis we are currently rotating about.
-    public CubeSlices cubeSlices;   // Which slices we are currently rotating.
+    public float angleStep;
 
+    //-------------------------------------------------
 
-    // PRIVATE members --------------------------
 
     public GameObject[,,] mfCubelets;
 
@@ -41,7 +49,6 @@ public class MyCube : MonoBehaviour
     enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
 
-    // Load up the textures for the faces.
     void Awake()
     {
         cubeFaceletTextures = new Texture[5, 5];
@@ -58,89 +65,7 @@ public class MyCube : MonoBehaviour
     }
 
 
-    bool IsOuterCubelet(int x, int y, int z)
-    {
-        if (x == 0 || x == 4)
-            return true;
-        if (y == 0 || y == 4)
-            return true;
-        if (z == 0 || z == 4)
-            return true;
-        return false;
-    }
-
-    bool IsOuterCubelet(int x, int y)
-    {
-        if (x == 0 || x == 4)
-            return true;
-        if (y == 0 || y == 4)
-            return true;
-        return false;
-    }
-
-    // Diagnostics
-    public void DebugMe()
-    {
-        for (int x = 0; x < 5; x++)
-        {
-            for (int y = 0; y < 5; y++)
-            {
-                for (int z = 0; z < 5; z++)
-                {
-                    Debug.Log("<color=green>" + x + ", " + y + ", " + z + "</color>");
-
-                    if (IsOuterCubelet(x, y, z))
-                    {
-                        Debug.Log("Curr cubelet: " + mfCubelets[x, y, z].name + " - " + mfCubelets[x, y, z].transform.position);
-                        Debug.Log("Orig cubelet: " + mfOrigCubelets[x, y, z].name + " - " + mfOrigCubelets[x, y, z].transform.position);
-                    }
-                    else
-                    {
-                        Debug.Log("Inner cubelet.");
-                        Debug.Log("Inner cubelet.");
-                    }
-                }
-            }
-        }
-    }
-
-
-    public void ResetScale()
-    {
-        transform.localScale = Vector3.one;
-    }
-
-
-    // FUN! Turn on gravity and physics!
-    public void DoMyDestroy()
-    {
-        for (int x = 0; x < 5; x++)
-        {
-            for (int y = 0; y < 5; y++)
-            {
-                for (int z = 0; z < 5; z++)
-                {
-                    if (IsOuterCubelet(x, y, z))
-                    {
-                        Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
-                        rb.useGravity = true;
-                        rb.isKinematic = false;
-                    }
-                }
-            }
-        }
-    }
-
-
-    // Start is called before the first frame update
     void Start()
-    {
-        Initialise();
-    }
-
-
-    // Use this for initialization
-    public void Initialise()
     {
         cubePlaceholder.SetActive(false);
 
@@ -166,6 +91,55 @@ public class MyCube : MonoBehaviour
                         mfCubelets[x, y, z] = null;
                         mfOrigCubelets[x, y, z] = null;
                         mfOrigTransformData[x, y, z] = null;
+                    }
+                }
+            }
+        }
+    }
+
+
+    bool IsOuterCubelet(int x, int y, int z)
+    {
+        if (x == 0 || x == 4)
+            return true;
+        if (y == 0 || y == 4)
+            return true;
+        if (z == 0 || z == 4)
+            return true;
+        return false;
+    }
+
+
+    bool IsOuterCubelet(int x, int y)
+    {
+        if (x == 0 || x == 4)
+            return true;
+        if (y == 0 || y == 4)
+            return true;
+        return false;
+    }
+
+
+    public void ResetScale()
+    {
+        transform.localScale = Vector3.one;
+    }
+
+
+    // FUN! Turn on gravity and physics!
+    public void DoMyDestroy()
+    {
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
+            {
+                for (int z = 0; z < 5; z++)
+                {
+                    if (IsOuterCubelet(x, y, z))
+                    {
+                        Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb.useGravity = true;
+                        rb.isKinematic = false;
                     }
                 }
             }
@@ -453,33 +427,28 @@ public class MyCube : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
+    // Specify the animation to do.
+    // Initialise...
+    public void SpecifyAnimation(CubeAxis cubeAxisIn, CubeSlices cubeSlicesIn, RotationDirection rotationDirectionIn)
     {
-        Animate();
+        cubeAxis = cubeAxisIn;
+        cubeSlices = cubeSlicesIn;
+        rotationDirection = rotationDirectionIn;
+
+        currentAngle = 0.0f;        // No rotation so far.
+        isAnimating = true;
     }
 
 
-    public void Animate()
+    // Perform a step in the animation.
+    // Advance the rotation of the active slices on the active axis in the active direction by delta angle.
+    // NOTE: We don't touch the "internal" cubelets - they are not represented.
+    // NOTE: The finishing step is done separately...
+    public void DoAnimation(float deltaAngle)
     {
-        if (!isAnimating)
-        {
-            return;
-        }
-
-
         switch (cubeAxis)
         {
             case CubeAxis.x:
-
-                if (currentAngle >= finalAngle)
-                {
-                    isAnimating = false;
-
-                    // Adjust the cubelet array now the rotation has finished.
-                    RotateCubeletArrayAboutXAxis(cubeSlices, rotationDirection);   // for now, just 90 degrees anticlockwise !!!
-                    return;
-                }
 
                 for (int y = 0; y < 5; y++)
                 {
@@ -493,31 +462,20 @@ public class MyCube : MonoBehaviour
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutXAxis(mfCubelets[1, y, z], deltaAngle);
 
-
                             if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutXAxis(mfCubelets[2, y, z], deltaAngle);
-
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutXAxis(mfCubelets[3, y, z], deltaAngle);
                         }
+
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                             RotateCubeletAboutXAxis(mfCubelets[4, y, z], deltaAngle);
                     }
                 }
-
                 break;
 
             case CubeAxis.y:
-
-                if (currentAngle >= finalAngle)
-                {
-                    isAnimating = false;
-
-                    // Adjust the cubelet array now the rotation has finished.
-                    RotateCubeletArrayAboutYAxis(cubeSlices, rotationDirection);
-                    return;
-                }
 
                 for (int x = 0; x < 5; x++)
                 {
@@ -531,10 +489,8 @@ public class MyCube : MonoBehaviour
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutYAxis(mfCubelets[x, 1, z], deltaAngle);
 
-
                             if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutYAxis(mfCubelets[x, 2, z], deltaAngle);
-
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
@@ -548,15 +504,6 @@ public class MyCube : MonoBehaviour
 
             case CubeAxis.z:
 
-                if (currentAngle >= finalAngle)
-                {
-                    isAnimating = false;
-
-                    // Adjust the cubelet array now the rotation has finished.
-                    RotateCubeletArrayAboutZAxis(cubeSlices, rotationDirection);
-                    return;
-                }
-
                 for (int x = 0; x < 5; x++)
                 {
                     for (int y = 0; y < 5; y++)
@@ -569,10 +516,8 @@ public class MyCube : MonoBehaviour
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutZAxis(mfCubelets[x, y, 1], deltaAngle);
 
-
                             if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutZAxis(mfCubelets[x, y, 2], deltaAngle);
-
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                                 RotateCubeletAboutZAxis(mfCubelets[x, y, 3], deltaAngle);
@@ -583,9 +528,9 @@ public class MyCube : MonoBehaviour
                     }
                 }
                 break;
-
         }
 
+        // Keep track internally of the "current angle"...
         if (rotationDirection == RotationDirection.normal)
             currentAngle += deltaAngle;
         else
@@ -593,42 +538,30 @@ public class MyCube : MonoBehaviour
     }
 
 
-    public void DoAnim(CubeAxis axis, CubeSlices slices, RotationDirection direction)
+    // The controller tells us to finish the current animation.
+    // Adjust the actual arrangement of cubelets.
+    public void FinishAnimation()
     {
-        if (isAnimating)
+        switch (cubeAxis)
         {
-            return;
+            case CubeAxis.x:
+
+                RotateCubeletArrayAboutXAxis(cubeSlices, rotationDirection);
+                break;
+
+            case CubeAxis.y:
+
+                RotateCubeletArrayAboutYAxis(cubeSlices, rotationDirection);
+                break;
+
+            case CubeAxis.z:
+
+                RotateCubeletArrayAboutZAxis(cubeSlices, rotationDirection);
+                break;
+
         }
 
-        isAnimating = true;
-        currentAngle = 0.0f;
-        finalAngle = 90.0f;
-
-        rotationDirection = direction;
-        if (direction == RotationDirection.normal)
-            deltaAngle = 5.0f;
-        else
-            deltaAngle = -5.0f;
-
-        cubeAxis = axis;
-        cubeSlices = slices;
-    }
-
-    public void DoAnimX(CubeSlices slices, RotationDirection direction)
-    {
-        DoAnim(CubeAxis.x, slices, direction);
-    }
-
-
-    public void DoAnimY(CubeSlices slices, RotationDirection direction)
-    {
-        DoAnim(CubeAxis.y, slices, direction);
-    }
-
-
-    public void DoAnimZ(CubeSlices slices, RotationDirection direction)
-    {
-        DoAnim(CubeAxis.z, slices, direction);
+        isAnimating = false;    // DONE!
     }
 
 

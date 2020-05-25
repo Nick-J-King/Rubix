@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 
 
-public enum RotationDirection { normal = 0, reverse = 1 };
-public enum CubeAxis { x = 0, y = 1, z = 2 };
-public enum CubeSlices { s0 = 0, s01 = 1, s1 = 2, s2 = 3, s3 = 4, s34 = 5, s4 = 6 , s01234 = 7};
-
-
+// This is the "controller" that coordinates the animations and actions.
+// The player accepts the action, and tells MyGame what happened.
+// MyGame figures out how to responsd to player actions...
 public class MyGame : MonoBehaviour
 {
-    public MyCube CubeRoot;
+    public MyCube myCube;
+    public FaceMap faceMap;
+    public MouseManager mouseManager;
 
-    // Start is called before the first frame update
+
     void Start()
     {
     }
 
-    // Update is called once per frame
+
     void Update()
     {
     }
-
 }
