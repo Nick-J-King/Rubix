@@ -6,6 +6,8 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public RectTransform dragRectTransform; // Rect transform of panel being dragged.
     public RectTransform canvasRt;          // Rect transform of canvas for reference.
 
+    private Vector2 localOrigPosition;
+
     private Vector2 localStartPoint;
     private Vector2 localStartPosition;
 
@@ -15,6 +17,7 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
         isDragging = false;
+        localOrigPosition = transform.localPosition;
     }
 
 
@@ -50,17 +53,13 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void ResetPosition()
     {
-        float width = canvasRt.sizeDelta.x * canvasRt.localScale.x;
-
-        dragRectTransform.localPosition = new Vector3(-width / 2.0f + 20.0f, 0.0f);
+        dragRectTransform.localPosition = localOrigPosition;
     }
 
 
     public void ResetPositionAndScale()
     {
-        float width = canvasRt.sizeDelta.x * canvasRt.localScale.x;
-
-        dragRectTransform.localPosition = new Vector3(-width / 2.0f + 20.0f, 0.0f);
+        dragRectTransform.localPosition = localOrigPosition;
         dragRectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 }
