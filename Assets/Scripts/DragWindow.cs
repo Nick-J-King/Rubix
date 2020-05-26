@@ -14,14 +14,14 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool isDragging = false;     // Whether we are currently dragging...
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         isDragging = false;
         localOrigPosition = transform.localPosition;
     }
 
 
-    void Update()
+    public virtual void Update()
     {
         if (!isDragging)
             return;

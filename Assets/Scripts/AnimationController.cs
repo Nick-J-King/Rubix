@@ -20,6 +20,7 @@ public class AnimationController : MonoBehaviour
 {
     public FaceMap faceMap;
     public MyCube myCube;
+    public MovesPanel movesPanel;
 
     bool isAnimating;
     int animationStep;
@@ -51,6 +52,7 @@ public class AnimationController : MonoBehaviour
 
         myCube.SpecifyAnimation(animationSpecification);
         faceMap.SpecifyAnimation(animationSpecification);
+        movesPanel.AddMove(animationSpecification);
 
         if (animationSpecification.rotationDirection == RotationDirection.reverse)
             angleStep = -baseAngleStep;
