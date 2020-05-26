@@ -7,6 +7,7 @@ public class MyPlayer : MonoBehaviour
     public MainCamera mainCamera;
     public MyCube myCube;
     public FaceMap faceMap;
+    public MovesPanel movesPanel;
 
     public MouseManager mouseManager;
     public AnimationController animationController;
@@ -193,6 +194,7 @@ public class MyPlayer : MonoBehaviour
 
         mainCamera.Start();
         faceMap.ResetPositionAndScale();
+        movesPanel.ResetPositionAndScale();
         myCube.ResetScale();
     }
 
@@ -247,6 +249,29 @@ public class MyPlayer : MonoBehaviour
                 faceMap.transform.localScale = new Vector3(ls, ls, 1.0f);
             }
         }
+        else if (mouseManager.isMovesHit)
+        { 
+            if (d > 0.0f)
+            {
+                // scroll up
+                float ls = movesPanel.transform.localScale.x;
+                ls += 0.1f;
+                if (ls > 10.0f)
+                    ls = 10.0f;
+
+                movesPanel.transform.localScale = new Vector3(ls, ls, 1.0f);
+            }
+            else if (d < 0.0f)
+            {
+                // scroll down
+                float ls = movesPanel.transform.localScale.x;
+                ls -= 0.1f;
+                if (ls < 0.1f)
+                    ls = 0.1f;
+
+                movesPanel.transform.localScale = new Vector3(ls, ls, 1.0f);
+            }
+        }
         else if (mouseManager.isCubeHit)
         {
             if (d > 0.0f)
@@ -282,7 +307,7 @@ public class MyPlayer : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (faceMap.isDragging)
+        if (faceMap.isDragging || movesPanel.isDragging)
             return;
 
         Vector2 move = context.ReadValue<Vector2>();

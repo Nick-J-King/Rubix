@@ -63,5 +63,4 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         dragRectTransform.localPosition = new Vector3(-width / 2.0f + 20.0f, 0.0f);
         dragRectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
-
 }

@@ -17,6 +17,7 @@ public class MouseManager : MonoBehaviour
     public Camera mainCamera;
 
     public GameObject mapPanel;         // The FaceMap that can be selected and dragged around.
+    public GameObject movesPanel;       // The MovesPanel that can be selected and dragged around.
     public Color colorMapSelected;
     public Color colorMapNotSelected;
 
@@ -28,11 +29,13 @@ public class MouseManager : MonoBehaviour
 
     // Status (out only)... TODO
     public bool isMapHit = false;
+    public bool isMovesHit = false;
     public bool isCubeHit = false;
         // Used to relay status.
 
     Vector2 vHotSpot;
     Image mapPanelImage;
+    Image movesPanelImage;
         // Don't keep newing these...
 
     GraphicRaycaster m_Raycaster;
@@ -54,6 +57,7 @@ public class MouseManager : MonoBehaviour
         vHotSpot.x = 16;
         vHotSpot.y = 16;
         mapPanelImage = mapPanel.GetComponent<Image>();
+        movesPanelImage = movesPanel.GetComponent<Image>();
     }
 
 
@@ -62,6 +66,7 @@ public class MouseManager : MonoBehaviour
     {
         isMapHit = false;
         isCubeHit = false;
+        isMovesHit = false;
 
         m_PointerEventData.position = Input.mousePosition;
 
@@ -75,6 +80,9 @@ public class MouseManager : MonoBehaviour
         {
             if (result.gameObject.name == "PanelMap")
                 isMapHit = true;
+
+            if (result.gameObject.name == "MovesPanel")
+                isMovesHit = true;
         }
 
         // Are we over the FaceMap panel?
@@ -87,6 +95,18 @@ public class MouseManager : MonoBehaviour
         else
         {
             mapPanelImage.color = colorMapNotSelected;
+        }
+
+        // Are we over the MovesPanel panel?
+        if (isMovesHit)
+        {
+            Cursor.SetCursor(sphere, vHotSpot, CursorMode.Auto);
+            movesPanelImage.color = colorMapSelected;
+            return;
+        }
+        else
+        {
+            movesPanelImage.color = colorMapNotSelected;
         }
 
         // OK, now check the 3D scene...
