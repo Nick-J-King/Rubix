@@ -18,6 +18,37 @@ public class MovesPanel : DragWindow
     }
 
 
+    public void GoFirst()
+    {
+        // Unwind to start!
+        Debug.Log("GoFirst");
+    }
+
+    public void GoPrevious()
+    {
+        // Unwind last move!
+        Debug.Log("GoPrevious");
+    }
+
+    public void GoNext()
+    {
+        // Play next move!
+        Debug.Log("GoNext");
+    }
+
+    public void GoLast()
+    {
+        // Replay to end!
+        Debug.Log("GoLast");
+    }
+
+
+    public void ClickMove()
+    {
+        Debug.Log($"Click !");
+    }
+
+
     public void AddMove(AnimationSpecification animationSpecification)
     {
         RotationDirection rotationDirection = animationSpecification.rotationDirection;
