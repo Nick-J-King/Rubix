@@ -307,7 +307,7 @@ public class MyPlayer : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        if (faceMap.isDragging || movesPanel.isDragging)
+        if (faceMap.isDragging || movesPanel.isDragging || mouseManager.isMovesHit)
             return;
 
         Vector2 move = context.ReadValue<Vector2>();

@@ -996,6 +996,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4495081051277925255}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &221932413 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6020494901763542358, guid: 1fce3efb0d8c641648d03ca794237b8b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4495081051277925255}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221932408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f663dba93c74abeb1b2d83ed64839b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &296277992
 GameObject:
   m_ObjectHideFlags: 0
@@ -3531,7 +3543,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2104299257}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999976
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4261,6 +4273,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 763319150}
     m_Modifications:
+    - target: {fileID: 4495081051499589885, guid: 1fce3efb0d8c641648d03ca794237b8b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495081051499589885, guid: 1fce3efb0d8c641648d03ca794237b8b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495081051499589885, guid: 1fce3efb0d8c641648d03ca794237b8b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495081051499589885, guid: 1fce3efb0d8c641648d03ca794237b8b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 221932413}
+    - target: {fileID: 4495081051499589885, guid: 1fce3efb0d8c641648d03ca794237b8b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClickMove
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495081051499589885, guid: 1fce3efb0d8c641648d03ca794237b8b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4495081051499589886, guid: 1fce3efb0d8c641648d03ca794237b8b,
         type: 3}
       propertyPath: m_LocalPosition.x

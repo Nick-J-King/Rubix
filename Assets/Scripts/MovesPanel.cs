@@ -107,6 +107,6 @@ public class MovesPanel : DragWindow
         g1.SetActive(true);
 
         var g1m = g1.GetComponent<MyMove>();
-        g1m.text.text = s;
+        g1m.text.text = "  " + s;
     }
 }
