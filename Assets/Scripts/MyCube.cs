@@ -287,20 +287,22 @@ public class MyCube : MonoBehaviour
             new Vector2(1,0)
         };
 
+        Vector3 vMMM = new  Vector3(-0.5f, -0.5f, -0.5f);
+        Vector3 vMMP = new  Vector3(-0.5f, -0.5f, 0.5f);
+        Vector3 vMPM = new  Vector3(-0.5f, 0.5f, -0.5f);
+        Vector3 vMPP = new  Vector3(-0.5f, 0.5f, 0.5f);
+        Vector3 vPMM = new  Vector3(0.5f, -0.5f, -0.5f);
+        Vector3 vPMP = new  Vector3(0.5f, -0.5f, 0.5f);
+        Vector3 vPPM = new  Vector3(0.5f, 0.5f, -0.5f);
+        Vector3 vPPP = new  Vector3(0.5f, 0.5f, 0.5f);
+
         // x axis points right. y axis points up. z axis points into the screen.
 
         // Top --------------------
 
         mfTop.mesh = new Mesh
         {
-            vertices = new Vector3[]
-            {
-                new Vector3(-0.5f, 0.5f, -0.5f),
-                new Vector3(-0.5f, 0.5f, 0.5f),
-                new Vector3(0.5f, 0.5f, 0.5f),
-                new Vector3(0.5f, 0.5f, -0.5f)
-            },
-
+            vertices = new Vector3[] { vMPM, vMPP, vPPP, vPPM },
             uv = stdUV,
             triangles = stdTriangles
         };
@@ -312,14 +314,7 @@ public class MyCube : MonoBehaviour
 
         mfBottom.mesh = new Mesh
         {
-            vertices = new Vector3[]
-            {
-                new Vector3(-0.5f, -0.5f, 0.5f),
-                new Vector3(-0.5f, -0.5f, -0.5f),
-                new Vector3(0.5f, -0.5f, -0.5f),
-                new Vector3(0.5f, -0.5f, 0.5f)
-            },
-
+            vertices = new Vector3[] { vMMP, vMMM, vPMM, vPMP },
             uv = stdUV,
             triangles = stdTriangles
         };
@@ -331,14 +326,7 @@ public class MyCube : MonoBehaviour
 
         mfFront.mesh = new Mesh
         {
-            vertices = new Vector3[]
-            {
-                new Vector3(-0.5f, -0.5f, -0.5f),
-                new Vector3(-0.5f, 0.5f, -0.5f),
-                new Vector3(0.5f, 0.5f, -0.5f),
-                new Vector3(0.5f, -0.5f, -0.5f)
-            },
-
+            vertices = new Vector3[] { vMMM, vMPM, vPPM, vPMM },
             uv = stdUV,
             triangles = stdTriangles
         };
@@ -350,14 +338,7 @@ public class MyCube : MonoBehaviour
 
         mfBack.mesh = new Mesh
         {
-            vertices = new Vector3[]
-            {
-                new Vector3(0.5f, -0.5f, 0.5f),
-                new Vector3(0.5f, 0.5f, 0.5f),
-                new Vector3(-0.5f, 0.5f, 0.5f),
-                new Vector3(-0.5f, -0.5f, 0.5f)
-            },
-
+            vertices = new Vector3[] { vPMP, vPPP, vMPP, vMMP },
             uv = stdUV,
             triangles = stdTriangles
         };
@@ -369,14 +350,7 @@ public class MyCube : MonoBehaviour
 
         mfLeft.mesh = new Mesh
         {
-            vertices = new Vector3[]
-            {
-                new Vector3(-0.5f, -0.5f, 0.5f),
-                new Vector3(-0.5f, 0.5f, 0.5f),
-                new Vector3(-0.5f, 0.5f, -0.5f),
-                new Vector3(-0.5f, -0.5f, -0.5f)
-          },
-
+            vertices = new Vector3[] { vMMP, vMPP, vMPM, vMMM },
             uv = stdUV,
             triangles = stdTriangles
         };
@@ -388,14 +362,7 @@ public class MyCube : MonoBehaviour
 
         mfRight.mesh = new Mesh
         {
-            vertices = new Vector3[]
-            {
-                new Vector3(0.5f, -0.5f, -0.5f),
-                new Vector3(0.5f, 0.5f, -0.5f),
-                new Vector3(0.5f, 0.5f, 0.5f),
-                new Vector3(0.5f, -0.5f, 0.5f)
-             },
-
+            vertices = new Vector3[] { vPMM, vPPM, vPPP, vPMP },
             uv = stdUV,
             triangles = stdTriangles
         };

@@ -88,7 +88,6 @@ public class FaceMap : DragWindow
     }
 
 
-
     public void SpecifyAnimation(AnimationSpecification animationSpecification)
     {
         cubeAxis = animationSpecification.cubeAxis;
@@ -104,277 +103,285 @@ public class FaceMap : DragWindow
         // X axis
 
         // All slices from left to right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01234)
+        if (cubeAxis == CubeAxis.x)
         {
-            leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-            rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            if (cubeSlices == CubeSlices.s01234)
             {
-                CycleSliceFromRight(0, rotationDirection);
-                CycleSliceFromRight(1, rotationDirection);
-                CycleSliceFromRight(2, rotationDirection);
-                CycleSliceFromRight(3, rotationDirection);
-                CycleSliceFromRight(4, rotationDirection);
+                leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromRight(0, rotationDirection);
+                    CycleSliceFromRight(1, rotationDirection);
+                    CycleSliceFromRight(2, rotationDirection);
+                    CycleSliceFromRight(3, rotationDirection);
+                    CycleSliceFromRight(4, rotationDirection);
+                }
             }
-        }
 
-        // First slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s4)
-        {
-            rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            // First slice from right.
+            if (cubeSlices == CubeSlices.s4)
             {
-                CycleSliceFromRight(0, rotationDirection);
+                rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromRight(0, rotationDirection);
+                }
             }
-        }
 
-        // First and second slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s34)
-        {
-            rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            // First and second slice from right.
+            if (cubeSlices == CubeSlices.s34)
             {
-                CycleSliceFromRight(0, rotationDirection);
-                CycleSliceFromRight(1, rotationDirection);
+                rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromRight(0, rotationDirection);
+                    CycleSliceFromRight(1, rotationDirection);
+                }
             }
-        }
 
-        // Second slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s3)
-        {
-            if (doStep)
+            // Second slice from right.
+            if (cubeSlices == CubeSlices.s3)
             {
-                CycleSliceFromRight(1, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromRight(1, rotationDirection);
+                }
             }
-        }
 
-        // Third (middle) slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s2)
-        {
-            if (doStep)
+            // Third (middle) slice from right.
+            if (cubeSlices == CubeSlices.s2)
             {
-                CycleSliceFromRight(2, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromRight(2, rotationDirection);
+                }
             }
-        }
 
-        // Fourth slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s1)
-        {
-            if (doStep)
+            // Fourth slice from right.
+            if (cubeSlices == CubeSlices.s1)
             {
-                CycleSliceFromRight(3, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromRight(3, rotationDirection);
+                }
             }
-        }
 
-        // Fourth and fifth slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01)
-        {
-            leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+            // Fourth and fifth slice from right.
+            if (cubeSlices == CubeSlices.s01)
             {
-                CycleSliceFromRight(3, rotationDirection);
-                CycleSliceFromRight(4, rotationDirection);
+                leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromRight(3, rotationDirection);
+                    CycleSliceFromRight(4, rotationDirection);
+                }
             }
-        }
 
-        // Fifth slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s0)
-        {
-            leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+            // Fifth slice from right.
+            if (cubeSlices == CubeSlices.s0)
             {
-                CycleSliceFromRight(4, rotationDirection);
+                leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromRight(4, rotationDirection);
+                }
             }
         }
 
         // Y axis
 
         // All slices from top to bottom.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01234)
-        {
-            downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-            upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+        if (cubeAxis == CubeAxis.y)
+        { 
+            if (cubeSlices == CubeSlices.s01234)
             {
-                CycleSliceFromTop(0, rotationDirection);
-                CycleSliceFromTop(1, rotationDirection);
-                CycleSliceFromTop(2, rotationDirection);
-                CycleSliceFromTop(3, rotationDirection);
-                CycleSliceFromTop(4, rotationDirection);
+                downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromTop(0, rotationDirection);
+                    CycleSliceFromTop(1, rotationDirection);
+                    CycleSliceFromTop(2, rotationDirection);
+                    CycleSliceFromTop(3, rotationDirection);
+                    CycleSliceFromTop(4, rotationDirection);
+                }
             }
-        }
 
-        // First slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s4)
-        {
-            upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            // First slice from top.
+            if (cubeSlices == CubeSlices.s4)
             {
-                CycleSliceFromTop(0, rotationDirection);
+                upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromTop(0, rotationDirection);
+                }
             }
-        }
 
-        // First two slices from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s34)
-        {
-            upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            // First two slices from top.
+            if (cubeSlices == CubeSlices.s34)
             {
-                CycleSliceFromTop(0, rotationDirection);
-                CycleSliceFromTop(1, rotationDirection);
+                upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromTop(0, rotationDirection);
+                    CycleSliceFromTop(1, rotationDirection);
+                }
             }
-        }
 
-        // Second slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s3)
-        {
-            if (doStep)
+            // Second slice from top.
+            if (cubeSlices == CubeSlices.s3)
             {
-                CycleSliceFromTop(1, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromTop(1, rotationDirection);
+                }
             }
-        }
 
-        // Third slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s2)
-        {
-            if (doStep)
+            // Third slice from top.
+            if (cubeSlices == CubeSlices.s2)
             {
-                CycleSliceFromTop(2, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromTop(2, rotationDirection);
+                }
             }
-        }
 
-        // Fourth slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s1)
-        {
-            if (doStep)
+            // Fourth slice from top.
+            if (cubeSlices == CubeSlices.s1)
             {
-                CycleSliceFromTop(3, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromTop(3, rotationDirection);
+                }
             }
-        }
 
-        // Fourth and Fifth slices from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01)
-        {
-            downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+            // Fourth and Fifth slices from top.
+            if (cubeSlices == CubeSlices.s01)
             {
-                CycleSliceFromTop(3, rotationDirection);
-                CycleSliceFromTop(4, rotationDirection);
+                downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromTop(3, rotationDirection);
+                    CycleSliceFromTop(4, rotationDirection);
+                }
             }
-        }
 
-        // Fifth slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s0)
-        {
-            downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+            // Fifth slice from top.
+            if (cubeSlices == CubeSlices.s0)
             {
-                CycleSliceFromTop(4, rotationDirection);
+                downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromTop(4, rotationDirection);
+                }
             }
         }
 
         // Z axis
 
         // All slices from front to back.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01234)
-        {
-            backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-            frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+        if (cubeAxis == CubeAxis.z)
+        { 
+            if (cubeSlices == CubeSlices.s01234)
             {
-                CycleSliceFromFront(0, rotationDirection);
-                CycleSliceFromFront(1, rotationDirection);
-                CycleSliceFromFront(2, rotationDirection);
-                CycleSliceFromFront(3, rotationDirection);
-                CycleSliceFromFront(4, rotationDirection);
+                backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromFront(0, rotationDirection);
+                    CycleSliceFromFront(1, rotationDirection);
+                    CycleSliceFromFront(2, rotationDirection);
+                    CycleSliceFromFront(3, rotationDirection);
+                    CycleSliceFromFront(4, rotationDirection);
+                }
             }
-        }
 
-        // First slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s0)
-        {
-            frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+            // First slice from front.
+            if (cubeSlices == CubeSlices.s0)
             {
-                CycleSliceFromFront(0, rotationDirection);
+                frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromFront(0, rotationDirection);
+                }
             }
-        }
 
-        // First and second slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01)
-        {
-            frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
-
-            if (doStep)
+            // First and second slice from front.
+            if (cubeSlices == CubeSlices.s01)
             {
-                CycleSliceFromFront(0, rotationDirection);
-                CycleSliceFromFront(1, rotationDirection);
+                frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromFront(0, rotationDirection);
+                    CycleSliceFromFront(1, rotationDirection);
+                }
             }
-        }
 
-        // Second slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s1)
-        {
-            if (doStep)
+            // Second slice from front.
+            if (cubeSlices == CubeSlices.s1)
             {
-                CycleSliceFromFront(1, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromFront(1, rotationDirection);
+                }
             }
-        }
 
-        // Third slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s2)
-        {
-            if (doStep)
+            // Third slice from front.
+            if (cubeSlices == CubeSlices.s2)
             {
-                CycleSliceFromFront(2, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromFront(2, rotationDirection);
+                }
             }
-        }
 
-        // Fourth slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s3)
-        {
-            if (doStep)
+            // Fourth slice from front.
+            if (cubeSlices == CubeSlices.s3)
             {
-                CycleSliceFromFront(3, rotationDirection);
+                if (doStep)
+                {
+                    CycleSliceFromFront(3, rotationDirection);
+                }
             }
-        }
 
-        // Fourth and fifth slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s34)
-        {
-            backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            // Fourth and fifth slice from front.
+            if (cubeSlices == CubeSlices.s34)
             {
-                CycleSliceFromFront(3, rotationDirection);
-                CycleSliceFromFront(4, rotationDirection);
+                backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromFront(3, rotationDirection);
+                    CycleSliceFromFront(4, rotationDirection);
+                }
             }
-        }
 
-        // Fifth slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s4)
-        {
-            backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
-
-            if (doStep)
+            // Fifth slice from front.
+            if (cubeSlices == CubeSlices.s4)
             {
-                CycleSliceFromFront(4, rotationDirection);
+                backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+
+                if (doStep)
+                {
+                    CycleSliceFromFront(4, rotationDirection);
+                }
             }
         }
     }
-
 
     // Perform the rotation on the facelet level,
     // and reset the panel rotation back to zero.
@@ -384,147 +391,62 @@ public class FaceMap : DragWindow
     {
         // X axis --------------------------------------
 
-        // All slices from left to right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01234)
-        {
-            RotateFaceACW90(leftPanel, rotationDirection);
-            RotateFaceCW90(rightPanel, rotationDirection);
-            leftPanel.transform.localEulerAngles = Vector3.zero;
-            rightPanel.transform.localEulerAngles = Vector3.zero;
-        }
+        // Slices from right to left.
+        if (cubeAxis == CubeAxis.x)
+        { 
+            // First slice from right.
+            if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+            {
+                RotateFaceCW90(rightPanel, rotationDirection);
+                rightPanel.transform.localEulerAngles = Vector3.zero;
+            }
 
-        // First slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s4)
-        {
-            RotateFaceCW90(rightPanel, rotationDirection);
-            rightPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // First and second slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s34)
-        {
-            RotateFaceCW90(rightPanel, rotationDirection);
-            rightPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // Second slice from right.
-        // ...
-
-        // Third (middle) slice from right.
-        // ...
-
-        // Fourth slice from right.
-        // ...
-
-        // Fourth and fifth slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s01)
-        {
-            RotateFaceACW90(leftPanel, rotationDirection);
-            leftPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // Fifth slice from right.
-        if (cubeAxis == CubeAxis.x && cubeSlices == CubeSlices.s0)
-        {
-            RotateFaceACW90(leftPanel, rotationDirection);
-            leftPanel.transform.localEulerAngles = Vector3.zero;
+            // Fifth slice from right.
+            if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+            {
+                RotateFaceACW90(leftPanel, rotationDirection);
+                leftPanel.transform.localEulerAngles = Vector3.zero;
+            }
         }
 
         // Y axis --------------------------------------
 
-        // All slices from top to bottom.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01234)
-        {
-            RotateFaceACW90(downPanel, rotationDirection);
-            RotateFaceCW90(upPanel, rotationDirection);
-            downPanel.transform.localEulerAngles = Vector3.zero;
-            upPanel.transform.localEulerAngles = Vector3.zero;
-        }
+        // Slices from top to bottom.
+        if (cubeAxis == CubeAxis.y)
+        { 
+            // First slice from top.
+            if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+            {
+                RotateFaceCW90(upPanel, rotationDirection);
+                upPanel.transform.localEulerAngles = Vector3.zero;
+            }
 
-        // First slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s4)
-        {
-            RotateFaceCW90(upPanel, rotationDirection);
-            upPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // First two slices from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s34)
-        {
-            RotateFaceCW90(upPanel, rotationDirection);
-            upPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // Second slice from top.
-        // ...
-
-        // Third slice from top.
-        // ...
-
-        // Fourth slice from top.
-        // ...
-
-        // Fourth and Fifth slices from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s01)
-        {
-            RotateFaceACW90(downPanel, rotationDirection);
-            downPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // Fifth slice from top.
-        if (cubeAxis == CubeAxis.y && cubeSlices == CubeSlices.s0)
-        {
-            RotateFaceACW90(downPanel, rotationDirection);
-            downPanel.transform.localEulerAngles = Vector3.zero;
+            // Last slice from top.
+            if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+            {
+                RotateFaceACW90(downPanel, rotationDirection);
+                downPanel.transform.localEulerAngles = Vector3.zero;
+            }
         }
 
         // Z axis --------------------------------------
 
-        // All slices from front to back.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01234)
+        // Slices from front to back.
+        if (cubeAxis == CubeAxis.z)
         {
-            RotateFaceCW90(backPanel, rotationDirection);
-            RotateFaceACW90(frontPanel, rotationDirection);
-            backPanel.transform.localEulerAngles = Vector3.zero;
-            frontPanel.transform.localEulerAngles = Vector3.zero;
-        }
+            // First slice from front.
+            if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+            {
+                RotateFaceACW90(frontPanel, rotationDirection);
+                frontPanel.transform.localEulerAngles = Vector3.zero;
+            }
 
-        // First slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s0)
-        {
-            RotateFaceACW90(frontPanel, rotationDirection);
-            frontPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // First and second slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s01)
-        {
-            RotateFaceACW90(frontPanel, rotationDirection);
-            frontPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-
-        // Second slice from front.
-        // ...
-
-        // Third slice from front.
-        // ...
-
-        // Fourth slice from front.
-        // ...
-
-        // Fourth and fifth slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s34)
-        {
-            RotateFaceCW90(backPanel, rotationDirection);
-            backPanel.transform.localEulerAngles = Vector3.zero;
-        }
-
-        // Fifth slice from front.
-        if (cubeAxis == CubeAxis.z && cubeSlices == CubeSlices.s4)
-        {
-            RotateFaceCW90(backPanel, rotationDirection);
-            backPanel.transform.localEulerAngles = Vector3.zero;
+            // Last slice from front.
+            if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+            {
+                RotateFaceCW90(backPanel, rotationDirection);
+                backPanel.transform.localEulerAngles = Vector3.zero;
+            }
         }
 
         isAnimating = false;

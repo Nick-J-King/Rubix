@@ -147,10 +147,4 @@ public class FacePanel : MonoBehaviour
 
         return facelet;
     }
-
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    // >>> Put animation code here, perhaps...
-    //}
 }
