@@ -54,6 +54,7 @@ public class MainCamera : MonoBehaviour
         xyz.z = 0.0f;
 
         SetCameraAzimuthElevation(azimuthElevation);
+        cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
     }
 
 
