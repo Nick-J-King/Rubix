@@ -11,12 +11,12 @@ public class MyGame : MonoBehaviour
     //public MouseManager mouseManager;
 
 
-    void Start()
-    {
-    }
+    //void Start()
+    //{
+    //}
 
 
-    void Update()
-    {
-    }
+    //void Update()
+    //{
+    //}
 }

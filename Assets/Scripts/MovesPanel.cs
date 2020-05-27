@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MovesPanel : DragWindow
 {
     public GameObject prefab;
     public RectTransform contentRect;
 
+
     public override void Start()
     {
         base.Start();
     }
+
 
     public override void Update()
     {
@@ -24,17 +27,20 @@ public class MovesPanel : DragWindow
         Debug.Log("GoFirst");
     }
 
+
     public void GoPrevious()
     {
         // Unwind last move!
         Debug.Log("GoPrevious");
     }
 
+
     public void GoNext()
     {
         // Play next move!
         Debug.Log("GoNext");
     }
+
 
     public void GoLast()
     {
