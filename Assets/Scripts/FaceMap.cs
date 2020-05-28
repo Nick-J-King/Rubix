@@ -18,6 +18,7 @@ public class FaceMap : DragWindow
     public Sprite [,] faceSprites;
     public Sprite [,] faceSpritesInverted;
 
+
     //-------------------------------------------------
     //
     // Animation stuff...
@@ -27,10 +28,8 @@ public class FaceMap : DragWindow
     public CubeAxis cubeAxis;       // Which axis we are currently rotating about.
     public CubeSlices cubeSlices;   // Which slices we are currently rotating.
 
-
-    float angleStep; // Same as base for normal direction, negative for reverse.
-
     //-------------------------------------------------
+
 
     // Load up the sprites for the 6 Face panels to use.
     void Awake()
@@ -60,6 +59,8 @@ public class FaceMap : DragWindow
         rightPanel.ResetFace();
         upPanel.ResetFace();
         downPanel.ResetFace();
+
+        isAnimating = false;
     }
 
 

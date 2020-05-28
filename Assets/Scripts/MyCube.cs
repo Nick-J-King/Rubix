@@ -22,6 +22,7 @@ public class MyCube : MonoBehaviour
     Texture[,] cubeFaceletTextures;
         // Loaded up from Resources
 
+
     //-------------------------------------------------
     //
     // Animation stuff...
@@ -31,7 +32,6 @@ public class MyCube : MonoBehaviour
     CubeAxis cubeAxis;                      // Which axis we are currently rotating about.
     CubeSlices cubeSlices;                  // Which slices we are currently rotating.
     RotationDirection rotationDirection;    // "normal" or "reverse"
-        // AnimationSpecification
 
     //-------------------------------------------------
 
@@ -167,6 +167,8 @@ public class MyCube : MonoBehaviour
                 }
             }
         }
+
+        isAnimating = false;
     }
 
 

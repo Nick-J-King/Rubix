@@ -24,7 +24,7 @@ public class MyPlayer : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
-        if (myCube.isAnimating || faceMap.isAnimating)
+        if (animationController.isAnimating)
             return;
 
         AnimationSpecification animationSpecification;
@@ -205,6 +205,8 @@ public class MyPlayer : MonoBehaviour
             return;
 
         animationController.StopAnimation();
+
+        movesPanel.ClearMoves();
 
         myCube.ResetCube();
         faceMap.ResetMap();

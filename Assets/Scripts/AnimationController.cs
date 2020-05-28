@@ -22,7 +22,8 @@ public class AnimationController : MonoBehaviour
     public MyCube myCube;
     public MovesPanel movesPanel;
 
-    bool isAnimating;
+    public bool isAnimating;
+
     int animationStep;
 
     readonly float baseAngleStep = 5.0f;
@@ -37,8 +38,7 @@ public class AnimationController : MonoBehaviour
 
     readonly int lastAnimationStep = 18;
 
-        
-    // Start is called before the first frame update
+
     void Start()
     {
         isAnimating = false;

@@ -1,17 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class MovesPanel : DragWindow
 {
+    public GameObject contentObj;
+    public GameObject scroller;
     public GameObject prefab;
     public RectTransform contentRect;
+
+    ScrollRect sr;
 
 
     public override void Start()
     {
         base.Start();
+        sr = scroller.GetComponent<ScrollRect>();
+
     }
 
 
@@ -21,8 +28,19 @@ public class MovesPanel : DragWindow
     }
 
 
+    public void ClearMoves()
+    {
+        for (int i = contentRect.childCount - 1; i >= 0; --i) {
+            GameObject.Destroy(contentRect.GetChild(i).gameObject);
+        }
+        contentRect.DetachChildren();
+    }
+
+
     public void GoFirst()
     {
+        ClearMoves();
+
         // Unwind to start!
         Debug.Log("GoFirst");
     }
@@ -46,6 +64,7 @@ public class MovesPanel : DragWindow
     {
         // Replay to end!
         Debug.Log("GoLast");
+        sr.normalizedPosition = new Vector2(0, 0);
     }
 
 
@@ -114,5 +133,17 @@ public class MovesPanel : DragWindow
 
         var g1m = g1.GetComponent<MyMove>();
         g1m.text.text = "  " + s;
+        g1.transform.localScale = Vector3.one;
+
+        Canvas.ForceUpdateCanvases();
+
+        contentObj.GetComponent<VerticalLayoutGroup>().CalculateLayoutInputVertical() ;
+        contentObj.GetComponent<ContentSizeFitter>().SetLayoutVertical() ;
+
+        sr.content.GetComponent<VerticalLayoutGroup>().CalculateLayoutInputVertical() ;
+        sr.content.GetComponent<ContentSizeFitter>().SetLayoutVertical() ;
+
+        //scrollRect.verticalNormalizedPosition = 0 ;
+        sr.normalizedPosition = new Vector2(0, 0);
     }
 }
