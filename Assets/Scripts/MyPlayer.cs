@@ -31,11 +31,13 @@ public class MyPlayer : MonoBehaviour
         animationSpecification.cubeAxis = axis;
         animationSpecification.cubeSlices = slices;
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            animationSpecification.rotationDirection = RotationDirection.reverse;
-        }
-        else
+        //InputSystem. is;
+
+        //if (Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    animationSpecification.rotationDirection = RotationDirection.reverse;
+        //}
+        //else
         {
             animationSpecification.rotationDirection = RotationDirection.normal;
         }
@@ -223,10 +225,14 @@ public class MyPlayer : MonoBehaviour
         myCube.DoMyDestroy();
     }
 
+    public void OnWheel(InputAction.CallbackContext context)
+    {
+        Debug.Log("Wheels");
+    }
 
     public void OnScroll(InputAction.CallbackContext context)
     {
-        var d = Input.GetAxis("Mouse ScrollWheel");
+        var d = context.action.ReadValue<float>();   // Input.GetAxis("Mouse ScrollWheel");
 
         if (mouseManager.isMapHit)
         { 

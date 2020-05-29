@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
 
 public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -28,7 +30,7 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             return;
 
         // Convert eventData position to canvas rt position
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRt, Input.mousePosition, null, out Vector2 localPoint);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRt, Mouse.current.position.ReadValue(), null, out Vector2 localPoint);
 
         dragRectTransform.localPosition = localPoint - localStartPoint + localStartPosition;
     }
@@ -36,6 +38,7 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("OPD");
         isDragging = true;
 
         // Convert eventData position to canvas rt position.
@@ -48,6 +51,7 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("OPU");
         isDragging = false;
     }
 

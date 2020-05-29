@@ -127,13 +127,13 @@ public class MovesPanel : DragWindow
             s += "R";
 
         GameObject g1 = Instantiate(prefab); 
+        g1.gameObject.transform.SetParent(contentRect, false);
 
-        g1.transform.parent = contentRect;
         g1.SetActive(true);
 
         var g1m = g1.GetComponent<MyMove>();
         g1m.text.text = "  " + s;
-        g1.transform.localScale = Vector3.one;
+//        g1.transform.localScale = Vector3.one;
 
         Canvas.ForceUpdateCanvases();
 

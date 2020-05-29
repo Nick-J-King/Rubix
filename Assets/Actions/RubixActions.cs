@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 public class @Rubix : IInputActionCollection, IDisposable
 {
-    private InputActionAsset asset;
+    public InputActionAsset asset { get; }
     public @Rubix()
     {
         asset = InputActionAsset.FromJson(@"{

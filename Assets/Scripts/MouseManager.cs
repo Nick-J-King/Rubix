@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 
 // TODO: Don't set Cursor if it is already set correctly...
@@ -68,7 +69,7 @@ public class MouseManager : MonoBehaviour
         isCubeHit = false;
         isMovesHit = false;
 
-        m_PointerEventData.position = Input.mousePosition;
+        m_PointerEventData.position = Mouse.current.position.ReadValue();
 
         // Raycast using the Graphics Raycaster and mouse click position
         m_results.Clear();
@@ -110,7 +111,7 @@ public class MouseManager : MonoBehaviour
         }
 
         // OK, now check the 3D scene...
-        if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 50, clickableLayerValue))
+        if (Physics.Raycast(mainCamera.ScreenPointToRay(m_PointerEventData.position), out RaycastHit hit, 50, clickableLayerValue))
         {
             if (hit.collider.gameObject.CompareTag("Cubelet"))
             {

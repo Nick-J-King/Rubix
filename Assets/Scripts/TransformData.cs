@@ -10,8 +10,10 @@ public class TransformData
     public Vector3 LocalEulerRotation = Vector3.zero;
     public Vector3 LocalScale = Vector3.one;
 
+
     // Unity requires a default constructor for serialization
     public TransformData() { }
+
 
     public TransformData(Transform transform)
     {
@@ -19,6 +21,7 @@ public class TransformData
         LocalEulerRotation = transform.localEulerAngles;
         LocalScale = transform.localScale;
     }
+
 
     public void ApplyTo(Transform transform)
     {
