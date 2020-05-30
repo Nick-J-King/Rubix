@@ -29,4 +29,10 @@ public class TransformData
         transform.localEulerAngles = LocalEulerRotation ;
         transform.localScale = LocalScale;
     }
+
+
+    public void ApplyRotationTo(Transform transform)
+    {
+        transform.localEulerAngles = LocalEulerRotation ;
+    }
 }

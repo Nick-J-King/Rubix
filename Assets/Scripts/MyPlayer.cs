@@ -32,13 +32,11 @@ public class MyPlayer : MonoBehaviour
         animationSpecification.cubeAxis = axis;
         animationSpecification.cubeSlices = slices;
 
-        //InputSystem. is;
-
-        //if (Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    animationSpecification.rotationDirection = RotationDirection.reverse;
-        //}
-        //else
+        if (Keyboard.current.leftShiftKey.isPressed)
+        { 
+           animationSpecification.rotationDirection = RotationDirection.reverse;
+        }
+        else
         {
             animationSpecification.rotationDirection = RotationDirection.normal;
         }

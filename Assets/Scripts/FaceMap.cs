@@ -524,9 +524,19 @@ public class FaceMap : DragWindow
         a[19] = leftPanel.pFacelets[4, 4 - nSlice];
 
         if (rotationDirection == RotationDirection.normal)
+        {
+            a[10].transform.Rotate(0.0f, 0.0f, 180.0f);
+            a[15].transform.Rotate(0.0f, 0.0f, 180.0f);
+
             CycleFacelets20(a);
+        }
         else
+        { 
+            a[14].transform.Rotate(0.0f, 0.0f, 180.0f);
+            a[9].transform.Rotate(0.0f, 0.0f, 180.0f);
+
             CycleFacelets20A(a);
+        }
     }
 
     // Z axis
@@ -561,9 +571,23 @@ public class FaceMap : DragWindow
         a[19] = leftPanel.pFacelets[4 - nSlice, 0];
 
         if (direction == RotationDirection.normal)
+        { 
+            a[4].transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[9].transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[14].transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[19].transform.Rotate(0.0f, 0.0f, 90.0f);
+
             CycleFacelets20A(a);
+        }
         else
+        { 
+            a[0].transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[5].transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[10].transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[15].transform.Rotate(0.0f, 0.0f, -90.0f);
+
             CycleFacelets20(a);
+        }
     }
 
 
@@ -704,14 +728,19 @@ public class FaceMap : DragWindow
 
         Color c0 = imgs[0].color;
         Sprite s0 = imgs[0].sprite;
+        TransformData t0 = new TransformData(f[0].transform);
 
         for (int i = 0; i < 3; i++)
         {
             imgs[i].color = imgs[i + 1].color;
             imgs[i].sprite = imgs[i + 1].sprite;
+            TransformData t = new TransformData(f[i + 1].transform);
+            t.ApplyRotationTo(f[i].transform);
+
         }
         imgs[3].color = c0;
         imgs[3].sprite = s0;
+        t0.ApplyRotationTo(f[3].transform);
     }
 
 
@@ -726,14 +755,19 @@ public class FaceMap : DragWindow
 
         Color c3 = imgs[3].color;
         Sprite s3 = imgs[3].sprite;
+        TransformData t3 = new TransformData(f[3].transform);
 
         for (int i = 2; i >= 0; i--)
         {
             imgs[i + 1].color = imgs[i].color;
             imgs[i + 1].sprite = imgs[i].sprite;
+            TransformData t = new TransformData(f[i].transform);
+            t.ApplyRotationTo(f[i + 1].transform);
         }
         imgs[0].color = c3;
         imgs[0].sprite = s3;
+        t3.ApplyRotationTo(f[0].transform);
+
     }
 
 
@@ -748,14 +782,19 @@ public class FaceMap : DragWindow
 
         Color c0 = imgs[0].color;
         Sprite s0 = imgs[0].sprite;
+        TransformData t0 = new TransformData(f[0].transform);
 
         for (int i = 0; i < 19; i++)
         {
             imgs[i].color = imgs[i + 1].color;
             imgs[i].sprite = imgs[i + 1].sprite;
+            TransformData t = new TransformData(f[i + 1].transform);
+            t.ApplyRotationTo(f[i].transform);
         }
         imgs[19].color = c0;
         imgs[19].sprite = s0;
+        t0.ApplyRotationTo(f[19].transform);
+
     }
 
 
@@ -770,13 +809,17 @@ public class FaceMap : DragWindow
 
         Color c19 = imgs[19].color;
         Sprite s19 = imgs[19].sprite;
+        TransformData t19 = new TransformData(f[19].transform);
 
         for (int i = 18; i >= 0; i--)
         {
             imgs[i + 1].color = imgs[i].color;
             imgs[i + 1].sprite = imgs[i].sprite;
+            TransformData t = new TransformData(f[i].transform);
+            t.ApplyRotationTo(f[i + 1].transform);
         }
         imgs[0].color = c19;
         imgs[0].sprite = s19;
+        t19.ApplyRotationTo(f[0].transform);
     }
 }
