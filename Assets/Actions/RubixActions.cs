@@ -265,6 +265,38 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Random"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f626715-ff38-4c3d-9bc5-c6a86a330211"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""ToggleMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""bdb7300c-10eb-44ea-a1bf-1898f276771e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""ToggleMoves"",
+                    ""type"": ""Button"",
+                    ""id"": ""b33312da-a2a6-410c-97d4-9a94dc2b1c92"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""ToggleControls"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
@@ -608,6 +640,50 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""action"": ""Destroy"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a5a62de-4205-468d-9aa5-a9c2bf7492c9"",
+                    ""path"": ""<Keyboard>/backquote"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Random"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db42b2bf-030b-4436-9096-26f582714c32"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d263de29-4a57-4302-92d5-c54a1ec5e1b0"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMoves"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4042091f-f3a1-4bc2-972b-235c1e6ef450"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleControls"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -713,6 +789,10 @@ public class @Rubix : IInputActionCollection, IDisposable
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
         m_Player_ResetConfiguration = m_Player.FindAction("ResetConfiguration", throwIfNotFound: true);
         m_Player_Destroy = m_Player.FindAction("Destroy", throwIfNotFound: true);
+        m_Player_Random = m_Player.FindAction("Random", throwIfNotFound: true);
+        m_Player_ToggleMap = m_Player.FindAction("ToggleMap", throwIfNotFound: true);
+        m_Player_ToggleMoves = m_Player.FindAction("ToggleMoves", throwIfNotFound: true);
+        m_Player_ToggleControls = m_Player.FindAction("ToggleControls", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -793,6 +873,10 @@ public class @Rubix : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Debug;
     private readonly InputAction m_Player_ResetConfiguration;
     private readonly InputAction m_Player_Destroy;
+    private readonly InputAction m_Player_Random;
+    private readonly InputAction m_Player_ToggleMap;
+    private readonly InputAction m_Player_ToggleMoves;
+    private readonly InputAction m_Player_ToggleControls;
     public struct PlayerActions
     {
         private @Rubix m_Wrapper;
@@ -828,6 +912,10 @@ public class @Rubix : IInputActionCollection, IDisposable
         public InputAction @Debug => m_Wrapper.m_Player_Debug;
         public InputAction @ResetConfiguration => m_Wrapper.m_Player_ResetConfiguration;
         public InputAction @Destroy => m_Wrapper.m_Player_Destroy;
+        public InputAction @Random => m_Wrapper.m_Player_Random;
+        public InputAction @ToggleMap => m_Wrapper.m_Player_ToggleMap;
+        public InputAction @ToggleMoves => m_Wrapper.m_Player_ToggleMoves;
+        public InputAction @ToggleControls => m_Wrapper.m_Player_ToggleControls;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -930,6 +1018,18 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @Destroy.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
                 @Destroy.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
                 @Destroy.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
+                @Random.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
+                @Random.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
+                @Random.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
+                @ToggleMap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
+                @ToggleMap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
+                @ToggleMap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
+                @ToggleMoves.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
+                @ToggleMoves.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
+                @ToggleMoves.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
+                @ToggleControls.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
+                @ToggleControls.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
+                @ToggleControls.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1027,6 +1127,18 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @Destroy.started += instance.OnDestroy;
                 @Destroy.performed += instance.OnDestroy;
                 @Destroy.canceled += instance.OnDestroy;
+                @Random.started += instance.OnRandom;
+                @Random.performed += instance.OnRandom;
+                @Random.canceled += instance.OnRandom;
+                @ToggleMap.started += instance.OnToggleMap;
+                @ToggleMap.performed += instance.OnToggleMap;
+                @ToggleMap.canceled += instance.OnToggleMap;
+                @ToggleMoves.started += instance.OnToggleMoves;
+                @ToggleMoves.performed += instance.OnToggleMoves;
+                @ToggleMoves.canceled += instance.OnToggleMoves;
+                @ToggleControls.started += instance.OnToggleControls;
+                @ToggleControls.performed += instance.OnToggleControls;
+                @ToggleControls.canceled += instance.OnToggleControls;
             }
         }
     }
@@ -1118,5 +1230,9 @@ public class @Rubix : IInputActionCollection, IDisposable
         void OnDebug(InputAction.CallbackContext context);
         void OnResetConfiguration(InputAction.CallbackContext context);
         void OnDestroy(InputAction.CallbackContext context);
+        void OnRandom(InputAction.CallbackContext context);
+        void OnToggleMap(InputAction.CallbackContext context);
+        void OnToggleMoves(InputAction.CallbackContext context);
+        void OnToggleControls(InputAction.CallbackContext context);
     }
 }

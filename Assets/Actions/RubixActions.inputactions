@@ -252,6 +252,38 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "Random",
+                    "type": "Button",
+                    "id": "7f626715-ff38-4c3d-9bc5-c6a86a330211",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "ToggleMap",
+                    "type": "Button",
+                    "id": "bdb7300c-10eb-44ea-a1bf-1898f276771e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "ToggleMoves",
+                    "type": "Button",
+                    "id": "b33312da-a2a6-410c-97d4-9a94dc2b1c92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "ToggleControls",
+                    "type": "Button",
+                    "id": "a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
@@ -593,6 +625,50 @@
                     "processors": "",
                     "groups": "",
                     "action": "Destroy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a5a62de-4205-468d-9aa5-a9c2bf7492c9",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Random",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db42b2bf-030b-4436-9096-26f582714c32",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d263de29-4a57-4302-92d5-c54a1ec5e1b0",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMoves",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4042091f-f3a1-4bc2-972b-235c1e6ef450",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleControls",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

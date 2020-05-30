@@ -8,6 +8,7 @@ public class MyPlayer : MonoBehaviour
     public MyCube myCube;
     public FaceMap faceMap;
     public MovesPanel movesPanel;
+    public ControlsPanel controlsPanel;
 
     public MouseManager mouseManager;
     public AnimationController animationController;
@@ -24,8 +25,8 @@ public class MyPlayer : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
-        if (animationController.isAnimating)
-            return;
+        //if (animationController.isAnimating)
+        //    return;
 
         AnimationSpecification animationSpecification;
         animationSpecification.cubeAxis = axis;
@@ -187,7 +188,46 @@ public class MyPlayer : MonoBehaviour
     }
 
 
+    public void OnRotateRandom(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        //if (animationController.isAnimating)
+        //    return;
+
+        animationController.StartAnimation(animationController.GetRandomMove());
+    }
+
+
     // Miscellaneous
+
+    public void ToggleMap(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        faceMap.gameObject.SetActive(!faceMap.gameObject.activeInHierarchy);
+    }
+
+
+    public void ToggleMoves(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        movesPanel.gameObject.SetActive(!movesPanel.gameObject.activeInHierarchy);
+    }
+
+
+    public void ToggleControlsPanel(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        controlsPanel.gameObject.SetActive(!controlsPanel.gameObject.activeInHierarchy);
+    }
+
 
     public void OnSpace(InputAction.CallbackContext context)
     {
@@ -225,10 +265,6 @@ public class MyPlayer : MonoBehaviour
         myCube.DoMyDestroy();
     }
 
-    public void OnWheel(InputAction.CallbackContext context)
-    {
-        Debug.Log("Wheels");
-    }
 
     public void OnScroll(InputAction.CallbackContext context)
     {

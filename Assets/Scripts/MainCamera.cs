@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 
 public struct AzimuthElevation
@@ -23,7 +24,11 @@ public class MainCamera : MonoBehaviour
 
     //private InputData inputData;
 
+    public Slider orbitSlider;
+
     private float RotateAmount = 1.0f;
+    Vector2 orbitDelta;
+    public bool doOrbitCamera;
 
     public AzimuthElevation azimuthElevation;
     public XYZ xyz;
@@ -33,9 +38,13 @@ public class MainCamera : MonoBehaviour
 
     private void Awake()
     {
+        doOrbitCamera = false;
+        orbitDelta = new Vector2(0.2f, 0.0f);
+
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
     }
+
 
     private void FixedUpdate()
     {
@@ -62,6 +71,17 @@ public class MainCamera : MonoBehaviour
     {
        // OrbitCamera();
     }
+
+
+    void Update()
+    {
+        if (doOrbitCamera)
+        {
+            orbitDelta.x = orbitSlider.value;
+            OrbitCamera(orbitDelta);
+        }
+    }
+
 
     public void PanCamera(Vector2 lookDelta)
     {

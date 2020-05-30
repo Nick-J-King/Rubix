@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 
 public enum CubeAxis { x = 0, y = 1, z = 2 };
@@ -23,6 +24,7 @@ public class AnimationController : MonoBehaviour
     public MovesPanel movesPanel;
 
     public bool isAnimating;
+    public Queue<AnimationSpecification> queue;
 
     int animationStep;
 
@@ -38,17 +40,71 @@ public class AnimationController : MonoBehaviour
 
     readonly int lastAnimationStep = 18;
 
+    bool doRandomMoves;
+
+
+    public void ToggleGoRandomMoves()
+    {
+        doRandomMoves = !doRandomMoves;
+    }
 
     void Start()
     {
+        doRandomMoves = false;
+        queue = new Queue<AnimationSpecification>();
+
         isAnimating = false;
+    }
+
+
+    public AnimationSpecification GetRandomMove()
+    {
+        AnimationSpecification animationSpecification;
+
+        int x = Random.Range(0,3);
+
+        if (x == 0)
+            animationSpecification.cubeAxis = CubeAxis.x;
+        else if (x == 1)
+            animationSpecification.cubeAxis = CubeAxis.y;
+        else
+            animationSpecification.cubeAxis = CubeAxis.z;
+
+        x = Random.Range(0, 8);
+        if (x == 0)
+            animationSpecification.cubeSlices = CubeSlices.s0;
+        else if (x == 1)
+            animationSpecification.cubeSlices = CubeSlices.s01;
+        else if (x == 2)
+            animationSpecification.cubeSlices = CubeSlices.s01234;
+        else if (x == 3)
+            animationSpecification.cubeSlices = CubeSlices.s1;
+        else if (x == 4)
+            animationSpecification.cubeSlices = CubeSlices.s2;
+        else if (x == 5)
+            animationSpecification.cubeSlices = CubeSlices.s3;
+        else if (x == 6)
+            animationSpecification.cubeSlices = CubeSlices.s34;
+        else
+            animationSpecification.cubeSlices = CubeSlices.s4;
+
+        x = Random.Range(0, 2);
+        if (x == 0)
+            animationSpecification.rotationDirection = RotationDirection.normal;
+        else
+            animationSpecification.rotationDirection = RotationDirection.reverse;
+
+        return animationSpecification;
     }
 
 
     public void StartAnimation(AnimationSpecification animationSpecification)
     {
         if (isAnimating)
+        {
+            queue.Enqueue(animationSpecification);
             return;
+        }
 
         myCube.SpecifyAnimation(animationSpecification);
         faceMap.SpecifyAnimation(animationSpecification);
@@ -85,7 +141,18 @@ public class AnimationController : MonoBehaviour
     void Update()
     {
         if (!isAnimating)
+        {
+            if (queue.Count > 0)
+            {
+                AnimationSpecification animationSpecification = queue.Dequeue();
+                StartAnimation(animationSpecification);
+            }
+
+            if (doRandomMoves)
+                StartAnimation(GetRandomMove());
+
             return;
+        }
 
         animationStep++;
 
@@ -97,6 +164,9 @@ public class AnimationController : MonoBehaviour
             faceMap.FinishAnimation();
             myCube.FinishAnimation();
             isAnimating = false;
+
+            if (doRandomMoves)
+                StartAnimation(GetRandomMove());
         }
     }
 }

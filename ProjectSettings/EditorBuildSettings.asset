@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/Scenes/CubeScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 1a6d03194ce6d44e889b9f1c78c84b8f,
+    com.unity.input.settings: {fileID: 11400000, guid: 89bb0b30a78c14a0685560a473770d26,
       type: 2}
