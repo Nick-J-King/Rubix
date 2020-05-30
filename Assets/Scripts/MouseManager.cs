@@ -32,11 +32,13 @@ public class MouseManager : MonoBehaviour
     public bool isMapHit = false;
     public bool isMovesHit = false;
     public bool isCubeHit = false;
+    public bool isControlsHit = false;
         // Used to relay status.
 
     Vector2 vHotSpot;
     Image mapPanelImage;
     Image movesPanelImage;
+    Image controlsPanelImage;
         // Don't keep newing these...
 
     GraphicRaycaster m_Raycaster;
@@ -59,6 +61,7 @@ public class MouseManager : MonoBehaviour
         vHotSpot.y = 16;
         mapPanelImage = mapPanel.GetComponent<Image>();
         movesPanelImage = movesPanel.GetComponent<Image>();
+        controlsPanelImage = movesPanel.GetComponent<Image>();
     }
 
 
@@ -68,6 +71,7 @@ public class MouseManager : MonoBehaviour
         isMapHit = false;
         isCubeHit = false;
         isMovesHit = false;
+        isControlsHit = false;
 
         m_PointerEventData.position = Mouse.current.position.ReadValue();
 
@@ -84,6 +88,9 @@ public class MouseManager : MonoBehaviour
 
             if (result.gameObject.name == "MovesPanel")
                 isMovesHit = true;
+
+            if (result.gameObject.name == "ControlsPanel")
+                isControlsHit = true;
         }
 
         // Are we over the FaceMap panel?
@@ -108,6 +115,18 @@ public class MouseManager : MonoBehaviour
         else
         {
             movesPanelImage.color = colorMapNotSelected;
+        }
+
+        // Are we over the MovesPanel panel?
+        if (isControlsHit)
+        {
+            Cursor.SetCursor(sphere, vHotSpot, CursorMode.Auto);
+            controlsPanelImage.color = colorMapSelected;
+            return;
+        }
+        else
+        {
+            controlsPanelImage.color = colorMapNotSelected;
         }
 
         // OK, now check the 3D scene...
