@@ -33,6 +33,15 @@ public class MyPlayer : MonoBehaviour
             animationSpecification.rotationDirection = RotationDirection.normal;
         }
 
+        if (Keyboard.current.leftCtrlKey.isPressed)
+        { 
+           animationSpecification.moveType = MoveType.doubleMove;
+        }
+        else
+        {
+           animationSpecification.moveType = MoveType.singleMove;
+        }
+
         animationController.AddAnimation(animationSpecification);
     }
 
@@ -177,7 +186,7 @@ public class MyPlayer : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
-        animationController.AddAnimation(animationController.GetRandomMove());
+        animationController.DoRandomMove();
     }
 
 

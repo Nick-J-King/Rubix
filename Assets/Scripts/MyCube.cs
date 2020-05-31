@@ -23,10 +23,6 @@ public class MyCube : MonoBehaviour
     readonly Texture[,] cubeFaceletTextures = new Texture[5, 5];
         // Loaded up from Resources
 
-    AudioSource myAudioSource;
-    bool playSound = false;
-
-    public AudioClip audioClip;
 
     //-------------------------------------------------
     //
@@ -61,8 +57,6 @@ public class MyCube : MonoBehaviour
 
     void Start()
     {
-        myAudioSource = GetComponent<AudioSource>();
-
         cubePlaceholder.SetActive(false);
 
         mfOrigSphereTransformData = new TransformData(innerSphere.transform);
@@ -396,18 +390,6 @@ public class MyCube : MonoBehaviour
     }
 
 
-    public void ToggleSound()
-    {
-        playSound = !playSound;
-    }
-
-
-    public void SetVolume(float volume)
-    {
-        myAudioSource.volume = volume;
-    }
-
-
     // Specify the animation to do.
     // Initialise...
     public void SpecifyAnimation(AnimationSpecification animationSpecification)
@@ -417,9 +399,6 @@ public class MyCube : MonoBehaviour
         rotationDirection = animationSpecification.rotationDirection;
 
         isAnimating = true;
-
-        if (playSound)
-            myAudioSource.PlayOneShot(audioClip, myAudioSource.volume); // <<<
     }
 
 

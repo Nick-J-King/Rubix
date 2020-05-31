@@ -79,6 +79,7 @@ public class MovesPanel : DragWindow
         RotationDirection rotationDirection = animationSpecification.rotationDirection;
         CubeAxis cubeAxis = animationSpecification.cubeAxis;
         CubeSlices cubeSlices = animationSpecification.cubeSlices;
+        MoveType moveType = animationSpecification.moveType;
 
         string s = "";
 
@@ -125,6 +126,8 @@ public class MovesPanel : DragWindow
 
         if (rotationDirection == RotationDirection.reverse)
             s += "R";
+        if (moveType == MoveType.doubleMove)
+            s += "D";
 
         GameObject g1 = Instantiate(prefab); 
         g1.gameObject.transform.SetParent(contentRect, false);

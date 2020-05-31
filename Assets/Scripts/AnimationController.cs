@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public enum CubeAxis { x = 0, y = 1, z = 2 };
 public enum CubeSlices { s0 = 0, s01 = 1, s1 = 2, s2 = 3, s3 = 4, s34 = 5, s4 = 6 , s01234 = 7};
 public enum RotationDirection { normal = 0, reverse = 1 };
+public enum MoveType { singleMove = 0, doubleMove = 1 };
 
 
 // Encode the specification of the cube / map animation
@@ -13,6 +14,7 @@ public struct AnimationSpecification
     public CubeAxis cubeAxis;       // Which axis we are currently rotating about.
     public CubeSlices cubeSlices;   // Which slices we are currently rotating.
     public RotationDirection rotationDirection;
+    public MoveType moveType;
 }
 
 
@@ -40,7 +42,31 @@ public class AnimationController : MonoBehaviour
     readonly int fourthStep = 14;
     readonly int fifthStep = 16;
 
-    readonly int lastAnimationStep = 18;
+    readonly int lastAnimationStepSingle = 18;
+
+    readonly int sixthStep = 2 + 18;
+    readonly int seventhStep = 4 + 18;
+    readonly int eighthStep = 9 + 18;
+    readonly int ninthStep = 14 + 18;
+    readonly int tenthStep = 16 + 18;
+
+    readonly int lastAnimationStepDouble = 36;
+
+    MoveType moveType = MoveType.singleMove;
+
+
+    AudioSource myAudioSource;
+    bool playSound = false;
+
+    public AudioClip audioClipSingle;
+    public AudioClip audioClipDouble;
+
+
+    private void Start()
+    {
+        myAudioSource = GetComponent<AudioSource>();
+    
+    }
 
 
     public void ToggleGoRandomMoves()
@@ -86,6 +112,12 @@ public class AnimationController : MonoBehaviour
         else
             animationSpecification.rotationDirection = RotationDirection.reverse;
 
+        x = Random.Range(0, 2);
+        if (x == 0)
+            animationSpecification.moveType = MoveType.singleMove;
+        else
+            animationSpecification.moveType = MoveType.doubleMove;
+
         return animationSpecification;
     }
 
@@ -98,6 +130,14 @@ public class AnimationController : MonoBehaviour
             return;
         }
 
+        if (playSound)
+        {
+            if (animationSpecification.moveType == MoveType.doubleMove)
+                myAudioSource.PlayOneShot(audioClipDouble, myAudioSource.volume); // <<<
+            else
+                myAudioSource.PlayOneShot(audioClipSingle, myAudioSource.volume); // <<<
+        }
+
         myCube.SpecifyAnimation(animationSpecification);
         faceMap.SpecifyAnimation(animationSpecification);
 
@@ -107,6 +147,8 @@ public class AnimationController : MonoBehaviour
             angleStep = -baseAngleStep;
         else
             angleStep = baseAngleStep;
+
+        moveType = animationSpecification.moveType;
 
         animationStep = 0;
         isAnimating = true;
@@ -121,6 +163,20 @@ public class AnimationController : MonoBehaviour
     }
 
 
+    public void ToggleSound()
+    {
+        playSound = !playSound;
+    }
+
+
+    public void SetVolume(float volume)
+    {
+        myAudioSource.volume = volume;
+    }
+
+
+
+
     // Determine whether to "cycle" the facelets on "strips".
     bool IsAnimationOnStep(int animationStep)
     {
@@ -128,7 +184,32 @@ public class AnimationController : MonoBehaviour
         || animationStep == secondStep
         || animationStep == thirdStep
         || animationStep == fourthStep
-        || animationStep == fifthStep);
+        || animationStep == fifthStep
+        || animationStep == sixthStep
+        || animationStep == seventhStep
+        || animationStep == eighthStep
+        || animationStep == ninthStep
+        || animationStep == tenthStep);
+    }
+
+    bool IsAnimationOnFinishStep(int animationStep)
+    {
+        return (animationStep == lastAnimationStepSingle
+        || animationStep == lastAnimationStepDouble);
+    }
+
+
+    bool IsAnimationOnLast(int animationStep)
+    {
+        return (moveType == MoveType.singleMove && animationStep == lastAnimationStepSingle
+             || moveType == MoveType.doubleMove && animationStep == lastAnimationStepDouble);
+    }
+
+
+    public void DoRandomMove()
+    {
+        AnimationSpecification animationSpecification = GetRandomMove();
+        AddAnimation(animationSpecification);
     }
 
 
@@ -144,7 +225,7 @@ public class AnimationController : MonoBehaviour
             }
 
             if (doRandomMoves)
-                AddAnimation(GetRandomMove());
+                DoRandomMove();
 
             return;
         }
@@ -154,10 +235,15 @@ public class AnimationController : MonoBehaviour
         faceMap.DoAnimation(angleStep, IsAnimationOnStep(animationStep));
         myCube.DoAnimation(angleStep);
 
-        if (animationStep == lastAnimationStep)
+        // Transform the rotations into array manipulations.
+        if (IsAnimationOnFinishStep(animationStep))
         {
             faceMap.FinishAnimation();
             myCube.FinishAnimation();
+        }
+
+        if (IsAnimationOnLast(animationStep))
+        {
             isAnimating = false;
 
             if (doRandomMoves)
