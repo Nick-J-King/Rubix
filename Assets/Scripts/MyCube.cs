@@ -26,6 +26,8 @@ public class MyCube : MonoBehaviour
     AudioSource myAudioSource;
     bool playSound = false;
 
+    public AudioClip audioClip;
+
     //-------------------------------------------------
     //
     // Animation stuff...
@@ -417,7 +419,7 @@ public class MyCube : MonoBehaviour
         isAnimating = true;
 
         if (playSound)
-            myAudioSource.Play();
+            myAudioSource.PlayOneShot(audioClip, myAudioSource.volume); // <<<
     }
 
 
