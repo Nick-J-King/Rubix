@@ -4,6 +4,7 @@
 public class MyCube : MonoBehaviour
 {
     public GameObject cubeRoot;
+    public GameObject innerSphere;
     public GameObject cubePlaceholder;
 
     // Materials.
@@ -16,21 +17,20 @@ public class MyCube : MonoBehaviour
     public Material faceMaterialRed;
     public Material faceMaterialOrange;
 
-    public Material faceMaterialBlack;  // For the "innards"
+    public Material faceMaterialBlack;  // For the "innards".
 
-    // Textures
-    Texture[,] cubeFaceletTextures;
+    // Textures for each face.
+    readonly Texture[,] cubeFaceletTextures = new Texture[5, 5];
         // Loaded up from Resources
 
-    AudioSource m_MyAudioSource;
-    bool playSound;
-    float volume;
+    AudioSource myAudioSource;
+    bool playSound = false;
 
     //-------------------------------------------------
     //
     // Animation stuff...
 
-    public bool isAnimating;
+    public bool isAnimating = false;
 
     CubeAxis cubeAxis;                      // Which axis we are currently rotating about.
     CubeSlices cubeSlices;                  // Which slices we are currently rotating.
@@ -38,29 +38,20 @@ public class MyCube : MonoBehaviour
 
     //-------------------------------------------------
 
+    public GameObject[,,] mfCubelets  = new GameObject[5, 5, 5];                // Pointers from the array indices to the current cubelets.
 
-    public GameObject[,,] mfCubelets;
-
-    public GameObject[,,] mfOrigCubelets;
-    public TransformData[,,] mfOrigTransformData;
-
-    //enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
+    public GameObject[,,] mfOrigCubelets = new GameObject[5, 5, 5];             // Pointers from the array indices to the original cubelets.
+    public TransformData[,,] mfOrigTransformData = new TransformData[5, 5, 5];  // A quick record of the original positions by array indices.
+    public TransformData mfOrigSphereTransformData = new TransformData();
 
 
     void Awake()
     {
-        playSound = false;
-        volume = 0.0f;
-
-        cubeFaceletTextures = new Texture[5, 5];
-
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
             {
-                string codeNumber = string.Format("{0}{1}", x, y);
-
-                cubeFaceletTextures[x, y] = Resources.Load<Texture>("Textures/Facelet" + codeNumber + "t");
+                cubeFaceletTextures[x, y] = Resources.Load<Texture>($"Textures/Facelet{x}{y}t");
             }
         }
     }
@@ -68,14 +59,11 @@ public class MyCube : MonoBehaviour
 
     void Start()
     {
-        m_MyAudioSource = GetComponent<AudioSource>();
+        myAudioSource = GetComponent<AudioSource>();
 
         cubePlaceholder.SetActive(false);
 
-        isAnimating = false;
-        mfCubelets = new GameObject[5, 5, 5];
-        mfOrigCubelets = new GameObject[5, 5, 5];
-        mfOrigTransformData = new TransformData[5, 5, 5];
+        mfOrigSphereTransformData = new TransformData(innerSphere.transform);
 
         for (int x = 0; x < 5; x++)
         {
@@ -132,6 +120,12 @@ public class MyCube : MonoBehaviour
     // FUN! Turn on gravity and physics!
     public void DoMyDestroy()
     {
+        Rigidbody rb;
+
+        rb = innerSphere.GetComponent<Rigidbody>();
+        rb.useGravity = true;
+        rb.isKinematic = false;
+
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
@@ -140,7 +134,7 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
                         rb.useGravity = true;
                         rb.isKinematic = false;
                     }
@@ -152,6 +146,14 @@ public class MyCube : MonoBehaviour
 
     public void ResetCube()
     {
+        Rigidbody rb;
+
+        rb = innerSphere.GetComponent<Rigidbody>();
+        rb.useGravity = false;
+        rb.isKinematic = true;
+
+        mfOrigSphereTransformData.ApplyTo(innerSphere.transform);
+
         for (int x = 0; x < 5; x++)
         {
             for (int y = 0; y < 5; y++)
@@ -162,15 +164,11 @@ public class MyCube : MonoBehaviour
                     {
                         mfCubelets[x, y, z] = mfOrigCubelets[x, y, z];
 
-                        Rigidbody rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
                         rb.useGravity = false;
                         rb.isKinematic = true;
 
                         mfOrigTransformData[x, y, z].ApplyTo(mfCubelets[x, y, z].transform);
-                    }
-                    else
-                    {
-                        mfCubelets[x, y, z] = null;
                     }
                 }
             }
@@ -229,7 +227,7 @@ public class MyCube : MonoBehaviour
         if (y == 4)
         {
             mrTop.material = faceMaterialBlue;
-            mrTop.materials[0].mainTexture = cubeFaceletTextures[x, z];    // OK!
+            mrTop.materials[0].mainTexture = cubeFaceletTextures[x, z];
         }
         else
         {
@@ -239,7 +237,7 @@ public class MyCube : MonoBehaviour
         if (y == 0)
         {
             mrBottom.material = faceMaterialGreen;
-            mrBottom.materials[0].mainTexture = cubeFaceletTextures[x, 4 - z]; // OK!
+            mrBottom.materials[0].mainTexture = cubeFaceletTextures[x, 4 - z];
         }
         else
         {
@@ -249,7 +247,7 @@ public class MyCube : MonoBehaviour
         if (z == 0)
         {
             mrFront.material = faceMaterialYellow;
-            mrFront.materials[0].mainTexture = cubeFaceletTextures[x, y];  // OK!
+            mrFront.materials[0].mainTexture = cubeFaceletTextures[x, y];
 
         }
         else
@@ -260,7 +258,7 @@ public class MyCube : MonoBehaviour
         if (z == 4)
         {
             mrBack.material = faceMaterialWhite;
-            mrBack.materials[0].mainTexture = cubeFaceletTextures[4 - x, y];   // OK! NOTE: On map, the FacePanel is thereby rotated 180 degrees.
+            mrBack.materials[0].mainTexture = cubeFaceletTextures[4 - x, y];   // NOTE: On map, the FacePanel is thereby rotated 180 degrees.
         }
         else
         {
@@ -270,7 +268,7 @@ public class MyCube : MonoBehaviour
         if (x == 0)
         {
             mrLeft.material = faceMaterialRed;
-            mrLeft.materials[0].mainTexture = cubeFaceletTextures[4 - z, y]; // OK!
+            mrLeft.materials[0].mainTexture = cubeFaceletTextures[4 - z, y];
         }
         else
         {
@@ -317,8 +315,7 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfTop.mesh.RecalculateBounds();
-        mfTop.mesh.RecalculateNormals();
+        RecalculateMesh(mfTop);
 
         // Bottom -----------------
 
@@ -329,8 +326,7 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfBottom.mesh.RecalculateBounds();
-        mfBottom.mesh.RecalculateNormals();
+        RecalculateMesh(mfBottom);
 
         // Front ------------------
 
@@ -341,8 +337,7 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfFront.mesh.RecalculateBounds();
-        mfFront.mesh.RecalculateNormals();
+        RecalculateMesh(mfFront);
 
         // Back -------------------
 
@@ -353,8 +348,7 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfBack.mesh.RecalculateBounds();
-        mfBack.mesh.RecalculateNormals();
+        RecalculateMesh(mfBack);
 
         // Left -------------------
 
@@ -365,8 +359,7 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfLeft.mesh.RecalculateBounds();
-        mfLeft.mesh.RecalculateNormals();
+        RecalculateMesh(mfLeft);
 
         // Right ------------------
 
@@ -377,8 +370,7 @@ public class MyCube : MonoBehaviour
             triangles = stdTriangles
         };
 
-        mfRight.mesh.RecalculateBounds();
-        mfRight.mesh.RecalculateNormals();
+        RecalculateMesh(mfRight);
 
         // Now, set up the extra cubelet stuff.
         cubelet.AddComponent<BoxCollider>();
@@ -388,9 +380,17 @@ public class MyCube : MonoBehaviour
         rb.isKinematic = true;
 
         cubelet.tag = "Cubelet";
-        cubelet.layer = 8;  //"Clickable";
+        cubelet.layer = 8;  // "Clickable"
 
         return cubelet;
+    }
+
+
+    void RecalculateMesh(MeshFilter mf)
+    {
+        mf.mesh.RecalculateBounds();
+        mf.mesh.RecalculateNormals();
+
     }
 
 
@@ -400,10 +400,9 @@ public class MyCube : MonoBehaviour
     }
 
 
-    public void SetVolume(float val)
+    public void SetVolume(float volume)
     {
-        volume = val;
-        m_MyAudioSource.volume = volume;
+        myAudioSource.volume = volume;
     }
 
 
@@ -418,7 +417,7 @@ public class MyCube : MonoBehaviour
         isAnimating = true;
 
         if (playSound)
-            m_MyAudioSource.Play();
+            myAudioSource.Play();
     }
 
 

@@ -19,14 +19,16 @@ public struct AnimationSpecification
 // Coordinate the Cube and Map animations.
 public class AnimationController : MonoBehaviour
 {
-    public FaceMap faceMap;
     public MyCube myCube;
+    public FaceMap faceMap;
     public MovesPanel movesPanel;
 
-    public bool isAnimating;
-    public Queue<AnimationSpecification> queue;
+    public bool isAnimating = false;
+    public Queue<AnimationSpecification> queue = new Queue<AnimationSpecification>();
 
-    int animationStep;
+    bool doRandomMoves = false;
+
+    int animationStep = 0;
 
     readonly float baseAngleStep = 5.0f;
 
@@ -40,20 +42,10 @@ public class AnimationController : MonoBehaviour
 
     readonly int lastAnimationStep = 18;
 
-    bool doRandomMoves;
-
 
     public void ToggleGoRandomMoves()
     {
         doRandomMoves = !doRandomMoves;
-    }
-
-    void Start()
-    {
-        doRandomMoves = false;
-        queue = new Queue<AnimationSpecification>();
-
-        isAnimating = false;
     }
 
 
@@ -98,7 +90,7 @@ public class AnimationController : MonoBehaviour
     }
 
 
-    public void StartAnimation(AnimationSpecification animationSpecification)
+    public void AddAnimation(AnimationSpecification animationSpecification)
     {
         if (isAnimating)
         {
@@ -108,6 +100,7 @@ public class AnimationController : MonoBehaviour
 
         myCube.SpecifyAnimation(animationSpecification);
         faceMap.SpecifyAnimation(animationSpecification);
+
         movesPanel.AddMove(animationSpecification);
 
         if (animationSpecification.rotationDirection == RotationDirection.reverse)
@@ -123,6 +116,8 @@ public class AnimationController : MonoBehaviour
     public void StopAnimation()
     {
         isAnimating = false;
+        myCube.isAnimating = false;
+        faceMap.isAnimating = false;
     }
 
 
@@ -145,11 +140,11 @@ public class AnimationController : MonoBehaviour
             if (queue.Count > 0)
             {
                 AnimationSpecification animationSpecification = queue.Dequeue();
-                StartAnimation(animationSpecification);
+                AddAnimation(animationSpecification);
             }
 
             if (doRandomMoves)
-                StartAnimation(GetRandomMove());
+                AddAnimation(GetRandomMove());
 
             return;
         }
@@ -166,7 +161,7 @@ public class AnimationController : MonoBehaviour
             isAnimating = false;
 
             if (doRandomMoves)
-                StartAnimation(GetRandomMove());
+                AddAnimation(GetRandomMove());
         }
     }
 }

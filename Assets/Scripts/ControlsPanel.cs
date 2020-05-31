@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ControlsPanel : DragWindow
+﻿public class ControlsPanel : DragWindow
 {
     public AnimationController animationController;
     public MainCamera mainCamera;

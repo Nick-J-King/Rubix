@@ -14,19 +14,11 @@ public class MyPlayer : MonoBehaviour
     public AnimationController animationController;
 
 
-    void Start()
-    {
-    }
-
-
     // Get the AnimationController to do the animation of the Cube and the Map.
     public void OnRotate(InputAction.CallbackContext context, CubeAxis axis, CubeSlices slices)
     {
         if (context.phase != InputActionPhase.Started)
             return;
-
-        //if (animationController.isAnimating)
-        //    return;
 
         AnimationSpecification animationSpecification;
         animationSpecification.cubeAxis = axis;
@@ -41,7 +33,7 @@ public class MyPlayer : MonoBehaviour
             animationSpecification.rotationDirection = RotationDirection.normal;
         }
 
-        animationController.StartAnimation(animationSpecification);
+        animationController.AddAnimation(animationSpecification);
     }
 
 
@@ -75,7 +67,6 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.x, CubeSlices.s4);
     }
 
-
     public void OnRotateOuterD(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.y, CubeSlices.s0);
@@ -85,7 +76,6 @@ public class MyPlayer : MonoBehaviour
     {
         OnRotate(context, CubeAxis.y, CubeSlices.s4);
     }
-
 
     public void OnRotateOuterF(InputAction.CallbackContext context)
     {
@@ -110,7 +100,6 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.x, CubeSlices.s34);
     }
 
-
     public void OnRotateBothD(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.y, CubeSlices.s01);
@@ -120,7 +109,6 @@ public class MyPlayer : MonoBehaviour
     {
         OnRotate(context, CubeAxis.y, CubeSlices.s34);
     }
-
 
     public void OnRotateBothF(InputAction.CallbackContext context)
     {
@@ -145,7 +133,6 @@ public class MyPlayer : MonoBehaviour
         OnRotate(context, CubeAxis.x, CubeSlices.s3);
     }
 
-
     public void OnRotateInnerD(InputAction.CallbackContext context)
     {
         OnRotate(context, CubeAxis.y, CubeSlices.s1);
@@ -155,7 +142,6 @@ public class MyPlayer : MonoBehaviour
     {
         OnRotate(context, CubeAxis.y, CubeSlices.s3);
     }
-
 
     public void OnRotateInnerF(InputAction.CallbackContext context)
     {
@@ -191,10 +177,7 @@ public class MyPlayer : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
-        //if (animationController.isAnimating)
-        //    return;
-
-        animationController.StartAnimation(animationController.GetRandomMove());
+        animationController.AddAnimation(animationController.GetRandomMove());
     }
 
 
@@ -232,7 +215,7 @@ public class MyPlayer : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
-        mainCamera.Start();
+        mainCamera.ResetViewport();
         faceMap.ResetPositionAndScale();
         movesPanel.ResetPositionAndScale();
         controlsPanel.ResetPositionAndScale();
@@ -265,78 +248,41 @@ public class MyPlayer : MonoBehaviour
     }
 
 
+    void ScaleUp(GameObject go, float factor, float step, float min, float max)
+    {
+        float ls = go.transform.localScale.x;
+
+        if (factor > 0.0f)      // scroll up
+        {
+            ls += step;
+            if (ls > max)
+                ls = max;
+        }
+        else if (factor < 0.0f) // scroll down
+        {
+            ls -= step;
+            if (ls < min)
+                ls = min;
+        }
+        go.transform.localScale = new Vector3(ls, ls, ls);
+    }
+
+
     public void OnScroll(InputAction.CallbackContext context)
     {
-        var d = context.action.ReadValue<float>();   // Input.GetAxis("Mouse ScrollWheel");
+        var scrollValue = context.action.ReadValue<float>();
 
         if (mouseManager.isMapHit)
-        { 
-            if (d > 0.0f)
-            {
-                // scroll up
-                float ls = faceMap.transform.localScale.x;
-                ls += 0.1f;
-                if (ls > 10.0f)
-                    ls = 10.0f;
-
-                faceMap.transform.localScale = new Vector3(ls, ls, 1.0f);
-            }
-            else if (d < 0.0f)
-            {
-                // scroll down
-                float ls = faceMap.transform.localScale.x;
-                ls -= 0.1f;
-                if (ls < 0.1f)
-                    ls = 0.1f;
-
-                faceMap.transform.localScale = new Vector3(ls, ls, 1.0f);
-            }
+        {
+            ScaleUp(faceMap.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
         }
         else if (mouseManager.isControlsHit)
         { 
-            if (d > 0.0f)
-            {
-                // scroll up
-                float ls = controlsPanel.transform.localScale.x;
-                ls += 0.1f;
-                if (ls > 10.0f)
-                    ls = 10.0f;
-
-                controlsPanel.transform.localScale = new Vector3(ls, ls, 1.0f);
-            }
-            else if (d < 0.0f)
-            {
-                // scroll down
-                float ls = controlsPanel.transform.localScale.x;
-                ls -= 0.1f;
-                if (ls < 0.1f)
-                    ls = 0.1f;
-
-                controlsPanel.transform.localScale = new Vector3(ls, ls, 1.0f);
-            }
+            ScaleUp(controlsPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
         }
         else if (mouseManager.isCubeHit)
         {
-            if (d > 0.0f)
-            {
-                // scroll up
-                float ls = myCube.transform.localScale.x;
-                ls += 0.05f;
-                if (ls > 2.0f)
-                    ls = 2.0f;
-
-                myCube.transform.localScale = new Vector3(ls, ls, ls);
-            }
-            else if (d < 0.0f)
-            {
-                // scroll down
-                float ls = myCube.transform.localScale.x;
-                ls -= 0.05f;
-                if (ls < 0.05f)
-                    ls = 0.05f;
-
-                myCube.transform.localScale = new Vector3(ls, ls, ls);
-            }
+            ScaleUp(myCube.gameObject, scrollValue, 0.05f, 0.05f, 2.0f);
         }
     }
 
@@ -362,17 +308,14 @@ public class MyPlayer : MonoBehaviour
 
         if (Mouse.current.rightButton.isPressed)
         {
+            float moveStep = 5.0f;
+
             float x = mainCamera.cam.pixelRect.x;
             float y = mainCamera.cam.pixelRect.y;
             float w = mainCamera.cam.pixelRect.width;
             float h = mainCamera.cam.pixelRect.height;
-            mainCamera.cam.pixelRect = new Rect(x + move.x * 5.0f, y, w - move.x * 5.0f, h);
+
+            mainCamera.cam.pixelRect = new Rect(x + move.x * moveStep, y, w - move.x * moveStep, h);
         }
-    }
-
-
-    public void OnDebugMe(InputAction.CallbackContext context)
-    {
-        //myCube.DebugMe();
     }
 }

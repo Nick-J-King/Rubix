@@ -6,9 +6,9 @@
 //..[Serializable]
 public class TransformData
 {
-    public Vector3 LocalPosition = Vector3.zero;
-    public Vector3 LocalEulerRotation = Vector3.zero;
-    public Vector3 LocalScale = Vector3.one;
+    public Vector3 localPosition = Vector3.zero;
+    public Vector3 localEulerAngles = Vector3.zero;
+    public Vector3 localScale = Vector3.one;
 
 
     // Unity requires a default constructor for serialization
@@ -17,22 +17,22 @@ public class TransformData
 
     public TransformData(Transform transform)
     {
-        LocalPosition = transform.localPosition;
-        LocalEulerRotation = transform.localEulerAngles;
-        LocalScale = transform.localScale;
+        localPosition = transform.localPosition;
+        localEulerAngles = transform.localEulerAngles;
+        localScale = transform.localScale;
     }
 
 
     public void ApplyTo(Transform transform)
     {
-        transform.localPosition = LocalPosition;
-        transform.localEulerAngles = LocalEulerRotation ;
-        transform.localScale = LocalScale;
+        transform.localPosition = localPosition;
+        transform.localEulerAngles = localEulerAngles;
+        transform.localScale = localScale;
     }
 
 
     public void ApplyRotationTo(Transform transform)
     {
-        transform.localEulerAngles = LocalEulerRotation ;
+        transform.localEulerAngles = localEulerAngles;
     }
 }

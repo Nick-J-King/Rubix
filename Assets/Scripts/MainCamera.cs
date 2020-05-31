@@ -9,38 +9,22 @@ public struct AzimuthElevation
 }
 
 
-public struct XYZ
-{
-    public float x;
-    public float y;
-    public float z;
-}
-
-
 public class MainCamera : MonoBehaviour
 {
-    //[Header("Data")]
-    //[SerializeField]
-
-    //private InputData inputData;
-
     public Slider orbitSlider;
+    public Camera cam;
 
-    private float RotateAmount = 1.0f;
-    Vector2 orbitDelta;
-    public bool doOrbitCamera;
+    readonly float rotateAmount = 1.0f;
+
+    public bool doOrbitCamera = false;
+    Vector2 orbitDelta = new Vector2(0.0f, 0.0f);
 
     public AzimuthElevation azimuthElevation;
-    public XYZ xyz;
-
-    public Camera cam;
 
 
     private void Awake()
     {
-        doOrbitCamera = false;
-        orbitDelta = new Vector2(0.2f, 0.0f);
-
+        SetCameraAzimuthElevation(azimuthElevation);
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
     }
@@ -48,19 +32,13 @@ public class MainCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Vector2 lookDelta = inputData.LookAction.ReadValue<Vector2>();
-        //Debug.Log(lookDelta);
         //OrbitCamera(lookDelta);
     }
 
-   public  void Start()
-    {
-        azimuthElevation.azimuth = 0.0f;
-        azimuthElevation.elevation = 0.0f;
 
-        xyz.x = 0.0f;
-        xyz.y = 0.0f;
-        xyz.z = 0.0f;
+    public void ResetViewport()
+    {
+        (azimuthElevation.azimuth, azimuthElevation.elevation) = (0.0f, 0.0f);
 
         SetCameraAzimuthElevation(azimuthElevation);
         cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
@@ -83,22 +61,12 @@ public class MainCamera : MonoBehaviour
     }
 
 
-    public void PanCamera(Vector2 lookDelta)
-    {
-        Vector3 newPos;
-        newPos.x = transform.position.x + lookDelta.x;
-        newPos.y = transform.position.y + lookDelta.y;
-        newPos.z = transform.position.z;
-
-        transform.position = newPos;
-    }
-
     public void OrbitCamera(Vector2 lookDelta)
     {
-        azimuthElevation.azimuth += lookDelta.x * RotateAmount;
-        azimuthElevation.elevation += lookDelta.y * RotateAmount;
+        azimuthElevation.azimuth += lookDelta.x * rotateAmount;
+        azimuthElevation.elevation += lookDelta.y * rotateAmount;
 
-        azimuthElevation.azimuth %= 360;
+        // azimuthElevation.azimuth %= 360;
         while (azimuthElevation.azimuth >= 360.0f) azimuthElevation.azimuth -= 360.0f;
         while (azimuthElevation.azimuth < 0.0f) azimuthElevation.azimuth += 360.0f;
 
@@ -116,9 +84,6 @@ public class MainCamera : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(-azimuthElevation.elevation, azimuthElevation.azimuth, 0.0f);
 
         Vector3 rotatedVector = rotation * position;
-        xyz.x = rotatedVector.x;
-        xyz.y = rotatedVector.y;
-        xyz.z = rotatedVector.z;
 
         transform.position = rotatedVector;
         transform.LookAt(Vector3.zero);

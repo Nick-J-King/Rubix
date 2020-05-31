@@ -38,7 +38,6 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OPD");
         isDragging = true;
 
         // Convert eventData position to canvas rt position.
@@ -51,7 +50,6 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("OPU");
         isDragging = false;
     }
 
@@ -65,6 +63,6 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void ResetPositionAndScale()
     {
         dragRectTransform.localPosition = localOrigPosition;
-        dragRectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        dragRectTransform.localScale = Vector3.one;
     }
 }
