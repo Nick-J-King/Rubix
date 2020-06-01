@@ -1,6 +1,20 @@
 ﻿using UnityEngine;
 
 
+public class CubeletData
+{
+    public GameObject cubelet;
+
+    public Texture textureNumberUp;
+    public Texture textureNumberDown;
+    public Texture textureNumberLeft;
+    public Texture textureNumberRight;
+    public Texture textureNumberFront;
+    public Texture textureNumberBack;
+    //public Sprite spritePlain;
+}
+
+
 public class MyCube : MonoBehaviour
 {
     public GameObject cubeRoot;
@@ -23,6 +37,7 @@ public class MyCube : MonoBehaviour
     readonly Texture[,] cubeFaceletTextures = new Texture[5, 5];
         // Loaded up from Resources
 
+    bool showTexture = true;
 
     //-------------------------------------------------
     //
@@ -36,10 +51,11 @@ public class MyCube : MonoBehaviour
 
     //-------------------------------------------------
 
-    public GameObject[,,] mfCubelets  = new GameObject[5, 5, 5];                // Pointers from the array indices to the current cubelets.
+    public CubeletData[,,] cubeletData  = new CubeletData[5, 5, 5];                // Pointers from the array indices to the current cubelets.
 
     public GameObject[,,] mfOrigCubelets = new GameObject[5, 5, 5];             // Pointers from the array indices to the original cubelets.
     public TransformData[,,] mfOrigTransformData = new TransformData[5, 5, 5];  // A quick record of the original positions by array indices.
+
     public TransformData mfOrigSphereTransformData = new TransformData();
 
 
@@ -69,13 +85,13 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        mfCubelets[x, y, z] = CreateCubelet(x, y, z);
-                        mfOrigCubelets[x, y, z] = mfCubelets[x, y, z];
-                        mfOrigTransformData[x, y, z] = new TransformData(mfCubelets[x, y, z].transform);
+                        cubeletData[x, y, z] = CreateCubelet(x, y, z);
+                        mfOrigCubelets[x, y, z] = cubeletData[x, y, z].cubelet;
+                        mfOrigTransformData[x, y, z] = new TransformData(cubeletData[x, y, z].cubelet.transform);
                     }
                     else
                     {
-                        mfCubelets[x, y, z] = null;
+                        cubeletData[x, y, z] = null;
                         mfOrigCubelets[x, y, z] = null;
                         mfOrigTransformData[x, y, z] = null;
                     }
@@ -130,7 +146,7 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                         rb.useGravity = true;
                         rb.isKinematic = false;
                     }
@@ -158,13 +174,13 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        mfCubelets[x, y, z] = mfOrigCubelets[x, y, z];
+                        cubeletData[x, y, z].cubelet = mfOrigCubelets[x, y, z];
 
-                        rb = mfCubelets[x, y, z].GetComponent<Rigidbody>();
+                        rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                         rb.useGravity = false;
                         rb.isKinematic = true;
 
-                        mfOrigTransformData[x, y, z].ApplyTo(mfCubelets[x, y, z].transform);
+                        mfOrigTransformData[x, y, z].ApplyTo(cubeletData[x, y, z].cubelet.transform);
                     }
                 }
             }
@@ -176,11 +192,80 @@ public class MyCube : MonoBehaviour
 
     public void ToggleTextures()
     {
-        //
+        showTexture = !showTexture;
+
+        if (showTexture)
+        { 
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    for (int z = 0; z < 5; z++)
+                    {
+                        if (IsOuterCubelet(x, y, z))
+                        {
+                            GameObject cubeletFace;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(0).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberUp;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(1).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberDown;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(2).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberFront;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(3).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberBack;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(4).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberLeft;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(5).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberRight;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        { 
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    for (int z = 0; z < 5; z++)
+                    {
+                        if (IsOuterCubelet(x, y, z))
+                        {
+                            GameObject cubeletFace;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(0).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(1).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(2).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(3).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(4).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
+
+                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(5).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
-    public GameObject CreateCubelet(int x, int y, int z)
+    public CubeletData CreateCubelet(int x, int y, int z)
     {
         string codeNumber = string.Format("{0}{1}{2}", x, y, z);
 
@@ -190,7 +275,11 @@ public class MyCube : MonoBehaviour
 
         string codeName = "Cubelet" + codeNumber;
 
+        CubeletData cd = new CubeletData();
+
         GameObject cubelet = new GameObject(codeName);
+
+        cd.cubelet = cubelet;
 
         GameObject cubeletTop = new GameObject(codeName + "Top");
         GameObject cubeletBottom = new GameObject(codeName + "Bottom");
@@ -286,6 +375,13 @@ public class MyCube : MonoBehaviour
         {
             mrRight.material = faceMaterialBlack;
         }
+
+        cd.textureNumberBack = mrBack.materials[0].mainTexture;
+        cd.textureNumberFront = mrFront.materials[0].mainTexture;
+        cd.textureNumberLeft = mrLeft.materials[0].mainTexture;
+        cd.textureNumberRight = mrRight.materials[0].mainTexture;
+        cd.textureNumberUp = mrTop.materials[0].mainTexture;
+        cd.textureNumberDown = mrBottom.materials[0].mainTexture;
 
         int[] stdTriangles = new int[] { 0, 1, 2, 0, 2, 3 };
 
@@ -384,7 +480,7 @@ public class MyCube : MonoBehaviour
         cubelet.tag = "Cubelet";
         cubelet.layer = 8;  // "Clickable"
 
-        return cubelet;
+        return cd;
     }
 
 
@@ -423,22 +519,22 @@ public class MyCube : MonoBehaviour
                     for (int z = 0; z < 5; z++)
                     {
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutXAxis(mfCubelets[0, y, z], deltaAngle);
+                            RotateCubeletAboutXAxis(cubeletData[0, y, z].cubelet, deltaAngle);
 
                         if (IsOuterCubelet(y, z))
                         {
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutXAxis(mfCubelets[1, y, z], deltaAngle);
+                                RotateCubeletAboutXAxis(cubeletData[1, y, z].cubelet, deltaAngle);
 
                             if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutXAxis(mfCubelets[2, y, z], deltaAngle);
+                                RotateCubeletAboutXAxis(cubeletData[2, y, z].cubelet, deltaAngle);
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutXAxis(mfCubelets[3, y, z], deltaAngle);
+                                RotateCubeletAboutXAxis(cubeletData[3, y, z].cubelet, deltaAngle);
                         }
 
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutXAxis(mfCubelets[4, y, z], deltaAngle);
+                            RotateCubeletAboutXAxis(cubeletData[4, y, z].cubelet, deltaAngle);
                     }
                 }
                 break;
@@ -450,22 +546,22 @@ public class MyCube : MonoBehaviour
                     for (int z = 0; z < 5; z++)
                     {
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutYAxis(mfCubelets[x, 0, z], deltaAngle);
+                            RotateCubeletAboutYAxis(cubeletData[x, 0, z].cubelet, deltaAngle);
 
                         if (IsOuterCubelet(x, z))
                         {
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutYAxis(mfCubelets[x, 1, z], deltaAngle);
+                                RotateCubeletAboutYAxis(cubeletData[x, 1, z].cubelet, deltaAngle);
 
                             if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutYAxis(mfCubelets[x, 2, z], deltaAngle);
+                                RotateCubeletAboutYAxis(cubeletData[x, 2, z].cubelet, deltaAngle);
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutYAxis(mfCubelets[x, 3, z], deltaAngle);
+                                RotateCubeletAboutYAxis(cubeletData[x, 3, z].cubelet, deltaAngle);
                         }
 
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutYAxis(mfCubelets[x, 4, z], deltaAngle);
+                            RotateCubeletAboutYAxis(cubeletData[x, 4, z].cubelet, deltaAngle);
                     }
                 }
                 break;
@@ -477,22 +573,22 @@ public class MyCube : MonoBehaviour
                     for (int y = 0; y < 5; y++)
                     {
                         if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutZAxis(mfCubelets[x, y, 0], deltaAngle);
+                            RotateCubeletAboutZAxis(cubeletData[x, y, 0].cubelet, deltaAngle);
 
                         if (IsOuterCubelet(x, y))
                         {
                             if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutZAxis(mfCubelets[x, y, 1], deltaAngle);
+                                RotateCubeletAboutZAxis(cubeletData[x, y, 1].cubelet, deltaAngle);
 
                             if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutZAxis(mfCubelets[x, y, 2], deltaAngle);
+                                RotateCubeletAboutZAxis(cubeletData[x, y, 2].cubelet, deltaAngle);
 
                             if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutZAxis(mfCubelets[x, y, 3], deltaAngle);
+                                RotateCubeletAboutZAxis(cubeletData[x, y, 3].cubelet, deltaAngle);
                         }
 
                         if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                            RotateCubeletAboutZAxis(mfCubelets[x, y, 4], deltaAngle);
+                            RotateCubeletAboutZAxis(cubeletData[x, y, 4].cubelet, deltaAngle);
                     }
                 }
                 break;
@@ -638,11 +734,11 @@ public class MyCube : MonoBehaviour
             return;
         }
 
-        GameObject t = mfCubelets[c0.x, c0.y, c0.z];
-        mfCubelets[c0.x, c0.y, c0.z] = mfCubelets[c1.x, c1.y, c1.z];
-        mfCubelets[c1.x, c1.y, c1.z] = mfCubelets[c2.x, c2.y, c2.z];
-        mfCubelets[c2.x, c2.y, c2.z] = mfCubelets[c3.x, c3.y, c3.z];
-        mfCubelets[c3.x, c3.y, c3.z] = t;
+        CubeletData cd = cubeletData[c0.x, c0.y, c0.z];
+        cubeletData[c0.x, c0.y, c0.z] = cubeletData[c1.x, c1.y, c1.z];
+        cubeletData[c1.x, c1.y, c1.z] = cubeletData[c2.x, c2.y, c2.z];
+        cubeletData[c2.x, c2.y, c2.z] = cubeletData[c3.x, c3.y, c3.z];
+        cubeletData[c3.x, c3.y, c3.z] = cd;
     }
 
 
@@ -654,11 +750,11 @@ public class MyCube : MonoBehaviour
             return;
         }
 
-        GameObject t = mfCubelets[c3.x, c3.y, c3.z];
-        mfCubelets[c3.x, c3.y, c3.z] = mfCubelets[c2.x, c2.y, c2.z];
-        mfCubelets[c2.x, c2.y, c2.z] = mfCubelets[c1.x, c1.y, c1.z];
-        mfCubelets[c1.x, c1.y, c1.z] = mfCubelets[c0.x, c0.y, c0.z];
-        mfCubelets[c0.x, c0.y, c0.z] = t;
+        CubeletData cd = cubeletData[c3.x, c3.y, c3.z];
+        cubeletData[c3.x, c3.y, c3.z] = cubeletData[c2.x, c2.y, c2.z];
+        cubeletData[c2.x, c2.y, c2.z] = cubeletData[c1.x, c1.y, c1.z];
+        cubeletData[c1.x, c1.y, c1.z] = cubeletData[c0.x, c0.y, c0.z];
+        cubeletData[c0.x, c0.y, c0.z] = cd;
     }
 
 
