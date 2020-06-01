@@ -1121,6 +1121,36 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa
     m_ActionName: Player/ToggleControls[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 139313360}
+        m_MethodName: ToggleMapTextures
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c3f55fd4-1f8c-4903-85ad-c9d96089d9b4
+    m_ActionName: Player/ToggleTextures[/Keyboard/4]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 139313360}
+        m_MethodName: ToggleCubeTextures
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4ad3ada0-fee8-4543-82c6-918d6e083ca6
+    m_ActionName: Player/ToggeCubeTextures[/Keyboard/5]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -5952,6 +5982,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194227}
   mapPanel: {fileID: 296277992}
   movesPanel: {fileID: 931200334}
+  controlsPanel: {fileID: 1344376002}
   colorMapSelected: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 0.4}
   colorMapNotSelected: {r: 0.4, g: 0.4, b: 0.4, a: 0.20392157}
   pointer: {fileID: 2800000, guid: dede9a9a8ec904151bb550eeb53b1d0c, type: 3}

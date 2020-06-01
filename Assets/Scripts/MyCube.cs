@@ -53,6 +53,8 @@ public class MyCube : MonoBehaviour
 
     public CubeletData[,,] cubeletData  = new CubeletData[5, 5, 5];                // Pointers from the array indices to the current cubelets.
 
+    public CubeletData[,,] origCubeletTextures  = new CubeletData[5, 5, 5];                // Pointers from the array indices to the current cubelets.
+
     public GameObject[,,] mfOrigCubelets = new GameObject[5, 5, 5];             // Pointers from the array indices to the original cubelets.
     public TransformData[,,] mfOrigTransformData = new TransformData[5, 5, 5];  // A quick record of the original positions by array indices.
 
@@ -86,6 +88,14 @@ public class MyCube : MonoBehaviour
                     if (IsOuterCubelet(x, y, z))
                     {
                         cubeletData[x, y, z] = CreateCubelet(x, y, z);
+                        origCubeletTextures[x, y, z] = new CubeletData();
+                        origCubeletTextures[x, y, z].textureNumberBack = cubeletData[x, y, z].textureNumberBack;
+                        origCubeletTextures[x, y, z].textureNumberFront = cubeletData[x, y, z].textureNumberFront;
+                        origCubeletTextures[x, y, z].textureNumberUp = cubeletData[x, y, z].textureNumberUp;
+                        origCubeletTextures[x, y, z].textureNumberDown = cubeletData[x, y, z].textureNumberDown;
+                        origCubeletTextures[x, y, z].textureNumberLeft = cubeletData[x, y, z].textureNumberLeft;
+                        origCubeletTextures[x, y, z].textureNumberRight = cubeletData[x, y, z].textureNumberRight;
+
                         mfOrigCubelets[x, y, z] = cubeletData[x, y, z].cubelet;
                         mfOrigTransformData[x, y, z] = new TransformData(cubeletData[x, y, z].cubelet.transform);
                     }
@@ -175,6 +185,13 @@ public class MyCube : MonoBehaviour
                     if (IsOuterCubelet(x, y, z))
                     {
                         cubeletData[x, y, z].cubelet = mfOrigCubelets[x, y, z];
+
+                        cubeletData[x, y, z].textureNumberBack = origCubeletTextures[x, y, z].textureNumberBack;
+                        cubeletData[x, y, z].textureNumberFront = origCubeletTextures[x, y, z].textureNumberFront;
+                        cubeletData[x, y, z].textureNumberUp = origCubeletTextures[x, y, z].textureNumberUp;
+                        cubeletData[x, y, z].textureNumberDown = origCubeletTextures[x, y, z].textureNumberDown;
+                        cubeletData[x, y, z].textureNumberLeft = origCubeletTextures[x, y, z].textureNumberLeft;
+                        cubeletData[x, y, z].textureNumberRight = origCubeletTextures[x, y, z].textureNumberRight;
 
                         rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                         rb.useGravity = false;

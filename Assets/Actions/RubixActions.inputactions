@@ -286,9 +286,17 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "ToggleTextures",
+                    "name": "ToggleMapTextures",
                     "type": "Button",
                     "id": "c3f55fd4-1f8c-4903-85ad-c9d96089d9b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "ToggeCubeTextures",
+                    "type": "Button",
+                    "id": "4ad3ada0-fee8-4543-82c6-918d6e083ca6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Tap"
@@ -687,7 +695,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleTextures",
+                    "action": "ToggleMapTextures",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3445352-93f0-4de8-958d-2d76d1de4c5f",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggeCubeTextures",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

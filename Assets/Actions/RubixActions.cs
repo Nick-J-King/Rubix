@@ -299,9 +299,17 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""ToggleTextures"",
+                    ""name"": ""ToggleMapTextures"",
                     ""type"": ""Button"",
                     ""id"": ""c3f55fd4-1f8c-4903-85ad-c9d96089d9b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""ToggeCubeTextures"",
+                    ""type"": ""Button"",
+                    ""id"": ""4ad3ada0-fee8-4543-82c6-918d6e083ca6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Tap""
@@ -700,7 +708,18 @@ public class @Rubix : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleTextures"",
+                    ""action"": ""ToggleMapTextures"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3445352-93f0-4de8-958d-2d76d1de4c5f"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggeCubeTextures"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -812,7 +831,8 @@ public class @Rubix : IInputActionCollection, IDisposable
         m_Player_ToggleMap = m_Player.FindAction("ToggleMap", throwIfNotFound: true);
         m_Player_ToggleMoves = m_Player.FindAction("ToggleMoves", throwIfNotFound: true);
         m_Player_ToggleControls = m_Player.FindAction("ToggleControls", throwIfNotFound: true);
-        m_Player_ToggleTextures = m_Player.FindAction("ToggleTextures", throwIfNotFound: true);
+        m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
+        m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -897,7 +917,8 @@ public class @Rubix : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_ToggleMap;
     private readonly InputAction m_Player_ToggleMoves;
     private readonly InputAction m_Player_ToggleControls;
-    private readonly InputAction m_Player_ToggleTextures;
+    private readonly InputAction m_Player_ToggleMapTextures;
+    private readonly InputAction m_Player_ToggeCubeTextures;
     public struct PlayerActions
     {
         private @Rubix m_Wrapper;
@@ -937,7 +958,8 @@ public class @Rubix : IInputActionCollection, IDisposable
         public InputAction @ToggleMap => m_Wrapper.m_Player_ToggleMap;
         public InputAction @ToggleMoves => m_Wrapper.m_Player_ToggleMoves;
         public InputAction @ToggleControls => m_Wrapper.m_Player_ToggleControls;
-        public InputAction @ToggleTextures => m_Wrapper.m_Player_ToggleTextures;
+        public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
+        public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1052,9 +1074,12 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @ToggleControls.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
                 @ToggleControls.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
                 @ToggleControls.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
-                @ToggleTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleTextures;
-                @ToggleTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleTextures;
-                @ToggleTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleTextures;
+                @ToggleMapTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
+                @ToggleMapTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
+                @ToggleMapTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
+                @ToggeCubeTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                @ToggeCubeTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                @ToggeCubeTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1164,9 +1189,12 @@ public class @Rubix : IInputActionCollection, IDisposable
                 @ToggleControls.started += instance.OnToggleControls;
                 @ToggleControls.performed += instance.OnToggleControls;
                 @ToggleControls.canceled += instance.OnToggleControls;
-                @ToggleTextures.started += instance.OnToggleTextures;
-                @ToggleTextures.performed += instance.OnToggleTextures;
-                @ToggleTextures.canceled += instance.OnToggleTextures;
+                @ToggleMapTextures.started += instance.OnToggleMapTextures;
+                @ToggleMapTextures.performed += instance.OnToggleMapTextures;
+                @ToggleMapTextures.canceled += instance.OnToggleMapTextures;
+                @ToggeCubeTextures.started += instance.OnToggeCubeTextures;
+                @ToggeCubeTextures.performed += instance.OnToggeCubeTextures;
+                @ToggeCubeTextures.canceled += instance.OnToggeCubeTextures;
             }
         }
     }
@@ -1262,6 +1290,7 @@ public class @Rubix : IInputActionCollection, IDisposable
         void OnToggleMap(InputAction.CallbackContext context);
         void OnToggleMoves(InputAction.CallbackContext context);
         void OnToggleControls(InputAction.CallbackContext context);
-        void OnToggleTextures(InputAction.CallbackContext context);
+        void OnToggleMapTextures(InputAction.CallbackContext context);
+        void OnToggeCubeTextures(InputAction.CallbackContext context);
     }
 }

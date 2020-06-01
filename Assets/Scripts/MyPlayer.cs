@@ -219,12 +219,20 @@ public class MyPlayer : MonoBehaviour
     }
 
 
-    public void ToggleTextures(InputAction.CallbackContext context)
+    public void ToggleMapTextures(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Started)
             return;
 
         faceMap.ToggleTextures();
+    }
+
+
+    public void ToggleCubeTextures(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
         myCube.ToggleTextures();
     }
 
