@@ -174,6 +174,12 @@ public class MyCube : MonoBehaviour
     }
 
 
+    public void ToggleTextures()
+    {
+        //
+    }
+
+
     public GameObject CreateCubelet(int x, int y, int z)
     {
         string codeNumber = string.Format("{0}{1}{2}", x, y, z);

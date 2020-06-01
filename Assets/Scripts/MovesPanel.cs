@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 
@@ -39,7 +37,7 @@ public class MovesPanel : DragWindow
 
     public void GoFirst()
     {
-        ClearMoves();
+        sr.normalizedPosition = new Vector2(0, 1);
 
         // Unwind to start!
         Debug.Log("GoFirst");
@@ -136,7 +134,6 @@ public class MovesPanel : DragWindow
 
         var g1m = g1.GetComponent<MyMove>();
         g1m.text.text = "  " + s;
-//        g1.transform.localScale = Vector3.one;
 
         Canvas.ForceUpdateCanvases();
 
@@ -146,7 +143,6 @@ public class MovesPanel : DragWindow
         sr.content.GetComponent<VerticalLayoutGroup>().CalculateLayoutInputVertical() ;
         sr.content.GetComponent<ContentSizeFitter>().SetLayoutVertical() ;
 
-        //scrollRect.verticalNormalizedPosition = 0 ;
         sr.normalizedPosition = new Vector2(0, 0);
     }
 }

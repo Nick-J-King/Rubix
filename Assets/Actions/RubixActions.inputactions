@@ -284,6 +284,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "ToggleTextures",
+                    "type": "Button",
+                    "id": "c3f55fd4-1f8c-4903-85ad-c9d96089d9b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
@@ -669,6 +677,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleControls",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a1a7b5d8-e96c-4a83-b460-85109968ac67",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleTextures",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -2,6 +2,14 @@
 using UnityEngine.UI;
 
 
+public class FaceletData
+{
+    public GameObject facelet;
+    public Sprite spriteNumber;
+    public Sprite spritePlain;
+}
+
+
 public class FacePanel : MonoBehaviour
 {
     // enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
@@ -10,9 +18,11 @@ public class FacePanel : MonoBehaviour
     public FacePanel panelFace;     // This face panel.
 
     public bool inverted;           // Whether to invert this panel (rotate 180 degrees).
-    
-    public GameObject[,] pFacelets;
-        // These facelet panels must be accessed by the FaceMap...
+
+    public FaceletData [,] faceletData;
+        // These facelet panels and sprites must be accessed by the FaceMap...
+
+    bool showTexture = true;
 
     Color[,] pOrigColor;
     Sprite[,] pOrigSprite;
@@ -70,7 +80,7 @@ public class FacePanel : MonoBehaviour
     {
         uiResources = new DefaultControls.Resources();
 
-        pFacelets = new GameObject[5, 5];
+        faceletData = new FaceletData[5, 5];
 
         pOrigColor = new Color[5, 5];
         pOrigSprite = new Sprite[5, 5];
@@ -80,10 +90,39 @@ public class FacePanel : MonoBehaviour
         {
             for (int y = 0; y < 5; y++)
             {
-                pFacelets[x, y] = CreateFacelet(x, y, col);
+                faceletData[x, y] = CreateFacelet(x, y, col);
 
                 pOrigColor[x, y] = col;
-                pOrigSprite[x, y] = pFacelets[x, y].GetComponent<Image>().sprite;
+                pOrigSprite[x, y] = faceletData[x, y].facelet.GetComponent<Image>().sprite;
+            }
+        }
+    }
+
+
+    public void ToggleTextures()
+    {
+        showTexture = !showTexture;
+
+        if (showTexture)
+        {
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
+                    faceImage.sprite = faceletData[x, y].spriteNumber;
+                }
+            }
+        }
+        else
+        {
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
+                    faceImage.sprite = null;
+                }
             }
         }
     }
@@ -98,9 +137,10 @@ public class FacePanel : MonoBehaviour
         {
             for (int y = 0; y < 5; y++)
             {
-                pFacelets[x, y].transform.rotation = Quaternion.identity;
+                faceletData[x, y].facelet.transform.rotation = Quaternion.identity;
+                faceletData[x, y].spriteNumber = pOrigSprite[x, y];
 
-                Image faceImage = pFacelets[x, y].GetComponent<Image>();
+                Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
                 faceImage.color = pOrigColor[x, y];
                 faceImage.sprite = pOrigSprite[x, y];
             }
@@ -108,8 +148,10 @@ public class FacePanel : MonoBehaviour
     }
 
 
-    GameObject CreateFacelet(int x, int y, Color col)
+    FaceletData CreateFacelet(int x, int y, Color col)
     {
+        FaceletData faceletData = new FaceletData();
+
         float xTrans = (x - 2) * 40.0f;
         float yTrans = (y - 2) * 40.0f;
 
@@ -123,6 +165,8 @@ public class FacePanel : MonoBehaviour
         string codeName = "Facelet" + codeNumber;
 
         GameObject facelet = DefaultControls.CreatePanel(uiResources);
+        faceletData.facelet = facelet;
+
         facelet.name = codeName;
         facelet.transform.SetParent(panelFace.transform, false);
 
@@ -132,10 +176,12 @@ public class FacePanel : MonoBehaviour
         if (inverted)
         {
             img.sprite = panelMap.faceSpritesInverted[x,y];
+            faceletData.spriteNumber = panelMap.faceSpritesInverted[x,y];
         }
         else
         {
             img.sprite = panelMap.faceSprites[x,y];
+            faceletData.spriteNumber = panelMap.faceSprites[x,y];
         }
 
         RectTransform rt = facelet.GetComponent<RectTransform>();
@@ -145,6 +191,6 @@ public class FacePanel : MonoBehaviour
 
         rt.Translate(xTrans, yTrans, 0.0f);
 
-        return facelet;
+        return faceletData;
     }
 }

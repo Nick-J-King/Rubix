@@ -19,6 +19,8 @@ public class MouseManager : MonoBehaviour
 
     public GameObject mapPanel;         // The FaceMap that can be selected and dragged around.
     public GameObject movesPanel;       // The MovesPanel that can be selected and dragged around.
+    public GameObject controlsPanel;
+
     public Color colorMapSelected;
     public Color colorMapNotSelected;
 
@@ -61,7 +63,7 @@ public class MouseManager : MonoBehaviour
         vHotSpot.y = 16;
         mapPanelImage = mapPanel.GetComponent<Image>();
         movesPanelImage = movesPanel.GetComponent<Image>();
-        controlsPanelImage = movesPanel.GetComponent<Image>();
+        controlsPanelImage = controlsPanel.GetComponent<Image>();
     }
 
 

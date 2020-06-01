@@ -50,6 +50,17 @@ public class FaceMap : DragWindow
     }
 
 
+    public void ToggleTextures()
+    {
+        frontPanel.ToggleTextures();
+        backPanel.ToggleTextures();
+        leftPanel.ToggleTextures();
+        rightPanel.ToggleTextures();
+        upPanel.ToggleTextures();
+        downPanel.ToggleTextures();
+    }
+
+
     // Reset all the face panels in this map.
     public void ResetMap()
     {
@@ -460,31 +471,31 @@ public class FaceMap : DragWindow
     // nSlice = 0 is Right. nSlice = 4 is Left.
     public void CycleSliceFromRight(int nSlice, RotationDirection rotationDirection)
     {
-        GameObject[] a = new GameObject[20];
+        FaceletData[] a = new FaceletData[20];
 
-        a[0] = frontPanel.pFacelets[4 - nSlice, 0];
-        a[1] = frontPanel.pFacelets[4 - nSlice, 1];
-        a[2] = frontPanel.pFacelets[4 - nSlice, 2];
-        a[3] = frontPanel.pFacelets[4 - nSlice, 3];
-        a[4] = frontPanel.pFacelets[4 - nSlice, 4];
+        a[0] = frontPanel.faceletData[4 - nSlice, 0];
+        a[1] = frontPanel.faceletData[4 - nSlice, 1];
+        a[2] = frontPanel.faceletData[4 - nSlice, 2];
+        a[3] = frontPanel.faceletData[4 - nSlice, 3];
+        a[4] = frontPanel.faceletData[4 - nSlice, 4];
 
-        a[5] = upPanel.pFacelets[4 - nSlice, 0];
-        a[6] = upPanel.pFacelets[4 - nSlice, 1];
-        a[7] = upPanel.pFacelets[4 - nSlice, 2];
-        a[8] = upPanel.pFacelets[4 - nSlice, 3];
-        a[9] = upPanel.pFacelets[4 - nSlice, 4];
+        a[5] = upPanel.faceletData[4 - nSlice, 0];
+        a[6] = upPanel.faceletData[4 - nSlice, 1];
+        a[7] = upPanel.faceletData[4 - nSlice, 2];
+        a[8] = upPanel.faceletData[4 - nSlice, 3];
+        a[9] = upPanel.faceletData[4 - nSlice, 4];
 
-        a[10] = backPanel.pFacelets[4 - nSlice, 0];
-        a[11] = backPanel.pFacelets[4 - nSlice, 1];
-        a[12] = backPanel.pFacelets[4 - nSlice, 2];
-        a[13] = backPanel.pFacelets[4 - nSlice, 3];
-        a[14] = backPanel.pFacelets[4 - nSlice, 4];
+        a[10] = backPanel.faceletData[4 - nSlice, 0];
+        a[11] = backPanel.faceletData[4 - nSlice, 1];
+        a[12] = backPanel.faceletData[4 - nSlice, 2];
+        a[13] = backPanel.faceletData[4 - nSlice, 3];
+        a[14] = backPanel.faceletData[4 - nSlice, 4];
 
-        a[15] = downPanel.pFacelets[4 - nSlice, 0];
-        a[16] = downPanel.pFacelets[4 - nSlice, 1];
-        a[17] = downPanel.pFacelets[4 - nSlice, 2];
-        a[18] = downPanel.pFacelets[4 - nSlice, 3];
-        a[19] = downPanel.pFacelets[4 - nSlice, 4];
+        a[15] = downPanel.faceletData[4 - nSlice, 0];
+        a[16] = downPanel.faceletData[4 - nSlice, 1];
+        a[17] = downPanel.faceletData[4 - nSlice, 2];
+        a[18] = downPanel.faceletData[4 - nSlice, 3];
+        a[19] = downPanel.faceletData[4 - nSlice, 4];
 
         if (rotationDirection == RotationDirection.normal)
             CycleFacelets20A(a);
@@ -497,43 +508,43 @@ public class FaceMap : DragWindow
     // nSlice = 0 is Top. nSlice = 4 is Bottom.
     public void CycleSliceFromTop(int nSlice, RotationDirection rotationDirection)
     {
-        GameObject[] a = new GameObject[20];    // An array of the little "facelet" panels.
+        FaceletData[] a = new FaceletData[20];    // An array of the little "facelet" panels.
 
-        a[0] = frontPanel.pFacelets[0, 4 - nSlice];
-        a[1] = frontPanel.pFacelets[1, 4 - nSlice];
-        a[2] = frontPanel.pFacelets[2, 4 - nSlice];
-        a[3] = frontPanel.pFacelets[3, 4 - nSlice];
-        a[4] = frontPanel.pFacelets[4, 4 - nSlice];
+        a[0] = frontPanel.faceletData[0, 4 - nSlice];
+        a[1] = frontPanel.faceletData[1, 4 - nSlice];
+        a[2] = frontPanel.faceletData[2, 4 - nSlice];
+        a[3] = frontPanel.faceletData[3, 4 - nSlice];
+        a[4] = frontPanel.faceletData[4, 4 - nSlice];
 
-        a[5] = rightPanel.pFacelets[0, 4 - nSlice];
-        a[6] = rightPanel.pFacelets[1, 4 - nSlice];
-        a[7] = rightPanel.pFacelets[2, 4 - nSlice];
-        a[8] = rightPanel.pFacelets[3, 4 - nSlice];
-        a[9] = rightPanel.pFacelets[4, 4 - nSlice];
+        a[5] = rightPanel.faceletData[0, 4 - nSlice];
+        a[6] = rightPanel.faceletData[1, 4 - nSlice];
+        a[7] = rightPanel.faceletData[2, 4 - nSlice];
+        a[8] = rightPanel.faceletData[3, 4 - nSlice];
+        a[9] = rightPanel.faceletData[4, 4 - nSlice];
 
-        a[10] = backPanel.pFacelets[4, nSlice];
-        a[11] = backPanel.pFacelets[3, nSlice];
-        a[12] = backPanel.pFacelets[2, nSlice];
-        a[13] = backPanel.pFacelets[1, nSlice];
-        a[14] = backPanel.pFacelets[0, nSlice];
+        a[10] = backPanel.faceletData[4, nSlice];
+        a[11] = backPanel.faceletData[3, nSlice];
+        a[12] = backPanel.faceletData[2, nSlice];
+        a[13] = backPanel.faceletData[1, nSlice];
+        a[14] = backPanel.faceletData[0, nSlice];
 
-        a[15] = leftPanel.pFacelets[0, 4 - nSlice];
-        a[16] = leftPanel.pFacelets[1, 4 - nSlice];
-        a[17] = leftPanel.pFacelets[2, 4 - nSlice];
-        a[18] = leftPanel.pFacelets[3, 4 - nSlice];
-        a[19] = leftPanel.pFacelets[4, 4 - nSlice];
+        a[15] = leftPanel.faceletData[0, 4 - nSlice];
+        a[16] = leftPanel.faceletData[1, 4 - nSlice];
+        a[17] = leftPanel.faceletData[2, 4 - nSlice];
+        a[18] = leftPanel.faceletData[3, 4 - nSlice];
+        a[19] = leftPanel.faceletData[4, 4 - nSlice];
 
         if (rotationDirection == RotationDirection.normal)
         {
-            a[10].transform.Rotate(0.0f, 0.0f, 180.0f);
-            a[15].transform.Rotate(0.0f, 0.0f, 180.0f);
+            a[10].facelet.transform.Rotate(0.0f, 0.0f, 180.0f);
+            a[15].facelet.transform.Rotate(0.0f, 0.0f, 180.0f);
 
             CycleFacelets20(a);
         }
         else
         { 
-            a[14].transform.Rotate(0.0f, 0.0f, 180.0f);
-            a[9].transform.Rotate(0.0f, 0.0f, 180.0f);
+            a[14].facelet.transform.Rotate(0.0f, 0.0f, 180.0f);
+            a[9].facelet.transform.Rotate(0.0f, 0.0f, 180.0f);
 
             CycleFacelets20A(a);
         }
@@ -544,47 +555,47 @@ public class FaceMap : DragWindow
     // nSlice = 0 is Front. nSlice = 4 is Back.
     public void CycleSliceFromFront(int nSlice, RotationDirection direction)
     {
-        GameObject[] a = new GameObject[20];
+        FaceletData[] a = new FaceletData[20];
 
-        a[0] = downPanel.pFacelets[0, 4 - nSlice];
-        a[1] = downPanel.pFacelets[1, 4 - nSlice];
-        a[2] = downPanel.pFacelets[2, 4 - nSlice];
-        a[3] = downPanel.pFacelets[3, 4 - nSlice];
-        a[4] = downPanel.pFacelets[4, 4 - nSlice];
+        a[0] = downPanel.faceletData[0, 4 - nSlice];
+        a[1] = downPanel.faceletData[1, 4 - nSlice];
+        a[2] = downPanel.faceletData[2, 4 - nSlice];
+        a[3] = downPanel.faceletData[3, 4 - nSlice];
+        a[4] = downPanel.faceletData[4, 4 - nSlice];
 
-        a[5] = rightPanel.pFacelets[nSlice, 0];
-        a[6] = rightPanel.pFacelets[nSlice, 1];
-        a[7] = rightPanel.pFacelets[nSlice, 2];
-        a[8] = rightPanel.pFacelets[nSlice, 3];
-        a[9] = rightPanel.pFacelets[nSlice, 4];
+        a[5] = rightPanel.faceletData[nSlice, 0];
+        a[6] = rightPanel.faceletData[nSlice, 1];
+        a[7] = rightPanel.faceletData[nSlice, 2];
+        a[8] = rightPanel.faceletData[nSlice, 3];
+        a[9] = rightPanel.faceletData[nSlice, 4];
 
-        a[10] = upPanel.pFacelets[4, nSlice];
-        a[11] = upPanel.pFacelets[3, nSlice];
-        a[12] = upPanel.pFacelets[2, nSlice];
-        a[13] = upPanel.pFacelets[1, nSlice];
-        a[14] = upPanel.pFacelets[0, nSlice];
+        a[10] = upPanel.faceletData[4, nSlice];
+        a[11] = upPanel.faceletData[3, nSlice];
+        a[12] = upPanel.faceletData[2, nSlice];
+        a[13] = upPanel.faceletData[1, nSlice];
+        a[14] = upPanel.faceletData[0, nSlice];
 
-        a[15] = leftPanel.pFacelets[4 - nSlice, 4];
-        a[16] = leftPanel.pFacelets[4 - nSlice, 3];
-        a[17] = leftPanel.pFacelets[4 - nSlice, 2];
-        a[18] = leftPanel.pFacelets[4 - nSlice, 1];
-        a[19] = leftPanel.pFacelets[4 - nSlice, 0];
+        a[15] = leftPanel.faceletData[4 - nSlice, 4];
+        a[16] = leftPanel.faceletData[4 - nSlice, 3];
+        a[17] = leftPanel.faceletData[4 - nSlice, 2];
+        a[18] = leftPanel.faceletData[4 - nSlice, 1];
+        a[19] = leftPanel.faceletData[4 - nSlice, 0];
 
         if (direction == RotationDirection.normal)
         { 
-            a[4].transform.Rotate(0.0f, 0.0f, 90.0f);
-            a[9].transform.Rotate(0.0f, 0.0f, 90.0f);
-            a[14].transform.Rotate(0.0f, 0.0f, 90.0f);
-            a[19].transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[4].facelet.transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[9].facelet.transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[14].facelet.transform.Rotate(0.0f, 0.0f, 90.0f);
+            a[19].facelet.transform.Rotate(0.0f, 0.0f, 90.0f);
 
             CycleFacelets20A(a);
         }
         else
         { 
-            a[0].transform.Rotate(0.0f, 0.0f, -90.0f);
-            a[5].transform.Rotate(0.0f, 0.0f, -90.0f);
-            a[10].transform.Rotate(0.0f, 0.0f, -90.0f);
-            a[15].transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[0].facelet.transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[5].facelet.transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[10].facelet.transform.Rotate(0.0f, 0.0f, -90.0f);
+            a[15].facelet.transform.Rotate(0.0f, 0.0f, -90.0f);
 
             CycleFacelets20(a);
         }
@@ -599,46 +610,46 @@ public class FaceMap : DragWindow
             return;
         }
 
-        GameObject[] a = new GameObject[4];
+        FaceletData[] a = new FaceletData[4];
 
         // The outer edge.
 
-        a[0] = face.pFacelets[0, 0];
-        a[1] = face.pFacelets[4, 0];
-        a[2] = face.pFacelets[4, 4];
-        a[3] = face.pFacelets[0, 4];
+        a[0] = face.faceletData[0, 0];
+        a[1] = face.faceletData[4, 0];
+        a[2] = face.faceletData[4, 4];
+        a[3] = face.faceletData[0, 4];
         CycleFacelets4(a);
 
-        a[0] = face.pFacelets[1, 0];
-        a[1] = face.pFacelets[4, 1];
-        a[2] = face.pFacelets[3, 4];
-        a[3] = face.pFacelets[0, 3];
+        a[0] = face.faceletData[1, 0];
+        a[1] = face.faceletData[4, 1];
+        a[2] = face.faceletData[3, 4];
+        a[3] = face.faceletData[0, 3];
         CycleFacelets4(a);
 
-        a[0] = face.pFacelets[2, 0];
-        a[1] = face.pFacelets[4, 2];
-        a[2] = face.pFacelets[2, 4];
-        a[3] = face.pFacelets[0, 2];
+        a[0] = face.faceletData[2, 0];
+        a[1] = face.faceletData[4, 2];
+        a[2] = face.faceletData[2, 4];
+        a[3] = face.faceletData[0, 2];
         CycleFacelets4(a);
 
-        a[0] = face.pFacelets[3, 0];
-        a[1] = face.pFacelets[4, 3];
-        a[2] = face.pFacelets[1, 4];
-        a[3] = face.pFacelets[0, 1];
+        a[0] = face.faceletData[3, 0];
+        a[1] = face.faceletData[4, 3];
+        a[2] = face.faceletData[1, 4];
+        a[3] = face.faceletData[0, 1];
         CycleFacelets4(a);
 
         // The inner square
 
-        a[0] = face.pFacelets[1, 1];
-        a[1] = face.pFacelets[3, 1];
-        a[2] = face.pFacelets[3, 3];
-        a[3] = face.pFacelets[1, 3];
+        a[0] = face.faceletData[1, 1];
+        a[1] = face.faceletData[3, 1];
+        a[2] = face.faceletData[3, 3];
+        a[3] = face.faceletData[1, 3];
         CycleFacelets4(a);
 
-        a[0] = face.pFacelets[2, 1];
-        a[1] = face.pFacelets[3, 2];
-        a[2] = face.pFacelets[2, 3];
-        a[3] = face.pFacelets[1, 2];
+        a[0] = face.faceletData[2, 1];
+        a[1] = face.faceletData[3, 2];
+        a[2] = face.faceletData[2, 3];
+        a[3] = face.faceletData[1, 2];
         CycleFacelets4(a);
 
         // Now, rotate the facelets about their centres.
@@ -647,7 +658,7 @@ public class FaceMap : DragWindow
         {
             for (int y = 0; y < 5; y++)
             {
-                face.pFacelets[x,y].transform.Rotate(0.0f, 0.0f, -90.0f);
+                face.faceletData[x,y].facelet.transform.Rotate(0.0f, 0.0f, -90.0f);
             }
         }
     }
@@ -661,46 +672,46 @@ public class FaceMap : DragWindow
             return;
         }
 
-        GameObject[] a = new GameObject[4];
+        FaceletData[] a = new FaceletData[4];
 
         // The outer edge.
 
-        a[0] = face.pFacelets[0, 0];
-        a[1] = face.pFacelets[4, 0];
-        a[2] = face.pFacelets[4, 4];
-        a[3] = face.pFacelets[0, 4];
+        a[0] = face.faceletData[0, 0];
+        a[1] = face.faceletData[4, 0];
+        a[2] = face.faceletData[4, 4];
+        a[3] = face.faceletData[0, 4];
         CycleFacelets4A(a);
 
-        a[0] = face.pFacelets[1, 0];
-        a[1] = face.pFacelets[4, 1];
-        a[2] = face.pFacelets[3, 4];
-        a[3] = face.pFacelets[0, 3];
+        a[0] = face.faceletData[1, 0];
+        a[1] = face.faceletData[4, 1];
+        a[2] = face.faceletData[3, 4];
+        a[3] = face.faceletData[0, 3];
         CycleFacelets4A(a);
 
-        a[0] = face.pFacelets[2, 0];
-        a[1] = face.pFacelets[4, 2];
-        a[2] = face.pFacelets[2, 4];
-        a[3] = face.pFacelets[0, 2];
+        a[0] = face.faceletData[2, 0];
+        a[1] = face.faceletData[4, 2];
+        a[2] = face.faceletData[2, 4];
+        a[3] = face.faceletData[0, 2];
         CycleFacelets4A(a);
 
-        a[0] = face.pFacelets[3, 0];
-        a[1] = face.pFacelets[4, 3];
-        a[2] = face.pFacelets[1, 4];
-        a[3] = face.pFacelets[0, 1];
+        a[0] = face.faceletData[3, 0];
+        a[1] = face.faceletData[4, 3];
+        a[2] = face.faceletData[1, 4];
+        a[3] = face.faceletData[0, 1];
         CycleFacelets4A(a);
 
         // The inner square
 
-        a[0] = face.pFacelets[1, 1];
-        a[1] = face.pFacelets[3, 1];
-        a[2] = face.pFacelets[3, 3];
-        a[3] = face.pFacelets[1, 3];
+        a[0] = face.faceletData[1, 1];
+        a[1] = face.faceletData[3, 1];
+        a[2] = face.faceletData[3, 3];
+        a[3] = face.faceletData[1, 3];
         CycleFacelets4A(a);
 
-        a[0] = face.pFacelets[2, 1];
-        a[1] = face.pFacelets[3, 2];
-        a[2] = face.pFacelets[2, 3];
-        a[3] = face.pFacelets[1, 2];
+        a[0] = face.faceletData[2, 1];
+        a[1] = face.faceletData[3, 2];
+        a[2] = face.faceletData[2, 3];
+        a[3] = face.faceletData[1, 2];
         CycleFacelets4A(a);
 
         // Now, rotate the facelets about their centres.
@@ -709,7 +720,7 @@ public class FaceMap : DragWindow
         {
             for (int y = 0; y < 5; y++)
             {
-                face.pFacelets[x, y].transform.Rotate(0.0f, 0.0f, 90.0f);
+                face.faceletData[x, y].facelet.transform.Rotate(0.0f, 0.0f, 90.0f);
             }
         }
     }
@@ -717,109 +728,119 @@ public class FaceMap : DragWindow
 
     // Low level facelet cycling code...
 
-    public void CycleFacelets4(GameObject[] f)
+    public void CycleFacelets4(FaceletData[] fd)
     {
         Image[] imgs = new Image[4];
 
         for (int i = 0; i < 4; i++)
         {
-            imgs[i] = f[i].GetComponent<Image>();
+            imgs[i] = fd[i].facelet.GetComponent<Image>();
         }
 
         Color c0 = imgs[0].color;
         Sprite s0 = imgs[0].sprite;
-        TransformData t0 = new TransformData(f[0].transform);
+        TransformData t0 = new TransformData(fd[0].facelet.transform);
+        Sprite n0 = fd[0].spriteNumber;
 
         for (int i = 0; i < 3; i++)
         {
             imgs[i].color = imgs[i + 1].color;
             imgs[i].sprite = imgs[i + 1].sprite;
-            TransformData t = new TransformData(f[i + 1].transform);
-            t.ApplyRotationTo(f[i].transform);
+            TransformData t = new TransformData(fd[i + 1].facelet.transform);
+            t.ApplyRotationTo(fd[i].facelet.transform);
+            fd[i].spriteNumber = fd[i + 1].spriteNumber;
 
         }
         imgs[3].color = c0;
         imgs[3].sprite = s0;
-        t0.ApplyRotationTo(f[3].transform);
+        t0.ApplyRotationTo(fd[3].facelet.transform);
+        fd[3].spriteNumber = n0;
     }
 
 
-    public void CycleFacelets4A(GameObject[] f)
+    public void CycleFacelets4A(FaceletData[] fd)
     {
         Image[] imgs = new Image[4];
 
         for (int i = 0; i < 4; i++)
         {
-            imgs[i] = f[i].GetComponent<Image>();
+            imgs[i] = fd[i].facelet.GetComponent<Image>();
         }
 
         Color c3 = imgs[3].color;
         Sprite s3 = imgs[3].sprite;
-        TransformData t3 = new TransformData(f[3].transform);
+        TransformData t3 = new TransformData(fd[3].facelet.transform);
+        Sprite n3 = fd[3].spriteNumber;
 
         for (int i = 2; i >= 0; i--)
         {
             imgs[i + 1].color = imgs[i].color;
             imgs[i + 1].sprite = imgs[i].sprite;
-            TransformData t = new TransformData(f[i].transform);
-            t.ApplyRotationTo(f[i + 1].transform);
+            TransformData t = new TransformData(fd[i].facelet.transform);
+            t.ApplyRotationTo(fd[i + 1].facelet.transform);
+            fd[i + 1].spriteNumber = fd[i].spriteNumber;
         }
         imgs[0].color = c3;
         imgs[0].sprite = s3;
-        t3.ApplyRotationTo(f[0].transform);
-
+        t3.ApplyRotationTo(fd[0].facelet.transform);
+        fd[0].spriteNumber = n3;
     }
 
 
-    public void CycleFacelets20(GameObject[] f)
+    public void CycleFacelets20(FaceletData[] fd)
     {
         Image[] imgs = new Image[20];
 
         for (int i = 0; i < 20; i++)
         {
-            imgs[i] = f[i].GetComponent<Image>();
+            imgs[i] = fd[i].facelet.GetComponent<Image>();
         }
 
         Color c0 = imgs[0].color;
         Sprite s0 = imgs[0].sprite;
-        TransformData t0 = new TransformData(f[0].transform);
+        TransformData t0 = new TransformData(fd[0].facelet.transform);
+        Sprite n0 = fd[0].spriteNumber;
 
         for (int i = 0; i < 19; i++)
         {
             imgs[i].color = imgs[i + 1].color;
             imgs[i].sprite = imgs[i + 1].sprite;
-            TransformData t = new TransformData(f[i + 1].transform);
-            t.ApplyRotationTo(f[i].transform);
+            TransformData t = new TransformData(fd[i + 1].facelet.transform);
+            t.ApplyRotationTo(fd[i].facelet.transform);
+            fd[i].spriteNumber = fd[i + 1].spriteNumber;
         }
         imgs[19].color = c0;
         imgs[19].sprite = s0;
-        t0.ApplyRotationTo(f[19].transform);
-
+        t0.ApplyRotationTo(fd[19].facelet.transform);
+        fd[19].spriteNumber = n0;
     }
 
 
-    public void CycleFacelets20A(GameObject[] f)
+    public void CycleFacelets20A(FaceletData[] fd)
     {
         Image[] imgs = new Image[20];
 
         for (int i = 0; i < 20; i++)
         {
-            imgs[i] = f[i].GetComponent<Image>();
+            imgs[i] = fd[i].facelet.GetComponent<Image>();
         }
 
         Color c19 = imgs[19].color;
         Sprite s19 = imgs[19].sprite;
-        TransformData t19 = new TransformData(f[19].transform);
+        TransformData t19 = new TransformData(fd[19].facelet.transform);
+        Sprite n19 = fd[19].spriteNumber;
 
         for (int i = 18; i >= 0; i--)
         {
             imgs[i + 1].color = imgs[i].color;
             imgs[i + 1].sprite = imgs[i].sprite;
-            TransformData t = new TransformData(f[i].transform);
-            t.ApplyRotationTo(f[i + 1].transform);
+            TransformData t = new TransformData(fd[i].facelet.transform);
+            t.ApplyRotationTo(fd[i + 1].facelet.transform);
+            fd[i + 1].spriteNumber = fd[i].spriteNumber;
         }
         imgs[0].color = c19;
         imgs[0].sprite = s19;
-        t19.ApplyRotationTo(f[0].transform);
+        t19.ApplyRotationTo(fd[0].facelet.transform);
+        fd[0].spriteNumber = n19;
     }
 }

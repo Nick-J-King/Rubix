@@ -209,13 +209,23 @@ public class MyPlayer : MonoBehaviour
         movesPanel.gameObject.SetActive(!movesPanel.gameObject.activeInHierarchy);
     }
 
-
+    
     public void ToggleControlsPanel(InputAction.CallbackContext context)
     {
         if (context.phase != InputActionPhase.Started)
             return;
 
         controlsPanel.gameObject.SetActive(!controlsPanel.gameObject.activeInHierarchy);
+    }
+
+
+    public void ToggleTextures(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        faceMap.ToggleTextures();
+        myCube.ToggleTextures();
     }
 
 
@@ -284,6 +294,10 @@ public class MyPlayer : MonoBehaviour
         if (mouseManager.isMapHit)
         {
             ScaleUp(faceMap.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
+        }
+        else if (mouseManager.isMovesHit)
+        { 
+            ScaleUp(movesPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
         }
         else if (mouseManager.isControlsHit)
         { 
