@@ -69,6 +69,28 @@ public class MyCube : MonoBehaviour
         // A quick record of the original position of the inner "core".
 
 
+    // Handy shared data...
+
+    readonly int[] stdTriangles = new int[] { 0, 1, 2, 0, 2, 3 };
+
+    readonly Vector2[] stdUV = new Vector2[]
+    {
+        new Vector2(0,0),
+        new Vector2(0,1),
+        new Vector2(1,1),
+        new Vector2(1,0)
+    };
+
+    readonly Vector3 vMMM = new  Vector3(-0.5f, -0.5f, -0.5f);
+    readonly Vector3 vMMP = new  Vector3(-0.5f, -0.5f, 0.5f);
+    readonly Vector3 vMPM = new  Vector3(-0.5f, 0.5f, -0.5f);
+    readonly Vector3 vMPP = new  Vector3(-0.5f, 0.5f, 0.5f);
+    readonly Vector3 vPMM = new  Vector3(0.5f, -0.5f, -0.5f);
+    readonly Vector3 vPMP = new  Vector3(0.5f, -0.5f, 0.5f);
+    readonly Vector3 vPPM = new  Vector3(0.5f, 0.5f, -0.5f);
+    readonly Vector3 vPPP = new  Vector3(0.5f, 0.5f, 0.5f);
+
+
     // Load up the 25 textures to be used on the cubelet faces.
     void Awake()
     {
@@ -203,68 +225,55 @@ public class MyCube : MonoBehaviour
     {
         showTexture = !showTexture;
 
-        if (showTexture)
-        { 
-            for (int x = 0; x < 5; x++)
+        for (int x = 0; x < 5; x++)
+        {
+            for (int y = 0; y < 5; y++)
             {
-                for (int y = 0; y < 5; y++)
+                for (int z = 0; z < 5; z++)
                 {
-                    for (int z = 0; z < 5; z++)
+                    if (IsOuterCubelet(x, y, z))
                     {
-                        if (IsOuterCubelet(x, y, z))
-                        {
-                            GameObject cubeletFace;
+                        CubeletData cData = cubeletData[x, y, z];
+                        GameObject cubeletFace;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(0).gameObject;
-                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberUp;
+                        if (showTexture)
+                        { 
+                            cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberUp;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(1).gameObject;
-                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberDown;
+                            cubeletFace = cData.cubelet.transform.GetChild(1).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberDown;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(2).gameObject;
-                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberFront;
+                            cubeletFace = cData.cubelet.transform.GetChild(2).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberFront;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(3).gameObject;
-                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberBack;
+                            cubeletFace = cData.cubelet.transform.GetChild(3).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberBack;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(4).gameObject;
-                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberLeft;
+                            cubeletFace = cData.cubelet.transform.GetChild(4).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberLeft;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(5).gameObject;
-                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cubeletData[x, y, z].textureNumberRight;
+                            cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
+                            cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberRight;
                         }
-                    }
-                }
-            }
-        }
-        else
-        { 
-            for (int x = 0; x < 5; x++)
-            {
-                for (int y = 0; y < 5; y++)
-                {
-                    for (int z = 0; z < 5; z++)
-                    {
-                        if (IsOuterCubelet(x, y, z))
+                        else
                         {
-                            GameObject cubeletFace;
-
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(0).gameObject;
+                            cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
                             cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(1).gameObject;
+                            cubeletFace = cData.cubelet.transform.GetChild(1).gameObject;
                             cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(2).gameObject;
+                            cubeletFace = cData.cubelet.transform.GetChild(2).gameObject;
                             cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(3).gameObject;
+                            cubeletFace = cData.cubelet.transform.GetChild(3).gameObject;
                             cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(4).gameObject;
+                            cubeletFace = cData.cubelet.transform.GetChild(4).gameObject;
                             cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
 
-                            cubeletFace = cubeletData[x, y, z].cubelet.transform.GetChild(5).gameObject;
+                            cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
                             cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
                         }
                     }
@@ -284,11 +293,11 @@ public class MyCube : MonoBehaviour
 
         string codeName = "Cubelet" + codeNumber;
 
-        CubeletData cd = new CubeletData();
+        CubeletData cData = new CubeletData();
 
         GameObject cubelet = new GameObject(codeName);
 
-        cd.cubelet = cubelet;
+        cData.cubelet = cubelet;
 
         GameObject cubeletTop = new GameObject(codeName + "Top");
         GameObject cubeletBottom = new GameObject(codeName + "Bottom");
@@ -308,21 +317,19 @@ public class MyCube : MonoBehaviour
 
         cubelet.transform.Translate(xTrans, yTrans, zTrans);
 
-        System.Type filterType = typeof(MeshFilter);
-        MeshFilter mfTop = cubeletTop.AddComponent(filterType) as MeshFilter;
-        MeshFilter mfBottom = cubeletBottom.AddComponent(filterType) as MeshFilter;
-        MeshFilter mfFront = cubeletFront.AddComponent(filterType) as MeshFilter;
-        MeshFilter mfBack = cubeletBack.AddComponent(filterType) as MeshFilter;
-        MeshFilter mfLeft = cubeletLeft.AddComponent(filterType) as MeshFilter;
-        MeshFilter mfRight = cubeletRight.AddComponent(filterType) as MeshFilter;
+        MeshFilter mfTop = cubeletTop.AddComponent<MeshFilter>();
+        MeshFilter mfBottom = cubeletBottom.AddComponent<MeshFilter>();
+        MeshFilter mfFront = cubeletFront.AddComponent<MeshFilter>();
+        MeshFilter mfBack = cubeletBack.AddComponent<MeshFilter>();
+        MeshFilter mfLeft = cubeletLeft.AddComponent<MeshFilter>();
+        MeshFilter mfRight = cubeletRight.AddComponent<MeshFilter>();
 
-        System.Type rendererType = typeof(MeshRenderer);
-        MeshRenderer mrTop = cubeletTop.AddComponent(rendererType) as MeshRenderer;
-        MeshRenderer mrBottom = cubeletBottom.AddComponent(rendererType) as MeshRenderer;
-        MeshRenderer mrFront = cubeletFront.AddComponent(rendererType) as MeshRenderer;
-        MeshRenderer mrBack = cubeletBack.AddComponent(rendererType) as MeshRenderer;
-        MeshRenderer mrLeft = cubeletLeft.AddComponent(rendererType) as MeshRenderer;
-        MeshRenderer mrRight = cubeletRight.AddComponent(rendererType) as MeshRenderer;
+        MeshRenderer mrTop = cubeletTop.AddComponent<MeshRenderer>();
+        MeshRenderer mrBottom = cubeletBottom.AddComponent<MeshRenderer>();
+        MeshRenderer mrFront = cubeletFront.AddComponent<MeshRenderer>();
+        MeshRenderer mrBack = cubeletBack.AddComponent<MeshRenderer>();
+        MeshRenderer mrLeft = cubeletLeft.AddComponent<MeshRenderer>();
+        MeshRenderer mrRight = cubeletRight.AddComponent<MeshRenderer>();
 
         if (y == 4)
         {
@@ -385,31 +392,13 @@ public class MyCube : MonoBehaviour
             mrRight.material = faceMaterialBlack;
         }
 
-        cd.textureNumberBack = mrBack.materials[0].mainTexture;
-        cd.textureNumberFront = mrFront.materials[0].mainTexture;
-        cd.textureNumberLeft = mrLeft.materials[0].mainTexture;
-        cd.textureNumberRight = mrRight.materials[0].mainTexture;
-        cd.textureNumberUp = mrTop.materials[0].mainTexture;
-        cd.textureNumberDown = mrBottom.materials[0].mainTexture;
+        cData.textureNumberBack = mrBack.materials[0].mainTexture;
+        cData.textureNumberFront = mrFront.materials[0].mainTexture;
+        cData.textureNumberLeft = mrLeft.materials[0].mainTexture;
+        cData.textureNumberRight = mrRight.materials[0].mainTexture;
+        cData.textureNumberUp = mrTop.materials[0].mainTexture;
+        cData.textureNumberDown = mrBottom.materials[0].mainTexture;
 
-        int[] stdTriangles = new int[] { 0, 1, 2, 0, 2, 3 };
-
-        Vector2[] stdUV = new Vector2[]
-        {
-            new Vector2(0,0),
-            new Vector2(0,1),
-            new Vector2(1,1),
-            new Vector2(1,0)
-        };
-
-        Vector3 vMMM = new  Vector3(-0.5f, -0.5f, -0.5f);
-        Vector3 vMMP = new  Vector3(-0.5f, -0.5f, 0.5f);
-        Vector3 vMPM = new  Vector3(-0.5f, 0.5f, -0.5f);
-        Vector3 vMPP = new  Vector3(-0.5f, 0.5f, 0.5f);
-        Vector3 vPMM = new  Vector3(0.5f, -0.5f, -0.5f);
-        Vector3 vPMP = new  Vector3(0.5f, -0.5f, 0.5f);
-        Vector3 vPPM = new  Vector3(0.5f, 0.5f, -0.5f);
-        Vector3 vPPP = new  Vector3(0.5f, 0.5f, 0.5f);
 
         // x axis points right. y axis points up. z axis points into the screen.
 
@@ -489,7 +478,7 @@ public class MyCube : MonoBehaviour
         cubelet.tag = "Cubelet";
         cubelet.layer = 8;  // "Clickable"
 
-        return cd;
+        return cData;
     }
 
 
@@ -497,7 +486,6 @@ public class MyCube : MonoBehaviour
     {
         mf.mesh.RecalculateBounds();
         mf.mesh.RecalculateNormals();
-
     }
 
 
@@ -606,7 +594,7 @@ public class MyCube : MonoBehaviour
 
 
     // The controller tells us to finish the current animation.
-    // Adjust the actual arrangement of cubelets.
+    // Adjust the actual arrangement of Cubelets in the 3D array.
     public void FinishAnimation()
     {
         switch (cubeAxis)
@@ -769,66 +757,18 @@ public class MyCube : MonoBehaviour
 
     void RotateCubeletAboutXAxis(GameObject cubelet, float angle)
     {
-        Vector3 xAxis = new Vector3(1.0f, 0.0f, 0.0f);
-        Transform transform1 = cubelet.transform;
-
-        float x = transform1.position.x;
-        float y = transform1.position.y;
-        float z = transform1.position.z;
-
-        float c = Mathf.Cos(angle * Mathf.Deg2Rad);
-        float s = Mathf.Sin(angle * Mathf.Deg2Rad);
-
-        float yNew = c * y - s * z;
-        float zNew = s * y + c * z;
-
-        Vector3 position = new Vector3(x, yNew, zNew);
-
-        cubelet.transform.Rotate(xAxis, angle, Space.World);
-        cubelet.transform.position = position;
+        cubelet.transform.RotateAround(Vector3.zero, Vector3.right, angle);
     }
 
 
     void RotateCubeletAboutYAxis(GameObject cubelet, float angle)
     {
-        Vector3 yAxis = new Vector3(0.0f, 1.0f, 0.0f);
-        Transform transform1 = cubelet.transform;
-
-        float x = transform1.position.x;
-        float y = transform1.position.y;
-        float z = transform1.position.z;
-
-        float c = Mathf.Cos(angle * Mathf.Deg2Rad);
-        float s = Mathf.Sin(angle * Mathf.Deg2Rad);
-
-        float xNew = c * x + s * z;
-        float zNew = -s * x + c * z;
-
-        Vector3 position = new Vector3(xNew, y, zNew);
-
-        cubelet.transform.Rotate(yAxis, angle, Space.World);
-        cubelet.transform.position = position;
+        cubelet.transform.RotateAround(Vector3.zero, Vector3.up, angle);
     }
 
 
     void RotateCubeletAboutZAxis(GameObject cubelet, float angle)
     {
-        Vector3 zAxis = new Vector3(0.0f, 0.0f, 1.0f);
-        Transform transform1 = cubelet.transform;
-
-        float x = transform1.position.x;
-        float y = transform1.position.y;
-        float z = transform1.position.z;
-
-        float c = Mathf.Cos(angle * Mathf.Deg2Rad);
-        float s = Mathf.Sin(angle * Mathf.Deg2Rad);
-
-        float xNew = c * x - s * y;
-        float yNew = s * x + c * y;
-
-        Vector3 position = new Vector3(xNew, yNew, z);
-
-        cubelet.transform.Rotate(zAxis, angle, Space.World);
-        cubelet.transform.position = position;
+        cubelet.transform.RotateAround(Vector3.zero, Vector3.forward, angle);
     }
 }
