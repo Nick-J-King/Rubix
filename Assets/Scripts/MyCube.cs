@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 
+// The full data for a Cubelet.
+// Includes the GameObject itself, and the Textures on each face.
+// This allows the Textures to be switched on / off easily.
 public class CubeletData
 {
     public GameObject cubelet;
@@ -15,13 +18,13 @@ public class CubeletData
 }
 
 
+// The 5 x 5 x 5 Rubik's Cube.
 public class MyCube : MonoBehaviour
 {
-    public GameObject cubeRoot;
-    public GameObject innerSphere;
-    public GameObject cubePlaceholder;
+    public GameObject cubeRoot;         // This "empty" GameObject is the parent of all the little Cubelets.
+    public GameObject innerSphere;      // This is the "core" of the Cube.
 
-    // Materials.
+    // Materials for each face.
     public Material faceMaterialBlue;
     public Material faceMaterialGreen;
 
@@ -33,7 +36,7 @@ public class MyCube : MonoBehaviour
 
     public Material faceMaterialBlack;  // For the "innards".
 
-    // Textures for each face.
+    // Textures to be applied to each face.
     readonly Texture[,] cubeFaceletTextures = new Texture[5, 5];
         // Loaded up from Resources
 
@@ -47,20 +50,26 @@ public class MyCube : MonoBehaviour
 
     CubeAxis cubeAxis;                      // Which axis we are currently rotating about.
     CubeSlices cubeSlices;                  // Which slices we are currently rotating.
-    RotationDirection rotationDirection;    // "normal" or "reverse"
+    RotationDirection rotationDirection;    // "normal" or "reverse" rotation.
 
     //-------------------------------------------------
 
-    public CubeletData[,,] cubeletData  = new CubeletData[5, 5, 5];                // Pointers from the array indices to the current cubelets.
+    public CubeletData[,,] cubeletData  = new CubeletData[5, 5, 5];
+        // Pointers from the array indices to the current Cubelets.
+        // As rotations are performed, these get shuffled around.
 
-    public CubeletData[,,] origCubeletTextures  = new CubeletData[5, 5, 5];                // Pointers from the array indices to the current cubelets.
+    public CubeletData[,,] origCubeletData  = new CubeletData[5, 5, 5];
+        // Pointers from the array indices to the original Cubelets.
+        // As rotations are performed, these ones stay put.
 
-    public GameObject[,,] mfOrigCubelets = new GameObject[5, 5, 5];             // Pointers from the array indices to the original cubelets.
-    public TransformData[,,] mfOrigTransformData = new TransformData[5, 5, 5];  // A quick record of the original positions by array indices.
+    public TransformData[,,] origTransformData = new TransformData[5, 5, 5];
+        // A quick record of the original Cubelet positions by array indices.
 
-    public TransformData mfOrigSphereTransformData = new TransformData();
+    public TransformData origSphereTransformData = new TransformData();
+        // A quick record of the original position of the inner "core".
 
 
+    // Load up the 25 textures to be used on the cubelet faces.
     void Awake()
     {
         for (int x = 0; x < 5; x++)
@@ -73,11 +82,11 @@ public class MyCube : MonoBehaviour
     }
 
 
+    // Create the Cubelets of the Cube,
+    // and record the original copy and transforms for quick reset.
     void Start()
     {
-        cubePlaceholder.SetActive(false);
-
-        mfOrigSphereTransformData = new TransformData(innerSphere.transform);
+        origSphereTransformData = new TransformData(innerSphere.transform);
 
         for (int x = 0; x < 5; x++)
         {
@@ -87,23 +96,23 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        cubeletData[x, y, z] = CreateCubelet(x, y, z);
-                        origCubeletTextures[x, y, z] = new CubeletData();
-                        origCubeletTextures[x, y, z].textureNumberBack = cubeletData[x, y, z].textureNumberBack;
-                        origCubeletTextures[x, y, z].textureNumberFront = cubeletData[x, y, z].textureNumberFront;
-                        origCubeletTextures[x, y, z].textureNumberUp = cubeletData[x, y, z].textureNumberUp;
-                        origCubeletTextures[x, y, z].textureNumberDown = cubeletData[x, y, z].textureNumberDown;
-                        origCubeletTextures[x, y, z].textureNumberLeft = cubeletData[x, y, z].textureNumberLeft;
-                        origCubeletTextures[x, y, z].textureNumberRight = cubeletData[x, y, z].textureNumberRight;
+                        CubeletData cData = CreateCubelet(x, y, z);
+                        cubeletData[x, y, z] = cData;
 
-                        mfOrigCubelets[x, y, z] = cubeletData[x, y, z].cubelet;
-                        mfOrigTransformData[x, y, z] = new TransformData(cubeletData[x, y, z].cubelet.transform);
-                    }
-                    else
-                    {
-                        cubeletData[x, y, z] = null;
-                        mfOrigCubelets[x, y, z] = null;
-                        mfOrigTransformData[x, y, z] = null;
+                        // >>> DO I REALLY NEED TO COPY THIS ???
+                        origCubeletData[x, y, z] = new CubeletData()
+                        {
+                            cubelet = cData.cubelet,
+                            textureNumberBack = cData.textureNumberBack,
+                            textureNumberFront = cData.textureNumberFront,
+                            textureNumberUp = cData.textureNumberUp,
+                            textureNumberDown = cData.textureNumberDown,
+                            textureNumberLeft = cData.textureNumberLeft,
+                            textureNumberRight = cData.textureNumberRight
+                        };
+
+                        // Copy the original configuration to allow quick reset.
+                        origTransformData[x, y, z] = new TransformData(cData.cubelet.transform);
                     }
                 }
             }
@@ -174,7 +183,7 @@ public class MyCube : MonoBehaviour
         rb.useGravity = false;
         rb.isKinematic = true;
 
-        mfOrigSphereTransformData.ApplyTo(innerSphere.transform);
+        origSphereTransformData.ApplyTo(innerSphere.transform);
 
         for (int x = 0; x < 5; x++)
         {
@@ -184,20 +193,22 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        cubeletData[x, y, z].cubelet = mfOrigCubelets[x, y, z];
+                        CubeletData cData = cubeletData[x, y, z];
 
-                        cubeletData[x, y, z].textureNumberBack = origCubeletTextures[x, y, z].textureNumberBack;
-                        cubeletData[x, y, z].textureNumberFront = origCubeletTextures[x, y, z].textureNumberFront;
-                        cubeletData[x, y, z].textureNumberUp = origCubeletTextures[x, y, z].textureNumberUp;
-                        cubeletData[x, y, z].textureNumberDown = origCubeletTextures[x, y, z].textureNumberDown;
-                        cubeletData[x, y, z].textureNumberLeft = origCubeletTextures[x, y, z].textureNumberLeft;
-                        cubeletData[x, y, z].textureNumberRight = origCubeletTextures[x, y, z].textureNumberRight;
+                        cData.cubelet = origCubeletData[x, y, z].cubelet;
+
+                        cData.textureNumberBack = origCubeletData[x, y, z].textureNumberBack;
+                        cData.textureNumberFront = origCubeletData[x, y, z].textureNumberFront;
+                        cData.textureNumberUp = origCubeletData[x, y, z].textureNumberUp;
+                        cData.textureNumberDown = origCubeletData[x, y, z].textureNumberDown;
+                        cData.textureNumberLeft = origCubeletData[x, y, z].textureNumberLeft;
+                        cData.textureNumberRight = origCubeletData[x, y, z].textureNumberRight;
 
                         rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                         rb.useGravity = false;
                         rb.isKinematic = true;
 
-                        mfOrigTransformData[x, y, z].ApplyTo(cubeletData[x, y, z].cubelet.transform);
+                        origTransformData[x, y, z].ApplyTo(cubeletData[x, y, z].cubelet.transform);
                     }
                 }
             }
