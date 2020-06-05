@@ -626,51 +626,51 @@ public class MyCube : MonoBehaviour
 
     void RotateCubeletArrayAboutXAxis(CubeSlices cubeSlicesIn, RotationDirection direction)
     {
-        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(0, direction);
-        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s1 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(1, direction);
 
-        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s2 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(2, direction);
 
-        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(3, direction);
-        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s4 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutXAxisSlice(4, direction);
     }
 
 
     void RotateCubeletArrayAboutYAxis(CubeSlices cubeSlicesIn, RotationDirection direction)
     {
-        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(0, direction);
-        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s1 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(1, direction);
 
-        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s2 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(2, direction);
 
-        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(3, direction);
-        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s4 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutYAxisSlice(4, direction);
     }
 
 
     void RotateCubeletArrayAboutZAxis(CubeSlices cubeSlicesIn, RotationDirection direction)
     {
-        if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(0, direction);
-        if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s1 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(1, direction);
 
-        if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s2 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(2, direction);
 
-        if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(3, direction);
-        if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
+        if (cubeSlicesIn == CubeSlices.s4 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
             RotateCubeletArrayAboutZAxisSlice(4, direction);
     }
 
@@ -721,7 +721,7 @@ public class MyCube : MonoBehaviour
     }
 
 
-    // Cycle the cubelets.
+    // Cycle the cubelets in the array.
 
     void Cycle4Cublelets(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3, RotationDirection direction)
     {
@@ -754,6 +754,8 @@ public class MyCube : MonoBehaviour
         cubeletData[c0.x, c0.y, c0.z] = cd;
     }
 
+
+    // Rotate the cubelet in space.
 
     void RotateCubeletAboutXAxis(GameObject cubelet, float angle)
     {

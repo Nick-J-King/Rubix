@@ -142,7 +142,12 @@ public class FacePanel : MonoBehaviour
 
                 Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
                 faceImage.color = pOrigColor[x, y];
-                faceImage.sprite = pOrigSprite[x, y];
+
+                if (showTexture)
+                    faceImage.sprite = pOrigSprite[x, y];
+                else
+                    faceImage.sprite = null;
+
             }
         }
     }
