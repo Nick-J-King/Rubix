@@ -99,17 +99,7 @@ public class MyCube : MonoBehaviour
                         CubeletData cData = CreateCubelet(x, y, z);
                         cubeletData[x, y, z] = cData;
 
-                        // >>> DO I REALLY NEED TO COPY THIS ???
-                        origCubeletData[x, y, z] = new CubeletData()
-                        {
-                            cubelet = cData.cubelet,
-                            textureNumberBack = cData.textureNumberBack,
-                            textureNumberFront = cData.textureNumberFront,
-                            textureNumberUp = cData.textureNumberUp,
-                            textureNumberDown = cData.textureNumberDown,
-                            textureNumberLeft = cData.textureNumberLeft,
-                            textureNumberRight = cData.textureNumberRight
-                        };
+                        origCubeletData[x, y, z] = cData;
 
                         // Copy the original configuration to allow quick reset.
                         origTransformData[x, y, z] = new TransformData(cData.cubelet.transform);
@@ -193,22 +183,13 @@ public class MyCube : MonoBehaviour
                 {
                     if (IsOuterCubelet(x, y, z))
                     {
-                        CubeletData cData = cubeletData[x, y, z];
+                        cubeletData[x, y, z] = origCubeletData[x, y, z];
 
-                        cData.cubelet = origCubeletData[x, y, z].cubelet;
-
-                        cData.textureNumberBack = origCubeletData[x, y, z].textureNumberBack;
-                        cData.textureNumberFront = origCubeletData[x, y, z].textureNumberFront;
-                        cData.textureNumberUp = origCubeletData[x, y, z].textureNumberUp;
-                        cData.textureNumberDown = origCubeletData[x, y, z].textureNumberDown;
-                        cData.textureNumberLeft = origCubeletData[x, y, z].textureNumberLeft;
-                        cData.textureNumberRight = origCubeletData[x, y, z].textureNumberRight;
+                        origTransformData[x, y, z].ApplyTo(cubeletData[x, y, z].cubelet.transform);
 
                         rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                         rb.useGravity = false;
                         rb.isKinematic = true;
-
-                        origTransformData[x, y, z].ApplyTo(cubeletData[x, y, z].cubelet.transform);
                     }
                 }
             }
