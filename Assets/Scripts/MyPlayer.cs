@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Rubix.Animation;
-using Rubix.UI;
 using Rubix.GUI;
+using Rubix.UI;
 
 
 namespace Rubix.Main
 { 
     public class MyPlayer : MonoBehaviour
     {
+        // Animation
+        public AnimationController animationController;
+
+        // GUI
         public MainCamera mainCamera;
         public MyCube myCube;
-        public FaceMap faceMap;
+        public MouseManager mouseManager;
+
+        // UI
+        public FaceMapPanel faceMapPanel;
         public MovesPanel movesPanel;
         public ControlsPanel controlsPanel;
-
-        public MouseManager mouseManager;
-        public AnimationController animationController;
 
 
         // Get the AnimationController to do the animation of the Cube and the Map.
@@ -197,30 +201,30 @@ namespace Rubix.Main
 
         // Miscellaneous
 
-        public void ToggleMap(InputAction.CallbackContext context)
+        public void ToggleFaceMapViewable(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            faceMap.gameObject.SetActive(!faceMap.gameObject.activeInHierarchy);
+            faceMapPanel.ToggleViewable();
         }
 
 
-        public void ToggleMoves(InputAction.CallbackContext context)
+        public void ToggleMovesPanelViewable(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            movesPanel.gameObject.SetActive(!movesPanel.gameObject.activeInHierarchy);
+            movesPanel.ToggleViewable();
         }
 
     
-        public void ToggleControlsPanel(InputAction.CallbackContext context)
+        public void ToggleControlsPanelViewable(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            controlsPanel.gameObject.SetActive(!controlsPanel.gameObject.activeInHierarchy);
+            controlsPanel.ToggleViewable();
         }
 
 
@@ -229,7 +233,7 @@ namespace Rubix.Main
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            faceMap.ToggleTextures();
+            faceMapPanel.ToggleTextures();
         }
 
 
@@ -248,7 +252,7 @@ namespace Rubix.Main
                 return;
 
             mainCamera.ResetViewport();
-            faceMap.ResetPositionAndScale();
+            faceMapPanel.ResetPositionAndScale();
             movesPanel.ResetPositionAndScale();
             controlsPanel.ResetPositionAndScale();
             myCube.ResetScale();
@@ -265,7 +269,7 @@ namespace Rubix.Main
             movesPanel.ClearMoves();
 
             myCube.ResetCube();
-            faceMap.ResetMap();
+            faceMapPanel.ResetMap();
         }
 
 
@@ -304,15 +308,15 @@ namespace Rubix.Main
         {
             var scrollValue = context.action.ReadValue<float>();
 
-            if (mouseManager.isMapHit)
+            if (mouseManager.isFaceMapPanelHit)
             {
-                ScaleUp(faceMap.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
+                ScaleUp(faceMapPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
             }
-            else if (mouseManager.isMovesHit)
+            else if (mouseManager.isMovesPanelHit)
             { 
                 ScaleUp(movesPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
             }
-            else if (mouseManager.isControlsHit)
+            else if (mouseManager.isControlsPanelHit)
             { 
                 ScaleUp(controlsPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
             }
@@ -332,7 +336,7 @@ namespace Rubix.Main
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            if (faceMap.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesHit)
+            if (faceMapPanel.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesPanelHit)
                 return;
 
             Vector2 move = context.ReadValue<Vector2>();

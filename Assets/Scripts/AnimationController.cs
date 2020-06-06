@@ -26,7 +26,7 @@ namespace Rubix.Animation
     public class AnimationController : MonoBehaviour
     {
         public MyCube myCube;
-        public FaceMap faceMap;
+        public FaceMapPanel faceMap;
         public MovesPanel movesPanel;
 
         public bool isAnimating = false;

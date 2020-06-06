@@ -41,10 +41,10 @@ namespace Rubix.GUI
         public Material faceMaterialBlack;  // For the "innards".
 
         // Textures to be applied to each face.
-        readonly Texture[,] cubeFaceletTextures = new Texture[5, 5];
+        readonly Texture[,] _cubeFaceletTextures = new Texture[5, 5];
             // Loaded up from Resources
 
-        bool showTexture = true;
+        bool _showTexture = true;
 
         //-------------------------------------------------
         //
@@ -52,24 +52,24 @@ namespace Rubix.GUI
 
         public bool isAnimating = false;
 
-        CubeAxis cubeAxis;                      // Which axis we are currently rotating about.
-        CubeSlices cubeSlices;                  // Which slices we are currently rotating.
-        RotationDirection rotationDirection;    // "normal" or "reverse" rotation.
+        CubeAxis _cubeAxis;                      // Which axis we are currently rotating about.
+        CubeSlices _cubeSlices;                  // Which slices we are currently rotating.
+        RotationDirection _rotationDirection;    // "normal" or "reverse" rotation.
 
         //-------------------------------------------------
 
-        public CubeletData[,,] cubeletData  = new CubeletData[5, 5, 5];
+        readonly CubeletData[,,] _cubeletData  = new CubeletData[5, 5, 5];
             // Pointers from the array indices to the current Cubelets.
             // As rotations are performed, these get shuffled around.
 
-        public CubeletData[,,] origCubeletData  = new CubeletData[5, 5, 5];
+        readonly CubeletData[,,] _origCubeletData  = new CubeletData[5, 5, 5];
             // Pointers from the array indices to the original Cubelets.
             // As rotations are performed, these ones stay put.
 
-        public TransformData[,,] origTransformData = new TransformData[5, 5, 5];
+        readonly TransformData[,,] _origTransformData = new TransformData[5, 5, 5];
             // A quick record of the original Cubelet positions by array indices.
 
-        public TransformData origSphereTransformData = new TransformData();
+        TransformData _origSphereTransformData = new TransformData();
             // A quick record of the original position of the inner "core".
 
 
@@ -102,7 +102,7 @@ namespace Rubix.GUI
             {
                 for (int y = 0; y < 5; y++)
                 {
-                    cubeFaceletTextures[x, y] = Resources.Load<Texture>($"Textures/Facelet{x}{y}t");
+                    _cubeFaceletTextures[x, y] = Resources.Load<Texture>($"Textures/Facelet{x}{y}t");
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace Rubix.GUI
         // and record the original copy and transforms for quick reset.
         void Start()
         {
-            origSphereTransformData = new TransformData(innerSphere.transform);
+            _origSphereTransformData = new TransformData(innerSphere.transform);
 
             for (int x = 0; x < 5; x++)
             {
@@ -123,12 +123,12 @@ namespace Rubix.GUI
                         if (IsOuterCubelet(x, y, z))
                         {
                             CubeletData cData = CreateCubelet(x, y, z);
-                            cubeletData[x, y, z] = cData;
+                            _cubeletData[x, y, z] = cData;
 
-                            origCubeletData[x, y, z] = cData;
+                            _origCubeletData[x, y, z] = cData;
 
                             // Copy the original configuration to allow quick reset.
-                            origTransformData[x, y, z] = new TransformData(cData.cubelet.transform);
+                            _origTransformData[x, y, z] = new TransformData(cData.cubelet.transform);
                         }
                     }
                 }
@@ -181,7 +181,7 @@ namespace Rubix.GUI
                     {
                         if (IsOuterCubelet(x, y, z))
                         {
-                            rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
+                            rb = _cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                             rb.useGravity = true;
                             rb.isKinematic = false;
                         }
@@ -199,7 +199,7 @@ namespace Rubix.GUI
             rb.useGravity = false;
             rb.isKinematic = true;
 
-            origSphereTransformData.ApplyTo(innerSphere.transform);
+            _origSphereTransformData.ApplyTo(innerSphere.transform);
 
             for (int x = 0; x < 5; x++)
             {
@@ -209,11 +209,11 @@ namespace Rubix.GUI
                     {
                         if (IsOuterCubelet(x, y, z))
                         {
-                            cubeletData[x, y, z] = origCubeletData[x, y, z];
+                            _cubeletData[x, y, z] = _origCubeletData[x, y, z];
 
-                            origTransformData[x, y, z].ApplyTo(cubeletData[x, y, z].cubelet.transform);
+                            _origTransformData[x, y, z].ApplyTo(_cubeletData[x, y, z].cubelet.transform);
 
-                            rb = cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
+                            rb = _cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                             rb.useGravity = false;
                             rb.isKinematic = true;
                         }
@@ -227,7 +227,7 @@ namespace Rubix.GUI
 
         public void ToggleTextures()
         {
-            showTexture = !showTexture;
+            _showTexture = !_showTexture;
 
             for (int x = 0; x < 5; x++)
             {
@@ -237,10 +237,10 @@ namespace Rubix.GUI
                     {
                         if (IsOuterCubelet(x, y, z))
                         {
-                            CubeletData cData = cubeletData[x, y, z];
+                            CubeletData cData = _cubeletData[x, y, z];
                             GameObject cubeletFace;
 
-                            if (showTexture)
+                            if (_showTexture)
                             { 
                                 cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
                                 cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberUp;
@@ -338,7 +338,7 @@ namespace Rubix.GUI
             if (y == 4)
             {
                 mrTop.material = faceMaterialBlue;
-                mrTop.materials[0].mainTexture = cubeFaceletTextures[x, z];
+                mrTop.materials[0].mainTexture = _cubeFaceletTextures[x, z];
             }
             else
             {
@@ -348,7 +348,7 @@ namespace Rubix.GUI
             if (y == 0)
             {
                 mrBottom.material = faceMaterialGreen;
-                mrBottom.materials[0].mainTexture = cubeFaceletTextures[x, 4 - z];
+                mrBottom.materials[0].mainTexture = _cubeFaceletTextures[x, 4 - z];
             }
             else
             {
@@ -358,7 +358,7 @@ namespace Rubix.GUI
             if (z == 0)
             {
                 mrFront.material = faceMaterialYellow;
-                mrFront.materials[0].mainTexture = cubeFaceletTextures[x, y];
+                mrFront.materials[0].mainTexture = _cubeFaceletTextures[x, y];
 
             }
             else
@@ -369,7 +369,7 @@ namespace Rubix.GUI
             if (z == 4)
             {
                 mrBack.material = faceMaterialWhite;
-                mrBack.materials[0].mainTexture = cubeFaceletTextures[4 - x, y];   // NOTE: On map, the FacePanel is thereby rotated 180 degrees.
+                mrBack.materials[0].mainTexture = _cubeFaceletTextures[4 - x, y];   // NOTE: On map, the FacePanel is thereby rotated 180 degrees.
             }
             else
             {
@@ -379,7 +379,7 @@ namespace Rubix.GUI
             if (x == 0)
             {
                 mrLeft.material = faceMaterialRed;
-                mrLeft.materials[0].mainTexture = cubeFaceletTextures[4 - z, y];
+                mrLeft.materials[0].mainTexture = _cubeFaceletTextures[4 - z, y];
             }
             else
             {
@@ -389,7 +389,7 @@ namespace Rubix.GUI
             if (x == 4)
             {
                 mrRight.material = faceMaterialOrange;
-                mrRight.materials[0].mainTexture = cubeFaceletTextures[z, y];  // OK!
+                mrRight.materials[0].mainTexture = _cubeFaceletTextures[z, y];  // OK!
             }
             else
             {
@@ -497,9 +497,9 @@ namespace Rubix.GUI
         // Initialise...
         public void SpecifyAnimation(AnimationSpecification animationSpecification)
         {
-            cubeAxis = animationSpecification.cubeAxis;
-            cubeSlices = animationSpecification.cubeSlices;
-            rotationDirection = animationSpecification.rotationDirection;
+            _cubeAxis = animationSpecification.cubeAxis;
+            _cubeSlices = animationSpecification.cubeSlices;
+            _rotationDirection = animationSpecification.rotationDirection;
 
             isAnimating = true;
         }
@@ -511,7 +511,7 @@ namespace Rubix.GUI
         // NOTE: The finishing step is done separately...
         public void DoAnimation(float deltaAngle)
         {
-            switch (cubeAxis)
+            switch (_cubeAxis)
             {
                 case CubeAxis.x:
 
@@ -519,23 +519,23 @@ namespace Rubix.GUI
                     {
                         for (int z = 0; z < 5; z++)
                         {
-                            if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutXAxis(cubeletData[0, y, z].cubelet, deltaAngle);
+                            if (_cubeSlices == CubeSlices.s0 || _cubeSlices == CubeSlices.s01 || _cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutXAxis(_cubeletData[0, y, z].cubelet, deltaAngle);
 
                             if (IsOuterCubelet(y, z))
                             {
-                                if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutXAxis(cubeletData[1, y, z].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s1 || _cubeSlices == CubeSlices.s01 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutXAxis(_cubeletData[1, y, z].cubelet, deltaAngle);
 
-                                if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutXAxis(cubeletData[2, y, z].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s2 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutXAxis(_cubeletData[2, y, z].cubelet, deltaAngle);
 
-                                if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutXAxis(cubeletData[3, y, z].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s3 || _cubeSlices == CubeSlices.s34 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutXAxis(_cubeletData[3, y, z].cubelet, deltaAngle);
                             }
 
-                            if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutXAxis(cubeletData[4, y, z].cubelet, deltaAngle);
+                            if (_cubeSlices == CubeSlices.s4 || _cubeSlices == CubeSlices.s34 || _cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutXAxis(_cubeletData[4, y, z].cubelet, deltaAngle);
                         }
                     }
                     break;
@@ -546,23 +546,23 @@ namespace Rubix.GUI
                     {
                         for (int z = 0; z < 5; z++)
                         {
-                            if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutYAxis(cubeletData[x, 0, z].cubelet, deltaAngle);
+                            if (_cubeSlices == CubeSlices.s0 || _cubeSlices == CubeSlices.s01 || _cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutYAxis(_cubeletData[x, 0, z].cubelet, deltaAngle);
 
                             if (IsOuterCubelet(x, z))
                             {
-                                if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutYAxis(cubeletData[x, 1, z].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s1 || _cubeSlices == CubeSlices.s01 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutYAxis(_cubeletData[x, 1, z].cubelet, deltaAngle);
 
-                                if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutYAxis(cubeletData[x, 2, z].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s2 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutYAxis(_cubeletData[x, 2, z].cubelet, deltaAngle);
 
-                                if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutYAxis(cubeletData[x, 3, z].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s3 || _cubeSlices == CubeSlices.s34 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutYAxis(_cubeletData[x, 3, z].cubelet, deltaAngle);
                             }
 
-                            if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutYAxis(cubeletData[x, 4, z].cubelet, deltaAngle);
+                            if (_cubeSlices == CubeSlices.s4 || _cubeSlices == CubeSlices.s34 || _cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutYAxis(_cubeletData[x, 4, z].cubelet, deltaAngle);
                         }
                     }
                     break;
@@ -573,23 +573,23 @@ namespace Rubix.GUI
                     {
                         for (int y = 0; y < 5; y++)
                         {
-                            if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutZAxis(cubeletData[x, y, 0].cubelet, deltaAngle);
+                            if (_cubeSlices == CubeSlices.s0 || _cubeSlices == CubeSlices.s01 || _cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutZAxis(_cubeletData[x, y, 0].cubelet, deltaAngle);
 
                             if (IsOuterCubelet(x, y))
                             {
-                                if (cubeSlices == CubeSlices.s1 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutZAxis(cubeletData[x, y, 1].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s1 || _cubeSlices == CubeSlices.s01 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutZAxis(_cubeletData[x, y, 1].cubelet, deltaAngle);
 
-                                if (cubeSlices == CubeSlices.s2 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutZAxis(cubeletData[x, y, 2].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s2 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutZAxis(_cubeletData[x, y, 2].cubelet, deltaAngle);
 
-                                if (cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                    RotateCubeletAboutZAxis(cubeletData[x, y, 3].cubelet, deltaAngle);
+                                if (_cubeSlices == CubeSlices.s3 || _cubeSlices == CubeSlices.s34 || _cubeSlices == CubeSlices.s01234)
+                                    RotateCubeletAboutZAxis(_cubeletData[x, y, 3].cubelet, deltaAngle);
                             }
 
-                            if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
-                                RotateCubeletAboutZAxis(cubeletData[x, y, 4].cubelet, deltaAngle);
+                            if (_cubeSlices == CubeSlices.s4 || _cubeSlices == CubeSlices.s34 || _cubeSlices == CubeSlices.s01234)
+                                RotateCubeletAboutZAxis(_cubeletData[x, y, 4].cubelet, deltaAngle);
                         }
                     }
                     break;
@@ -601,21 +601,21 @@ namespace Rubix.GUI
         // Adjust the actual arrangement of Cubelets in the 3D array.
         public void FinishAnimation()
         {
-            switch (cubeAxis)
+            switch (_cubeAxis)
             {
                 case CubeAxis.x:
 
-                    RotateCubeletArrayAboutXAxis(cubeSlices, rotationDirection);
+                    RotateCubeletArrayAboutXAxis(_cubeSlices, _rotationDirection);
                     break;
 
                 case CubeAxis.y:
 
-                    RotateCubeletArrayAboutYAxis(cubeSlices, rotationDirection);
+                    RotateCubeletArrayAboutYAxis(_cubeSlices, _rotationDirection);
                     break;
 
                 case CubeAxis.z:
 
-                    RotateCubeletArrayAboutZAxis(cubeSlices, rotationDirection);
+                    RotateCubeletArrayAboutZAxis(_cubeSlices, _rotationDirection);
                     break;
 
             }
@@ -735,11 +735,11 @@ namespace Rubix.GUI
                 return;
             }
 
-            CubeletData cd = cubeletData[c0.x, c0.y, c0.z];
-            cubeletData[c0.x, c0.y, c0.z] = cubeletData[c1.x, c1.y, c1.z];
-            cubeletData[c1.x, c1.y, c1.z] = cubeletData[c2.x, c2.y, c2.z];
-            cubeletData[c2.x, c2.y, c2.z] = cubeletData[c3.x, c3.y, c3.z];
-            cubeletData[c3.x, c3.y, c3.z] = cd;
+            CubeletData cd = _cubeletData[c0.x, c0.y, c0.z];
+            _cubeletData[c0.x, c0.y, c0.z] = _cubeletData[c1.x, c1.y, c1.z];
+            _cubeletData[c1.x, c1.y, c1.z] = _cubeletData[c2.x, c2.y, c2.z];
+            _cubeletData[c2.x, c2.y, c2.z] = _cubeletData[c3.x, c3.y, c3.z];
+            _cubeletData[c3.x, c3.y, c3.z] = cd;
         }
 
 
@@ -751,11 +751,11 @@ namespace Rubix.GUI
                 return;
             }
 
-            CubeletData cd = cubeletData[c3.x, c3.y, c3.z];
-            cubeletData[c3.x, c3.y, c3.z] = cubeletData[c2.x, c2.y, c2.z];
-            cubeletData[c2.x, c2.y, c2.z] = cubeletData[c1.x, c1.y, c1.z];
-            cubeletData[c1.x, c1.y, c1.z] = cubeletData[c0.x, c0.y, c0.z];
-            cubeletData[c0.x, c0.y, c0.z] = cd;
+            CubeletData cd = _cubeletData[c3.x, c3.y, c3.z];
+            _cubeletData[c3.x, c3.y, c3.z] = _cubeletData[c2.x, c2.y, c2.z];
+            _cubeletData[c2.x, c2.y, c2.z] = _cubeletData[c1.x, c1.y, c1.z];
+            _cubeletData[c1.x, c1.y, c1.z] = _cubeletData[c0.x, c0.y, c0.z];
+            _cubeletData[c0.x, c0.y, c0.z] = cd;
         }
 
 

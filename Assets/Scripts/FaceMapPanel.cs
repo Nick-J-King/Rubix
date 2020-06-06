@@ -6,7 +6,7 @@ using Rubix.Data;
 
 namespace Rubix.UI
 { 
-    public class FaceMap : DragWindow
+    public class FaceMapPanel : DragWindow
     {
         // The panels for each face in this map.
         // Initialised in Unity IDE.

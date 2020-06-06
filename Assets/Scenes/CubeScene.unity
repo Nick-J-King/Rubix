@@ -1019,21 +1019,6 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: OnDebugMe
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 45cee9f6-0db4-4d8a-b069-906fae2aa9c6
-    m_ActionName: Player/Debug[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 139313360}
         m_MethodName: OnResetConfiguration
         m_Mode: 0
         m_Arguments:
@@ -1079,7 +1064,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: ToggleMap
+        m_MethodName: ToggleFaceMapViewable
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1094,7 +1079,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: ToggleMoves
+        m_MethodName: ToggleMovesPanelViewable
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1109,7 +1094,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: ToggleControlsPanel
+        m_MethodName: ToggleControlsPanelViewable
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1182,13 +1167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4d89aacd7b44a8cae6463e079425b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationController: {fileID: 653248208}
   mainCamera: {fileID: 963194229}
   myCube: {fileID: 1806485317}
+  mouseManager: {fileID: 2037798674}
   faceMap: {fileID: 296277996}
   movesPanel: {fileID: 931200336}
   controlsPanel: {fileID: 1344376004}
-  mouseManager: {fileID: 2037798674}
-  animationController: {fileID: 653248208}
 --- !u!1 &221932408 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4495081051499589887, guid: 1fce3efb0d8c641648d03ca794237b8b,

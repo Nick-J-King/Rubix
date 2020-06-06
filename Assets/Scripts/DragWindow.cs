@@ -38,6 +38,18 @@ namespace Rubix.UI
         }
 
 
+        public void ToggleViewable()
+        {
+            SetViewable(!gameObject.activeInHierarchy);
+        }
+
+
+        public void SetViewable(bool viewable)
+        {
+            gameObject.SetActive(viewable);
+        }
+
+
         public void OnPointerDown(PointerEventData eventData)
         {
             isDragging = true;

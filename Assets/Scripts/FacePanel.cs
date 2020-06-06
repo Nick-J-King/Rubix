@@ -16,7 +16,7 @@ namespace Rubix.UI
     {
         // enum CubeColours { Top = 0, Bottom = 1, Front = 2, Back = 3, Left = 4, Right = 5 };
 
-        public FaceMap panelMap;        // The map this face panel belongs to.
+        public FaceMapPanel panelMap;        // The map this face panel belongs to.
         public FacePanel panelFace;     // This face panel.
 
         public bool inverted;           // Whether to invert this panel (rotate 180 degrees).

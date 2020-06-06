@@ -19,7 +19,6 @@ namespace Rubix.UI
         {
             base.Start();
             sr = scroller.GetComponent<ScrollRect>();
-
         }
 
 

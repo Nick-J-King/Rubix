@@ -245,14 +245,6 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Debug"",
-                    ""type"": ""Button"",
-                    ""id"": ""45cee9f6-0db4-4d8a-b069-906fae2aa9c6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
-                },
-                {
                     ""name"": ""ResetConfiguration"",
                     ""type"": ""Button"",
                     ""id"": ""e7d2b206-3664-4b8e-abb5-5f8e0520aa07"",
@@ -277,7 +269,7 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""ToggleMap"",
+                    ""name"": ""ToggleFaceMapViewable"",
                     ""type"": ""Button"",
                     ""id"": ""bdb7300c-10eb-44ea-a1bf-1898f276771e"",
                     ""expectedControlType"": ""Button"",
@@ -293,7 +285,7 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""ToggleControls"",
+                    ""name"": ""ToggleControlsPanelViewable"",
                     ""type"": ""Button"",
                     ""id"": ""a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa"",
                     ""expectedControlType"": ""Button"",
@@ -628,17 +620,6 @@ namespace Rubix.Actions
                 },
                 {
                     ""name"": """",
-                    ""id"": ""494219e4-15d2-4a8b-98a1-b7a846ac3f48"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Debug"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e6cd1832-c87c-4df9-a9f5-99d08a18b4b3"",
                     ""path"": ""<Keyboard>/home"",
                     ""interactions"": """",
@@ -677,7 +658,7 @@ namespace Rubix.Actions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleMap"",
+                    ""action"": ""ToggleFaceMapViewable"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -688,7 +669,7 @@ namespace Rubix.Actions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleMoves"",
+                    ""action"": ""ToggleMovesPanelViewable"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -699,7 +680,7 @@ namespace Rubix.Actions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleControls"",
+                    ""action"": ""ToggleControlsPanelViewable"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -826,13 +807,12 @@ namespace Rubix.Actions
             m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
             m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
             m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
-            m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
             m_Player_ResetConfiguration = m_Player.FindAction("ResetConfiguration", throwIfNotFound: true);
             m_Player_Destroy = m_Player.FindAction("Destroy", throwIfNotFound: true);
             m_Player_Random = m_Player.FindAction("Random", throwIfNotFound: true);
-            m_Player_ToggleMap = m_Player.FindAction("ToggleMap", throwIfNotFound: true);
-            m_Player_ToggleMoves = m_Player.FindAction("ToggleMoves", throwIfNotFound: true);
-            m_Player_ToggleControls = m_Player.FindAction("ToggleControls", throwIfNotFound: true);
+            m_Player_ToggleFaceMapViewable = m_Player.FindAction("ToggleFaceMapViewable", throwIfNotFound: true);
+            m_Player_ToggleMovesPanelViewable = m_Player.FindAction("ToggleMovesPanelViewable", throwIfNotFound: true);
+            m_Player_ToggleControlsPanelViewable = m_Player.FindAction("ToggleControlsPanelViewable", throwIfNotFound: true);
             m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
             m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
         }
@@ -912,13 +892,12 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_AllUD;
         private readonly InputAction m_Player_AllFB;
         private readonly InputAction m_Player_Wheel;
-        private readonly InputAction m_Player_Debug;
         private readonly InputAction m_Player_ResetConfiguration;
         private readonly InputAction m_Player_Destroy;
         private readonly InputAction m_Player_Random;
-        private readonly InputAction m_Player_ToggleMap;
-        private readonly InputAction m_Player_ToggleMoves;
-        private readonly InputAction m_Player_ToggleControls;
+        private readonly InputAction m_Player_ToggleFaceMapViewable;
+        private readonly InputAction m_Player_ToggleMovesPanelViewable;
+        private readonly InputAction m_Player_ToggleControlsPanelViewable;
         private readonly InputAction m_Player_ToggleMapTextures;
         private readonly InputAction m_Player_ToggeCubeTextures;
         public struct PlayerActions
@@ -953,13 +932,12 @@ namespace Rubix.Actions
             public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
             public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
             public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
-            public InputAction @Debug => m_Wrapper.m_Player_Debug;
             public InputAction @ResetConfiguration => m_Wrapper.m_Player_ResetConfiguration;
             public InputAction @Destroy => m_Wrapper.m_Player_Destroy;
             public InputAction @Random => m_Wrapper.m_Player_Random;
-            public InputAction @ToggleMap => m_Wrapper.m_Player_ToggleMap;
-            public InputAction @ToggleMoves => m_Wrapper.m_Player_ToggleMoves;
-            public InputAction @ToggleControls => m_Wrapper.m_Player_ToggleControls;
+            public InputAction @ToggleFaceMapViewable => m_Wrapper.m_Player_ToggleFaceMapViewable;
+            public InputAction @ToggleMovesPanelViewable => m_Wrapper.m_Player_ToggleMovesPanelViewable;
+            public InputAction @ToggleControlsPanelViewable => m_Wrapper.m_Player_ToggleControlsPanelViewable;
             public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
             public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1055,9 +1033,6 @@ namespace Rubix.Actions
                     @Wheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
                     @Wheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
                     @Wheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
-                    @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                    @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                    @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @ResetConfiguration.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
                     @ResetConfiguration.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
                     @ResetConfiguration.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
@@ -1067,15 +1042,15 @@ namespace Rubix.Actions
                     @Random.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
                     @Random.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
                     @Random.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
-                    @ToggleMap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
-                    @ToggleMap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
-                    @ToggleMap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
-                    @ToggleMoves.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
-                    @ToggleMoves.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
-                    @ToggleMoves.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
-                    @ToggleControls.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
-                    @ToggleControls.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
-                    @ToggleControls.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
+                    @ToggleFaceMapViewable.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleFaceMapViewable;
+                    @ToggleFaceMapViewable.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleFaceMapViewable;
+                    @ToggleFaceMapViewable.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleFaceMapViewable;
+                    @ToggleMovesPanelViewable.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMovesPanelViewable;
+                    @ToggleMovesPanelViewable.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMovesPanelViewable;
+                    @ToggleMovesPanelViewable.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMovesPanelViewable;
+                    @ToggleControlsPanelViewable.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControlsPanelViewable;
+                    @ToggleControlsPanelViewable.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControlsPanelViewable;
+                    @ToggleControlsPanelViewable.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControlsPanelViewable;
                     @ToggleMapTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
                     @ToggleMapTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
                     @ToggleMapTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
@@ -1170,9 +1145,6 @@ namespace Rubix.Actions
                     @Wheel.started += instance.OnWheel;
                     @Wheel.performed += instance.OnWheel;
                     @Wheel.canceled += instance.OnWheel;
-                    @Debug.started += instance.OnDebug;
-                    @Debug.performed += instance.OnDebug;
-                    @Debug.canceled += instance.OnDebug;
                     @ResetConfiguration.started += instance.OnResetConfiguration;
                     @ResetConfiguration.performed += instance.OnResetConfiguration;
                     @ResetConfiguration.canceled += instance.OnResetConfiguration;
@@ -1182,15 +1154,15 @@ namespace Rubix.Actions
                     @Random.started += instance.OnRandom;
                     @Random.performed += instance.OnRandom;
                     @Random.canceled += instance.OnRandom;
-                    @ToggleMap.started += instance.OnToggleMap;
-                    @ToggleMap.performed += instance.OnToggleMap;
-                    @ToggleMap.canceled += instance.OnToggleMap;
-                    @ToggleMoves.started += instance.OnToggleMoves;
-                    @ToggleMoves.performed += instance.OnToggleMoves;
-                    @ToggleMoves.canceled += instance.OnToggleMoves;
-                    @ToggleControls.started += instance.OnToggleControls;
-                    @ToggleControls.performed += instance.OnToggleControls;
-                    @ToggleControls.canceled += instance.OnToggleControls;
+                    @ToggleFaceMapViewable.started += instance.OnToggleFaceMapViewable;
+                    @ToggleFaceMapViewable.performed += instance.OnToggleFaceMapViewable;
+                    @ToggleFaceMapViewable.canceled += instance.OnToggleFaceMapViewable;
+                    @ToggleMovesPanelViewable.started += instance.OnToggleMovesPanelViewable;
+                    @ToggleMovesPanelViewable.performed += instance.OnToggleMovesPanelViewable;
+                    @ToggleMovesPanelViewable.canceled += instance.OnToggleMovesPanelViewable;
+                    @ToggleControlsPanelViewable.started += instance.OnToggleControlsPanelViewable;
+                    @ToggleControlsPanelViewable.performed += instance.OnToggleControlsPanelViewable;
+                    @ToggleControlsPanelViewable.canceled += instance.OnToggleControlsPanelViewable;
                     @ToggleMapTextures.started += instance.OnToggleMapTextures;
                     @ToggleMapTextures.performed += instance.OnToggleMapTextures;
                     @ToggleMapTextures.canceled += instance.OnToggleMapTextures;
@@ -1285,13 +1257,12 @@ namespace Rubix.Actions
             void OnAllUD(InputAction.CallbackContext context);
             void OnAllFB(InputAction.CallbackContext context);
             void OnWheel(InputAction.CallbackContext context);
-            void OnDebug(InputAction.CallbackContext context);
             void OnResetConfiguration(InputAction.CallbackContext context);
             void OnDestroy(InputAction.CallbackContext context);
             void OnRandom(InputAction.CallbackContext context);
-            void OnToggleMap(InputAction.CallbackContext context);
-            void OnToggleMoves(InputAction.CallbackContext context);
-            void OnToggleControls(InputAction.CallbackContext context);
+            void OnToggleFaceMapViewable(InputAction.CallbackContext context);
+            void OnToggleMovesPanelViewable(InputAction.CallbackContext context);
+            void OnToggleControlsPanelViewable(InputAction.CallbackContext context);
             void OnToggleMapTextures(InputAction.CallbackContext context);
             void OnToggeCubeTextures(InputAction.CallbackContext context);
         }

@@ -230,14 +230,6 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Debug",
-                    "type": "Button",
-                    "id": "45cee9f6-0db4-4d8a-b069-906fae2aa9c6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Tap"
-                },
-                {
                     "name": "ResetConfiguration",
                     "type": "Button",
                     "id": "e7d2b206-3664-4b8e-abb5-5f8e0520aa07",
@@ -262,7 +254,7 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "ToggleMap",
+                    "name": "ToggleFaceMapViewable",
                     "type": "Button",
                     "id": "bdb7300c-10eb-44ea-a1bf-1898f276771e",
                     "expectedControlType": "Button",
@@ -270,7 +262,7 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "ToggleMoves",
+                    "name": "ToggleMovesPanelViewable",
                     "type": "Button",
                     "id": "b33312da-a2a6-410c-97d4-9a94dc2b1c92",
                     "expectedControlType": "Button",
@@ -278,7 +270,7 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "ToggleControls",
+                    "name": "ToggleControlsPanelViewable",
                     "type": "Button",
                     "id": "a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa",
                     "expectedControlType": "Button",
@@ -613,17 +605,6 @@
                 },
                 {
                     "name": "",
-                    "id": "494219e4-15d2-4a8b-98a1-b7a846ac3f48",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Debug",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e6cd1832-c87c-4df9-a9f5-99d08a18b4b3",
                     "path": "<Keyboard>/home",
                     "interactions": "",
@@ -662,7 +643,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleMap",
+                    "action": "ToggleFaceMapViewable",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -673,7 +654,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleMoves",
+                    "action": "ToggleMovesPanelViewable",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -684,7 +665,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleControls",
+                    "action": "ToggleControlsPanelViewable",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

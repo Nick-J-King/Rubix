@@ -19,137 +19,131 @@ namespace Rubix.GUI
         public Canvas canvas;               // Canvas with UI components to check.
         public Camera mainCamera;
 
-        public GameObject mapPanel;         // The FaceMap that can be selected and dragged around.
-        public GameObject movesPanel;       // The MovesPanel that can be selected and dragged around.
+        public GameObject faceMapPanel;
+        public GameObject movesPanel;       
         public GameObject controlsPanel;
+            // The panels that can be selected and dragged around.
 
-        public Color colorMapSelected;
-        public Color colorMapNotSelected;
+        public Color colorPanelSelected;
+        public Color colorPanelNotSelected;
 
-        public Texture2D pointer;
-        public Texture2D cube;
-        public Texture2D map;
-        public Texture2D sphere;
-            // Cursors to use for each condition.
+        public Texture2D pointerCursor;
+        public Texture2D cubeCursor;
+        public Texture2D faceMapCursor;
+        public Texture2D sphereCursor;
 
         // Status (out only)... TODO
-        public bool isMapHit = false;
-        public bool isMovesHit = false;
+        public bool isFaceMapPanelHit = false;
+        public bool isMovesPanelHit = false;
+        public bool isControlsPanelHit = false;
         public bool isCubeHit = false;
-        public bool isControlsHit = false;
             // Used to relay status.
 
-        Vector2 vHotSpot;
-        Image mapPanelImage;
-        Image movesPanelImage;
-        Image controlsPanelImage;
-            // Don't keep newing these...
+        Vector2 _vHotSpot;
+        Image _faceMapPanelImage;
+        Image _movesPanelImage;
+        Image _controlsPanelImage;
 
-        GraphicRaycaster m_Raycaster;
-        EventSystem m_EventSystem;
-        PointerEventData m_PointerEventData;
-        List<RaycastResult> m_results;
-        int clickableLayerValue;
-            // Internals.
+        GraphicRaycaster _Raycaster;
+        EventSystem _EventSystem;
+        PointerEventData _PointerEventData;
+        List<RaycastResult> _results;
+        int _clickableLayerValue;
 
 
-        void Awake()
+        private void Awake()
         {
-            m_Raycaster = canvas.GetComponent<GraphicRaycaster>();
-            m_EventSystem = GetComponent<EventSystem>();
-            m_PointerEventData = new PointerEventData(m_EventSystem);
-            m_results = new List<RaycastResult>();
-            clickableLayerValue = clickableLayer.value;
+            _Raycaster = canvas.GetComponent<GraphicRaycaster>();
+            _EventSystem = GetComponent<EventSystem>();
+            _PointerEventData = new PointerEventData(_EventSystem);
+            _results = new List<RaycastResult>();
+            _clickableLayerValue = clickableLayer.value;
 
-            vHotSpot.x = 16;
-            vHotSpot.y = 16;
-            mapPanelImage = mapPanel.GetComponent<Image>();
-            movesPanelImage = movesPanel.GetComponent<Image>();
-            controlsPanelImage = controlsPanel.GetComponent<Image>();
+            _vHotSpot.x = 16;
+            _vHotSpot.y = 16;
+            _faceMapPanelImage = faceMapPanel.GetComponent<Image>();
+            _movesPanelImage = movesPanel.GetComponent<Image>();
+            _controlsPanelImage = controlsPanel.GetComponent<Image>();
         }
 
 
-        // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            isMapHit = false;
+            isFaceMapPanelHit = false;
+            isMovesPanelHit = false;
+            isControlsPanelHit = false;
             isCubeHit = false;
-            isMovesHit = false;
-            isControlsHit = false;
 
-            m_PointerEventData.position = Mouse.current.position.ReadValue();
+            _PointerEventData.position = Mouse.current.position.ReadValue();
 
             // Raycast using the Graphics Raycaster and mouse click position
-            m_results.Clear();
-            m_Raycaster.Raycast(m_PointerEventData, m_results);
+            _results.Clear();
+            _Raycaster.Raycast(_PointerEventData, _results);
 
             // For every result returned, output the name of the GameObject on the Canvas hit by the Ray.
             // Check for the FaceMap panel.
-            foreach (RaycastResult result in m_results)
+            foreach (RaycastResult result in _results)
             {
-                if (result.gameObject.name == "PanelMap")
-                    isMapHit = true;
+                if (result.gameObject.name == faceMapPanel.name)
+                    isFaceMapPanelHit = true;
 
-                if (result.gameObject.name == "MovesPanel")
-                    isMovesHit = true;
+                if (result.gameObject.name == movesPanel.name)
+                    isMovesPanelHit = true;
 
-                if (result.gameObject.name == "ControlsPanel")
-                    isControlsHit = true;
+                if (result.gameObject.name == controlsPanel.name)
+                    isControlsPanelHit = true;
             }
 
-            // Are we over the FaceMap panel?
-            if (isMapHit)
+            if (isFaceMapPanelHit)
             {
-                Cursor.SetCursor(map, vHotSpot, CursorMode.Auto);
-                mapPanelImage.color = colorMapSelected;
+                Cursor.SetCursor(faceMapCursor, _vHotSpot, CursorMode.Auto);
+                _faceMapPanelImage.color = colorPanelSelected;
                 return;
             }
             else
             {
-                mapPanelImage.color = colorMapNotSelected;
+                _faceMapPanelImage.color = colorPanelNotSelected;
             }
 
-            // Are we over the MovesPanel panel?
-            if (isMovesHit)
+            if (isMovesPanelHit)
             {
-                Cursor.SetCursor(sphere, vHotSpot, CursorMode.Auto);
-                movesPanelImage.color = colorMapSelected;
+                Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
+                _movesPanelImage.color = colorPanelSelected;
                 return;
             }
             else
             {
-                movesPanelImage.color = colorMapNotSelected;
+                _movesPanelImage.color = colorPanelNotSelected;
             }
 
-            // Are we over the MovesPanel panel?
-            if (isControlsHit)
+            if (isControlsPanelHit)
             {
-                Cursor.SetCursor(sphere, vHotSpot, CursorMode.Auto);
-                controlsPanelImage.color = colorMapSelected;
+                Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
+                _controlsPanelImage.color = colorPanelSelected;
                 return;
             }
             else
             {
-                controlsPanelImage.color = colorMapNotSelected;
+                _controlsPanelImage.color = colorPanelNotSelected;
             }
 
             // OK, now check the 3D scene...
-            if (Physics.Raycast(mainCamera.ScreenPointToRay(m_PointerEventData.position), out RaycastHit hit, 50, clickableLayerValue))
+            if (Physics.Raycast(mainCamera.ScreenPointToRay(_PointerEventData.position), out RaycastHit hit, 50, _clickableLayerValue))
             {
                 if (hit.collider.gameObject.CompareTag("Cubelet"))
                 {
-                    Cursor.SetCursor(cube, vHotSpot, CursorMode.Auto);
+                    Cursor.SetCursor(cubeCursor, _vHotSpot, CursorMode.Auto);
                     isCubeHit = true;
                 }
                 else
                 {
-                    Cursor.SetCursor(sphere, vHotSpot, CursorMode.Auto);
+                    Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
                         // A generic "sphere" for any other 3D object.
                 }
             }
             else
             {
-                Cursor.SetCursor(pointer, vHotSpot, CursorMode.Auto);
+                Cursor.SetCursor(pointerCursor, _vHotSpot, CursorMode.Auto);
                     // Nothing hit, so use generic pointer.
             }
         }
