@@ -1,17 +1,24 @@
-﻿public class ControlsPanel : DragWindow
+﻿using Rubix.Animation;
+using Rubix.GUI;
+
+
+namespace Rubix.UI
 {
-    public AnimationController animationController;
-    public MainCamera mainCamera;
-
-
-    public void ToggleGoRandomMoves()
+    public class ControlsPanel : DragWindow
     {
-        animationController.ToggleGoRandomMoves();
-    }
+        public AnimationController animationController;
+        public MainCamera mainCamera;
 
 
-    public void ToggleOrbitCamera()
-    {
-        mainCamera.doOrbitCamera = !mainCamera.doOrbitCamera;
+        public void ToggleGoRandomMoves()
+        {
+            animationController.ToggleGoRandomMoves();
+        }
+
+
+        public void ToggleOrbitCamera()
+        {
+            mainCamera.doOrbitCamera = !mainCamera.doOrbitCamera;
+        }
     }
 }

@@ -1,38 +1,42 @@
 ﻿using UnityEngine;
+using System;
 
 
-// Used to conveniently copy and set transforms.
+namespace Rubix.Data
+{ 
+    // Used to conveniently copy and set transforms.
 
-//..[Serializable]
-public class TransformData
-{
-    public Vector3 localPosition = Vector3.zero;
-    public Vector3 localEulerAngles = Vector3.zero;
-    public Vector3 localScale = Vector3.one;
-
-
-    // Unity requires a default constructor for serialization
-    public TransformData() { }
-
-
-    public TransformData(Transform transform)
+    [Serializable]
+    public class TransformData
     {
-        localPosition = transform.localPosition;
-        localEulerAngles = transform.localEulerAngles;
-        localScale = transform.localScale;
-    }
+        public Vector3 localPosition = Vector3.zero;
+        public Vector3 localEulerAngles = Vector3.zero;
+        public Vector3 localScale = Vector3.one;
 
 
-    public void ApplyTo(Transform transform)
-    {
-        transform.localPosition = localPosition;
-        transform.localEulerAngles = localEulerAngles;
-        transform.localScale = localScale;
-    }
+        // Unity requires a default constructor for serialization
+        public TransformData() { }
 
 
-    public void ApplyRotationTo(Transform transform)
-    {
-        transform.localEulerAngles = localEulerAngles;
+        public TransformData(Transform transform)
+        {
+            localPosition = transform.localPosition;
+            localEulerAngles = transform.localEulerAngles;
+            localScale = transform.localScale;
+        }
+
+
+        public void ApplyTo(Transform transform)
+        {
+            transform.localPosition = localPosition;
+            transform.localEulerAngles = localEulerAngles;
+            transform.localScale = localScale;
+        }
+
+
+        public void ApplyRotationTo(Transform transform)
+        {
+            transform.localEulerAngles = localEulerAngles;
+        }
     }
 }

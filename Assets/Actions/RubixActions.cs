@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @Rubix : IInputActionCollection, IDisposable
+namespace Rubix.Actions
 {
-    public InputActionAsset asset { get; }
-    public @Rubix()
+    public class @RubixActions : IInputActionCollection, IDisposable
     {
-        asset = InputActionAsset.FromJson(@"{
+        public InputActionAsset asset { get; }
+        public @RubixActions()
+        {
+            asset = InputActionAsset.FromJson(@"{
     ""name"": ""RubixActions"",
     ""maps"": [
         {
@@ -794,503 +796,504 @@ public class @Rubix : IInputActionCollection, IDisposable
         }
     ]
 }");
+            // Player
+            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+            m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+            m_Player_OuterL = m_Player.FindAction("OuterL", throwIfNotFound: true);
+            m_Player_OuterR = m_Player.FindAction("OuterR", throwIfNotFound: true);
+            m_Player_OuterU = m_Player.FindAction("OuterU", throwIfNotFound: true);
+            m_Player_OuterF = m_Player.FindAction("OuterF", throwIfNotFound: true);
+            m_Player_OuterD = m_Player.FindAction("OuterD", throwIfNotFound: true);
+            m_Player_OuterB = m_Player.FindAction("OuterB", throwIfNotFound: true);
+            m_Player_BothL = m_Player.FindAction("BothL", throwIfNotFound: true);
+            m_Player_BothR = m_Player.FindAction("BothR", throwIfNotFound: true);
+            m_Player_BothU = m_Player.FindAction("BothU", throwIfNotFound: true);
+            m_Player_BothD = m_Player.FindAction("BothD", throwIfNotFound: true);
+            m_Player_BothF = m_Player.FindAction("BothF", throwIfNotFound: true);
+            m_Player_BothB = m_Player.FindAction("BothB", throwIfNotFound: true);
+            m_Player_InnerL = m_Player.FindAction("InnerL", throwIfNotFound: true);
+            m_Player_InnerR = m_Player.FindAction("InnerR", throwIfNotFound: true);
+            m_Player_InnerU = m_Player.FindAction("InnerU", throwIfNotFound: true);
+            m_Player_InnerD = m_Player.FindAction("InnerD", throwIfNotFound: true);
+            m_Player_InnerF = m_Player.FindAction("InnerF", throwIfNotFound: true);
+            m_Player_InnerB = m_Player.FindAction("InnerB", throwIfNotFound: true);
+            m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
+            m_Player_MidLR = m_Player.FindAction("MidLR", throwIfNotFound: true);
+            m_Player_MidUD = m_Player.FindAction("MidUD", throwIfNotFound: true);
+            m_Player_MidFB = m_Player.FindAction("MidFB", throwIfNotFound: true);
+            m_Player_AllLR = m_Player.FindAction("AllLR", throwIfNotFound: true);
+            m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
+            m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
+            m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
+            m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
+            m_Player_ResetConfiguration = m_Player.FindAction("ResetConfiguration", throwIfNotFound: true);
+            m_Player_Destroy = m_Player.FindAction("Destroy", throwIfNotFound: true);
+            m_Player_Random = m_Player.FindAction("Random", throwIfNotFound: true);
+            m_Player_ToggleMap = m_Player.FindAction("ToggleMap", throwIfNotFound: true);
+            m_Player_ToggleMoves = m_Player.FindAction("ToggleMoves", throwIfNotFound: true);
+            m_Player_ToggleControls = m_Player.FindAction("ToggleControls", throwIfNotFound: true);
+            m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
+            m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.Destroy(asset);
+        }
+
+        public InputBinding? bindingMask
+        {
+            get => asset.bindingMask;
+            set => asset.bindingMask = value;
+        }
+
+        public ReadOnlyArray<InputDevice>? devices
+        {
+            get => asset.devices;
+            set => asset.devices = value;
+        }
+
+        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+        public bool Contains(InputAction action)
+        {
+            return asset.Contains(action);
+        }
+
+        public IEnumerator<InputAction> GetEnumerator()
+        {
+            return asset.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Enable()
+        {
+            asset.Enable();
+        }
+
+        public void Disable()
+        {
+            asset.Disable();
+        }
+
         // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
-        m_Player_OuterL = m_Player.FindAction("OuterL", throwIfNotFound: true);
-        m_Player_OuterR = m_Player.FindAction("OuterR", throwIfNotFound: true);
-        m_Player_OuterU = m_Player.FindAction("OuterU", throwIfNotFound: true);
-        m_Player_OuterF = m_Player.FindAction("OuterF", throwIfNotFound: true);
-        m_Player_OuterD = m_Player.FindAction("OuterD", throwIfNotFound: true);
-        m_Player_OuterB = m_Player.FindAction("OuterB", throwIfNotFound: true);
-        m_Player_BothL = m_Player.FindAction("BothL", throwIfNotFound: true);
-        m_Player_BothR = m_Player.FindAction("BothR", throwIfNotFound: true);
-        m_Player_BothU = m_Player.FindAction("BothU", throwIfNotFound: true);
-        m_Player_BothD = m_Player.FindAction("BothD", throwIfNotFound: true);
-        m_Player_BothF = m_Player.FindAction("BothF", throwIfNotFound: true);
-        m_Player_BothB = m_Player.FindAction("BothB", throwIfNotFound: true);
-        m_Player_InnerL = m_Player.FindAction("InnerL", throwIfNotFound: true);
-        m_Player_InnerR = m_Player.FindAction("InnerR", throwIfNotFound: true);
-        m_Player_InnerU = m_Player.FindAction("InnerU", throwIfNotFound: true);
-        m_Player_InnerD = m_Player.FindAction("InnerD", throwIfNotFound: true);
-        m_Player_InnerF = m_Player.FindAction("InnerF", throwIfNotFound: true);
-        m_Player_InnerB = m_Player.FindAction("InnerB", throwIfNotFound: true);
-        m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
-        m_Player_MidLR = m_Player.FindAction("MidLR", throwIfNotFound: true);
-        m_Player_MidUD = m_Player.FindAction("MidUD", throwIfNotFound: true);
-        m_Player_MidFB = m_Player.FindAction("MidFB", throwIfNotFound: true);
-        m_Player_AllLR = m_Player.FindAction("AllLR", throwIfNotFound: true);
-        m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
-        m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
-        m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
-        m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
-        m_Player_ResetConfiguration = m_Player.FindAction("ResetConfiguration", throwIfNotFound: true);
-        m_Player_Destroy = m_Player.FindAction("Destroy", throwIfNotFound: true);
-        m_Player_Random = m_Player.FindAction("Random", throwIfNotFound: true);
-        m_Player_ToggleMap = m_Player.FindAction("ToggleMap", throwIfNotFound: true);
-        m_Player_ToggleMoves = m_Player.FindAction("ToggleMoves", throwIfNotFound: true);
-        m_Player_ToggleControls = m_Player.FindAction("ToggleControls", throwIfNotFound: true);
-        m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
-        m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
-    }
-
-    public void Dispose()
-    {
-        UnityEngine.Object.Destroy(asset);
-    }
-
-    public InputBinding? bindingMask
-    {
-        get => asset.bindingMask;
-        set => asset.bindingMask = value;
-    }
-
-    public ReadOnlyArray<InputDevice>? devices
-    {
-        get => asset.devices;
-        set => asset.devices = value;
-    }
-
-    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-    public bool Contains(InputAction action)
-    {
-        return asset.Contains(action);
-    }
-
-    public IEnumerator<InputAction> GetEnumerator()
-    {
-        return asset.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public void Enable()
-    {
-        asset.Enable();
-    }
-
-    public void Disable()
-    {
-        asset.Disable();
-    }
-
-    // Player
-    private readonly InputActionMap m_Player;
-    private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_Escape;
-    private readonly InputAction m_Player_OuterL;
-    private readonly InputAction m_Player_OuterR;
-    private readonly InputAction m_Player_OuterU;
-    private readonly InputAction m_Player_OuterF;
-    private readonly InputAction m_Player_OuterD;
-    private readonly InputAction m_Player_OuterB;
-    private readonly InputAction m_Player_BothL;
-    private readonly InputAction m_Player_BothR;
-    private readonly InputAction m_Player_BothU;
-    private readonly InputAction m_Player_BothD;
-    private readonly InputAction m_Player_BothF;
-    private readonly InputAction m_Player_BothB;
-    private readonly InputAction m_Player_InnerL;
-    private readonly InputAction m_Player_InnerR;
-    private readonly InputAction m_Player_InnerU;
-    private readonly InputAction m_Player_InnerD;
-    private readonly InputAction m_Player_InnerF;
-    private readonly InputAction m_Player_InnerB;
-    private readonly InputAction m_Player_Space;
-    private readonly InputAction m_Player_MidLR;
-    private readonly InputAction m_Player_MidUD;
-    private readonly InputAction m_Player_MidFB;
-    private readonly InputAction m_Player_AllLR;
-    private readonly InputAction m_Player_AllUD;
-    private readonly InputAction m_Player_AllFB;
-    private readonly InputAction m_Player_Wheel;
-    private readonly InputAction m_Player_Debug;
-    private readonly InputAction m_Player_ResetConfiguration;
-    private readonly InputAction m_Player_Destroy;
-    private readonly InputAction m_Player_Random;
-    private readonly InputAction m_Player_ToggleMap;
-    private readonly InputAction m_Player_ToggleMoves;
-    private readonly InputAction m_Player_ToggleControls;
-    private readonly InputAction m_Player_ToggleMapTextures;
-    private readonly InputAction m_Player_ToggeCubeTextures;
-    public struct PlayerActions
-    {
-        private @Rubix m_Wrapper;
-        public PlayerActions(@Rubix wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @Escape => m_Wrapper.m_Player_Escape;
-        public InputAction @OuterL => m_Wrapper.m_Player_OuterL;
-        public InputAction @OuterR => m_Wrapper.m_Player_OuterR;
-        public InputAction @OuterU => m_Wrapper.m_Player_OuterU;
-        public InputAction @OuterF => m_Wrapper.m_Player_OuterF;
-        public InputAction @OuterD => m_Wrapper.m_Player_OuterD;
-        public InputAction @OuterB => m_Wrapper.m_Player_OuterB;
-        public InputAction @BothL => m_Wrapper.m_Player_BothL;
-        public InputAction @BothR => m_Wrapper.m_Player_BothR;
-        public InputAction @BothU => m_Wrapper.m_Player_BothU;
-        public InputAction @BothD => m_Wrapper.m_Player_BothD;
-        public InputAction @BothF => m_Wrapper.m_Player_BothF;
-        public InputAction @BothB => m_Wrapper.m_Player_BothB;
-        public InputAction @InnerL => m_Wrapper.m_Player_InnerL;
-        public InputAction @InnerR => m_Wrapper.m_Player_InnerR;
-        public InputAction @InnerU => m_Wrapper.m_Player_InnerU;
-        public InputAction @InnerD => m_Wrapper.m_Player_InnerD;
-        public InputAction @InnerF => m_Wrapper.m_Player_InnerF;
-        public InputAction @InnerB => m_Wrapper.m_Player_InnerB;
-        public InputAction @Space => m_Wrapper.m_Player_Space;
-        public InputAction @MidLR => m_Wrapper.m_Player_MidLR;
-        public InputAction @MidUD => m_Wrapper.m_Player_MidUD;
-        public InputAction @MidFB => m_Wrapper.m_Player_MidFB;
-        public InputAction @AllLR => m_Wrapper.m_Player_AllLR;
-        public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
-        public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
-        public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
-        public InputAction @Debug => m_Wrapper.m_Player_Debug;
-        public InputAction @ResetConfiguration => m_Wrapper.m_Player_ResetConfiguration;
-        public InputAction @Destroy => m_Wrapper.m_Player_Destroy;
-        public InputAction @Random => m_Wrapper.m_Player_Random;
-        public InputAction @ToggleMap => m_Wrapper.m_Player_ToggleMap;
-        public InputAction @ToggleMoves => m_Wrapper.m_Player_ToggleMoves;
-        public InputAction @ToggleControls => m_Wrapper.m_Player_ToggleControls;
-        public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
-        public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void SetCallbacks(IPlayerActions instance)
+        private readonly InputActionMap m_Player;
+        private IPlayerActions m_PlayerActionsCallbackInterface;
+        private readonly InputAction m_Player_Look;
+        private readonly InputAction m_Player_Escape;
+        private readonly InputAction m_Player_OuterL;
+        private readonly InputAction m_Player_OuterR;
+        private readonly InputAction m_Player_OuterU;
+        private readonly InputAction m_Player_OuterF;
+        private readonly InputAction m_Player_OuterD;
+        private readonly InputAction m_Player_OuterB;
+        private readonly InputAction m_Player_BothL;
+        private readonly InputAction m_Player_BothR;
+        private readonly InputAction m_Player_BothU;
+        private readonly InputAction m_Player_BothD;
+        private readonly InputAction m_Player_BothF;
+        private readonly InputAction m_Player_BothB;
+        private readonly InputAction m_Player_InnerL;
+        private readonly InputAction m_Player_InnerR;
+        private readonly InputAction m_Player_InnerU;
+        private readonly InputAction m_Player_InnerD;
+        private readonly InputAction m_Player_InnerF;
+        private readonly InputAction m_Player_InnerB;
+        private readonly InputAction m_Player_Space;
+        private readonly InputAction m_Player_MidLR;
+        private readonly InputAction m_Player_MidUD;
+        private readonly InputAction m_Player_MidFB;
+        private readonly InputAction m_Player_AllLR;
+        private readonly InputAction m_Player_AllUD;
+        private readonly InputAction m_Player_AllFB;
+        private readonly InputAction m_Player_Wheel;
+        private readonly InputAction m_Player_Debug;
+        private readonly InputAction m_Player_ResetConfiguration;
+        private readonly InputAction m_Player_Destroy;
+        private readonly InputAction m_Player_Random;
+        private readonly InputAction m_Player_ToggleMap;
+        private readonly InputAction m_Player_ToggleMoves;
+        private readonly InputAction m_Player_ToggleControls;
+        private readonly InputAction m_Player_ToggleMapTextures;
+        private readonly InputAction m_Player_ToggeCubeTextures;
+        public struct PlayerActions
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            private @RubixActions m_Wrapper;
+            public PlayerActions(@RubixActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Look => m_Wrapper.m_Player_Look;
+            public InputAction @Escape => m_Wrapper.m_Player_Escape;
+            public InputAction @OuterL => m_Wrapper.m_Player_OuterL;
+            public InputAction @OuterR => m_Wrapper.m_Player_OuterR;
+            public InputAction @OuterU => m_Wrapper.m_Player_OuterU;
+            public InputAction @OuterF => m_Wrapper.m_Player_OuterF;
+            public InputAction @OuterD => m_Wrapper.m_Player_OuterD;
+            public InputAction @OuterB => m_Wrapper.m_Player_OuterB;
+            public InputAction @BothL => m_Wrapper.m_Player_BothL;
+            public InputAction @BothR => m_Wrapper.m_Player_BothR;
+            public InputAction @BothU => m_Wrapper.m_Player_BothU;
+            public InputAction @BothD => m_Wrapper.m_Player_BothD;
+            public InputAction @BothF => m_Wrapper.m_Player_BothF;
+            public InputAction @BothB => m_Wrapper.m_Player_BothB;
+            public InputAction @InnerL => m_Wrapper.m_Player_InnerL;
+            public InputAction @InnerR => m_Wrapper.m_Player_InnerR;
+            public InputAction @InnerU => m_Wrapper.m_Player_InnerU;
+            public InputAction @InnerD => m_Wrapper.m_Player_InnerD;
+            public InputAction @InnerF => m_Wrapper.m_Player_InnerF;
+            public InputAction @InnerB => m_Wrapper.m_Player_InnerB;
+            public InputAction @Space => m_Wrapper.m_Player_Space;
+            public InputAction @MidLR => m_Wrapper.m_Player_MidLR;
+            public InputAction @MidUD => m_Wrapper.m_Player_MidUD;
+            public InputAction @MidFB => m_Wrapper.m_Player_MidFB;
+            public InputAction @AllLR => m_Wrapper.m_Player_AllLR;
+            public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
+            public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
+            public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
+            public InputAction @Debug => m_Wrapper.m_Player_Debug;
+            public InputAction @ResetConfiguration => m_Wrapper.m_Player_ResetConfiguration;
+            public InputAction @Destroy => m_Wrapper.m_Player_Destroy;
+            public InputAction @Random => m_Wrapper.m_Player_Random;
+            public InputAction @ToggleMap => m_Wrapper.m_Player_ToggleMap;
+            public InputAction @ToggleMoves => m_Wrapper.m_Player_ToggleMoves;
+            public InputAction @ToggleControls => m_Wrapper.m_Player_ToggleControls;
+            public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
+            public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
+            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayerActions instance)
             {
-                @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
-                @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
-                @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
-                @OuterL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
-                @OuterL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
-                @OuterL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
-                @OuterR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterR;
-                @OuterR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterR;
-                @OuterR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterR;
-                @OuterU.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterU;
-                @OuterU.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterU;
-                @OuterU.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterU;
-                @OuterF.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterF;
-                @OuterF.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterF;
-                @OuterF.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterF;
-                @OuterD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterD;
-                @OuterD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterD;
-                @OuterD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterD;
-                @OuterB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterB;
-                @OuterB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterB;
-                @OuterB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterB;
-                @BothL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothL;
-                @BothL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothL;
-                @BothL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothL;
-                @BothR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothR;
-                @BothR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothR;
-                @BothR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothR;
-                @BothU.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothU;
-                @BothU.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothU;
-                @BothU.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothU;
-                @BothD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothD;
-                @BothD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothD;
-                @BothD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothD;
-                @BothF.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothF;
-                @BothF.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothF;
-                @BothF.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothF;
-                @BothB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothB;
-                @BothB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothB;
-                @BothB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothB;
-                @InnerL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerL;
-                @InnerL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerL;
-                @InnerL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerL;
-                @InnerR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerR;
-                @InnerR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerR;
-                @InnerR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerR;
-                @InnerU.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerU;
-                @InnerU.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerU;
-                @InnerU.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerU;
-                @InnerD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerD;
-                @InnerD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerD;
-                @InnerD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerD;
-                @InnerF.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerF;
-                @InnerF.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerF;
-                @InnerF.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerF;
-                @InnerB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
-                @InnerB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
-                @InnerB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
-                @Space.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                @Space.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                @Space.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                @MidLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
-                @MidLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
-                @MidLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
-                @MidUD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidUD;
-                @MidUD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidUD;
-                @MidUD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidUD;
-                @MidFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
-                @MidFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
-                @MidFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
-                @AllLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
-                @AllLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
-                @AllLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
-                @AllUD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
-                @AllUD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
-                @AllUD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
-                @AllFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
-                @AllFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
-                @AllFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
-                @Wheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
-                @Wheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
-                @Wheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
-                @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                @ResetConfiguration.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
-                @ResetConfiguration.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
-                @ResetConfiguration.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
-                @Destroy.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
-                @Destroy.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
-                @Destroy.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
-                @Random.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
-                @Random.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
-                @Random.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
-                @ToggleMap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
-                @ToggleMap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
-                @ToggleMap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
-                @ToggleMoves.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
-                @ToggleMoves.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
-                @ToggleMoves.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
-                @ToggleControls.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
-                @ToggleControls.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
-                @ToggleControls.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
-                @ToggleMapTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
-                @ToggleMapTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
-                @ToggleMapTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
-                @ToggeCubeTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
-                @ToggeCubeTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
-                @ToggeCubeTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
-            }
-            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
-                @Escape.started += instance.OnEscape;
-                @Escape.performed += instance.OnEscape;
-                @Escape.canceled += instance.OnEscape;
-                @OuterL.started += instance.OnOuterL;
-                @OuterL.performed += instance.OnOuterL;
-                @OuterL.canceled += instance.OnOuterL;
-                @OuterR.started += instance.OnOuterR;
-                @OuterR.performed += instance.OnOuterR;
-                @OuterR.canceled += instance.OnOuterR;
-                @OuterU.started += instance.OnOuterU;
-                @OuterU.performed += instance.OnOuterU;
-                @OuterU.canceled += instance.OnOuterU;
-                @OuterF.started += instance.OnOuterF;
-                @OuterF.performed += instance.OnOuterF;
-                @OuterF.canceled += instance.OnOuterF;
-                @OuterD.started += instance.OnOuterD;
-                @OuterD.performed += instance.OnOuterD;
-                @OuterD.canceled += instance.OnOuterD;
-                @OuterB.started += instance.OnOuterB;
-                @OuterB.performed += instance.OnOuterB;
-                @OuterB.canceled += instance.OnOuterB;
-                @BothL.started += instance.OnBothL;
-                @BothL.performed += instance.OnBothL;
-                @BothL.canceled += instance.OnBothL;
-                @BothR.started += instance.OnBothR;
-                @BothR.performed += instance.OnBothR;
-                @BothR.canceled += instance.OnBothR;
-                @BothU.started += instance.OnBothU;
-                @BothU.performed += instance.OnBothU;
-                @BothU.canceled += instance.OnBothU;
-                @BothD.started += instance.OnBothD;
-                @BothD.performed += instance.OnBothD;
-                @BothD.canceled += instance.OnBothD;
-                @BothF.started += instance.OnBothF;
-                @BothF.performed += instance.OnBothF;
-                @BothF.canceled += instance.OnBothF;
-                @BothB.started += instance.OnBothB;
-                @BothB.performed += instance.OnBothB;
-                @BothB.canceled += instance.OnBothB;
-                @InnerL.started += instance.OnInnerL;
-                @InnerL.performed += instance.OnInnerL;
-                @InnerL.canceled += instance.OnInnerL;
-                @InnerR.started += instance.OnInnerR;
-                @InnerR.performed += instance.OnInnerR;
-                @InnerR.canceled += instance.OnInnerR;
-                @InnerU.started += instance.OnInnerU;
-                @InnerU.performed += instance.OnInnerU;
-                @InnerU.canceled += instance.OnInnerU;
-                @InnerD.started += instance.OnInnerD;
-                @InnerD.performed += instance.OnInnerD;
-                @InnerD.canceled += instance.OnInnerD;
-                @InnerF.started += instance.OnInnerF;
-                @InnerF.performed += instance.OnInnerF;
-                @InnerF.canceled += instance.OnInnerF;
-                @InnerB.started += instance.OnInnerB;
-                @InnerB.performed += instance.OnInnerB;
-                @InnerB.canceled += instance.OnInnerB;
-                @Space.started += instance.OnSpace;
-                @Space.performed += instance.OnSpace;
-                @Space.canceled += instance.OnSpace;
-                @MidLR.started += instance.OnMidLR;
-                @MidLR.performed += instance.OnMidLR;
-                @MidLR.canceled += instance.OnMidLR;
-                @MidUD.started += instance.OnMidUD;
-                @MidUD.performed += instance.OnMidUD;
-                @MidUD.canceled += instance.OnMidUD;
-                @MidFB.started += instance.OnMidFB;
-                @MidFB.performed += instance.OnMidFB;
-                @MidFB.canceled += instance.OnMidFB;
-                @AllLR.started += instance.OnAllLR;
-                @AllLR.performed += instance.OnAllLR;
-                @AllLR.canceled += instance.OnAllLR;
-                @AllUD.started += instance.OnAllUD;
-                @AllUD.performed += instance.OnAllUD;
-                @AllUD.canceled += instance.OnAllUD;
-                @AllFB.started += instance.OnAllFB;
-                @AllFB.performed += instance.OnAllFB;
-                @AllFB.canceled += instance.OnAllFB;
-                @Wheel.started += instance.OnWheel;
-                @Wheel.performed += instance.OnWheel;
-                @Wheel.canceled += instance.OnWheel;
-                @Debug.started += instance.OnDebug;
-                @Debug.performed += instance.OnDebug;
-                @Debug.canceled += instance.OnDebug;
-                @ResetConfiguration.started += instance.OnResetConfiguration;
-                @ResetConfiguration.performed += instance.OnResetConfiguration;
-                @ResetConfiguration.canceled += instance.OnResetConfiguration;
-                @Destroy.started += instance.OnDestroy;
-                @Destroy.performed += instance.OnDestroy;
-                @Destroy.canceled += instance.OnDestroy;
-                @Random.started += instance.OnRandom;
-                @Random.performed += instance.OnRandom;
-                @Random.canceled += instance.OnRandom;
-                @ToggleMap.started += instance.OnToggleMap;
-                @ToggleMap.performed += instance.OnToggleMap;
-                @ToggleMap.canceled += instance.OnToggleMap;
-                @ToggleMoves.started += instance.OnToggleMoves;
-                @ToggleMoves.performed += instance.OnToggleMoves;
-                @ToggleMoves.canceled += instance.OnToggleMoves;
-                @ToggleControls.started += instance.OnToggleControls;
-                @ToggleControls.performed += instance.OnToggleControls;
-                @ToggleControls.canceled += instance.OnToggleControls;
-                @ToggleMapTextures.started += instance.OnToggleMapTextures;
-                @ToggleMapTextures.performed += instance.OnToggleMapTextures;
-                @ToggleMapTextures.canceled += instance.OnToggleMapTextures;
-                @ToggeCubeTextures.started += instance.OnToggeCubeTextures;
-                @ToggeCubeTextures.performed += instance.OnToggeCubeTextures;
-                @ToggeCubeTextures.canceled += instance.OnToggeCubeTextures;
+                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                {
+                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                    @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                    @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                    @OuterL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
+                    @OuterL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
+                    @OuterL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
+                    @OuterR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterR;
+                    @OuterR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterR;
+                    @OuterR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterR;
+                    @OuterU.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterU;
+                    @OuterU.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterU;
+                    @OuterU.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterU;
+                    @OuterF.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterF;
+                    @OuterF.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterF;
+                    @OuterF.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterF;
+                    @OuterD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterD;
+                    @OuterD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterD;
+                    @OuterD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterD;
+                    @OuterB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterB;
+                    @OuterB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterB;
+                    @OuterB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterB;
+                    @BothL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothL;
+                    @BothL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothL;
+                    @BothL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothL;
+                    @BothR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothR;
+                    @BothR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothR;
+                    @BothR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothR;
+                    @BothU.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothU;
+                    @BothU.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothU;
+                    @BothU.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothU;
+                    @BothD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothD;
+                    @BothD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothD;
+                    @BothD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothD;
+                    @BothF.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothF;
+                    @BothF.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothF;
+                    @BothF.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothF;
+                    @BothB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothB;
+                    @BothB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothB;
+                    @BothB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBothB;
+                    @InnerL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerL;
+                    @InnerL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerL;
+                    @InnerL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerL;
+                    @InnerR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerR;
+                    @InnerR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerR;
+                    @InnerR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerR;
+                    @InnerU.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerU;
+                    @InnerU.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerU;
+                    @InnerU.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerU;
+                    @InnerD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerD;
+                    @InnerD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerD;
+                    @InnerD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerD;
+                    @InnerF.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerF;
+                    @InnerF.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerF;
+                    @InnerF.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerF;
+                    @InnerB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
+                    @InnerB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
+                    @InnerB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
+                    @Space.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
+                    @Space.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
+                    @Space.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
+                    @MidLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
+                    @MidLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
+                    @MidLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
+                    @MidUD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidUD;
+                    @MidUD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidUD;
+                    @MidUD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidUD;
+                    @MidFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
+                    @MidFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
+                    @MidFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidFB;
+                    @AllLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
+                    @AllLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
+                    @AllLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllLR;
+                    @AllUD.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
+                    @AllUD.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
+                    @AllUD.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllUD;
+                    @AllFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
+                    @AllFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
+                    @AllFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
+                    @Wheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                    @Wheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                    @Wheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                    @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                    @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                    @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                    @ResetConfiguration.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
+                    @ResetConfiguration.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
+                    @ResetConfiguration.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
+                    @Destroy.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
+                    @Destroy.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
+                    @Destroy.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDestroy;
+                    @Random.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
+                    @Random.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
+                    @Random.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRandom;
+                    @ToggleMap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
+                    @ToggleMap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
+                    @ToggleMap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMap;
+                    @ToggleMoves.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
+                    @ToggleMoves.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
+                    @ToggleMoves.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMoves;
+                    @ToggleControls.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
+                    @ToggleControls.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
+                    @ToggleControls.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControls;
+                    @ToggleMapTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
+                    @ToggleMapTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
+                    @ToggleMapTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
+                    @ToggeCubeTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                    @ToggeCubeTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                    @ToggeCubeTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                }
+                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
+                    @Escape.started += instance.OnEscape;
+                    @Escape.performed += instance.OnEscape;
+                    @Escape.canceled += instance.OnEscape;
+                    @OuterL.started += instance.OnOuterL;
+                    @OuterL.performed += instance.OnOuterL;
+                    @OuterL.canceled += instance.OnOuterL;
+                    @OuterR.started += instance.OnOuterR;
+                    @OuterR.performed += instance.OnOuterR;
+                    @OuterR.canceled += instance.OnOuterR;
+                    @OuterU.started += instance.OnOuterU;
+                    @OuterU.performed += instance.OnOuterU;
+                    @OuterU.canceled += instance.OnOuterU;
+                    @OuterF.started += instance.OnOuterF;
+                    @OuterF.performed += instance.OnOuterF;
+                    @OuterF.canceled += instance.OnOuterF;
+                    @OuterD.started += instance.OnOuterD;
+                    @OuterD.performed += instance.OnOuterD;
+                    @OuterD.canceled += instance.OnOuterD;
+                    @OuterB.started += instance.OnOuterB;
+                    @OuterB.performed += instance.OnOuterB;
+                    @OuterB.canceled += instance.OnOuterB;
+                    @BothL.started += instance.OnBothL;
+                    @BothL.performed += instance.OnBothL;
+                    @BothL.canceled += instance.OnBothL;
+                    @BothR.started += instance.OnBothR;
+                    @BothR.performed += instance.OnBothR;
+                    @BothR.canceled += instance.OnBothR;
+                    @BothU.started += instance.OnBothU;
+                    @BothU.performed += instance.OnBothU;
+                    @BothU.canceled += instance.OnBothU;
+                    @BothD.started += instance.OnBothD;
+                    @BothD.performed += instance.OnBothD;
+                    @BothD.canceled += instance.OnBothD;
+                    @BothF.started += instance.OnBothF;
+                    @BothF.performed += instance.OnBothF;
+                    @BothF.canceled += instance.OnBothF;
+                    @BothB.started += instance.OnBothB;
+                    @BothB.performed += instance.OnBothB;
+                    @BothB.canceled += instance.OnBothB;
+                    @InnerL.started += instance.OnInnerL;
+                    @InnerL.performed += instance.OnInnerL;
+                    @InnerL.canceled += instance.OnInnerL;
+                    @InnerR.started += instance.OnInnerR;
+                    @InnerR.performed += instance.OnInnerR;
+                    @InnerR.canceled += instance.OnInnerR;
+                    @InnerU.started += instance.OnInnerU;
+                    @InnerU.performed += instance.OnInnerU;
+                    @InnerU.canceled += instance.OnInnerU;
+                    @InnerD.started += instance.OnInnerD;
+                    @InnerD.performed += instance.OnInnerD;
+                    @InnerD.canceled += instance.OnInnerD;
+                    @InnerF.started += instance.OnInnerF;
+                    @InnerF.performed += instance.OnInnerF;
+                    @InnerF.canceled += instance.OnInnerF;
+                    @InnerB.started += instance.OnInnerB;
+                    @InnerB.performed += instance.OnInnerB;
+                    @InnerB.canceled += instance.OnInnerB;
+                    @Space.started += instance.OnSpace;
+                    @Space.performed += instance.OnSpace;
+                    @Space.canceled += instance.OnSpace;
+                    @MidLR.started += instance.OnMidLR;
+                    @MidLR.performed += instance.OnMidLR;
+                    @MidLR.canceled += instance.OnMidLR;
+                    @MidUD.started += instance.OnMidUD;
+                    @MidUD.performed += instance.OnMidUD;
+                    @MidUD.canceled += instance.OnMidUD;
+                    @MidFB.started += instance.OnMidFB;
+                    @MidFB.performed += instance.OnMidFB;
+                    @MidFB.canceled += instance.OnMidFB;
+                    @AllLR.started += instance.OnAllLR;
+                    @AllLR.performed += instance.OnAllLR;
+                    @AllLR.canceled += instance.OnAllLR;
+                    @AllUD.started += instance.OnAllUD;
+                    @AllUD.performed += instance.OnAllUD;
+                    @AllUD.canceled += instance.OnAllUD;
+                    @AllFB.started += instance.OnAllFB;
+                    @AllFB.performed += instance.OnAllFB;
+                    @AllFB.canceled += instance.OnAllFB;
+                    @Wheel.started += instance.OnWheel;
+                    @Wheel.performed += instance.OnWheel;
+                    @Wheel.canceled += instance.OnWheel;
+                    @Debug.started += instance.OnDebug;
+                    @Debug.performed += instance.OnDebug;
+                    @Debug.canceled += instance.OnDebug;
+                    @ResetConfiguration.started += instance.OnResetConfiguration;
+                    @ResetConfiguration.performed += instance.OnResetConfiguration;
+                    @ResetConfiguration.canceled += instance.OnResetConfiguration;
+                    @Destroy.started += instance.OnDestroy;
+                    @Destroy.performed += instance.OnDestroy;
+                    @Destroy.canceled += instance.OnDestroy;
+                    @Random.started += instance.OnRandom;
+                    @Random.performed += instance.OnRandom;
+                    @Random.canceled += instance.OnRandom;
+                    @ToggleMap.started += instance.OnToggleMap;
+                    @ToggleMap.performed += instance.OnToggleMap;
+                    @ToggleMap.canceled += instance.OnToggleMap;
+                    @ToggleMoves.started += instance.OnToggleMoves;
+                    @ToggleMoves.performed += instance.OnToggleMoves;
+                    @ToggleMoves.canceled += instance.OnToggleMoves;
+                    @ToggleControls.started += instance.OnToggleControls;
+                    @ToggleControls.performed += instance.OnToggleControls;
+                    @ToggleControls.canceled += instance.OnToggleControls;
+                    @ToggleMapTextures.started += instance.OnToggleMapTextures;
+                    @ToggleMapTextures.performed += instance.OnToggleMapTextures;
+                    @ToggleMapTextures.canceled += instance.OnToggleMapTextures;
+                    @ToggeCubeTextures.started += instance.OnToggeCubeTextures;
+                    @ToggeCubeTextures.performed += instance.OnToggeCubeTextures;
+                    @ToggeCubeTextures.canceled += instance.OnToggeCubeTextures;
+                }
             }
         }
-    }
-    public PlayerActions @Player => new PlayerActions(this);
-    private int m_KeyboardMouseSchemeIndex = -1;
-    public InputControlScheme KeyboardMouseScheme
-    {
-        get
+        public PlayerActions @Player => new PlayerActions(this);
+        private int m_KeyboardMouseSchemeIndex = -1;
+        public InputControlScheme KeyboardMouseScheme
         {
-            if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
-            return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+            get
+            {
+                if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard&Mouse");
+                return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+            }
         }
-    }
-    private int m_GamepadSchemeIndex = -1;
-    public InputControlScheme GamepadScheme
-    {
-        get
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
         {
-            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-            return asset.controlSchemes[m_GamepadSchemeIndex];
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
+            }
         }
-    }
-    private int m_TouchSchemeIndex = -1;
-    public InputControlScheme TouchScheme
-    {
-        get
+        private int m_TouchSchemeIndex = -1;
+        public InputControlScheme TouchScheme
         {
-            if (m_TouchSchemeIndex == -1) m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
-            return asset.controlSchemes[m_TouchSchemeIndex];
+            get
+            {
+                if (m_TouchSchemeIndex == -1) m_TouchSchemeIndex = asset.FindControlSchemeIndex("Touch");
+                return asset.controlSchemes[m_TouchSchemeIndex];
+            }
         }
-    }
-    private int m_JoystickSchemeIndex = -1;
-    public InputControlScheme JoystickScheme
-    {
-        get
+        private int m_JoystickSchemeIndex = -1;
+        public InputControlScheme JoystickScheme
         {
-            if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
-            return asset.controlSchemes[m_JoystickSchemeIndex];
+            get
+            {
+                if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
+                return asset.controlSchemes[m_JoystickSchemeIndex];
+            }
         }
-    }
-    private int m_XRSchemeIndex = -1;
-    public InputControlScheme XRScheme
-    {
-        get
+        private int m_XRSchemeIndex = -1;
+        public InputControlScheme XRScheme
         {
-            if (m_XRSchemeIndex == -1) m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
-            return asset.controlSchemes[m_XRSchemeIndex];
+            get
+            {
+                if (m_XRSchemeIndex == -1) m_XRSchemeIndex = asset.FindControlSchemeIndex("XR");
+                return asset.controlSchemes[m_XRSchemeIndex];
+            }
         }
-    }
-    private int m_KeyboardAndMouseSchemeIndex = -1;
-    public InputControlScheme KeyboardAndMouseScheme
-    {
-        get
+        private int m_KeyboardAndMouseSchemeIndex = -1;
+        public InputControlScheme KeyboardAndMouseScheme
         {
-            if (m_KeyboardAndMouseSchemeIndex == -1) m_KeyboardAndMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardAndMouse");
-            return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
+            get
+            {
+                if (m_KeyboardAndMouseSchemeIndex == -1) m_KeyboardAndMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardAndMouse");
+                return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
+            }
         }
-    }
-    public interface IPlayerActions
-    {
-        void OnLook(InputAction.CallbackContext context);
-        void OnEscape(InputAction.CallbackContext context);
-        void OnOuterL(InputAction.CallbackContext context);
-        void OnOuterR(InputAction.CallbackContext context);
-        void OnOuterU(InputAction.CallbackContext context);
-        void OnOuterF(InputAction.CallbackContext context);
-        void OnOuterD(InputAction.CallbackContext context);
-        void OnOuterB(InputAction.CallbackContext context);
-        void OnBothL(InputAction.CallbackContext context);
-        void OnBothR(InputAction.CallbackContext context);
-        void OnBothU(InputAction.CallbackContext context);
-        void OnBothD(InputAction.CallbackContext context);
-        void OnBothF(InputAction.CallbackContext context);
-        void OnBothB(InputAction.CallbackContext context);
-        void OnInnerL(InputAction.CallbackContext context);
-        void OnInnerR(InputAction.CallbackContext context);
-        void OnInnerU(InputAction.CallbackContext context);
-        void OnInnerD(InputAction.CallbackContext context);
-        void OnInnerF(InputAction.CallbackContext context);
-        void OnInnerB(InputAction.CallbackContext context);
-        void OnSpace(InputAction.CallbackContext context);
-        void OnMidLR(InputAction.CallbackContext context);
-        void OnMidUD(InputAction.CallbackContext context);
-        void OnMidFB(InputAction.CallbackContext context);
-        void OnAllLR(InputAction.CallbackContext context);
-        void OnAllUD(InputAction.CallbackContext context);
-        void OnAllFB(InputAction.CallbackContext context);
-        void OnWheel(InputAction.CallbackContext context);
-        void OnDebug(InputAction.CallbackContext context);
-        void OnResetConfiguration(InputAction.CallbackContext context);
-        void OnDestroy(InputAction.CallbackContext context);
-        void OnRandom(InputAction.CallbackContext context);
-        void OnToggleMap(InputAction.CallbackContext context);
-        void OnToggleMoves(InputAction.CallbackContext context);
-        void OnToggleControls(InputAction.CallbackContext context);
-        void OnToggleMapTextures(InputAction.CallbackContext context);
-        void OnToggeCubeTextures(InputAction.CallbackContext context);
+        public interface IPlayerActions
+        {
+            void OnLook(InputAction.CallbackContext context);
+            void OnEscape(InputAction.CallbackContext context);
+            void OnOuterL(InputAction.CallbackContext context);
+            void OnOuterR(InputAction.CallbackContext context);
+            void OnOuterU(InputAction.CallbackContext context);
+            void OnOuterF(InputAction.CallbackContext context);
+            void OnOuterD(InputAction.CallbackContext context);
+            void OnOuterB(InputAction.CallbackContext context);
+            void OnBothL(InputAction.CallbackContext context);
+            void OnBothR(InputAction.CallbackContext context);
+            void OnBothU(InputAction.CallbackContext context);
+            void OnBothD(InputAction.CallbackContext context);
+            void OnBothF(InputAction.CallbackContext context);
+            void OnBothB(InputAction.CallbackContext context);
+            void OnInnerL(InputAction.CallbackContext context);
+            void OnInnerR(InputAction.CallbackContext context);
+            void OnInnerU(InputAction.CallbackContext context);
+            void OnInnerD(InputAction.CallbackContext context);
+            void OnInnerF(InputAction.CallbackContext context);
+            void OnInnerB(InputAction.CallbackContext context);
+            void OnSpace(InputAction.CallbackContext context);
+            void OnMidLR(InputAction.CallbackContext context);
+            void OnMidUD(InputAction.CallbackContext context);
+            void OnMidFB(InputAction.CallbackContext context);
+            void OnAllLR(InputAction.CallbackContext context);
+            void OnAllUD(InputAction.CallbackContext context);
+            void OnAllFB(InputAction.CallbackContext context);
+            void OnWheel(InputAction.CallbackContext context);
+            void OnDebug(InputAction.CallbackContext context);
+            void OnResetConfiguration(InputAction.CallbackContext context);
+            void OnDestroy(InputAction.CallbackContext context);
+            void OnRandom(InputAction.CallbackContext context);
+            void OnToggleMap(InputAction.CallbackContext context);
+            void OnToggleMoves(InputAction.CallbackContext context);
+            void OnToggleControls(InputAction.CallbackContext context);
+            void OnToggleMapTextures(InputAction.CallbackContext context);
+            void OnToggeCubeTextures(InputAction.CallbackContext context);
+        }
     }
 }
