@@ -277,7 +277,7 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""ToggleMoves"",
+                    ""name"": ""ToggleMovesPanelViewable"",
                     ""type"": ""Button"",
                     ""id"": ""b33312da-a2a6-410c-97d4-9a94dc2b1c92"",
                     ""expectedControlType"": ""Button"",
