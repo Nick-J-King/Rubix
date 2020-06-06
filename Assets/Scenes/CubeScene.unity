@@ -1292,7 +1292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragRectTransform: {fileID: 296277993}
-  canvasRt: {fileID: 33800782}
+  canvasRectTransform: {fileID: 33800782}
   isDragging: 0
   frontPanel: {fileID: 1911183429}
   backPanel: {fileID: 73197698}
@@ -1895,7 +1895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCube: {fileID: 1806485317}
-  faceMap: {fileID: 296277996}
+  faceMapPanel: {fileID: 296277996}
   movesPanel: {fileID: 931200336}
   isAnimating: 0
   audioClipSingle: {fileID: 8300000, guid: fe0b1f9aeb45b41b089175aeeabd5d95, type: 3}
@@ -3352,7 +3352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragRectTransform: {fileID: 931200335}
-  canvasRt: {fileID: 33800782}
+  canvasRectTransform: {fileID: 33800782}
   isDragging: 0
   contentObj: {fileID: 763319149}
   scroller: {fileID: 1250278946}
@@ -3491,9 +3491,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5fb93962b3234430a2db623c3961bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbitSlider: {fileID: 1162710884}
-  cam: {fileID: 963194227}
   doOrbitCamera: 0
+  orbitSlider: {fileID: 1162710884}
+  _azimuthElevation:
+    azimuth: 23
+    elevation: 0
 --- !u!1 &1002718362
 GameObject:
   m_ObjectHideFlags: 0
@@ -4415,7 +4417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragRectTransform: {fileID: 1344376003}
-  canvasRt: {fileID: 33800782}
+  canvasRectTransform: {fileID: 33800782}
   isDragging: 0
   animationController: {fileID: 653248208}
   mainCamera: {fileID: 963194229}

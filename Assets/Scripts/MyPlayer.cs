@@ -348,14 +348,7 @@ namespace Rubix.Main
 
             if (Mouse.current.rightButton.isPressed)
             {
-                float moveStep = 5.0f;
-
-                float x = mainCamera.cam.pixelRect.x;
-                float y = mainCamera.cam.pixelRect.y;
-                float w = mainCamera.cam.pixelRect.width;
-                float h = mainCamera.cam.pixelRect.height;
-
-                mainCamera.cam.pixelRect = new Rect(x + move.x * moveStep, y, w - move.x * moveStep, h);
+                mainCamera.MoveViewport(move.x * 5.0f);
             }
         }
     }

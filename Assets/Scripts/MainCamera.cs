@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 
 namespace Rubix.GUI
-{ 
-    public struct AzimuthElevation
+{
+    [System.Serializable]
+    public class AzimuthElevation
     {
         public float azimuth;
         public float elevation;
@@ -13,43 +14,33 @@ namespace Rubix.GUI
 
     public class MainCamera : MonoBehaviour
     {
-        public Slider orbitSlider;
-        public Camera cam;
-
-        readonly float rotateAmount = 1.0f;
-
         public bool doOrbitCamera = false;
-        Vector2 orbitDelta = new Vector2(0.0f, 0.0f);
+        public Slider orbitSlider;  // >>>
 
-        public AzimuthElevation azimuthElevation;
+        [SerializeField]
+        AzimuthElevation _azimuthElevation = new AzimuthElevation();
+
+        Camera _camera;
+
+        Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+        Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
+        Rect _cameraPixelRect = new Rect();
+
+        const float _rotateAmount = 1.0f;
+        Vector2 _orbitDelta = new Vector2(0.0f, 0.0f);
 
 
-        private void Awake()
+        void Awake()
         {
-            SetCameraAzimuthElevation(azimuthElevation);
+            _camera = gameObject.GetComponent<Camera>();
+
+
+            _azimuthElevation.azimuth = 0.0f;
+            _azimuthElevation.elevation = 0.0f;
+
+            SetCameraAzimuthElevation(_azimuthElevation);
             //Cursor.lockState = CursorLockMode.Locked;
             //Cursor.visible = false;
-        }
-
-
-        private void FixedUpdate()
-        {
-            //OrbitCamera(lookDelta);
-        }
-
-
-        public void ResetViewport()
-        {
-            (azimuthElevation.azimuth, azimuthElevation.elevation) = (0.0f, 0.0f);
-
-            SetCameraAzimuthElevation(azimuthElevation);
-            cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-        }
-
-
-        void LateUpdate()
-        {
-           // OrbitCamera();
         }
 
 
@@ -57,38 +48,56 @@ namespace Rubix.GUI
         {
             if (doOrbitCamera)
             {
-                orbitDelta.x = orbitSlider.value;
-                OrbitCamera(orbitDelta);
+                _orbitDelta.x = orbitSlider.value;
+                OrbitCamera(_orbitDelta);
             }
+        }
+
+
+        public void ResetViewport()
+        {
+            (_azimuthElevation.azimuth, _azimuthElevation.elevation) = (0.0f, 0.0f);
+
+            SetCameraAzimuthElevation(_azimuthElevation);
+            _camera.rect = _fullView;
         }
 
 
         public void OrbitCamera(Vector2 lookDelta)
         {
-            azimuthElevation.azimuth += lookDelta.x * rotateAmount;
-            azimuthElevation.elevation += lookDelta.y * rotateAmount;
+            _azimuthElevation.azimuth += lookDelta.x * _rotateAmount;
+            _azimuthElevation.elevation += lookDelta.y * _rotateAmount;
 
             // azimuthElevation.azimuth %= 360;
-            while (azimuthElevation.azimuth >= 360.0f) azimuthElevation.azimuth -= 360.0f;
-            while (azimuthElevation.azimuth < 0.0f) azimuthElevation.azimuth += 360.0f;
+            while (_azimuthElevation.azimuth >= 360.0f) _azimuthElevation.azimuth -= 360.0f;
+            while (_azimuthElevation.azimuth < 0.0f) _azimuthElevation.azimuth += 360.0f;
 
-            if (azimuthElevation.elevation > 89.0f) azimuthElevation.elevation = 89.0f;
-            if (azimuthElevation.elevation < -89.0f) azimuthElevation.elevation = -89.0f;
+            if (_azimuthElevation.elevation > 89.0f) _azimuthElevation.elevation = 89.0f;
+            if (_azimuthElevation.elevation < -89.0f) _azimuthElevation.elevation = -89.0f;
 
-            SetCameraAzimuthElevation(azimuthElevation);
+            SetCameraAzimuthElevation(_azimuthElevation);
         }
 
 
         public void SetCameraAzimuthElevation(AzimuthElevation azimuthElevation)
         {
-            Vector3 position = new Vector3(0.0f, 0.0f, -10.0f);
-
             Quaternion rotation = Quaternion.Euler(-azimuthElevation.elevation, azimuthElevation.azimuth, 0.0f);
 
-            Vector3 rotatedVector = rotation * position;
+            Vector3 rotatedPosition = rotation * _initialPosition;
 
-            transform.position = rotatedVector;
+            transform.position = rotatedPosition;
             transform.LookAt(Vector3.zero);
+        }
+
+
+        public void MoveViewport(float move)
+        {
+            _cameraPixelRect.x = _camera.pixelRect.x + move;
+            _cameraPixelRect.y = _camera.pixelRect.y;
+            _cameraPixelRect.width = _camera.pixelRect.width - move;
+            _cameraPixelRect.height = _camera.pixelRect.height;
+
+            _camera.pixelRect = _cameraPixelRect;
         }
     }
 }

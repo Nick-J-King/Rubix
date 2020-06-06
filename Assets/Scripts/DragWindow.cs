@@ -8,7 +8,7 @@ namespace Rubix.UI
     public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public RectTransform dragRectTransform; // Rect transform of panel being dragged.
-        public RectTransform canvasRt;          // Rect transform of canvas for reference.
+        public RectTransform canvasRectTransform;          // Rect transform of canvas for reference.
 
         private Vector2 localOrigPosition;
 
@@ -32,7 +32,7 @@ namespace Rubix.UI
                 return;
 
             // Convert eventData position to canvas rt position
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRt, Mouse.current.position.ReadValue(), null, out Vector2 localPoint);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, Mouse.current.position.ReadValue(), null, out Vector2 localPoint);
 
             dragRectTransform.localPosition = localPoint - localStartPoint + localStartPosition;
         }
@@ -55,7 +55,7 @@ namespace Rubix.UI
             isDragging = true;
 
             // Convert eventData position to canvas rt position.
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRt, eventData.position, null, out localStartPoint);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out localStartPoint);
 
             // Get rt for the start position, so we can do our proper deltas..
             localStartPosition = dragRectTransform.localPosition;
