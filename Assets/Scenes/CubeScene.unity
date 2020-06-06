@@ -1171,7 +1171,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963194229}
   myCube: {fileID: 1806485317}
   mouseManager: {fileID: 2037798674}
-  faceMap: {fileID: 296277996}
+  faceMapPanel: {fileID: 296277996}
   movesPanel: {fileID: 931200336}
   controlsPanel: {fileID: 1344376004}
 --- !u!1 &221932408 stripped
@@ -1211,7 +1211,7 @@ GameObject:
   - component: {fileID: 296277994}
   - component: {fileID: 296277996}
   m_Layer: 5
-  m_Name: PanelMap
+  m_Name: FaceMapPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 296277992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e61333a86af424895a71b7858d6b79, type: 3}
+  m_Script: {fileID: 11500000, guid: dc4bd0ada843d4f05b68eec7b39bfd63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dragRectTransform: {fileID: 296277993}
@@ -1908,7 +1908,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653248207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3290795, y: 2.5233407, z: -2.951765}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4106,7 +4106,7 @@ GameObject:
   - component: {fileID: 1223642034}
   - component: {fileID: 1223642033}
   m_Layer: 0
-  m_Name: CameraBG
+  m_Name: Background Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5115,10 +5115,6 @@ MonoBehaviour:
   faceMaterialOrange: {fileID: 2100000, guid: dfafe5f2186c249508c6b15fe77267de, type: 2}
   faceMaterialBlack: {fileID: 2100000, guid: e7e975acb177a45f5ab09753634aff79, type: 2}
   isAnimating: 0
-  origSphereTransformData:
-    localPosition: {x: 0, y: 0, z: 0}
-    localEulerAngles: {x: 0, y: 0, z: 0}
-    localScale: {x: 1, y: 1, z: 1}
 --- !u!1 &1833996268
 GameObject:
   m_ObjectHideFlags: 0
@@ -5874,19 +5870,19 @@ MonoBehaviour:
     m_Bits: 256
   canvas: {fileID: 33800781}
   mainCamera: {fileID: 963194227}
-  mapPanel: {fileID: 296277992}
+  faceMapPanel: {fileID: 296277992}
   movesPanel: {fileID: 931200334}
   controlsPanel: {fileID: 1344376002}
-  colorMapSelected: {r: 0.8039216, g: 0.8039216, b: 0.8039216, a: 0.4}
-  colorMapNotSelected: {r: 0.4, g: 0.4, b: 0.4, a: 0.20392157}
-  pointer: {fileID: 2800000, guid: dede9a9a8ec904151bb550eeb53b1d0c, type: 3}
-  cube: {fileID: 2800000, guid: a5004085650ab4b64b8a1b0c3fcab59a, type: 3}
-  map: {fileID: 2800000, guid: 78ef7b36025724a64b8e64508d20795c, type: 3}
-  sphere: {fileID: 2800000, guid: c2cb87310fd9e440c95c6ea460678750, type: 3}
-  isMapHit: 0
-  isMovesHit: 0
+  colorPanelSelected: {r: 0.8, g: 0.8, b: 0.8, a: 0.4}
+  colorPanelNotSelected: {r: 0.4, g: 0.4, b: 0.4, a: 0.2}
+  pointerCursor: {fileID: 2800000, guid: dede9a9a8ec904151bb550eeb53b1d0c, type: 3}
+  cubeCursor: {fileID: 2800000, guid: a5004085650ab4b64b8a1b0c3fcab59a, type: 3}
+  faceMapCursor: {fileID: 2800000, guid: 78ef7b36025724a64b8e64508d20795c, type: 3}
+  sphereCursor: {fileID: 2800000, guid: c2cb87310fd9e440c95c6ea460678750, type: 3}
+  isFaceMapPanelHit: 0
+  isMovesPanelHit: 0
+  isControlsPanelHit: 0
   isCubeHit: 0
-  isControlsHit: 0
 --- !u!4 &2037798675
 Transform:
   m_ObjectHideFlags: 0
