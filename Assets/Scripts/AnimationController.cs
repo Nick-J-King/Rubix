@@ -13,101 +13,55 @@ namespace Rubix.Animation
         public FaceMapPanel faceMapPanel;
         public MovesPanel movesPanel;
 
-        public bool isAnimating = false;
-
-        readonly Queue<AnimationSpecification> queue = new Queue<AnimationSpecification>();
-
-        bool doRandomMoves = false;
-
-        int animationStep = 0;
-
-        readonly float baseAngleStep = 5.0f;
-
-        float angleStep = 5.0f;
-
-        readonly int firstStep = 2;
-        readonly int secondStep = 4;
-        readonly int thirdStep = 9;
-        readonly int fourthStep = 14;
-        readonly int fifthStep = 16;
-
-        readonly int lastAnimationStepSingle = 18;
-
-        readonly int sixthStep = 2 + 18;
-        readonly int seventhStep = 4 + 18;
-        readonly int eighthStep = 9 + 18;
-        readonly int ninthStep = 14 + 18;
-        readonly int tenthStep = 16 + 18;
-
-        readonly int lastAnimationStepDouble = 36;
-
-        MoveType moveType = MoveType.singleMove;
-
-
-        AudioSource myAudioSource;
-        bool playSound = false;
-
         public AudioClip audioClipSingle;
         public AudioClip audioClipDouble;
+
+        public bool isAnimating = false;
+
+        readonly Queue<AnimationSpecification> _queue = new Queue<AnimationSpecification>();
+
+        bool _doRandomMoves = false;
+
+        int _animationStep = 0;
+
+        readonly float _baseAngleStep = 5.0f;
+
+        float _angleStep = 5.0f;
+
+        readonly int _firstStep = 2;
+        readonly int _secondStep = 4;
+        readonly int _thirdStep = 9;
+        readonly int _fourthStep = 14;
+        readonly int _fifthStep = 16;
+
+        readonly int _lastAnimationStepSingle = 18;
+
+        readonly int _sixthStep = 2 + 18;
+        readonly int _seventhStep = 4 + 18;
+        readonly int _eighthStep = 9 + 18;
+        readonly int _ninthStep = 14 + 18;
+        readonly int _tenthStep = 16 + 18;
+
+        readonly int _lastAnimationStepDouble = 36;
+
+        MoveType _moveType = MoveType.singleMove;
+
+
+
+        AudioSource _myAudioSource;
+        bool _playSound = false;
 
 
         private void Start()
         {
-            myAudioSource = GetComponent<AudioSource>();
+            _myAudioSource = GetComponent<AudioSource>();
     
         }
 
 
         public void ToggleGoRandomMoves()
         {
-            doRandomMoves = !doRandomMoves;
-        }
-
-
-        public AnimationSpecification GetRandomMove()
-        {
-            AnimationSpecification animationSpecification;
-
-            int x = Random.Range(0,3);
-
-            if (x == 0)
-                animationSpecification.cubeAxis = CubeAxis.x;
-            else if (x == 1)
-                animationSpecification.cubeAxis = CubeAxis.y;
-            else
-                animationSpecification.cubeAxis = CubeAxis.z;
-
-            x = Random.Range(0, 8);
-            if (x == 0)
-                animationSpecification.cubeSlices = CubeSlices.s0;
-            else if (x == 1)
-                animationSpecification.cubeSlices = CubeSlices.s01;
-            else if (x == 2)
-                animationSpecification.cubeSlices = CubeSlices.s01234;
-            else if (x == 3)
-                animationSpecification.cubeSlices = CubeSlices.s1;
-            else if (x == 4)
-                animationSpecification.cubeSlices = CubeSlices.s2;
-            else if (x == 5)
-                animationSpecification.cubeSlices = CubeSlices.s3;
-            else if (x == 6)
-                animationSpecification.cubeSlices = CubeSlices.s34;
-            else
-                animationSpecification.cubeSlices = CubeSlices.s4;
-
-            x = Random.Range(0, 2);
-            if (x == 0)
-                animationSpecification.rotationDirection = RotationDirection.normal;
-            else
-                animationSpecification.rotationDirection = RotationDirection.reverse;
-
-            x = Random.Range(0, 2);
-            if (x == 0)
-                animationSpecification.moveType = MoveType.singleMove;
-            else
-                animationSpecification.moveType = MoveType.doubleMove;
-
-            return animationSpecification;
+            _doRandomMoves = !_doRandomMoves;
         }
 
 
@@ -115,16 +69,16 @@ namespace Rubix.Animation
         {
             if (isAnimating)
             {
-                queue.Enqueue(animationSpecification);
+                _queue.Enqueue(animationSpecification);
                 return;
             }
 
-            if (playSound)
+            if (_playSound)
             {
                 if (animationSpecification.moveType == MoveType.doubleMove)
-                    myAudioSource.PlayOneShot(audioClipDouble, myAudioSource.volume); // <<<
+                    _myAudioSource.PlayOneShot(audioClipDouble, _myAudioSource.volume); // <<<
                 else
-                    myAudioSource.PlayOneShot(audioClipSingle, myAudioSource.volume); // <<<
+                    _myAudioSource.PlayOneShot(audioClipSingle, _myAudioSource.volume); // <<<
             }
 
             myCube.SpecifyAnimation(animationSpecification);
@@ -133,13 +87,13 @@ namespace Rubix.Animation
             movesPanel.AddMove(animationSpecification);
 
             if (animationSpecification.rotationDirection == RotationDirection.reverse)
-                angleStep = -baseAngleStep;
+                _angleStep = -_baseAngleStep;
             else
-                angleStep = baseAngleStep;
+                _angleStep = _baseAngleStep;
 
-            moveType = animationSpecification.moveType;
+            _moveType = animationSpecification.moveType;
 
-            animationStep = 0;
+            _animationStep = 0;
             isAnimating = true;
         }
 
@@ -154,13 +108,13 @@ namespace Rubix.Animation
 
         public void ToggleSound()
         {
-            playSound = !playSound;
+            _playSound = !_playSound;
         }
 
 
         public void SetVolume(float volume)
         {
-            myAudioSource.volume = volume;
+            _myAudioSource.volume = volume;
         }
 
 
@@ -169,35 +123,35 @@ namespace Rubix.Animation
         // Determine whether to "cycle" the facelets on "strips".
         bool IsAnimationOnStep(int animationStep)
         {
-            return (animationStep == firstStep
-            || animationStep == secondStep
-            || animationStep == thirdStep
-            || animationStep == fourthStep
-            || animationStep == fifthStep
-            || animationStep == sixthStep
-            || animationStep == seventhStep
-            || animationStep == eighthStep
-            || animationStep == ninthStep
-            || animationStep == tenthStep);
+            return (animationStep == _firstStep
+            || animationStep == _secondStep
+            || animationStep == _thirdStep
+            || animationStep == _fourthStep
+            || animationStep == _fifthStep
+            || animationStep == _sixthStep
+            || animationStep == _seventhStep
+            || animationStep == _eighthStep
+            || animationStep == _ninthStep
+            || animationStep == _tenthStep);
         }
 
         bool IsAnimationOnFinishStep(int animationStep)
         {
-            return (animationStep == lastAnimationStepSingle
-            || animationStep == lastAnimationStepDouble);
+            return (animationStep == _lastAnimationStepSingle
+            || animationStep == _lastAnimationStepDouble);
         }
 
 
         bool IsAnimationOnLast(int animationStep)
         {
-            return (moveType == MoveType.singleMove && animationStep == lastAnimationStepSingle
-                 || moveType == MoveType.doubleMove && animationStep == lastAnimationStepDouble);
+            return (_moveType == MoveType.singleMove && animationStep == _lastAnimationStepSingle
+                 || _moveType == MoveType.doubleMove && animationStep == _lastAnimationStepDouble);
         }
 
 
         public void DoRandomMove()
         {
-            AnimationSpecification animationSpecification = GetRandomMove();
+            AnimationSpecification animationSpecification = AnimationData.GetRandomMove();
             AddAnimation(animationSpecification);
         }
 
@@ -207,36 +161,36 @@ namespace Rubix.Animation
         {
             if (!isAnimating)
             {
-                if (queue.Count > 0)
+                if (_queue.Count > 0)
                 {
-                    AnimationSpecification animationSpecification = queue.Dequeue();
+                    AnimationSpecification animationSpecification = _queue.Dequeue();
                     AddAnimation(animationSpecification);
                 }
 
-                if (doRandomMoves)
+                if (_doRandomMoves)
                     DoRandomMove();
 
                 return;
             }
 
-            animationStep++;
+            _animationStep++;
 
-            faceMapPanel.DoAnimation(angleStep, IsAnimationOnStep(animationStep));
-            myCube.DoAnimation(angleStep);
+            faceMapPanel.DoAnimation(_angleStep, IsAnimationOnStep(_animationStep));
+            myCube.DoAnimation(_angleStep);
 
             // Transform the rotations into array manipulations.
-            if (IsAnimationOnFinishStep(animationStep))
+            if (IsAnimationOnFinishStep(_animationStep))
             {
                 faceMapPanel.FinishAnimation();
                 myCube.FinishAnimation();
             }
 
-            if (IsAnimationOnLast(animationStep))
+            if (IsAnimationOnLast(_animationStep))
             {
                 isAnimating = false;
 
-                if (doRandomMoves)
-                    AddAnimation(GetRandomMove());
+                if (_doRandomMoves)
+                    AddAnimation(AnimationData.GetRandomMove());
             }
         }
     }
