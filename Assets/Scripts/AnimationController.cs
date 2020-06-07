@@ -18,6 +18,9 @@ namespace Rubix.Animation
 
         public bool isAnimating = false;
 
+        AudioSource _myAudioSource;
+        bool _playSound = false;
+
         readonly Queue<AnimationSpecification> _queue = new Queue<AnimationSpecification>();
 
         bool _doRandomMoves = false;
@@ -44,16 +47,13 @@ namespace Rubix.Animation
 
         readonly int _lastAnimationStepDouble = 36;
 
+        AnimationSpecification _lastAnimationSpecification;
         MoveType _moveType = MoveType.singleMove;
 
 
-
-        AudioSource _myAudioSource;
-        bool _playSound = false;
-
-
-        private void Start()
+        void Awake()
         {
+            _lastAnimationSpecification = AnimationData.GetNullMove();
             _myAudioSource = GetComponent<AudioSource>();
     
         }
@@ -62,6 +62,24 @@ namespace Rubix.Animation
         public void ToggleGoRandomMoves()
         {
             _doRandomMoves = !_doRandomMoves;
+        }
+
+
+        public void SetRandomMoves(bool doRandomMoves)
+        {
+            _doRandomMoves = doRandomMoves;
+        }
+
+
+        public void ToggleSound()
+        {
+            _playSound = !_playSound;
+        }
+
+
+        public void SetVolume(float volume)
+        {
+            _myAudioSource.volume = volume;
         }
 
 
@@ -106,21 +124,7 @@ namespace Rubix.Animation
         }
 
 
-        public void ToggleSound()
-        {
-            _playSound = !_playSound;
-        }
-
-
-        public void SetVolume(float volume)
-        {
-            _myAudioSource.volume = volume;
-        }
-
-
-
-
-        // Determine whether to "cycle" the facelets on "strips".
+        // Determine whether to "cycle" the facelets on certain "steps".
         bool IsAnimationOnStep(int animationStep)
         {
             return (animationStep == _firstStep
@@ -135,6 +139,8 @@ namespace Rubix.Animation
             || animationStep == _tenthStep);
         }
 
+
+        // Whether a quarter turn has been completed.
         bool IsAnimationOnFinishStep(int animationStep)
         {
             return (animationStep == _lastAnimationStepSingle
@@ -142,6 +148,7 @@ namespace Rubix.Animation
         }
 
 
+        // Whether this animation has completely finished.
         bool IsAnimationOnLast(int animationStep)
         {
             return (_moveType == MoveType.singleMove && animationStep == _lastAnimationStepSingle
@@ -152,11 +159,15 @@ namespace Rubix.Animation
         public void DoRandomMove()
         {
             AnimationSpecification animationSpecification = AnimationData.GetRandomMove();
+
+            // Don't allow "similar moves". This avoids back and forth, and triple moves.
+            while (animationSpecification.IsSimilarMove(_lastAnimationSpecification))
+                animationSpecification = AnimationData.GetRandomMove();
+
             AddAnimation(animationSpecification);
         }
 
 
-        // Update is called once per frame
         void Update()
         {
             if (!isAnimating)
@@ -166,11 +177,14 @@ namespace Rubix.Animation
                     AnimationSpecification animationSpecification = _queue.Dequeue();
                     AddAnimation(animationSpecification);
                 }
-
-                if (_doRandomMoves)
+                else if (_doRandomMoves)
+                { 
                     DoRandomMove();
-
-                return;
+                }
+                else
+                { 
+                    return;
+                }
             }
 
             _animationStep++;
@@ -188,9 +202,6 @@ namespace Rubix.Animation
             if (IsAnimationOnLast(_animationStep))
             {
                 isAnimating = false;
-
-                if (_doRandomMoves)
-                    AddAnimation(AnimationData.GetRandomMove());
             }
         }
     }

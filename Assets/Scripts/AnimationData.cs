@@ -6,7 +6,7 @@ namespace Rubix.Animation
     public enum CubeAxis { x = 0, y = 1, z = 2 };
     public enum CubeSlices { s0 = 0, s01 = 1, s1 = 2, s2 = 3, s3 = 4, s34 = 5, s4 = 6 , s01234 = 7};
     public enum RotationDirection { normal = 0, reverse = 1 };
-    public enum MoveType { singleMove = 0, doubleMove = 1 };
+    public enum MoveType { noMove = 0, singleMove = 1, doubleMove = 2 };
 
 
     // Encode the specification of the cube / map animation
@@ -16,12 +16,34 @@ namespace Rubix.Animation
         public CubeSlices cubeSlices;   // Which slices we are currently rotating.
         public RotationDirection rotationDirection;
         public MoveType moveType;
+
+        public bool IsSimilarMove(AnimationSpecification animationSpecification)
+        {
+            if (animationSpecification.moveType == MoveType.noMove)
+                return false;
+            if (animationSpecification.cubeAxis == cubeAxis
+             && animationSpecification.cubeSlices == cubeSlices)
+                return true;
+            return false;
+        }
     }
 
 
     // ??? Why do I need to make a "dummy" AnimationData class with only this static function ???
-    public class AnimationData
-    { 
+    public static class AnimationData
+    {
+        public static AnimationSpecification GetNullMove()
+        {
+            AnimationSpecification animationSpecification;
+            animationSpecification.cubeAxis = CubeAxis.x;
+            animationSpecification.cubeSlices = CubeSlices.s0;
+            animationSpecification.rotationDirection = RotationDirection.normal;
+            animationSpecification.moveType = MoveType.noMove;
+
+            return animationSpecification;
+        }
+
+
         public static AnimationSpecification GetRandomMove()
         {
             AnimationSpecification animationSpecification;
