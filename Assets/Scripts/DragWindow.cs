@@ -10,19 +10,18 @@ namespace Rubix.UI
         public RectTransform dragRectTransform; // Rect transform of panel being dragged.
         public RectTransform canvasRectTransform;          // Rect transform of canvas for reference.
 
-        private Vector2 localOrigPosition;
-
-        private Vector2 localStartPoint;
-        private Vector2 localStartPosition;
-
         public bool isDragging = false;     // Whether we are currently dragging...
 
+        Vector2 _localOrigPosition;
 
-        // Start is called before the first frame update
+        Vector2 _localStartPoint;
+        Vector2 _localStartPosition;
+
+
         public virtual void Start()
         {
             isDragging = false;
-            localOrigPosition = transform.localPosition;
+            _localOrigPosition = transform.localPosition;
         }
 
 
@@ -34,7 +33,7 @@ namespace Rubix.UI
             // Convert eventData position to canvas rt position
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, Mouse.current.position.ReadValue(), null, out Vector2 localPoint);
 
-            dragRectTransform.localPosition = localPoint - localStartPoint + localStartPosition;
+            dragRectTransform.localPosition = localPoint - _localStartPoint + _localStartPosition;
         }
 
 
@@ -55,10 +54,10 @@ namespace Rubix.UI
             isDragging = true;
 
             // Convert eventData position to canvas rt position.
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out localStartPoint);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out _localStartPoint);
 
             // Get rt for the start position, so we can do our proper deltas..
-            localStartPosition = dragRectTransform.localPosition;
+            _localStartPosition = dragRectTransform.localPosition;
         }
 
 
@@ -70,13 +69,13 @@ namespace Rubix.UI
 
         public void ResetPosition()
         {
-            dragRectTransform.localPosition = localOrigPosition;
+            dragRectTransform.localPosition = _localOrigPosition;
         }
 
 
         public void ResetPositionAndScale()
         {
-            dragRectTransform.localPosition = localOrigPosition;
+            dragRectTransform.localPosition = _localOrigPosition;
             dragRectTransform.localScale = Vector3.one;
         }
     }

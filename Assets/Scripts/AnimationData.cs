@@ -17,13 +17,46 @@ namespace Rubix.Animation
         public RotationDirection rotationDirection;
         public MoveType moveType;
 
+
+        // Is the move the same, OR similar?
         public bool IsSimilarMove(AnimationSpecification animationSpecification)
         {
             if (animationSpecification.moveType == MoveType.noMove)
                 return false;
+
             if (animationSpecification.cubeAxis == cubeAxis
              && animationSpecification.cubeSlices == cubeSlices)
                 return true;
+
+            if (animationSpecification.cubeSlices == CubeSlices.s01234
+             && cubeSlices == CubeSlices.s01234)
+                return true;
+
+            if (animationSpecification.cubeAxis == cubeAxis
+             && IsSimilarSlice(animationSpecification.cubeSlices))
+                return true;
+
+            return false;
+        }
+
+        //>>>> CHECK IF SAME AXIS, AND slices are 01 or 34...
+
+
+        // Don't worry about "equal" slices - just "similar"...
+        public bool IsSimilarSlice(CubeSlices cubeSlicesIn)
+        {
+            if ((cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s1) && cubeSlicesIn == CubeSlices.s01)
+                return true;
+
+            if (cubeSlices == CubeSlices.s01 && (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s1))
+                return true;
+
+            if ((cubeSlices == CubeSlices.s3 || cubeSlices == CubeSlices.s4) && cubeSlicesIn == CubeSlices.s34)
+                return true;
+
+            if (cubeSlices == CubeSlices.s34 && (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s4))
+                return true;
+
             return false;
         }
     }

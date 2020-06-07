@@ -14,7 +14,6 @@ namespace Rubix.GUI
 
     public class MainCamera : MonoBehaviour
     {
-        public bool doOrbitCamera = false;
         public Slider orbitSlider;  // >>>
 
         [SerializeField]
@@ -28,6 +27,8 @@ namespace Rubix.GUI
 
         const float _rotateAmount = 1.0f;
         Vector2 _orbitDelta = new Vector2(0.0f, 0.0f);
+
+        bool _doOrbitCamera = false;
 
 
         void Awake()
@@ -46,11 +47,23 @@ namespace Rubix.GUI
 
         void Update()
         {
-            if (doOrbitCamera)
+            if (_doOrbitCamera)
             {
                 _orbitDelta.x = orbitSlider.value;
                 OrbitCamera(_orbitDelta);
             }
+        }
+
+
+        public void SetOrbit(bool isOn)
+        {
+            _doOrbitCamera = isOn;
+        }
+
+
+        public void SetOrbitSpeed(float orbitSpeed)
+        {
+            _orbitDelta.x = orbitSpeed;
         }
 
 

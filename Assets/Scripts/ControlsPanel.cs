@@ -10,15 +10,20 @@ namespace Rubix.UI
         public MainCamera mainCamera;
 
 
-        public void ToggleGoRandomMoves()
+        public void ToggleGoRandomMoves(bool isOn)
         {
-            animationController.ToggleGoRandomMoves();
+            animationController.SetRandomMoves(isOn);
         }
 
 
-        public void ToggleOrbitCamera()
+        public void ToggleOrbitCamera(bool isOn)
         {
-            mainCamera.doOrbitCamera = !mainCamera.doOrbitCamera;
+            mainCamera.SetOrbit(isOn);
+        }
+
+        public void SetOrbitSpeed(float speed)
+        {
+            mainCamera.SetOrbitSpeed(speed);
         }
     }
 }
