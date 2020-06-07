@@ -111,6 +111,9 @@ namespace Rubix.Animation
 
             _moveType = animationSpecification.moveType;
 
+            _lastAnimationSpecification = animationSpecification;
+                // Record the "last" animation added to prevent random moves being "duplicated".
+
             _animationStep = 0;
             isAnimating = true;
         }
@@ -174,11 +177,18 @@ namespace Rubix.Animation
             {
                 if (_queue.Count > 0)
                 {
+                    // We are not currently performing an animation,
+                    // but there are Animations on the queue,
+                    // so peel off an animation from the queue,
+                    // Add it, and proceed directly to execute it.
                     AnimationSpecification animationSpecification = _queue.Dequeue();
                     AddAnimation(animationSpecification);
                 }
                 else if (_doRandomMoves)
                 { 
+                    // We are not currently performing an animation,
+                    // but we have specified to "do random moves",
+                    // so Add a random animation, and proceed directly to execute it.
                     DoRandomMove();
                 }
                 else
