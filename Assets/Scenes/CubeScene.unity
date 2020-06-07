@@ -2303,8 +2303,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 653248208}
-        m_MethodName: SetVolume
+      - m_Target: {fileID: 1344376004}
+        m_MethodName: SetSoundVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3579,9 +3579,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 653248208}
-        m_MethodName: ToggleSound
-        m_Mode: 1
+      - m_Target: {fileID: 1344376004}
+        m_MethodName: ToggleSoundOn
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

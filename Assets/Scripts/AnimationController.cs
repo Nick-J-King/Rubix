@@ -71,13 +71,13 @@ namespace Rubix.Animation
         }
 
 
-        public void ToggleSound()
+        public void SetSound(bool isOn)
         {
-            _playSound = !_playSound;
+            _playSound = isOn;
         }
 
 
-        public void SetVolume(float volume)
+        public void SetSoundVolume(float volume)
         {
             _myAudioSource.volume = volume;
         }
