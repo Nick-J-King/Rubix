@@ -4,6 +4,7 @@ using Rubix.UI;
 using Rubix.GUI;
 
 
+
 namespace Rubix.Animation
 { 
     // Coordinate the Cube and Map animations.
@@ -18,6 +19,8 @@ namespace Rubix.Animation
 
         public bool isAnimating = false;
 
+        public int skipFrames = 0;
+
         AudioSource _myAudioSource;
         bool _playSound = false;
 
@@ -26,6 +29,7 @@ namespace Rubix.Animation
         bool _doRandomMoves = false;
 
         int _animationStep = 0;
+        int _skipStep = 0;
 
         readonly float _baseAngleStep = 5.0f;
 
@@ -80,6 +84,12 @@ namespace Rubix.Animation
         public void SetSoundVolume(float volume)
         {
             _myAudioSource.volume = volume;
+        }
+
+
+        public void SetSlowDown(float slowDown)
+        {
+            skipFrames = (int)slowDown;
         }
 
 
@@ -173,6 +183,14 @@ namespace Rubix.Animation
 
         void Update()
         {
+            _skipStep++;
+            if (_skipStep <= skipFrames)
+            {
+                return;
+            }
+
+            _skipStep = 0;
+
             if (!isAnimating)
             {
                 if (_queue.Count > 0)

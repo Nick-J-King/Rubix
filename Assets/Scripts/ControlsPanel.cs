@@ -38,5 +38,11 @@ namespace Rubix.UI
         {
             animationController.SetSoundVolume(volume);
         }
+
+
+        public void SetSlowDown(float slowDown)
+        {
+            animationController.SetSlowDown(slowDown);
+        }
     }
 }
