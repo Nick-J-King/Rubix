@@ -103,19 +103,7 @@ namespace Rubix.UI
 
         public void ToggleTextures()
         {
-            if (_textureType == TextureType.none)
-            {
-                _textureType = TextureType.plain;
-            }
-            else if (_textureType == TextureType.plain)
-            {
-                _textureType = TextureType.number;
-            }
-            else
-            {
-                _textureType = TextureType.none;
-            }
-
+            _textureType = AnimationData.CycleTextureType(_textureType);
 
             for (int x = 0; x < 5; x++)
             {

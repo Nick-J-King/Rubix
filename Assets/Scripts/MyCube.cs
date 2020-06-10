@@ -228,17 +228,28 @@ namespace Rubix.GUI
 
         public void ToggleTextures()
         {
-            if (_textureType == TextureType.none)
+            _textureType = AnimationData.CycleTextureType(_textureType);
+
+            GameObject cubeletFaceUp, cubeletFaceDown, cubeletFaceFront, cubeletFaceBack, cubeletFaceLeft, cubeletFaceRight;
+            Texture textureUp, textureDown, textureFront, textureBack, textureLeft, textureRight;
+
+            if (_textureType == TextureType.plain)
             {
-                _textureType = TextureType.plain;
+                textureUp = texturePlain;
+                textureDown = texturePlain;
+                textureFront = texturePlain;
+                textureBack = texturePlain;
+                textureLeft = texturePlain;
+                textureRight = texturePlain;
             }
-            else if (_textureType == TextureType.plain)
+            else // if (_textureType == TextureType.none)
             {
-                _textureType = TextureType.number;
-            }
-            else
-            {
-                _textureType = TextureType.none;
+                textureUp = null;
+                textureDown = null;
+                textureFront = null;
+                textureBack = null;
+                textureLeft = null;
+                textureRight = null;
             }
 
             for (int x = 0; x < 5; x++)
@@ -250,68 +261,30 @@ namespace Rubix.GUI
                         if (IsOuterCubelet(x, y, z))
                         {
                             CubeletData cData = _cubeletData[x, y, z];
-                            GameObject cubeletFace;
+
+                            cubeletFaceUp = cData.cubelet.transform.GetChild(0).gameObject;
+                            cubeletFaceDown = cData.cubelet.transform.GetChild(1).gameObject;
+                            cubeletFaceFront = cData.cubelet.transform.GetChild(2).gameObject;
+                            cubeletFaceBack = cData.cubelet.transform.GetChild(3).gameObject;
+                            cubeletFaceLeft = cData.cubelet.transform.GetChild(4).gameObject;
+                            cubeletFaceRight = cData.cubelet.transform.GetChild(5).gameObject;
 
                             if (_textureType == TextureType.number)
                             { 
-                                cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberUp;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(1).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberDown;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(2).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberFront;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(3).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberBack;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(4).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberLeft;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberRight;
+                                textureUp = cData.textureNumberUp;
+                                textureDown = cData.textureNumberDown;
+                                textureFront = cData.textureNumberFront;
+                                textureBack = cData.textureNumberBack;
+                                textureLeft = cData.textureNumberLeft;
+                                textureRight = cData.textureNumberRight;
                             }
-                            else if (_textureType == TextureType.plain)
-                            {
-                                cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
 
-                                cubeletFace = cData.cubelet.transform.GetChild(1).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(2).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(3).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(4).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
-                            }
-                            else
-                            {
-                                cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(1).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(2).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(3).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(4).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
-
-                                cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
-                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = null;
-                            }
+                            cubeletFaceUp.GetComponent<MeshRenderer>().materials[0].mainTexture = textureUp;
+                            cubeletFaceDown.GetComponent<MeshRenderer>().materials[0].mainTexture = textureDown;
+                            cubeletFaceFront.GetComponent<MeshRenderer>().materials[0].mainTexture = textureFront;
+                            cubeletFaceBack.GetComponent<MeshRenderer>().materials[0].mainTexture = textureBack;
+                            cubeletFaceLeft.GetComponent<MeshRenderer>().materials[0].mainTexture = textureLeft;
+                            cubeletFaceRight.GetComponent<MeshRenderer>().materials[0].mainTexture = textureRight;
                         }
                     }
                 }
