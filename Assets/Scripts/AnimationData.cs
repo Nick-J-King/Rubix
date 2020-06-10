@@ -64,7 +64,6 @@ namespace Rubix.Animation
     }
 
 
-    // ??? Why do I need to make a "dummy" AnimationData class with only this static function ???
     public static class AnimationData
     {
         public static TextureType CycleTextureType(TextureType textureType)
