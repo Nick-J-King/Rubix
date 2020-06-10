@@ -1300,6 +1300,7 @@ MonoBehaviour:
   rightPanel: {fileID: 1833996270}
   upPanel: {fileID: 400510028}
   downPanel: {fileID: 769891484}
+  spritePlain: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   isAnimating: 0
   rotationDirection: 0
   cubeAxis: 0
@@ -5601,6 +5602,7 @@ MonoBehaviour:
   faceMaterialRed: {fileID: 2100000, guid: c5cced50094c0481e80bbf7c5c2cd71e, type: 2}
   faceMaterialOrange: {fileID: 2100000, guid: dfafe5f2186c249508c6b15fe77267de, type: 2}
   faceMaterialBlack: {fileID: 2100000, guid: e7e975acb177a45f5ab09753634aff79, type: 2}
+  texturePlain: {fileID: 2800000, guid: 398882b1a2a9547a6b3ca1a9d600b9b5, type: 3}
   isAnimating: 0
 --- !u!1 &1833996268
 GameObject:
