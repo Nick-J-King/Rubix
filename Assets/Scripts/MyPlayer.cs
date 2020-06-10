@@ -228,21 +228,21 @@ namespace Rubix.Main
         }
 
 
-        public void ToggleMapTextures(InputAction.CallbackContext context)
+        public void CycleMapTextures(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            faceMapPanel.ToggleTextures();
+            faceMapPanel.CycleTextures();
         }
 
 
-        public void ToggleCubeTextures(InputAction.CallbackContext context)
+        public void CycleCubeTextures(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            myCube.ToggleTextures();
+            myCube.CycleTextures();
         }
 
 

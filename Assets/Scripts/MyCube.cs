@@ -226,7 +226,7 @@ namespace Rubix.GUI
         }
 
 
-        public void ToggleTextures()
+        public void CycleTextures()
         {
             _textureType = AnimationData.CycleTextureType(_textureType);
 

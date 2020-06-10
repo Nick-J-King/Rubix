@@ -24,8 +24,6 @@ namespace Rubix.UI
         public FaceletData [,] faceletData;
             // These facelet panels and sprites must be accessed by the FaceMap...
 
-        TextureType _textureType = TextureType.number;
-
         Color[,] pOrigColor;
         Sprite[,] pOrigSprite;
             // Used to "reset" the face panel.
@@ -101,20 +99,19 @@ namespace Rubix.UI
         }
 
 
-        public void ToggleTextures()
+        public void SetTexture(TextureType textureType)
         {
-            _textureType = AnimationData.CycleTextureType(_textureType);
 
             for (int x = 0; x < 5; x++)
             {
                 for (int y = 0; y < 5; y++)
                 {
                     Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
-                    if (_textureType == TextureType.none)
+                    if (textureType == TextureType.none)
                     {
                         faceImage.sprite = null;
                     }
-                    else if (_textureType == TextureType.plain)
+                    else if (textureType == TextureType.plain)
                     {
                         faceImage.sprite = panelMap.spritePlain;
                     }
@@ -128,7 +125,7 @@ namespace Rubix.UI
 
 
         // Reset the facelets to their original colour, sprite and orientation.
-        public void ResetFace()
+        public void ResetFace(TextureType textureType)
         {
             transform.rotation = Quaternion.identity;
 
@@ -142,11 +139,11 @@ namespace Rubix.UI
                     Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
                     faceImage.color = pOrigColor[x, y];
 
-                    if (_textureType == TextureType.none)
+                    if (textureType == TextureType.none)
                     {
                         faceImage.sprite = null;
                     }
-                    else if (_textureType == TextureType.plain)
+                    else if (textureType == TextureType.plain)
                     {
                         faceImage.sprite = panelMap.spritePlain;
                     }

@@ -1109,7 +1109,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: ToggleMapTextures
+        m_MethodName: CycleMapTextures
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: ToggleCubeTextures
+        m_MethodName: CycleCubeTextures
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -36,6 +36,8 @@ namespace Rubix.UI
 
         //-------------------------------------------------
 
+        TextureType _textureType = TextureType.number;
+
 
         // Load up the sprites for the 6 Face panels to use.
         void Awake()
@@ -56,26 +58,28 @@ namespace Rubix.UI
         }
 
 
-        public void ToggleTextures()
+        public void CycleTextures()
         {
-            frontPanel.ToggleTextures();
-            backPanel.ToggleTextures();
-            leftPanel.ToggleTextures();
-            rightPanel.ToggleTextures();
-            upPanel.ToggleTextures();
-            downPanel.ToggleTextures();
+            _textureType = AnimationData.CycleTextureType(_textureType);
+
+            frontPanel.SetTexture(_textureType);
+            backPanel.SetTexture(_textureType);
+            leftPanel.SetTexture(_textureType);
+            rightPanel.SetTexture(_textureType);
+            upPanel.SetTexture(_textureType);
+            downPanel.SetTexture(_textureType);
         }
 
 
         // Reset all the face panels in this map.
         public void ResetMap()
         {
-            frontPanel.ResetFace();
-            backPanel.ResetFace();
-            leftPanel.ResetFace();
-            rightPanel.ResetFace();
-            upPanel.ResetFace();
-            downPanel.ResetFace();
+            frontPanel.ResetFace(_textureType);
+            backPanel.ResetFace(_textureType);
+            leftPanel.ResetFace(_textureType);
+            rightPanel.ResetFace(_textureType);
+            upPanel.ResetFace(_textureType);
+            downPanel.ResetFace(_textureType);
 
             isAnimating = false;
         }
