@@ -697,15 +697,15 @@ namespace Rubix.GUI
         // Rotate the array of cublets themselves!
         void RotateCubeletArrayAboutYAxisSlice(int ySlice, RotationDirection direction)
         {
-            Cycle4CubleletsR(new Vector3Int(0, ySlice, 0), new Vector3Int(0, ySlice, 4), new Vector3Int(4, ySlice, 4), new Vector3Int(4, ySlice, 0), direction);
-            Cycle4CubleletsR(new Vector3Int(0, ySlice, 1), new Vector3Int(1, ySlice, 4), new Vector3Int(4, ySlice, 3), new Vector3Int(3, ySlice, 0), direction);
-            Cycle4CubleletsR(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 4), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 0), direction);
-            Cycle4CubleletsR(new Vector3Int(0, ySlice, 3), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(1, ySlice, 0), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 0), new Vector3Int(4, ySlice, 4), new Vector3Int(4, ySlice, 4), new Vector3Int(0, ySlice, 0), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 1), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 3), new Vector3Int(1, ySlice, 0), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 4), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 0), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 3), new Vector3Int(1, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(3, ySlice, 0), direction);
 
             if (ySlice == 0 || ySlice == 4)
             {
-                Cycle4CubleletsR(new Vector3Int(1, ySlice, 1), new Vector3Int(1, ySlice, 3), new Vector3Int(3, ySlice, 3), new Vector3Int(3, ySlice, 1), direction);
-                Cycle4CubleletsR(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 3), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 1), direction);
+                Cycle4Cublelets(new Vector3Int(1, ySlice, 1), new Vector3Int(3, ySlice, 1), new Vector3Int(3, ySlice, 3), new Vector3Int(1, ySlice, 3), direction);
+                Cycle4Cublelets(new Vector3Int(1, ySlice, 2), new Vector3Int(2, ySlice, 1), new Vector3Int(3, ySlice, 2), new Vector3Int(2, ySlice, 3), direction);
             }
         }
 
@@ -731,7 +731,7 @@ namespace Rubix.GUI
         {
             if (direction == RotationDirection.reverse)
             {
-                Cycle4CubleletsR(c0, c1, c2, c3, RotationDirection.normal);
+                Cycle4CubleletsReverse(c0, c1, c2, c3, RotationDirection.normal);
                 return;
             }
 
@@ -743,7 +743,7 @@ namespace Rubix.GUI
         }
 
 
-        void Cycle4CubleletsR(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3, RotationDirection direction)
+        void Cycle4CubleletsReverse(Vector3Int c0, Vector3Int c1, Vector3Int c2, Vector3Int c3, RotationDirection direction)
         {
             if (direction == RotationDirection.reverse)
             {
