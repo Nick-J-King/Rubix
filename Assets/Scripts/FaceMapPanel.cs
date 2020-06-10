@@ -17,6 +17,8 @@ namespace Rubix.UI
         public FacePanel upPanel;
         public FacePanel downPanel;
 
+        public Sprite spritePlain;
+
         // Sprites for use by the face panels.
         // Initialised in code.
         public Sprite [,] faceSprites;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Rubix.Animation;
 
 
 namespace Rubix.UI
@@ -8,7 +9,6 @@ namespace Rubix.UI
     {
         public GameObject facelet;
         public Sprite spriteNumber;
-        public Sprite spritePlain;
     }
 
 
@@ -24,7 +24,7 @@ namespace Rubix.UI
         public FaceletData [,] faceletData;
             // These facelet panels and sprites must be accessed by the FaceMap...
 
-        bool showTexture = true;
+        TextureType _textureType = TextureType.number;
 
         Color[,] pOrigColor;
         Sprite[,] pOrigSprite;
@@ -103,27 +103,36 @@ namespace Rubix.UI
 
         public void ToggleTextures()
         {
-            showTexture = !showTexture;
-
-            if (showTexture)
+            if (_textureType == TextureType.none)
             {
-                for (int x = 0; x < 5; x++)
-                {
-                    for (int y = 0; y < 5; y++)
-                    {
-                        Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
-                        faceImage.sprite = faceletData[x, y].spriteNumber;
-                    }
-                }
+                _textureType = TextureType.plain;
+            }
+            else if (_textureType == TextureType.plain)
+            {
+                _textureType = TextureType.number;
             }
             else
             {
-                for (int x = 0; x < 5; x++)
+                _textureType = TextureType.none;
+            }
+
+
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
                 {
-                    for (int y = 0; y < 5; y++)
+                    Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
+                    if (_textureType == TextureType.none)
                     {
-                        Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
                         faceImage.sprite = null;
+                    }
+                    else if (_textureType == TextureType.plain)
+                    {
+                        faceImage.sprite = panelMap.spritePlain;
+                    }
+                    else
+                    {
+                        faceImage.sprite = faceletData[x, y].spriteNumber;
                     }
                 }
             }
@@ -145,11 +154,18 @@ namespace Rubix.UI
                     Image faceImage = faceletData[x, y].facelet.GetComponent<Image>();
                     faceImage.color = pOrigColor[x, y];
 
-                    if (showTexture)
-                        faceImage.sprite = pOrigSprite[x, y];
-                    else
+                    if (_textureType == TextureType.none)
+                    {
                         faceImage.sprite = null;
-
+                    }
+                    else if (_textureType == TextureType.plain)
+                    {
+                        faceImage.sprite = panelMap.spritePlain;
+                    }
+                    else
+                    {
+                        faceImage.sprite = pOrigSprite[x, y];;
+                    }
                 }
             }
         }

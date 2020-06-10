@@ -8,6 +8,8 @@ namespace Rubix.Animation
     public enum RotationDirection { normal = 0, reverse = 1 };
     public enum MoveType { noMove = 0, singleMove = 1, doubleMove = 2 };
 
+    public enum TextureType { none = 0, plain = 1, number = 2 };
+
 
     // Encode the specification of the cube / map animation
     public struct AnimationSpecification

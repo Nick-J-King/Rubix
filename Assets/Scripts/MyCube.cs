@@ -18,7 +18,6 @@ namespace Rubix.GUI
         public Texture textureNumberRight;
         public Texture textureNumberFront;
         public Texture textureNumberBack;
-        //public Sprite spritePlain;
     }
 
 
@@ -40,11 +39,13 @@ namespace Rubix.GUI
 
         public Material faceMaterialBlack;  // For the "innards".
 
+        public Texture texturePlain;
+
         // Textures to be applied to each face.
         readonly Texture[,] _cubeFaceletTextures = new Texture[5, 5];
             // Loaded up from Resources
 
-        bool _showTexture = true;
+        TextureType _textureType = TextureType.number;
 
         //-------------------------------------------------
         //
@@ -227,7 +228,18 @@ namespace Rubix.GUI
 
         public void ToggleTextures()
         {
-            _showTexture = !_showTexture;
+            if (_textureType == TextureType.none)
+            {
+                _textureType = TextureType.plain;
+            }
+            else if (_textureType == TextureType.plain)
+            {
+                _textureType = TextureType.number;
+            }
+            else
+            {
+                _textureType = TextureType.none;
+            }
 
             for (int x = 0; x < 5; x++)
             {
@@ -240,7 +252,7 @@ namespace Rubix.GUI
                             CubeletData cData = _cubeletData[x, y, z];
                             GameObject cubeletFace;
 
-                            if (_showTexture)
+                            if (_textureType == TextureType.number)
                             { 
                                 cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
                                 cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberUp;
@@ -259,6 +271,26 @@ namespace Rubix.GUI
 
                                 cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
                                 cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = cData.textureNumberRight;
+                            }
+                            else if (_textureType == TextureType.plain)
+                            {
+                                cubeletFace = cData.cubelet.transform.GetChild(0).gameObject;
+                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
+
+                                cubeletFace = cData.cubelet.transform.GetChild(1).gameObject;
+                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
+
+                                cubeletFace = cData.cubelet.transform.GetChild(2).gameObject;
+                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
+
+                                cubeletFace = cData.cubelet.transform.GetChild(3).gameObject;
+                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
+
+                                cubeletFace = cData.cubelet.transform.GetChild(4).gameObject;
+                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
+
+                                cubeletFace = cData.cubelet.transform.GetChild(5).gameObject;
+                                cubeletFace.GetComponent<MeshRenderer>().materials[0].mainTexture = texturePlain;
                             }
                             else
                             {
@@ -697,10 +729,10 @@ namespace Rubix.GUI
         // Rotate the array of cublets themselves!
         void RotateCubeletArrayAboutYAxisSlice(int ySlice, RotationDirection direction)
         {
-            Cycle4Cublelets(new Vector3Int(0, ySlice, 0), new Vector3Int(4, ySlice, 4), new Vector3Int(4, ySlice, 4), new Vector3Int(0, ySlice, 0), direction);
-            Cycle4Cublelets(new Vector3Int(0, ySlice, 1), new Vector3Int(3, ySlice, 4), new Vector3Int(4, ySlice, 3), new Vector3Int(1, ySlice, 0), direction);
-            Cycle4Cublelets(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 4), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 0), direction);
-            Cycle4Cublelets(new Vector3Int(0, ySlice, 3), new Vector3Int(1, ySlice, 4), new Vector3Int(4, ySlice, 1), new Vector3Int(3, ySlice, 0), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 0), new Vector3Int(4, ySlice, 0), new Vector3Int(4, ySlice, 4), new Vector3Int(0, ySlice, 4), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 1), new Vector3Int(3, ySlice, 0), new Vector3Int(4, ySlice, 3), new Vector3Int(1, ySlice, 4), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 2), new Vector3Int(2, ySlice, 0), new Vector3Int(4, ySlice, 2), new Vector3Int(2, ySlice, 4), direction);
+            Cycle4Cublelets(new Vector3Int(0, ySlice, 3), new Vector3Int(1, ySlice, 0), new Vector3Int(4, ySlice, 1), new Vector3Int(3, ySlice, 4), direction);
 
             if (ySlice == 0 || ySlice == 4)
             {
