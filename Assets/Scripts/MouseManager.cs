@@ -85,7 +85,29 @@ namespace Rubix.GUI
             foreach (RaycastResult result in _results)
             {
                 if (result.gameObject.name == faceMapPanel.name)
+                { 
                     isFaceMapPanelHit = true;
+
+                    Vector2 screenPoint = result.screenPosition;
+                    RectTransform objectRect = result.gameObject.GetComponent<RectTransform>();
+
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle(objectRect, screenPoint, null, out Vector2 localPoint2);
+                    Debug.Log("Local " + localPoint2);
+
+                    RectTransformUtility.ScreenPointToWorldPointInRectangle(objectRect, screenPoint, null, out Vector3 localPoint3);
+                    Debug.Log("World " + localPoint3);
+
+                    float left = objectRect.offsetMin.x;
+                    float right = objectRect.offsetMax.x;
+
+                    Vector3 [] corners = new Vector3[4];
+
+                    objectRect.GetLocalCorners(corners);
+                    Debug.Log("corner 1: " + corners[0]);
+                    Debug.Log("corner 2: " + corners[1]);
+                    Debug.Log("corner 3: " + corners[2]);
+                    Debug.Log("corner 4: " + corners[3]);
+                }
 
                 if (result.gameObject.name == movesPanel.name)
                     isMovesPanelHit = true;

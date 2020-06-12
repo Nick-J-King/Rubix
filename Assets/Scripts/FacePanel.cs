@@ -34,50 +34,6 @@ namespace Rubix.UI
         // The Face map has been initialised in Awake, so we can use its facelet sprites.
         public void Start()
         {
-            Color col = UnityEngine.Color.black;
-
-            switch (name)
-            {
-                case "PanelTop":        // Light blue.
-                    col.r = 0.2156f;
-                    col.g = 0.5294f;
-                    col.b = 0.9843f;
-                    break;
-
-                case "PanelBottom":
-                    col = UnityEngine.Color.green;
-                    break;
-
-                case "PanelLeft":
-                    col = UnityEngine.Color.red;
-                    break;
-
-                case "PanelRight":  // Orange
-                    col.r = 1.0f;
-                    col.g = 0.63f;
-                    col.b = 0.0f;
-                    break;
-
-                case "PanelFront":
-                    col = UnityEngine.Color.yellow;
-                    break;
-
-                case "PanelBack":
-                    col = UnityEngine.Color.white;
-                    break;
-
-                default:
-                    col = UnityEngine.Color.black;
-                    break;
-            }
-
-            Initialise(col);
-        }
-
-
-        // Use this for initialization...
-        void Initialise(Color col)
-        {
             uiResources = new DefaultControls.Resources();
 
             faceletData = new FaceletData[5, 5];
@@ -85,23 +41,66 @@ namespace Rubix.UI
             pOrigColor = new Color[5, 5];
             pOrigSprite = new Sprite[5, 5];
 
+            Color colour = GetColourForFace();
 
             for (int x = 0; x < 5; x++)
             {
                 for (int y = 0; y < 5; y++)
                 {
-                    faceletData[x, y] = CreateFacelet(x, y, col);
+                    faceletData[x, y] = CreateFacelet(x, y, colour);
 
-                    pOrigColor[x, y] = col;
+                    pOrigColor[x, y] = colour;
                     pOrigSprite[x, y] = faceletData[x, y].facelet.GetComponent<Image>().sprite;
                 }
             }
         }
 
 
+        Color GetColourForFace()
+        { 
+            Color colour = UnityEngine.Color.black;
+
+            switch (name)
+            {
+                case "PanelTop":        // Light blue.
+                    colour.r = 0.2156f;
+                    colour.g = 0.5294f;
+                    colour.b = 0.9843f;
+                    break;
+
+                case "PanelBottom":
+                    colour = UnityEngine.Color.green;
+                    break;
+
+                case "PanelLeft":
+                    colour = UnityEngine.Color.red;
+                    break;
+
+                case "PanelRight":  // Orange
+                    colour.r = 1.0f;
+                    colour.g = 0.63f;
+                    colour.b = 0.0f;
+                    break;
+
+                case "PanelFront":
+                    colour = UnityEngine.Color.yellow;
+                    break;
+
+                case "PanelBack":
+                    colour = UnityEngine.Color.white;
+                    break;
+
+                default:
+                    colour = UnityEngine.Color.black;
+                    break;
+            }
+
+            return colour;
+        }
+
+
         public void SetTexture(TextureType textureType)
         {
-
             for (int x = 0; x < 5; x++)
             {
                 for (int y = 0; y < 5; y++)
