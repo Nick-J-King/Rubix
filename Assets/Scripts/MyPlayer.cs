@@ -304,26 +304,6 @@ namespace Rubix.Main
         }
 
 
-        void ScaleUpAboutPoint(GameObject go, float factor, float step, float min, float max, float x, float y)
-        {
-            float ls = go.transform.localScale.x;
-
-            if (factor > 0.0f)      // scroll up
-            {
-                ls += step;
-                if (ls > max)
-                    ls = max;
-            }
-            else if (factor < 0.0f) // scroll down
-            {
-                ls -= step;
-                if (ls < min)
-                    ls = min;
-            }
-            go.transform.localScale = new Vector3(ls, ls, ls);
-        }
-
-
         public void OnScroll(InputAction.CallbackContext context)
         {
             var scrollValue = context.action.ReadValue<float>();
