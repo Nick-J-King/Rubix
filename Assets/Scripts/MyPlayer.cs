@@ -218,7 +218,6 @@ namespace Rubix.Main
             movesPanel.ToggleViewable();
         }
 
-    
         public void ToggleControlsPanelViewable(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
@@ -226,7 +225,6 @@ namespace Rubix.Main
 
             controlsPanel.ToggleViewable();
         }
-
 
         public void CycleMapTextures(InputAction.CallbackContext context)
         {
@@ -284,45 +282,25 @@ namespace Rubix.Main
         }
 
 
-        void ScaleUp(GameObject go, float factor, float step, float min, float max)
-        {
-            float ls = go.transform.localScale.x;
-
-            if (factor > 0.0f)      // scroll up
-            {
-                ls += step;
-                if (ls > max)
-                    ls = max;
-            }
-            else if (factor < 0.0f) // scroll down
-            {
-                ls -= step;
-                if (ls < min)
-                    ls = min;
-            }
-            go.transform.localScale = new Vector3(ls, ls, ls);
-        }
-
-
         public void OnScroll(InputAction.CallbackContext context)
         {
             var scrollValue = context.action.ReadValue<float>();
 
             if (mouseManager.isFaceMapPanelHit)
             {
-                ScaleUp(faceMapPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
+                faceMapPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
             }
             else if (mouseManager.isMovesPanelHit)
             { 
-                ScaleUp(movesPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
+                movesPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
             }
             else if (mouseManager.isControlsPanelHit)
-            { 
-                ScaleUp(controlsPanel.gameObject, scrollValue, 0.1f, 0.1f, 10.0f);
+            {
+                controlsPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
             }
             else if (mouseManager.isCubeHit)
             {
-                ScaleUp(myCube.gameObject, scrollValue, 0.05f, 0.05f, 2.0f);
+                myCube.ScaleUp(scrollValue, 0.05f, 0.05f, 2.0f);
             }
         }
 

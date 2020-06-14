@@ -77,7 +77,7 @@ namespace Rubix.GUI
             var x = (localPoint2.x - corners[0].x) / xDelta;
             var y = (localPoint2.y - corners[0].y) / yDelta;
 
-            SetPivot(objectRect, new Vector2(x,y));
+            //SetPivot(objectRect, new Vector2(x,y));
         }
 
 

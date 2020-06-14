@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Rubix.Animation;
 
 
 namespace Rubix.UI
@@ -34,6 +35,17 @@ namespace Rubix.UI
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, Mouse.current.position.ReadValue(), null, out Vector2 localPoint);
 
             dragRectTransform.localPosition = localPoint - _localStartPoint + _localStartPosition;
+        }
+
+
+        public void ScaleUp(float factor, float step, float min, float max)
+        {
+            GameObject go = gameObject;
+
+            float ls = go.transform.localScale.x;
+            ls = AnimationData.ClampWithStep(factor, min, max, ls, step);
+
+            go.transform.localScale = new Vector3(ls, ls, 1.0f);
         }
 
 

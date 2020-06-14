@@ -66,6 +66,24 @@ namespace Rubix.Animation
 
     public static class AnimationData
     {
+        public static float ClampWithStep(float factor, float min, float max, float ls, float step)
+        { 
+            if (factor > 0.0f)      // scroll up
+            {
+                ls += step;
+                if (ls > max)
+                    ls = max;
+            }
+            else if (factor < 0.0f) // scroll down
+            {
+                ls -= step;
+                if (ls < min)
+                    ls = min;
+            }
+            return ls;
+        }
+
+
         public static TextureType CycleTextureType(TextureType textureType)
         {
             if (textureType == TextureType.none)

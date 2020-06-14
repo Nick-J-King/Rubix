@@ -159,6 +159,18 @@ namespace Rubix.GUI
         }
 
 
+        public void ScaleUp(float factor, float step, float min, float max)
+        {
+            GameObject go = gameObject;
+
+            float ls = go.transform.localScale.x;
+
+            ls = AnimationData.ClampWithStep(factor, min, max, ls, step);
+
+            go.transform.localScale = new Vector3(ls, ls, ls);
+        }
+
+
         public void ResetScale()
         {
             transform.localScale = Vector3.one;
