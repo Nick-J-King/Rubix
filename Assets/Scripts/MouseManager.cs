@@ -59,6 +59,8 @@ namespace Rubix.GUI
             var wordlPos = target.position + target.TransformVector(offset);
             target.pivot = pivot;
             target.position = wordlPos;
+
+            Debug.Log("MM SetPivot: (" + pivot.x + ", " + pivot.y + ")");
         }
 
         public static void MovePivot(RaycastResult target)
@@ -77,7 +79,7 @@ namespace Rubix.GUI
             var x = (localPoint2.x - corners[0].x) / xDelta;
             var y = (localPoint2.y - corners[0].y) / yDelta;
 
-            //SetPivot(objectRect, new Vector2(x,y));
+            SetPivot(objectRect, new Vector2(x,y));
         }
 
 
@@ -117,19 +119,19 @@ namespace Rubix.GUI
                 if (result.gameObject.name == faceMapPanel.name)
                 { 
                     isFaceMapPanelHit = true;
-                    MovePivot(result);
+                    //MovePivot(result);
                 }
 
                 if (result.gameObject.name == movesPanel.name)
                 { 
                     isMovesPanelHit = true;
-                    MovePivot(result);
+                    //MovePivot(result);
                 }
 
                 if (result.gameObject.name == controlsPanel.name)
                 { 
                     isControlsPanelHit = true;
-                    MovePivot(result);
+                    ///MovePivot(result);
                 }
             }
 
