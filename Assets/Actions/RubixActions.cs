@@ -21,14 +21,6 @@ namespace Rubix.Actions
             ""id"": ""3aabd3db-640b-4bc8-9b2d-2c52c825556a"",
             ""actions"": [
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Button"",
-                    ""id"": ""cf87789b-136a-4d74-9cc8-b00cbdc9bb5b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
-                },
-                {
                     ""name"": ""Escape"",
                     ""type"": ""Button"",
                     ""id"": ""ec3db5d2-f04c-425b-8997-f52471555d0d"",
@@ -307,20 +299,17 @@ namespace Rubix.Actions
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""1b031401-9f6e-4c22-ac0b-ff830c4794de"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""ad742599-c79d-4abf-a95d-b52f62d035e2"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""23360977-136d-47aa-8f41-0b87df3fecf8"",
@@ -705,6 +694,17 @@ namespace Rubix.Actions
                     ""action"": ""ToggeCubeTextures"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""654bf9a0-e0c9-419e-9da3-8e201c34e123"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -769,17 +769,11 @@ namespace Rubix.Actions
                     ""isOR"": false
                 }
             ]
-        },
-        {
-            ""name"": ""KeyboardAndMouse"",
-            ""bindingGroup"": ""KeyboardAndMouse"",
-            ""devices"": []
         }
     ]
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
             m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
             m_Player_OuterL = m_Player.FindAction("OuterL", throwIfNotFound: true);
             m_Player_OuterR = m_Player.FindAction("OuterR", throwIfNotFound: true);
@@ -815,6 +809,7 @@ namespace Rubix.Actions
             m_Player_ToggleControlsPanelViewable = m_Player.FindAction("ToggleControlsPanelViewable", throwIfNotFound: true);
             m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
             m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
+            m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -864,7 +859,6 @@ namespace Rubix.Actions
         // Player
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
-        private readonly InputAction m_Player_Look;
         private readonly InputAction m_Player_Escape;
         private readonly InputAction m_Player_OuterL;
         private readonly InputAction m_Player_OuterR;
@@ -900,11 +894,11 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_ToggleControlsPanelViewable;
         private readonly InputAction m_Player_ToggleMapTextures;
         private readonly InputAction m_Player_ToggeCubeTextures;
+        private readonly InputAction m_Player_Debug;
         public struct PlayerActions
         {
             private @RubixActions m_Wrapper;
             public PlayerActions(@RubixActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputAction @Escape => m_Wrapper.m_Player_Escape;
             public InputAction @OuterL => m_Wrapper.m_Player_OuterL;
             public InputAction @OuterR => m_Wrapper.m_Player_OuterR;
@@ -940,6 +934,7 @@ namespace Rubix.Actions
             public InputAction @ToggleControlsPanelViewable => m_Wrapper.m_Player_ToggleControlsPanelViewable;
             public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
             public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
+            public InputAction @Debug => m_Wrapper.m_Player_Debug;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -949,9 +944,6 @@ namespace Rubix.Actions
             {
                 if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
-                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                     @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                     @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                     @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
@@ -1057,13 +1049,13 @@ namespace Rubix.Actions
                     @ToggeCubeTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
                     @ToggeCubeTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
                     @ToggeCubeTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                    @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                    @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                    @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Look.started += instance.OnLook;
-                    @Look.performed += instance.OnLook;
-                    @Look.canceled += instance.OnLook;
                     @Escape.started += instance.OnEscape;
                     @Escape.performed += instance.OnEscape;
                     @Escape.canceled += instance.OnEscape;
@@ -1169,6 +1161,9 @@ namespace Rubix.Actions
                     @ToggeCubeTextures.started += instance.OnToggeCubeTextures;
                     @ToggeCubeTextures.performed += instance.OnToggeCubeTextures;
                     @ToggeCubeTextures.canceled += instance.OnToggeCubeTextures;
+                    @Debug.started += instance.OnDebug;
+                    @Debug.performed += instance.OnDebug;
+                    @Debug.canceled += instance.OnDebug;
                 }
             }
         }
@@ -1218,18 +1213,8 @@ namespace Rubix.Actions
                 return asset.controlSchemes[m_XRSchemeIndex];
             }
         }
-        private int m_KeyboardAndMouseSchemeIndex = -1;
-        public InputControlScheme KeyboardAndMouseScheme
-        {
-            get
-            {
-                if (m_KeyboardAndMouseSchemeIndex == -1) m_KeyboardAndMouseSchemeIndex = asset.FindControlSchemeIndex("KeyboardAndMouse");
-                return asset.controlSchemes[m_KeyboardAndMouseSchemeIndex];
-            }
-        }
         public interface IPlayerActions
         {
-            void OnLook(InputAction.CallbackContext context);
             void OnEscape(InputAction.CallbackContext context);
             void OnOuterL(InputAction.CallbackContext context);
             void OnOuterR(InputAction.CallbackContext context);
@@ -1265,6 +1250,7 @@ namespace Rubix.Actions
             void OnToggleControlsPanelViewable(InputAction.CallbackContext context);
             void OnToggleMapTextures(InputAction.CallbackContext context);
             void OnToggeCubeTextures(InputAction.CallbackContext context);
+            void OnDebug(InputAction.CallbackContext context);
         }
     }
 }

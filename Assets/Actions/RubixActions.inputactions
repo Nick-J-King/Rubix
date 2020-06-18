@@ -6,14 +6,6 @@
             "id": "3aabd3db-640b-4bc8-9b2d-2c52c825556a",
             "actions": [
                 {
-                    "name": "Look",
-                    "type": "Button",
-                    "id": "cf87789b-136a-4d74-9cc8-b00cbdc9bb5b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Tap"
-                },
-                {
                     "name": "Escape",
                     "type": "Button",
                     "id": "ec3db5d2-f04c-425b-8997-f52471555d0d",
@@ -292,20 +284,17 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Tap"
+                },
+                {
+                    "name": "Debug",
+                    "type": "Button",
+                    "id": "1b031401-9f6e-4c22-ac0b-ff830c4794de",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "ad742599-c79d-4abf-a95d-b52f62d035e2",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "23360977-136d-47aa-8f41-0b87df3fecf8",
@@ -690,6 +679,17 @@
                     "action": "ToggeCubeTextures",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "654bf9a0-e0c9-419e-9da3-8e201c34e123",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -754,11 +754,6 @@
                     "isOR": false
                 }
             ]
-        },
-        {
-            "name": "KeyboardAndMouse",
-            "bindingGroup": "KeyboardAndMouse",
-            "devices": []
         }
     ]
 }

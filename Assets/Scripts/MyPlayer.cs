@@ -284,6 +284,9 @@ namespace Rubix.Main
 
         public void OnScroll(InputAction.CallbackContext context)
         {
+            if (context.phase != InputActionPhase.Started)
+                return;
+
             var scrollValue = context.action.ReadValue<float>();
 
             if (mouseManager.isFaceMapPanelHit)
@@ -311,7 +314,7 @@ namespace Rubix.Main
             //EditorApplication.isPlaying = false;
         }
 
-
+/*
         public void OnLook(InputAction.CallbackContext context)
         {
             if (faceMapPanel.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesPanelHit)
@@ -328,6 +331,12 @@ namespace Rubix.Main
             {
                 mainCamera.MoveViewport(move.x * 5.0f);
             }
+        }
+*/
+
+        public void OnDebug(InputAction.CallbackContext context)
+        {
+            Debug.Log(Mouse.current.position.ReadValue());
         }
     }
 }

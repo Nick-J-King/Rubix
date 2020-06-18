@@ -8,21 +8,21 @@ namespace Rubix.UI
 { 
     public class DragWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        public RectTransform dragRectTransform; // Rect transform of panel being dragged.
-        public RectTransform canvasRectTransform;          // Rect transform of canvas for reference.
+        public RectTransform dragRectTransform;     // Rect transform of panel being dragged.
+        public RectTransform canvasRectTransform;   // Rect transform of canvas for reference.
 
         public bool isDragging = false;     // Whether we are currently dragging...
 
         Vector2 _localOrigPosition;
 
-        Vector2 _localStartPoint;
-        Vector2 _localStartPosition;
+        Vector2 _dragFromMousePosition;
+        Vector2 _dragToMousePosition;
 
 
         public virtual void Start()
         {
             isDragging = false;
-            _localOrigPosition = transform.localPosition;
+             _localOrigPosition = dragRectTransform.localPosition;
         }
 
 
@@ -32,9 +32,16 @@ namespace Rubix.UI
                 return;
 
             // Convert eventData position to canvas rt position
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, Mouse.current.position.ReadValue(), null, out Vector2 localPoint);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, Mouse.current.position.ReadValue(), null, out _dragToMousePosition);
 
-            dragRectTransform.localPosition = localPoint - _localStartPoint + _localStartPosition;
+            if (_dragToMousePosition == _dragFromMousePosition)
+                return;
+
+            Vector2 moveBy = _dragToMousePosition - _dragFromMousePosition;
+
+            dragRectTransform.Translate(moveBy);
+
+            _dragFromMousePosition = _dragToMousePosition;
         }
 
 
@@ -53,19 +60,21 @@ namespace Rubix.UI
         public static void SetPivot(RectTransform target, Vector2 pivot)
         {
             if (!target) return;
-            var offset = pivot - target.pivot;
-            offset.Scale(target.rect.size);
-            var wordlPos = target.position + target.TransformVector(offset);
-            target.pivot = pivot;
-            target.position = wordlPos;
 
-            Debug.Log("DW SetPivot: (" + pivot.x + ", " + pivot.y + ")");
+            var offset = pivot - target.pivot;
+
+            offset.Scale(target.rect.size);
+
+            var worldPos = target.position + target.TransformVector(offset);
+            target.pivot = pivot;
+            target.position = worldPos;
+
+            NJK.Log("DragWindow - SetPivot: pivot = (" + pivot.x + ", " + pivot.y + ")");
         }
 
 
         public void MovePivot()
         { 
-            //Vector2 screenPoint = target.screenPosition;
             Vector2 screenPoint = Mouse.current.position.ReadValue();
             RectTransform objectRect = gameObject.GetComponent<RectTransform>();
 
@@ -98,19 +107,17 @@ namespace Rubix.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            NJK.Log("DragWindow - OnPointerDown: event position = " + eventData.position.ToString());
+
             isDragging = true;
 
-            // Convert eventData position to canvas rt position.
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out _localStartPoint);
-
-            // Get rt for the start position, so we can do our proper deltas..
-            _localStartPosition = dragRectTransform.localPosition;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out _dragFromMousePosition);
         }
 
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            Debug.Log(Time.frameCount + ": OnPointerUp");
+            NJK.Log("DragWindow - OnPointerUp: event position = " + eventData.position.ToString());
             isDragging = false;
         }
 
