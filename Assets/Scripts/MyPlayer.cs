@@ -324,7 +324,7 @@ namespace Rubix.Main
 
             if (Mouse.current.leftButton.isPressed)
             {
-                mainCamera.OrbitCamera(move);
+                mainCamera.OrientCamera(move);
             }
 
             if (Mouse.current.rightButton.isPressed)

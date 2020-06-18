@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 namespace Rubix.GUI
 {
-    [System.Serializable]
-    public class AzimuthElevation
+    struct AzimuthElevation
     {
         public float azimuth;
         public float elevation;
@@ -16,10 +15,8 @@ namespace Rubix.GUI
     {
         public Slider orbitSlider;  // >>>
 
-        [SerializeField]
-        AzimuthElevation _azimuthElevation = new AzimuthElevation();
-
         Camera _camera;
+        AzimuthElevation _azimuthElevation;
 
         Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
         Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
@@ -35,13 +32,10 @@ namespace Rubix.GUI
         {
             _camera = gameObject.GetComponent<Camera>();
 
-
             _azimuthElevation.azimuth = 0.0f;
             _azimuthElevation.elevation = 0.0f;
 
-            SetCameraAzimuthElevation(_azimuthElevation);
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
+            SetCameraAzimuthElevation(ref _azimuthElevation);
         }
 
 
@@ -71,28 +65,45 @@ namespace Rubix.GUI
         {
             (_azimuthElevation.azimuth, _azimuthElevation.elevation) = (0.0f, 0.0f);
 
-            SetCameraAzimuthElevation(_azimuthElevation);
+            SetCameraAzimuthElevation(ref _azimuthElevation);
             _camera.rect = _fullView;
         }
 
 
-        public void OrbitCamera(Vector2 lookDelta)
+        public void OrientCamera(Vector2 lookDelta)
+        {
+            if (!_doOrbitCamera)
+            { 
+                _azimuthElevation.azimuth += lookDelta.x * _rotateAmount;
+            }
+            _azimuthElevation.elevation += lookDelta.y * _rotateAmount;
+
+            RecalculateCamera();
+        }
+
+
+        void OrbitCamera(Vector2 lookDelta)
         {
             _azimuthElevation.azimuth += lookDelta.x * _rotateAmount;
             _azimuthElevation.elevation += lookDelta.y * _rotateAmount;
 
-            // azimuthElevation.azimuth %= 360;
+            RecalculateCamera();
+        }
+
+
+        void RecalculateCamera()
+        {
             while (_azimuthElevation.azimuth >= 360.0f) _azimuthElevation.azimuth -= 360.0f;
             while (_azimuthElevation.azimuth < 0.0f) _azimuthElevation.azimuth += 360.0f;
 
             if (_azimuthElevation.elevation > 89.0f) _azimuthElevation.elevation = 89.0f;
             if (_azimuthElevation.elevation < -89.0f) _azimuthElevation.elevation = -89.0f;
 
-            SetCameraAzimuthElevation(_azimuthElevation);
+            SetCameraAzimuthElevation(ref _azimuthElevation);
         }
 
 
-        public void SetCameraAzimuthElevation(AzimuthElevation azimuthElevation)
+        void SetCameraAzimuthElevation(ref AzimuthElevation azimuthElevation)
         {
             Quaternion rotation = Quaternion.Euler(-azimuthElevation.elevation, azimuthElevation.azimuth, 0.0f);
 
