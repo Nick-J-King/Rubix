@@ -31,7 +31,6 @@ namespace Rubix.UI
             if (!isDragging)
                 return;
 
-            // Convert eventData position to canvas rt position
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, Mouse.current.position.ReadValue(), null, out _dragToMousePosition);
 
             if (_dragToMousePosition == _dragFromMousePosition)
@@ -47,31 +46,16 @@ namespace Rubix.UI
 
         public void ScaleUp(float factor, float step, float min, float max)
         {
-            GameObject go = gameObject;
             MovePivot();
 
-            float ls = go.transform.localScale.x;
+            float ls = transform.localScale.x;
             ls = AnimationData.ClampWithStep(factor, min, max, ls, step);
 
-            go.transform.localScale = new Vector3(ls, ls, 1.0f);
+            transform.localScale = new Vector3(ls, ls, 1.0f);
         }
 
 
-        public static void SetPivot(RectTransform target, Vector2 pivot)
-        {
-            if (!target) return;
-
-            var offset = pivot - target.pivot;
-
-            offset.Scale(target.rect.size);
-
-            var worldPos = target.position + target.TransformVector(offset);
-            target.pivot = pivot;
-            target.position = worldPos;
-        }
-
-
-        public void MovePivot()
+        void MovePivot()
         { 
             Vector2 screenPoint = Mouse.current.position.ReadValue();
             RectTransform objectRect = gameObject.GetComponent<RectTransform>();
@@ -88,6 +72,21 @@ namespace Rubix.UI
             var y = (localPoint2.y - corners[0].y) / yDelta;
 
             SetPivot(objectRect, new Vector2(x,y));
+        }
+
+
+        // Set the pivot without moving the RectTransform.
+        static void SetPivot(RectTransform target, Vector2 pivot)
+        {
+            if (!target) return;
+
+            var offset = pivot - target.pivot;
+
+            offset.Scale(target.rect.size);
+
+            var worldPos = target.position + target.TransformVector(offset);
+            target.pivot = pivot;
+            target.position = worldPos;
         }
 
 
@@ -109,13 +108,12 @@ namespace Rubix.UI
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out _dragFromMousePosition);
             gameObject.transform.SetAsLastSibling();
-
         }
 
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            isDragging = false;
+            isDragging = false; // NOTE: May wish to update to latest mouse position...
         }
 
 

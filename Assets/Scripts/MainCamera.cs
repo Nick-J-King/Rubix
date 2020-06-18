@@ -4,26 +4,18 @@ using UnityEngine.UI;
 
 namespace Rubix.GUI
 {
-    struct AzimuthElevation
-    {
-        public float azimuth;
-        public float elevation;
-    }
-
-
     public class MainCamera : MonoBehaviour
     {
-        public Slider orbitSlider;  // >>>
-
         Camera _camera;
-        AzimuthElevation _azimuthElevation;
+        float _azimuth = 0.0f;
+        float _elevation = 0.0f;
 
         Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
         Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
         Rect _cameraPixelRect = new Rect();
 
         const float _rotateAmount = 1.0f;
-        Vector2 _orbitDelta = new Vector2(0.0f, 0.0f);
+        float _orbitDeltaAzimuth = 0.0f;
 
         bool _doOrbitCamera = false;
 
@@ -32,10 +24,7 @@ namespace Rubix.GUI
         {
             _camera = gameObject.GetComponent<Camera>();
 
-            _azimuthElevation.azimuth = 0.0f;
-            _azimuthElevation.elevation = 0.0f;
-
-            SetCameraAzimuthElevation(ref _azimuthElevation);
+            ApplyCameraAzimuthElevation();
         }
 
 
@@ -43,8 +32,7 @@ namespace Rubix.GUI
         {
             if (_doOrbitCamera)
             {
-                _orbitDelta.x = orbitSlider.value;
-                OrbitCamera(_orbitDelta);
+                OrbitCamera();
             }
         }
 
@@ -57,15 +45,15 @@ namespace Rubix.GUI
 
         public void SetOrbitSpeed(float orbitSpeed)
         {
-            _orbitDelta.x = orbitSpeed;
+            _orbitDeltaAzimuth = orbitSpeed;
         }
 
 
         public void ResetViewport()
         {
-            (_azimuthElevation.azimuth, _azimuthElevation.elevation) = (0.0f, 0.0f);
+            (_azimuth, _elevation) = (0.0f, 0.0f);
 
-            SetCameraAzimuthElevation(ref _azimuthElevation);
+            ApplyCameraAzimuthElevation();
             _camera.rect = _fullView;
         }
 
@@ -74,18 +62,17 @@ namespace Rubix.GUI
         {
             if (!_doOrbitCamera)
             { 
-                _azimuthElevation.azimuth += lookDelta.x * _rotateAmount;
+                _azimuth += lookDelta.x * _rotateAmount;
             }
-            _azimuthElevation.elevation += lookDelta.y * _rotateAmount;
+            _elevation += -lookDelta.y * _rotateAmount;
 
             RecalculateCamera();
         }
 
 
-        void OrbitCamera(Vector2 lookDelta)
+        void OrbitCamera()
         {
-            _azimuthElevation.azimuth += lookDelta.x * _rotateAmount;
-            _azimuthElevation.elevation += lookDelta.y * _rotateAmount;
+            _azimuth += _orbitDeltaAzimuth * _rotateAmount;
 
             RecalculateCamera();
         }
@@ -93,19 +80,19 @@ namespace Rubix.GUI
 
         void RecalculateCamera()
         {
-            while (_azimuthElevation.azimuth >= 360.0f) _azimuthElevation.azimuth -= 360.0f;
-            while (_azimuthElevation.azimuth < 0.0f) _azimuthElevation.azimuth += 360.0f;
+            while (_azimuth >= 360.0f) _azimuth -= 360.0f;
+            while (_azimuth < 0.0f) _azimuth += 360.0f;
 
-            if (_azimuthElevation.elevation > 89.0f) _azimuthElevation.elevation = 89.0f;
-            if (_azimuthElevation.elevation < -89.0f) _azimuthElevation.elevation = -89.0f;
+            if (_elevation > 89.0f) _elevation = 89.0f;
+            if (_elevation < -89.0f) _elevation = -89.0f;
 
-            SetCameraAzimuthElevation(ref _azimuthElevation);
+            ApplyCameraAzimuthElevation();
         }
 
 
-        void SetCameraAzimuthElevation(ref AzimuthElevation azimuthElevation)
+        void ApplyCameraAzimuthElevation()
         {
-            Quaternion rotation = Quaternion.Euler(-azimuthElevation.elevation, azimuthElevation.azimuth, 0.0f);
+            Quaternion rotation = Quaternion.Euler(_elevation, _azimuth, 0.0f);
 
             Vector3 rotatedPosition = rotation * _initialPosition;
 
