@@ -6,14 +6,6 @@
             "id": "3aabd3db-640b-4bc8-9b2d-2c52c825556a",
             "actions": [
                 {
-                    "name": "Escape",
-                    "type": "Button",
-                    "id": "ec3db5d2-f04c-425b-8997-f52471555d0d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Tap"
-                },
-                {
                     "name": "OuterL",
                     "type": "Button",
                     "id": "ae5b5b8b-cae4-4a97-b7dd-7f1f10b4d482",
@@ -158,14 +150,6 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Space",
-                    "type": "Button",
-                    "id": "1cdae035-f1b0-4807-8176-88310a8b3fa6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Tap"
-                },
-                {
                     "name": "MidLR",
                     "type": "Button",
                     "id": "4b5c5dc8-948c-48d3-9715-a988dd4ff56c",
@@ -214,9 +198,17 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Wheel",
+                    "name": "Escape",
                     "type": "Button",
-                    "id": "577621ae-37ee-47a6-9617-74dad8e85e36",
+                    "id": "ec3db5d2-f04c-425b-8997-f52471555d0d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "ResetView",
+                    "type": "Button",
+                    "id": "1cdae035-f1b0-4807-8176-88310a8b3fa6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap"
@@ -270,7 +262,7 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "ToggleMapTextures",
+                    "name": "CycleFaceMapTextures",
                     "type": "Button",
                     "id": "c3f55fd4-1f8c-4903-85ad-c9d96089d9b4",
                     "expectedControlType": "Button",
@@ -278,10 +270,26 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "ToggeCubeTextures",
+                    "name": "CycleCubeTextures",
                     "type": "Button",
                     "id": "4ad3ada0-fee8-4543-82c6-918d6e083ca6",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Button",
+                    "id": "577621ae-37ee-47a6-9617-74dad8e85e36",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "Drag",
+                    "type": "Value",
+                    "id": "ff800e9e-7e20-4011-ae90-28c79c1fce01",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "Tap"
                 },
@@ -294,26 +302,15 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "ff800e9e-7e20-4011-ae90-28c79c1fce01",
-                    "expectedControlType": "Vector2",
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "a7173be4-975e-4913-9e33-4bdab601b3ed",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Tap"
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "23360977-136d-47aa-8f41-0b87df3fecf8",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Escape",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "6684c691-6f79-46eb-ae9e-84e72ac2c97a",
@@ -514,17 +511,6 @@
                 },
                 {
                     "name": "",
-                    "id": "247b7b55-f906-4818-81c6-9365fc2143f3",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Space",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a7c127a3-f8e0-41f6-9e7a-94927b8de8ae",
                     "path": "<Keyboard>/r",
                     "interactions": "",
@@ -586,17 +572,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "AllFB",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a71d0dc4-3d15-46b0-b6e0-9453a81fbef3",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Wheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -673,7 +648,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggleMapTextures",
+                    "action": "CycleFaceMapTextures",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -684,7 +659,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ToggeCubeTextures",
+                    "action": "CycleCubeTextures",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11bb22df-b7ae-4605-970e-0817ae558a5a",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "247b7b55-f906-4818-81c6-9365fc2143f3",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "ResetView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "23360977-136d-47aa-8f41-0b87df3fecf8",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a71d0dc4-3d15-46b0-b6e0-9453a81fbef3",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -701,12 +720,12 @@
                 },
                 {
                     "name": "",
-                    "id": "11bb22df-b7ae-4605-970e-0817ae558a5a",
-                    "path": "<Mouse>/delta",
+                    "id": "f20608eb-aa6b-4d41-ad5a-f6c3198c1227",
+                    "path": "*/{PrimaryTrigger}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

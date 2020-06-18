@@ -190,12 +190,14 @@ namespace Rubix.Main
         }
 
 
+        // Random move.
+
         public void OnRotateRandom(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            animationController.DoRandomMove();
+            animationController.AddRandomMove();
         }
 
 
@@ -218,6 +220,7 @@ namespace Rubix.Main
             movesPanel.ToggleViewable();
         }
 
+
         public void ToggleControlsPanelViewable(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
@@ -225,6 +228,7 @@ namespace Rubix.Main
 
             controlsPanel.ToggleViewable();
         }
+
 
         public void CycleMapTextures(InputAction.CallbackContext context)
         {
@@ -244,7 +248,7 @@ namespace Rubix.Main
         }
 
 
-        public void OnSpace(InputAction.CallbackContext context)
+        public void OnResetView(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
@@ -282,7 +286,7 @@ namespace Rubix.Main
         }
 
 
-        public void OnScroll(InputAction.CallbackContext context)
+        public void OnZoom(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
@@ -330,7 +334,11 @@ namespace Rubix.Main
         }
 
 
-        public void OnLook(InputAction.CallbackContext context)
+        public void OnClick(InputAction.CallbackContext context)
+        {
+            NJK.Log("OnCLick");
+        }
+        public void OnDrag(InputAction.CallbackContext context)
         {
             if (faceMapPanel.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesPanelHit)
                 return;

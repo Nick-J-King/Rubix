@@ -21,14 +21,6 @@ namespace Rubix.Actions
             ""id"": ""3aabd3db-640b-4bc8-9b2d-2c52c825556a"",
             ""actions"": [
                 {
-                    ""name"": ""Escape"",
-                    ""type"": ""Button"",
-                    ""id"": ""ec3db5d2-f04c-425b-8997-f52471555d0d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
-                },
-                {
                     ""name"": ""OuterL"",
                     ""type"": ""Button"",
                     ""id"": ""ae5b5b8b-cae4-4a97-b7dd-7f1f10b4d482"",
@@ -173,14 +165,6 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Space"",
-                    ""type"": ""Button"",
-                    ""id"": ""1cdae035-f1b0-4807-8176-88310a8b3fa6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": ""Tap""
-                },
-                {
                     ""name"": ""MidLR"",
                     ""type"": ""Button"",
                     ""id"": ""4b5c5dc8-948c-48d3-9715-a988dd4ff56c"",
@@ -229,9 +213,17 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Wheel"",
+                    ""name"": ""Escape"",
                     ""type"": ""Button"",
-                    ""id"": ""577621ae-37ee-47a6-9617-74dad8e85e36"",
+                    ""id"": ""ec3db5d2-f04c-425b-8997-f52471555d0d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""ResetView"",
+                    ""type"": ""Button"",
+                    ""id"": ""1cdae035-f1b0-4807-8176-88310a8b3fa6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap""
@@ -285,7 +277,7 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""ToggleMapTextures"",
+                    ""name"": ""CycleFaceMapTextures"",
                     ""type"": ""Button"",
                     ""id"": ""c3f55fd4-1f8c-4903-85ad-c9d96089d9b4"",
                     ""expectedControlType"": ""Button"",
@@ -293,10 +285,26 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""ToggeCubeTextures"",
+                    ""name"": ""CycleCubeTextures"",
                     ""type"": ""Button"",
                     ""id"": ""4ad3ada0-fee8-4543-82c6-918d6e083ca6"",
                     ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Button"",
+                    ""id"": ""577621ae-37ee-47a6-9617-74dad8e85e36"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Value"",
+                    ""id"": ""ff800e9e-7e20-4011-ae90-28c79c1fce01"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": ""Tap""
                 },
@@ -309,26 +317,15 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""ff800e9e-7e20-4011-ae90-28c79c1fce01"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7173be4-975e-4913-9e33-4bdab601b3ed"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""23360977-136d-47aa-8f41-0b87df3fecf8"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Escape"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""6684c691-6f79-46eb-ae9e-84e72ac2c97a"",
@@ -529,17 +526,6 @@ namespace Rubix.Actions
                 },
                 {
                     ""name"": """",
-                    ""id"": ""247b7b55-f906-4818-81c6-9365fc2143f3"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Space"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a7c127a3-f8e0-41f6-9e7a-94927b8de8ae"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -601,17 +587,6 @@ namespace Rubix.Actions
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""AllFB"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a71d0dc4-3d15-46b0-b6e0-9453a81fbef3"",
-                    ""path"": ""<Mouse>/scroll/y"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -688,7 +663,7 @@ namespace Rubix.Actions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggleMapTextures"",
+                    ""action"": ""CycleFaceMapTextures"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -699,7 +674,51 @@ namespace Rubix.Actions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ToggeCubeTextures"",
+                    ""action"": ""CycleCubeTextures"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11bb22df-b7ae-4605-970e-0817ae558a5a"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""247b7b55-f906-4818-81c6-9365fc2143f3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ResetView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""23360977-136d-47aa-8f41-0b87df3fecf8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a71d0dc4-3d15-46b0-b6e0-9453a81fbef3"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -716,12 +735,12 @@ namespace Rubix.Actions
                 },
                 {
                     ""name"": """",
-                    ""id"": ""11bb22df-b7ae-4605-970e-0817ae558a5a"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""id"": ""f20608eb-aa6b-4d41-ad5a-f6c3198c1227"",
+                    ""path"": ""*/{PrimaryTrigger}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -793,7 +812,6 @@ namespace Rubix.Actions
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
             m_Player_OuterL = m_Player.FindAction("OuterL", throwIfNotFound: true);
             m_Player_OuterR = m_Player.FindAction("OuterR", throwIfNotFound: true);
             m_Player_OuterU = m_Player.FindAction("OuterU", throwIfNotFound: true);
@@ -812,24 +830,26 @@ namespace Rubix.Actions
             m_Player_InnerD = m_Player.FindAction("InnerD", throwIfNotFound: true);
             m_Player_InnerF = m_Player.FindAction("InnerF", throwIfNotFound: true);
             m_Player_InnerB = m_Player.FindAction("InnerB", throwIfNotFound: true);
-            m_Player_Space = m_Player.FindAction("Space", throwIfNotFound: true);
             m_Player_MidLR = m_Player.FindAction("MidLR", throwIfNotFound: true);
             m_Player_MidUD = m_Player.FindAction("MidUD", throwIfNotFound: true);
             m_Player_MidFB = m_Player.FindAction("MidFB", throwIfNotFound: true);
             m_Player_AllLR = m_Player.FindAction("AllLR", throwIfNotFound: true);
             m_Player_AllUD = m_Player.FindAction("AllUD", throwIfNotFound: true);
             m_Player_AllFB = m_Player.FindAction("AllFB", throwIfNotFound: true);
-            m_Player_Wheel = m_Player.FindAction("Wheel", throwIfNotFound: true);
+            m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+            m_Player_ResetView = m_Player.FindAction("ResetView", throwIfNotFound: true);
             m_Player_ResetConfiguration = m_Player.FindAction("ResetConfiguration", throwIfNotFound: true);
             m_Player_Destroy = m_Player.FindAction("Destroy", throwIfNotFound: true);
             m_Player_Random = m_Player.FindAction("Random", throwIfNotFound: true);
             m_Player_ToggleFaceMapViewable = m_Player.FindAction("ToggleFaceMapViewable", throwIfNotFound: true);
             m_Player_ToggleMovesPanelViewable = m_Player.FindAction("ToggleMovesPanelViewable", throwIfNotFound: true);
             m_Player_ToggleControlsPanelViewable = m_Player.FindAction("ToggleControlsPanelViewable", throwIfNotFound: true);
-            m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
-            m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
+            m_Player_CycleFaceMapTextures = m_Player.FindAction("CycleFaceMapTextures", throwIfNotFound: true);
+            m_Player_CycleCubeTextures = m_Player.FindAction("CycleCubeTextures", throwIfNotFound: true);
+            m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+            m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
             m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
-            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+            m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -879,7 +899,6 @@ namespace Rubix.Actions
         // Player
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
-        private readonly InputAction m_Player_Escape;
         private readonly InputAction m_Player_OuterL;
         private readonly InputAction m_Player_OuterR;
         private readonly InputAction m_Player_OuterU;
@@ -898,29 +917,30 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_InnerD;
         private readonly InputAction m_Player_InnerF;
         private readonly InputAction m_Player_InnerB;
-        private readonly InputAction m_Player_Space;
         private readonly InputAction m_Player_MidLR;
         private readonly InputAction m_Player_MidUD;
         private readonly InputAction m_Player_MidFB;
         private readonly InputAction m_Player_AllLR;
         private readonly InputAction m_Player_AllUD;
         private readonly InputAction m_Player_AllFB;
-        private readonly InputAction m_Player_Wheel;
+        private readonly InputAction m_Player_Escape;
+        private readonly InputAction m_Player_ResetView;
         private readonly InputAction m_Player_ResetConfiguration;
         private readonly InputAction m_Player_Destroy;
         private readonly InputAction m_Player_Random;
         private readonly InputAction m_Player_ToggleFaceMapViewable;
         private readonly InputAction m_Player_ToggleMovesPanelViewable;
         private readonly InputAction m_Player_ToggleControlsPanelViewable;
-        private readonly InputAction m_Player_ToggleMapTextures;
-        private readonly InputAction m_Player_ToggeCubeTextures;
+        private readonly InputAction m_Player_CycleFaceMapTextures;
+        private readonly InputAction m_Player_CycleCubeTextures;
+        private readonly InputAction m_Player_Zoom;
+        private readonly InputAction m_Player_Drag;
         private readonly InputAction m_Player_Debug;
-        private readonly InputAction m_Player_Look;
+        private readonly InputAction m_Player_Click;
         public struct PlayerActions
         {
             private @RubixActions m_Wrapper;
             public PlayerActions(@RubixActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Escape => m_Wrapper.m_Player_Escape;
             public InputAction @OuterL => m_Wrapper.m_Player_OuterL;
             public InputAction @OuterR => m_Wrapper.m_Player_OuterR;
             public InputAction @OuterU => m_Wrapper.m_Player_OuterU;
@@ -939,24 +959,26 @@ namespace Rubix.Actions
             public InputAction @InnerD => m_Wrapper.m_Player_InnerD;
             public InputAction @InnerF => m_Wrapper.m_Player_InnerF;
             public InputAction @InnerB => m_Wrapper.m_Player_InnerB;
-            public InputAction @Space => m_Wrapper.m_Player_Space;
             public InputAction @MidLR => m_Wrapper.m_Player_MidLR;
             public InputAction @MidUD => m_Wrapper.m_Player_MidUD;
             public InputAction @MidFB => m_Wrapper.m_Player_MidFB;
             public InputAction @AllLR => m_Wrapper.m_Player_AllLR;
             public InputAction @AllUD => m_Wrapper.m_Player_AllUD;
             public InputAction @AllFB => m_Wrapper.m_Player_AllFB;
-            public InputAction @Wheel => m_Wrapper.m_Player_Wheel;
+            public InputAction @Escape => m_Wrapper.m_Player_Escape;
+            public InputAction @ResetView => m_Wrapper.m_Player_ResetView;
             public InputAction @ResetConfiguration => m_Wrapper.m_Player_ResetConfiguration;
             public InputAction @Destroy => m_Wrapper.m_Player_Destroy;
             public InputAction @Random => m_Wrapper.m_Player_Random;
             public InputAction @ToggleFaceMapViewable => m_Wrapper.m_Player_ToggleFaceMapViewable;
             public InputAction @ToggleMovesPanelViewable => m_Wrapper.m_Player_ToggleMovesPanelViewable;
             public InputAction @ToggleControlsPanelViewable => m_Wrapper.m_Player_ToggleControlsPanelViewable;
-            public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
-            public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
+            public InputAction @CycleFaceMapTextures => m_Wrapper.m_Player_CycleFaceMapTextures;
+            public InputAction @CycleCubeTextures => m_Wrapper.m_Player_CycleCubeTextures;
+            public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+            public InputAction @Drag => m_Wrapper.m_Player_Drag;
             public InputAction @Debug => m_Wrapper.m_Player_Debug;
-            public InputAction @Look => m_Wrapper.m_Player_Look;
+            public InputAction @Click => m_Wrapper.m_Player_Click;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -966,9 +988,6 @@ namespace Rubix.Actions
             {
                 if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
-                    @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
-                    @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
-                    @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
                     @OuterL.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
                     @OuterL.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
                     @OuterL.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnOuterL;
@@ -1023,9 +1042,6 @@ namespace Rubix.Actions
                     @InnerB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
                     @InnerB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
                     @InnerB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInnerB;
-                    @Space.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                    @Space.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
-                    @Space.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpace;
                     @MidLR.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
                     @MidLR.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
                     @MidLR.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMidLR;
@@ -1044,9 +1060,12 @@ namespace Rubix.Actions
                     @AllFB.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
                     @AllFB.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
                     @AllFB.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAllFB;
-                    @Wheel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
-                    @Wheel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
-                    @Wheel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWheel;
+                    @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                    @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                    @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                    @ResetView.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetView;
+                    @ResetView.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetView;
+                    @ResetView.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetView;
                     @ResetConfiguration.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
                     @ResetConfiguration.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
                     @ResetConfiguration.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnResetConfiguration;
@@ -1065,25 +1084,28 @@ namespace Rubix.Actions
                     @ToggleControlsPanelViewable.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControlsPanelViewable;
                     @ToggleControlsPanelViewable.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControlsPanelViewable;
                     @ToggleControlsPanelViewable.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleControlsPanelViewable;
-                    @ToggleMapTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
-                    @ToggleMapTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
-                    @ToggleMapTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleMapTextures;
-                    @ToggeCubeTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
-                    @ToggeCubeTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
-                    @ToggeCubeTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggeCubeTextures;
+                    @CycleFaceMapTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleFaceMapTextures;
+                    @CycleFaceMapTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleFaceMapTextures;
+                    @CycleFaceMapTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleFaceMapTextures;
+                    @CycleCubeTextures.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleCubeTextures;
+                    @CycleCubeTextures.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleCubeTextures;
+                    @CycleCubeTextures.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCycleCubeTextures;
+                    @Zoom.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
+                    @Zoom.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
+                    @Zoom.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
+                    @Drag.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
+                    @Drag.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
+                    @Drag.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
                     @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
-                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Click.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
+                    @Click.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
+                    @Click.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Escape.started += instance.OnEscape;
-                    @Escape.performed += instance.OnEscape;
-                    @Escape.canceled += instance.OnEscape;
                     @OuterL.started += instance.OnOuterL;
                     @OuterL.performed += instance.OnOuterL;
                     @OuterL.canceled += instance.OnOuterL;
@@ -1138,9 +1160,6 @@ namespace Rubix.Actions
                     @InnerB.started += instance.OnInnerB;
                     @InnerB.performed += instance.OnInnerB;
                     @InnerB.canceled += instance.OnInnerB;
-                    @Space.started += instance.OnSpace;
-                    @Space.performed += instance.OnSpace;
-                    @Space.canceled += instance.OnSpace;
                     @MidLR.started += instance.OnMidLR;
                     @MidLR.performed += instance.OnMidLR;
                     @MidLR.canceled += instance.OnMidLR;
@@ -1159,9 +1178,12 @@ namespace Rubix.Actions
                     @AllFB.started += instance.OnAllFB;
                     @AllFB.performed += instance.OnAllFB;
                     @AllFB.canceled += instance.OnAllFB;
-                    @Wheel.started += instance.OnWheel;
-                    @Wheel.performed += instance.OnWheel;
-                    @Wheel.canceled += instance.OnWheel;
+                    @Escape.started += instance.OnEscape;
+                    @Escape.performed += instance.OnEscape;
+                    @Escape.canceled += instance.OnEscape;
+                    @ResetView.started += instance.OnResetView;
+                    @ResetView.performed += instance.OnResetView;
+                    @ResetView.canceled += instance.OnResetView;
                     @ResetConfiguration.started += instance.OnResetConfiguration;
                     @ResetConfiguration.performed += instance.OnResetConfiguration;
                     @ResetConfiguration.canceled += instance.OnResetConfiguration;
@@ -1180,18 +1202,24 @@ namespace Rubix.Actions
                     @ToggleControlsPanelViewable.started += instance.OnToggleControlsPanelViewable;
                     @ToggleControlsPanelViewable.performed += instance.OnToggleControlsPanelViewable;
                     @ToggleControlsPanelViewable.canceled += instance.OnToggleControlsPanelViewable;
-                    @ToggleMapTextures.started += instance.OnToggleMapTextures;
-                    @ToggleMapTextures.performed += instance.OnToggleMapTextures;
-                    @ToggleMapTextures.canceled += instance.OnToggleMapTextures;
-                    @ToggeCubeTextures.started += instance.OnToggeCubeTextures;
-                    @ToggeCubeTextures.performed += instance.OnToggeCubeTextures;
-                    @ToggeCubeTextures.canceled += instance.OnToggeCubeTextures;
+                    @CycleFaceMapTextures.started += instance.OnCycleFaceMapTextures;
+                    @CycleFaceMapTextures.performed += instance.OnCycleFaceMapTextures;
+                    @CycleFaceMapTextures.canceled += instance.OnCycleFaceMapTextures;
+                    @CycleCubeTextures.started += instance.OnCycleCubeTextures;
+                    @CycleCubeTextures.performed += instance.OnCycleCubeTextures;
+                    @CycleCubeTextures.canceled += instance.OnCycleCubeTextures;
+                    @Zoom.started += instance.OnZoom;
+                    @Zoom.performed += instance.OnZoom;
+                    @Zoom.canceled += instance.OnZoom;
+                    @Drag.started += instance.OnDrag;
+                    @Drag.performed += instance.OnDrag;
+                    @Drag.canceled += instance.OnDrag;
                     @Debug.started += instance.OnDebug;
                     @Debug.performed += instance.OnDebug;
                     @Debug.canceled += instance.OnDebug;
-                    @Look.started += instance.OnLook;
-                    @Look.performed += instance.OnLook;
-                    @Look.canceled += instance.OnLook;
+                    @Click.started += instance.OnClick;
+                    @Click.performed += instance.OnClick;
+                    @Click.canceled += instance.OnClick;
                 }
             }
         }
@@ -1243,7 +1271,6 @@ namespace Rubix.Actions
         }
         public interface IPlayerActions
         {
-            void OnEscape(InputAction.CallbackContext context);
             void OnOuterL(InputAction.CallbackContext context);
             void OnOuterR(InputAction.CallbackContext context);
             void OnOuterU(InputAction.CallbackContext context);
@@ -1262,24 +1289,26 @@ namespace Rubix.Actions
             void OnInnerD(InputAction.CallbackContext context);
             void OnInnerF(InputAction.CallbackContext context);
             void OnInnerB(InputAction.CallbackContext context);
-            void OnSpace(InputAction.CallbackContext context);
             void OnMidLR(InputAction.CallbackContext context);
             void OnMidUD(InputAction.CallbackContext context);
             void OnMidFB(InputAction.CallbackContext context);
             void OnAllLR(InputAction.CallbackContext context);
             void OnAllUD(InputAction.CallbackContext context);
             void OnAllFB(InputAction.CallbackContext context);
-            void OnWheel(InputAction.CallbackContext context);
+            void OnEscape(InputAction.CallbackContext context);
+            void OnResetView(InputAction.CallbackContext context);
             void OnResetConfiguration(InputAction.CallbackContext context);
             void OnDestroy(InputAction.CallbackContext context);
             void OnRandom(InputAction.CallbackContext context);
             void OnToggleFaceMapViewable(InputAction.CallbackContext context);
             void OnToggleMovesPanelViewable(InputAction.CallbackContext context);
             void OnToggleControlsPanelViewable(InputAction.CallbackContext context);
-            void OnToggleMapTextures(InputAction.CallbackContext context);
-            void OnToggeCubeTextures(InputAction.CallbackContext context);
+            void OnCycleFaceMapTextures(InputAction.CallbackContext context);
+            void OnCycleCubeTextures(InputAction.CallbackContext context);
+            void OnZoom(InputAction.CallbackContext context);
+            void OnDrag(InputAction.CallbackContext context);
             void OnDebug(InputAction.CallbackContext context);
-            void OnLook(InputAction.CallbackContext context);
+            void OnClick(InputAction.CallbackContext context);
         }
     }
 }

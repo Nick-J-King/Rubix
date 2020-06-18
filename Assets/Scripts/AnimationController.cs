@@ -169,7 +169,7 @@ namespace Rubix.Animation
         }
 
 
-        public void DoRandomMove()
+        public void AddRandomMove()
         {
             AnimationSpecification animationSpecification = AnimationData.GetRandomMove();
 
@@ -207,7 +207,7 @@ namespace Rubix.Animation
                     // We are not currently performing an animation,
                     // but we have specified to "do random moves",
                     // so Add a random animation, and proceed directly to execute it.
-                    DoRandomMove();
+                    AddRandomMove();
                 }
                 else
                 { 

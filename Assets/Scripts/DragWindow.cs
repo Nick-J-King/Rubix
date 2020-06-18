@@ -112,12 +112,6 @@ namespace Rubix.UI
         }
 
 
-        public void ResetPosition()
-        {
-            dragRectTransform.localPosition = _localOrigPosition;
-        }
-
-
         public void ResetPositionAndScale()
         {
             dragRectTransform.localPosition = _localOrigPosition;

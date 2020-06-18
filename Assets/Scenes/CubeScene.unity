@@ -989,7 +989,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: OnScroll
+        m_MethodName: OnZoom
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_MethodName: OnLook
+        m_MethodName: OnDrag
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1151,6 +1151,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ff800e9e-7e20-4011-ae90-28c79c1fce01
     m_ActionName: Player/Look[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7173be4-975e-4913-9e33-4bdab601b3ed
+    m_ActionName: Player/Click
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -3660,10 +3664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5fb93962b3234430a2db623c3961bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orbitSlider: {fileID: 1162710884}
-  _azimuthElevation:
-    azimuth: 23
-    elevation: 0
 --- !u!1 &979024865
 GameObject:
   m_ObjectHideFlags: 0
@@ -6386,6 +6386,9 @@ MonoBehaviour:
   isFaceMapPanelHit: 0
   isMovesPanelHit: 0
   isControlsPanelHit: 0
+  isFaceMapPanelTop: 0
+  isMovesPanelTop: 0
+  isControlsPanelTop: 0
   isCubeHit: 0
 --- !u!4 &2037798675
 Transform:
