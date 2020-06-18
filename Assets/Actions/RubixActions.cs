@@ -718,7 +718,7 @@ namespace Rubix.Actions
                     ""name"": """",
                     ""id"": ""11bb22df-b7ae-4605-970e-0817ae558a5a"",
                     ""path"": ""<Mouse>/delta"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
