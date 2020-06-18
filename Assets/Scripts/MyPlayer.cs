@@ -289,15 +289,30 @@ namespace Rubix.Main
 
             var scrollValue = context.action.ReadValue<float>();
 
-            if (mouseManager.isFaceMapPanelHit)
+
+            if (faceMapPanel.isDragging)
             {
                 faceMapPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
             }
-            else if (mouseManager.isMovesPanelHit)
+            else if (movesPanel.isDragging)
             { 
                 movesPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
             }
-            else if (mouseManager.isControlsPanelHit)
+            else if (controlsPanel.isDragging)
+            {
+                controlsPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
+            }
+
+
+            else if (mouseManager.isFaceMapPanelTop)
+            {
+                faceMapPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
+            }
+            else if (mouseManager.isMovesPanelTop)
+            { 
+                movesPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
+            }
+            else if (mouseManager.isControlsPanelTop)
             {
                 controlsPanel.ScaleUp(scrollValue, 0.1f, 0.1f, 10.0f);
             }

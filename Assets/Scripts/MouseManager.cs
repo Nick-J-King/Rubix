@@ -36,6 +36,11 @@ namespace Rubix.GUI
         public bool isFaceMapPanelHit = false;
         public bool isMovesPanelHit = false;
         public bool isControlsPanelHit = false;
+
+        public bool isFaceMapPanelTop = false;
+        public bool isMovesPanelTop = false;
+        public bool isControlsPanelTop = false;
+
         public bool isCubeHit = false;
             // Used to relay status.
 
@@ -72,6 +77,11 @@ namespace Rubix.GUI
             isFaceMapPanelHit = false;
             isMovesPanelHit = false;
             isControlsPanelHit = false;
+
+            isFaceMapPanelTop = false;
+            isMovesPanelTop = false;
+            isControlsPanelTop = false;
+
             isCubeHit = false;
 
             _PointerEventData.position = Mouse.current.position.ReadValue();
@@ -79,29 +89,62 @@ namespace Rubix.GUI
             _results.Clear();
             _Raycaster.Raycast(_PointerEventData, _results);
 
+            bool topHit = true;
             foreach (RaycastResult result in _results)
             {
                 if (result.gameObject.name == faceMapPanel.name)
                 { 
                     isFaceMapPanelHit = true;
+                    if (topHit)
+                    {
+                        isFaceMapPanelTop = true;
+                        topHit = false;
+                    }
                 }
 
                 if (result.gameObject.name == movesPanel.name)
                 { 
                     isMovesPanelHit = true;
+                    if (topHit)
+                    {
+                        isMovesPanelTop = true;
+                        topHit = false;
+                    }
                 }
 
                 if (result.gameObject.name == controlsPanel.name)
                 { 
                     isControlsPanelHit = true;
+                    if (topHit)
+                    {
+                        isControlsPanelTop = true;
+                        topHit = false;
+                    }
                 }
             }
 
-            if (isFaceMapPanelHit)
+            if (isFaceMapPanelTop)
             {
                 Cursor.SetCursor(faceMapCursor, _vHotSpot, CursorMode.Auto);
+                //_faceMapPanelImage.color = colorPanelSelected;
+            }
+
+            if (isMovesPanelTop)
+            {
+                Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
+                //_movesPanelImage.color = colorPanelSelected;
+            }
+
+            if (isControlsPanelTop)
+            {
+                Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
+                //_controlsPanelImage.color = colorPanelSelected;
+            }
+
+
+            if (isFaceMapPanelHit)
+            {
                 _faceMapPanelImage.color = colorPanelSelected;
-                //return;
             }
             else
             {
@@ -110,9 +153,7 @@ namespace Rubix.GUI
 
             if (isMovesPanelHit)
             {
-                Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
                 _movesPanelImage.color = colorPanelSelected;
-                //return;
             }
             else
             {
@@ -121,13 +162,16 @@ namespace Rubix.GUI
 
             if (isControlsPanelHit)
             {
-                Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
                 _controlsPanelImage.color = colorPanelSelected;
-                //return;
             }
             else
             {
                 _controlsPanelImage.color = colorPanelNotSelected;
+            }
+
+            if (isFaceMapPanelHit || isMovesPanelHit || isControlsPanelHit)
+            {
+                return; // Dialogs block the cube.
             }
 
             // OK, now check the 3D scene...

@@ -14,6 +14,7 @@ namespace Rubix.UI
         public bool isDragging = false;     // Whether we are currently dragging...
 
         Vector2 _localOrigPosition;
+        Vector2 _origPivot;
 
         Vector2 _dragFromMousePosition;
         Vector2 _dragToMousePosition;
@@ -22,7 +23,8 @@ namespace Rubix.UI
         public virtual void Start()
         {
             isDragging = false;
-             _localOrigPosition = dragRectTransform.localPosition;
+            _localOrigPosition = dragRectTransform.localPosition;
+            _origPivot = dragRectTransform.pivot;
         }
 
 
@@ -58,35 +60,28 @@ namespace Rubix.UI
         void MovePivot()
         { 
             Vector2 screenPoint = Mouse.current.position.ReadValue();
-            RectTransform objectRect = gameObject.GetComponent<RectTransform>();
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(objectRect, screenPoint, null, out Vector2 localPoint2);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(dragRectTransform, screenPoint, null, out Vector2 localPoint);
 
             Vector3 [] corners = new Vector3[4];
 
-            objectRect.GetLocalCorners(corners);
+            dragRectTransform.GetLocalCorners(corners);
 
             var xDelta = corners[2].x - corners[0].x;
             var yDelta = corners[1].y - corners[0].y;
-            var x = (localPoint2.x - corners[0].x) / xDelta;
-            var y = (localPoint2.y - corners[0].y) / yDelta;
+            var x = (localPoint.x - corners[0].x) / xDelta;
+            var y = (localPoint.y - corners[0].y) / yDelta;
 
-            SetPivot(objectRect, new Vector2(x,y));
-        }
+            Vector2 newPivot = new Vector2(x,y);
 
+            var offset = newPivot - dragRectTransform.pivot;
 
-        // Set the pivot without moving the RectTransform.
-        static void SetPivot(RectTransform target, Vector2 pivot)
-        {
-            if (!target) return;
+            offset.Scale(dragRectTransform.rect.size);
 
-            var offset = pivot - target.pivot;
+            var worldPos = dragRectTransform.position + dragRectTransform.TransformVector(offset);
 
-            offset.Scale(target.rect.size);
-
-            var worldPos = target.position + target.TransformVector(offset);
-            target.pivot = pivot;
-            target.position = worldPos;
+            dragRectTransform.pivot = newPivot;
+            dragRectTransform.position = worldPos;
         }
 
 
@@ -127,6 +122,7 @@ namespace Rubix.UI
         {
             dragRectTransform.localPosition = _localOrigPosition;
             dragRectTransform.localScale = Vector3.one;
+            dragRectTransform.pivot = _origPivot;
         }
     }
 }
