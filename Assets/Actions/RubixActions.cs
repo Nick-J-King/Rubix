@@ -307,6 +307,14 @@ namespace Rubix.Actions
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Tap""
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""ff800e9e-7e20-4011-ae90-28c79c1fce01"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap""
                 }
             ],
             ""bindings"": [
@@ -705,6 +713,17 @@ namespace Rubix.Actions
                     ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11bb22df-b7ae-4605-970e-0817ae558a5a"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -810,6 +829,7 @@ namespace Rubix.Actions
             m_Player_ToggleMapTextures = m_Player.FindAction("ToggleMapTextures", throwIfNotFound: true);
             m_Player_ToggeCubeTextures = m_Player.FindAction("ToggeCubeTextures", throwIfNotFound: true);
             m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
+            m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -895,6 +915,7 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_ToggleMapTextures;
         private readonly InputAction m_Player_ToggeCubeTextures;
         private readonly InputAction m_Player_Debug;
+        private readonly InputAction m_Player_Look;
         public struct PlayerActions
         {
             private @RubixActions m_Wrapper;
@@ -935,6 +956,7 @@ namespace Rubix.Actions
             public InputAction @ToggleMapTextures => m_Wrapper.m_Player_ToggleMapTextures;
             public InputAction @ToggeCubeTextures => m_Wrapper.m_Player_ToggeCubeTextures;
             public InputAction @Debug => m_Wrapper.m_Player_Debug;
+            public InputAction @Look => m_Wrapper.m_Player_Look;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1052,6 +1074,9 @@ namespace Rubix.Actions
                     @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
+                    @Look.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
+                    @Look.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLook;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1164,6 +1189,9 @@ namespace Rubix.Actions
                     @Debug.started += instance.OnDebug;
                     @Debug.performed += instance.OnDebug;
                     @Debug.canceled += instance.OnDebug;
+                    @Look.started += instance.OnLook;
+                    @Look.performed += instance.OnLook;
+                    @Look.canceled += instance.OnLook;
                 }
             }
         }
@@ -1251,6 +1279,7 @@ namespace Rubix.Actions
             void OnToggleMapTextures(InputAction.CallbackContext context);
             void OnToggeCubeTextures(InputAction.CallbackContext context);
             void OnDebug(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
         }
     }
 }

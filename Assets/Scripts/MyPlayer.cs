@@ -314,7 +314,7 @@ namespace Rubix.Main
             //EditorApplication.isPlaying = false;
         }
 
-/*
+
         public void OnLook(InputAction.CallbackContext context)
         {
             if (faceMapPanel.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesPanelHit)
@@ -332,7 +332,7 @@ namespace Rubix.Main
                 mainCamera.MoveViewport(move.x * 5.0f);
             }
         }
-*/
+
 
         public void OnDebug(InputAction.CallbackContext context)
         {
