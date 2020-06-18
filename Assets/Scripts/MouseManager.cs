@@ -51,38 +51,6 @@ namespace Rubix.GUI
         int _clickableLayerValue;
 
 
-        public static void SetPivot(RectTransform target, Vector2 pivot)
-        {
-            if (!target) return;
-            var offset = pivot - target.pivot;
-            offset.Scale(target.rect.size);
-            var wordlPos = target.position + target.TransformVector(offset);
-            target.pivot = pivot;
-            target.position = wordlPos;
-
-            Debug.Log("MM SetPivot: (" + pivot.x + ", " + pivot.y + ")");
-        }
-
-        public static void MovePivot(RaycastResult target)
-        { 
-            Vector2 screenPoint = target.screenPosition;
-            RectTransform objectRect = target.gameObject.GetComponent<RectTransform>();
-
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(objectRect, screenPoint, null, out Vector2 localPoint2);
-
-            Vector3 [] corners = new Vector3[4];
-
-            objectRect.GetLocalCorners(corners);
-
-            var xDelta = corners[2].x - corners[0].x;
-            var yDelta = corners[1].y - corners[0].y;
-            var x = (localPoint2.x - corners[0].x) / xDelta;
-            var y = (localPoint2.y - corners[0].y) / yDelta;
-
-            SetPivot(objectRect, new Vector2(x,y));
-        }
-
-
         private void Awake()
         {
             _Raycaster = canvas.GetComponent<GraphicRaycaster>();
@@ -108,30 +76,24 @@ namespace Rubix.GUI
 
             _PointerEventData.position = Mouse.current.position.ReadValue();
 
-            // Raycast using the Graphics Raycaster and mouse click position
             _results.Clear();
             _Raycaster.Raycast(_PointerEventData, _results);
 
-            // For every result returned, output the name of the GameObject on the Canvas hit by the Ray.
-            // Check for the FaceMap panel.
             foreach (RaycastResult result in _results)
             {
                 if (result.gameObject.name == faceMapPanel.name)
                 { 
                     isFaceMapPanelHit = true;
-                    //MovePivot(result);
                 }
 
                 if (result.gameObject.name == movesPanel.name)
                 { 
                     isMovesPanelHit = true;
-                    //MovePivot(result);
                 }
 
                 if (result.gameObject.name == controlsPanel.name)
                 { 
                     isControlsPanelHit = true;
-                    ///MovePivot(result);
                 }
             }
 
@@ -139,7 +101,7 @@ namespace Rubix.GUI
             {
                 Cursor.SetCursor(faceMapCursor, _vHotSpot, CursorMode.Auto);
                 _faceMapPanelImage.color = colorPanelSelected;
-                return;
+                //return;
             }
             else
             {
@@ -150,7 +112,7 @@ namespace Rubix.GUI
             {
                 Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
                 _movesPanelImage.color = colorPanelSelected;
-                return;
+                //return;
             }
             else
             {
@@ -161,7 +123,7 @@ namespace Rubix.GUI
             {
                 Cursor.SetCursor(sphereCursor, _vHotSpot, CursorMode.Auto);
                 _controlsPanelImage.color = colorPanelSelected;
-                return;
+                //return;
             }
             else
             {

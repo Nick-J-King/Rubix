@@ -68,8 +68,6 @@ namespace Rubix.UI
             var worldPos = target.position + target.TransformVector(offset);
             target.pivot = pivot;
             target.position = worldPos;
-
-            NJK.Log("DragWindow - SetPivot: pivot = (" + pivot.x + ", " + pivot.y + ")");
         }
 
 
@@ -107,17 +105,16 @@ namespace Rubix.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            NJK.Log("DragWindow - OnPointerDown: event position = " + eventData.position.ToString());
-
             isDragging = true;
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform, eventData.position, null, out _dragFromMousePosition);
+            gameObject.transform.SetAsLastSibling();
+
         }
 
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            NJK.Log("DragWindow - OnPointerUp: event position = " + eventData.position.ToString());
             isDragging = false;
         }
 
