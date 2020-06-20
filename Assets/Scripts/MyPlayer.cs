@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using Rubix.Animation;
 using Rubix.GUI;
 using Rubix.UI;
+using UnityEngine.EventSystems;
 
 
 namespace Rubix.Main
@@ -338,9 +339,14 @@ namespace Rubix.Main
         {
             NJK.Log("OnCLick");
         }
+
+
         public void OnDrag(InputAction.CallbackContext context)
         {
             if (faceMapPanel.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesPanelHit)
+                return;
+
+            if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
             Vector2 move = context.ReadValue<Vector2>();
