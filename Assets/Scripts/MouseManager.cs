@@ -71,8 +71,21 @@ namespace Rubix.GUI
             _controlsPanelImage = controlsPanel.GetComponent<Image>();
         }
 
+        //public void Update()
+        //{
+        //    UpdateDirect();
+        //}
 
-        private void Update()
+        public void UpdateDirect()
+        {
+            NJK.Log("MouseManager Update Direct");
+
+            ResetFlags();
+            CastRayFromMouse(Mouse.current.position.ReadValue());
+            SetCursorFromFlags();
+        }
+
+        private void ResetFlags()
         {
             isFaceMapPanelHit = false;
             isMovesPanelHit = false;
@@ -83,8 +96,12 @@ namespace Rubix.GUI
             isControlsPanelTop = false;
 
             isCubeHit = false;
+        }
 
-            _PointerEventData.position = Mouse.current.position.ReadValue();
+
+        private void CastRayFromMouse(Vector2 position)
+        {
+            _PointerEventData.position = position;
 
             _results.Clear();
             _Raycaster.Raycast(_PointerEventData, _results);
@@ -123,6 +140,10 @@ namespace Rubix.GUI
                 }
             }
 
+        }
+
+        private void SetCursorFromFlags()
+        {
             if (isFaceMapPanelTop)
             {
                 Cursor.SetCursor(faceMapCursor, _vHotSpot, CursorMode.Auto);

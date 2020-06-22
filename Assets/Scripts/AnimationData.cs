@@ -45,8 +45,11 @@ namespace Rubix.Animation
 
 
         // Don't worry about "equal" slices - just "similar"...
-        public bool IsSimilarSlice(CubeSlices cubeSlicesIn)
+        bool IsSimilarSlice(CubeSlices cubeSlicesIn)
         {
+            if (cubeSlices == cubeSlicesIn)
+                return true;
+
             if ((cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s1) && cubeSlicesIn == CubeSlices.s01)
                 return true;
 

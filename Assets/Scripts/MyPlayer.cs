@@ -330,23 +330,34 @@ namespace Rubix.Main
 
         public void OnEscape(InputAction.CallbackContext context)
         {
+            NJK.Log($"OnEscape {context.phase}");
+
             Application.Quit();
             //EditorApplication.isPlaying = false;
         }
 
 
-        public void OnClick(InputAction.CallbackContext context)
+        public void OnMouseClick(InputAction.CallbackContext context)
         {
-            NJK.Log("OnCLick");
+            NJK.Log($"OnMouseClick {context.phase}");
+
+            if (context.phase != InputActionPhase.Started)
+                return;
+            mouseManager.UpdateDirect();    // <><><>
+            NJK.Log("OnClick");
         }
 
 
-        public void OnDrag(InputAction.CallbackContext context)
+        public void OnMouseDelta(InputAction.CallbackContext context)
         {
+            NJK.Log($"OnMouseDelta {context.phase}");
+
+            mouseManager.UpdateDirect();    // <><><>
+
             if (faceMapPanel.isDragging || movesPanel.isDragging || controlsPanel.isDragging || mouseManager.isMovesPanelHit)
                 return;
 
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current.IsPointerOverGameObject()) // <><><>
                 return;
 
             Vector2 move = context.ReadValue<Vector2>();

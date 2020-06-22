@@ -301,7 +301,7 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Drag"",
+                    ""name"": ""MouseDelta"",
                     ""type"": ""Value"",
                     ""id"": ""ff800e9e-7e20-4011-ae90-28c79c1fce01"",
                     ""expectedControlType"": ""Vector2"",
@@ -317,8 +317,8 @@ namespace Rubix.Actions
                     ""interactions"": ""Tap""
                 },
                 {
-                    ""name"": ""Click"",
-                    ""type"": ""Button"",
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Value"",
                     ""id"": ""a7173be4-975e-4913-9e33-4bdab601b3ed"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
@@ -683,9 +683,9 @@ namespace Rubix.Actions
                     ""id"": ""11bb22df-b7ae-4605-970e-0817ae558a5a"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": """",
-                    ""action"": ""Drag"",
+                    ""action"": ""MouseDelta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -736,11 +736,11 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""f20608eb-aa6b-4d41-ad5a-f6c3198c1227"",
-                    ""path"": ""*/{PrimaryTrigger}"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Click"",
+                    ""action"": ""MouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -847,9 +847,9 @@ namespace Rubix.Actions
             m_Player_CycleFaceMapTextures = m_Player.FindAction("CycleFaceMapTextures", throwIfNotFound: true);
             m_Player_CycleCubeTextures = m_Player.FindAction("CycleCubeTextures", throwIfNotFound: true);
             m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
-            m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
+            m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
             m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
-            m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
+            m_Player_MouseClick = m_Player.FindAction("MouseClick", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -934,9 +934,9 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_CycleFaceMapTextures;
         private readonly InputAction m_Player_CycleCubeTextures;
         private readonly InputAction m_Player_Zoom;
-        private readonly InputAction m_Player_Drag;
+        private readonly InputAction m_Player_MouseDelta;
         private readonly InputAction m_Player_Debug;
-        private readonly InputAction m_Player_Click;
+        private readonly InputAction m_Player_MouseClick;
         public struct PlayerActions
         {
             private @RubixActions m_Wrapper;
@@ -976,9 +976,9 @@ namespace Rubix.Actions
             public InputAction @CycleFaceMapTextures => m_Wrapper.m_Player_CycleFaceMapTextures;
             public InputAction @CycleCubeTextures => m_Wrapper.m_Player_CycleCubeTextures;
             public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
-            public InputAction @Drag => m_Wrapper.m_Player_Drag;
+            public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
             public InputAction @Debug => m_Wrapper.m_Player_Debug;
-            public InputAction @Click => m_Wrapper.m_Player_Click;
+            public InputAction @MouseClick => m_Wrapper.m_Player_MouseClick;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1093,15 +1093,15 @@ namespace Rubix.Actions
                     @Zoom.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
                     @Zoom.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
                     @Zoom.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoom;
-                    @Drag.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
-                    @Drag.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
-                    @Drag.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
+                    @MouseDelta.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseDelta;
+                    @MouseDelta.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseDelta;
+                    @MouseDelta.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseDelta;
                     @Debug.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @Debug.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
                     @Debug.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebug;
-                    @Click.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
-                    @Click.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
-                    @Click.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
+                    @MouseClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseClick;
+                    @MouseClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseClick;
+                    @MouseClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseClick;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1211,15 +1211,15 @@ namespace Rubix.Actions
                     @Zoom.started += instance.OnZoom;
                     @Zoom.performed += instance.OnZoom;
                     @Zoom.canceled += instance.OnZoom;
-                    @Drag.started += instance.OnDrag;
-                    @Drag.performed += instance.OnDrag;
-                    @Drag.canceled += instance.OnDrag;
+                    @MouseDelta.started += instance.OnMouseDelta;
+                    @MouseDelta.performed += instance.OnMouseDelta;
+                    @MouseDelta.canceled += instance.OnMouseDelta;
                     @Debug.started += instance.OnDebug;
                     @Debug.performed += instance.OnDebug;
                     @Debug.canceled += instance.OnDebug;
-                    @Click.started += instance.OnClick;
-                    @Click.performed += instance.OnClick;
-                    @Click.canceled += instance.OnClick;
+                    @MouseClick.started += instance.OnMouseClick;
+                    @MouseClick.performed += instance.OnMouseClick;
+                    @MouseClick.canceled += instance.OnMouseClick;
                 }
             }
         }
@@ -1306,9 +1306,9 @@ namespace Rubix.Actions
             void OnCycleFaceMapTextures(InputAction.CallbackContext context);
             void OnCycleCubeTextures(InputAction.CallbackContext context);
             void OnZoom(InputAction.CallbackContext context);
-            void OnDrag(InputAction.CallbackContext context);
+            void OnMouseDelta(InputAction.CallbackContext context);
             void OnDebug(InputAction.CallbackContext context);
-            void OnClick(InputAction.CallbackContext context);
+            void OnMouseClick(InputAction.CallbackContext context);
         }
     }
 }

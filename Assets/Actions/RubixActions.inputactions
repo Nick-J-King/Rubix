@@ -286,7 +286,7 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Drag",
+                    "name": "MouseDelta",
                     "type": "Value",
                     "id": "ff800e9e-7e20-4011-ae90-28c79c1fce01",
                     "expectedControlType": "Vector2",
@@ -302,8 +302,8 @@
                     "interactions": "Tap"
                 },
                 {
-                    "name": "Click",
-                    "type": "Button",
+                    "name": "MouseClick",
+                    "type": "Value",
                     "id": "a7173be4-975e-4913-9e33-4bdab601b3ed",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -668,9 +668,9 @@
                     "id": "11bb22df-b7ae-4605-970e-0817ae558a5a",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone",
                     "groups": "",
-                    "action": "Drag",
+                    "action": "MouseDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -721,11 +721,11 @@
                 {
                     "name": "",
                     "id": "f20608eb-aa6b-4d41-ad5a-f6c3198c1227",
-                    "path": "*/{PrimaryTrigger}",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "MouseClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
