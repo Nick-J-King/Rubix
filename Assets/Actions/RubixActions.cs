@@ -322,7 +322,7 @@ namespace Rubix.Actions
                     ""id"": ""a7173be4-975e-4913-9e33-4bdab601b3ed"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap""
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -737,7 +737,7 @@ namespace Rubix.Actions
                     ""name"": """",
                     ""id"": ""f20608eb-aa6b-4d41-ad5a-f6c3198c1227"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Press(behavior=1)"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseClick"",
