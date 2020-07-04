@@ -162,7 +162,7 @@ namespace Rubix.Animation
 
 
         // Whether this animation has completely finished.
-        bool IsAnimationOnLast(int animationStep)
+        bool IsAnimationOnLastStep(int animationStep)
         {
             return (_moveType == MoveType.singleMove && animationStep == _lastAnimationStepSingle
                  || _moveType == MoveType.doubleMove && animationStep == _lastAnimationStepDouble);
@@ -227,7 +227,7 @@ namespace Rubix.Animation
                 myCube.FinishAnimation();
             }
 
-            if (IsAnimationOnLast(_animationStep))
+            if (IsAnimationOnLastStep(_animationStep))
             {
                 isAnimating = false;
             }

@@ -131,6 +131,8 @@ namespace Rubix.UI
                 {
                     leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
                     rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    leftPanel.transform.SetAsLastSibling();
+                    rightPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -146,6 +148,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s4)
                 {
                     rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    rightPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -157,6 +160,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s34)
                 {
                     rightPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    rightPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -196,6 +200,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s01)
                 {
                     leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    leftPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -208,6 +213,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s0)
                 {
                     leftPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    leftPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -225,6 +231,8 @@ namespace Rubix.UI
                 {
                     downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
                     upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    downPanel.transform.SetAsLastSibling();
+                    upPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -240,6 +248,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s4)
                 {
                     upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    upPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -251,6 +260,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s34)
                 {
                     upPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    upPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -290,6 +300,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s01)
                 {
                     downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    downPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -302,6 +313,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s0)
                 {
                     downPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    downPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -319,6 +331,8 @@ namespace Rubix.UI
                 {
                     backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
                     frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    backPanel.transform.SetAsLastSibling();
+                    frontPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -334,6 +348,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s0)
                 {
                     frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    frontPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -345,6 +360,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s01)
                 {
                     frontPanel.transform.Rotate(0.0f, 0.0f, angleStep);
+                    frontPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -384,6 +400,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s34)
                 {
                     backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    backPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
@@ -396,6 +413,7 @@ namespace Rubix.UI
                 if (cubeSlices == CubeSlices.s4)
                 {
                     backPanel.transform.Rotate(0.0f, 0.0f, -angleStep);
+                    backPanel.transform.SetAsLastSibling();
 
                     if (doStep)
                     {
