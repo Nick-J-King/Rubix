@@ -3468,6 +3468,7 @@ MonoBehaviour:
   scroller: {fileID: 1250278946}
   prefab: {fileID: 221932408}
   contentRect: {fileID: 763319150}
+  titleText: {fileID: 363578086}
 --- !u!114 &931200337
 MonoBehaviour:
   m_ObjectHideFlags: 0

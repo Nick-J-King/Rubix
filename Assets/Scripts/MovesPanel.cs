@@ -11,14 +11,19 @@ namespace Rubix.UI
         public GameObject scroller;
         public GameObject prefab;
         public RectTransform contentRect;
+        public Text titleText;
+
 
         ScrollRect sr;
-
+        int _numMoves;
 
         public override void Start()
         {
             base.Start();
             sr = scroller.GetComponent<ScrollRect>();
+
+            _numMoves = 0;
+            SetTitle();
         }
 
 
@@ -34,6 +39,18 @@ namespace Rubix.UI
                 GameObject.Destroy(contentRect.GetChild(i).gameObject);
             }
             contentRect.DetachChildren();
+
+            _numMoves = 0;
+            SetTitle();
+        }
+
+
+        void SetTitle()
+        {
+            if (_numMoves == 0)
+                titleText.text = "Moves";
+            else
+                titleText.text = "Moves: " + _numMoves;
         }
 
 
@@ -146,6 +163,9 @@ namespace Rubix.UI
             sr.content.GetComponent<ContentSizeFitter>().SetLayoutVertical() ;
 
             sr.normalizedPosition = new Vector2(0, 0);
+
+            _numMoves++;
+            SetTitle();
         }
     }
 }
