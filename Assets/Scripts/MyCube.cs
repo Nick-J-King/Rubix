@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Rubix.Animation;
 using Rubix.Data;
+using System.Collections;
 
 
 namespace Rubix.GUI
@@ -235,6 +236,67 @@ namespace Rubix.GUI
             }
 
             isAnimating = false;
+        }
+
+        public void ReassembleCube1()
+        {
+            Rigidbody rb;
+
+            rb = innerSphere.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
+
+            _origSphereTransformData.ApplyTo(innerSphere.transform);
+
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    for (int z = 0; z < 5; z++)
+                    {
+                        if (IsOuterCubelet(x, y, z))
+                        {
+                            _cubeletData[x, y, z] = _origCubeletData[x, y, z];
+
+                            rb = _cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
+                            rb.useGravity = false;
+                            rb.isKinematic = true;
+                        }
+                    }
+                }
+            }
+
+            isAnimating = false;
+            StartCoroutine("IReassembleCube");
+        }
+
+
+        public IEnumerator IReassembleCube()
+        {
+            Rigidbody rb;
+
+            rb = innerSphere.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
+
+            _origSphereTransformData.ApplyTo(innerSphere.transform);
+
+            for (int x = 0; x < 5; x++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    for (int z = 0; z < 5; z++)
+                    {
+                        if (IsOuterCubelet(x, y, z))
+                        {
+                            _cubeletData[x, y, z] = _origCubeletData[x, y, z];
+
+                            _origTransformData[x, y, z].ApplyTranslationTo(_cubeletData[x, y, z].cubelet.transform);
+                        }
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
         }
 
 

@@ -323,6 +323,14 @@ namespace Rubix.Actions
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reassemble1"",
+                    ""type"": ""Button"",
+                    ""id"": ""46a9082e-f0bc-4c51-bf46-948e8cd41952"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -743,6 +751,17 @@ namespace Rubix.Actions
                     ""action"": ""MouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ab5aaba-4230-469c-a43d-7aee99588da0"",
+                    ""path"": ""<Keyboard>/pageUp"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reassemble1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -850,6 +869,7 @@ namespace Rubix.Actions
             m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
             m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
             m_Player_MouseClick = m_Player.FindAction("MouseClick", throwIfNotFound: true);
+            m_Player_Reassemble1 = m_Player.FindAction("Reassemble1", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -937,6 +957,7 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_MouseDelta;
         private readonly InputAction m_Player_Debug;
         private readonly InputAction m_Player_MouseClick;
+        private readonly InputAction m_Player_Reassemble1;
         public struct PlayerActions
         {
             private @RubixActions m_Wrapper;
@@ -979,6 +1000,7 @@ namespace Rubix.Actions
             public InputAction @MouseDelta => m_Wrapper.m_Player_MouseDelta;
             public InputAction @Debug => m_Wrapper.m_Player_Debug;
             public InputAction @MouseClick => m_Wrapper.m_Player_MouseClick;
+            public InputAction @Reassemble1 => m_Wrapper.m_Player_Reassemble1;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1102,6 +1124,9 @@ namespace Rubix.Actions
                     @MouseClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseClick;
                     @MouseClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseClick;
                     @MouseClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseClick;
+                    @Reassemble1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReassemble1;
+                    @Reassemble1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReassemble1;
+                    @Reassemble1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReassemble1;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1220,6 +1245,9 @@ namespace Rubix.Actions
                     @MouseClick.started += instance.OnMouseClick;
                     @MouseClick.performed += instance.OnMouseClick;
                     @MouseClick.canceled += instance.OnMouseClick;
+                    @Reassemble1.started += instance.OnReassemble1;
+                    @Reassemble1.performed += instance.OnReassemble1;
+                    @Reassemble1.canceled += instance.OnReassemble1;
                 }
             }
         }
@@ -1309,6 +1337,7 @@ namespace Rubix.Actions
             void OnMouseDelta(InputAction.CallbackContext context);
             void OnDebug(InputAction.CallbackContext context);
             void OnMouseClick(InputAction.CallbackContext context);
+            void OnReassemble1(InputAction.CallbackContext context);
         }
     }
 }

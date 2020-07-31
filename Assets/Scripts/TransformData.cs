@@ -34,6 +34,18 @@ namespace Rubix.Data
         }
 
 
+        public void ApplyScaleTo(Transform transform)
+        {
+            transform.localScale = localScale;
+        }
+
+
+        public void ApplyTranslationTo(Transform transform)
+        {
+            transform.localPosition = localPosition;
+        }
+
+
         public void ApplyRotationTo(Transform transform)
         {
             transform.localEulerAngles = localEulerAngles;

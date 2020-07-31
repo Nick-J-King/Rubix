@@ -276,6 +276,22 @@ namespace Rubix.Main
         }
 
 
+        public void OnReassemble1(InputAction.CallbackContext context)
+        {
+            if (context.phase != InputActionPhase.Started)
+                return;
+
+            animationController.StopAnimation();
+
+            movesPanel.ClearMoves();
+
+            myCube.ReassembleCube1();
+            faceMapPanel.ResetMap();
+
+            NJK.Log("Reassemble1");
+        }
+
+
         public void OnMyDestroy(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)

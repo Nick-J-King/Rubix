@@ -308,6 +308,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Reassemble1",
+                    "type": "Button",
+                    "id": "46a9082e-f0bc-4c51-bf46-948e8cd41952",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -726,6 +734,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ab5aaba-4230-469c-a43d-7aee99588da0",
+                    "path": "<Keyboard>/pageUp",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reassemble1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
