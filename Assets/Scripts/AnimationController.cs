@@ -110,7 +110,7 @@ namespace Rubix.Animation
             }
 
             myCube.SpecifyAnimation(animationSpecification);
-            faceMapPanel.SpecifyAnimation(animationSpecification);
+            faceMapPanel.SpecifyMapAnimation(animationSpecification);
 
             movesPanel.AddMove(animationSpecification);
 
@@ -217,13 +217,13 @@ namespace Rubix.Animation
 
             _animationStep++;
 
-            faceMapPanel.DoAnimation(_angleStep, IsAnimationOnStep(_animationStep));
+            faceMapPanel.DoMapAnimation(_angleStep, IsAnimationOnStep(_animationStep));
             myCube.DoAnimation(_angleStep);
 
             // Transform the rotations into array manipulations.
             if (IsAnimationOnFinishStep(_animationStep))
             {
-                faceMapPanel.FinishAnimation();
+                faceMapPanel.FinishMapAnimation();
                 myCube.FinishAnimation();
             }
 

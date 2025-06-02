@@ -236,7 +236,7 @@ namespace Rubix.Main
             if (context.phase != InputActionPhase.Started)
                 return;
 
-            faceMapPanel.CycleTextures();
+            faceMapPanel.CycleMapTextures();
         }
 
 
@@ -249,8 +249,10 @@ namespace Rubix.Main
         }
 
 
-        public void OnResetView(InputAction.CallbackContext context)
+        public void OnResetView2(InputAction.CallbackContext context)
         {
+            NJK.Log("OnResetView2");
+
             if (context.phase != InputActionPhase.Started)
                 return;
 
@@ -262,8 +264,10 @@ namespace Rubix.Main
         }
 
 
-        public void OnResetConfiguration(InputAction.CallbackContext context)
+        public void OnResetConfiguration2(InputAction.CallbackContext context)
         {
+            NJK.Log("OnResetConfiguration2");
+
             if (context.phase != InputActionPhase.Started)
                 return;
 
@@ -349,7 +353,9 @@ namespace Rubix.Main
             NJK.Log($"OnEscape {context.phase}");
 
             Application.Quit();
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
 
 

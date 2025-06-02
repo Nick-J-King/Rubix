@@ -58,7 +58,7 @@ namespace Rubix.UI
         }
 
 
-        public void CycleTextures()
+        public void CycleMapTextures()
         {
             _textureType = AnimationData.CycleTextureType(_textureType);
 
@@ -110,7 +110,7 @@ namespace Rubix.UI
         }
 
 
-        public void SpecifyAnimation(AnimationSpecification animationSpecification)
+        public void SpecifyMapAnimation(AnimationSpecification animationSpecification)
         {
             cubeAxis = animationSpecification.cubeAxis;
             cubeSlices = animationSpecification.cubeSlices;
@@ -120,7 +120,7 @@ namespace Rubix.UI
         }
 
 
-        public void DoAnimation(float angleStep, bool doStep)
+        public void DoMapAnimation(float angleStep, bool doStep)
         {
             // X axis
 
@@ -136,11 +136,11 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromRight(0, rotationDirection);
-                        CycleSliceFromRight(1, rotationDirection);
-                        CycleSliceFromRight(2, rotationDirection);
-                        CycleSliceFromRight(3, rotationDirection);
-                        CycleSliceFromRight(4, rotationDirection);
+                        CycleMapSliceFromRight(0, rotationDirection);
+                        CycleMapSliceFromRight(1, rotationDirection);
+                        CycleMapSliceFromRight(2, rotationDirection);
+                        CycleMapSliceFromRight(3, rotationDirection);
+                        CycleMapSliceFromRight(4, rotationDirection);
                     }
                 }
 
@@ -152,7 +152,7 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromRight(0, rotationDirection);
+                        CycleMapSliceFromRight(0, rotationDirection);
                     }
                 }
 
@@ -164,8 +164,8 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromRight(0, rotationDirection);
-                        CycleSliceFromRight(1, rotationDirection);
+                        CycleMapSliceFromRight(0, rotationDirection);
+                        CycleMapSliceFromRight(1, rotationDirection);
                     }
                 }
 
@@ -174,7 +174,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromRight(1, rotationDirection);
+                        CycleMapSliceFromRight(1, rotationDirection);
                     }
                 }
 
@@ -183,7 +183,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromRight(2, rotationDirection);
+                        CycleMapSliceFromRight(2, rotationDirection);
                     }
                 }
 
@@ -192,7 +192,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromRight(3, rotationDirection);
+                        CycleMapSliceFromRight(3, rotationDirection);
                     }
                 }
 
@@ -204,8 +204,8 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromRight(3, rotationDirection);
-                        CycleSliceFromRight(4, rotationDirection);
+                        CycleMapSliceFromRight(3, rotationDirection);
+                        CycleMapSliceFromRight(4, rotationDirection);
                     }
                 }
 
@@ -217,7 +217,7 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromRight(4, rotationDirection);
+                        CycleMapSliceFromRight(4, rotationDirection);
                     }
                 }
             }
@@ -236,11 +236,11 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromTop(0, rotationDirection);
-                        CycleSliceFromTop(1, rotationDirection);
-                        CycleSliceFromTop(2, rotationDirection);
-                        CycleSliceFromTop(3, rotationDirection);
-                        CycleSliceFromTop(4, rotationDirection);
+                        CycleMapSliceFromTop(0, rotationDirection);
+                        CycleMapSliceFromTop(1, rotationDirection);
+                        CycleMapSliceFromTop(2, rotationDirection);
+                        CycleMapSliceFromTop(3, rotationDirection);
+                        CycleMapSliceFromTop(4, rotationDirection);
                     }
                 }
 
@@ -252,7 +252,7 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromTop(0, rotationDirection);
+                        CycleMapSliceFromTop(0, rotationDirection);
                     }
                 }
 
@@ -264,8 +264,8 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromTop(0, rotationDirection);
-                        CycleSliceFromTop(1, rotationDirection);
+                        CycleMapSliceFromTop(0, rotationDirection);
+                        CycleMapSliceFromTop(1, rotationDirection);
                     }
                 }
 
@@ -274,7 +274,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromTop(1, rotationDirection);
+                        CycleMapSliceFromTop(1, rotationDirection);
                     }
                 }
 
@@ -283,7 +283,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromTop(2, rotationDirection);
+                        CycleMapSliceFromTop(2, rotationDirection);
                     }
                 }
 
@@ -292,7 +292,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromTop(3, rotationDirection);
+                        CycleMapSliceFromTop(3, rotationDirection);
                     }
                 }
 
@@ -304,8 +304,8 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromTop(3, rotationDirection);
-                        CycleSliceFromTop(4, rotationDirection);
+                        CycleMapSliceFromTop(3, rotationDirection);
+                        CycleMapSliceFromTop(4, rotationDirection);
                     }
                 }
 
@@ -317,7 +317,7 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromTop(4, rotationDirection);
+                        CycleMapSliceFromTop(4, rotationDirection);
                     }
                 }
             }
@@ -336,11 +336,11 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromFront(0, rotationDirection);
-                        CycleSliceFromFront(1, rotationDirection);
-                        CycleSliceFromFront(2, rotationDirection);
-                        CycleSliceFromFront(3, rotationDirection);
-                        CycleSliceFromFront(4, rotationDirection);
+                        CycleMapSliceFromFront(0, rotationDirection);
+                        CycleMapSliceFromFront(1, rotationDirection);
+                        CycleMapSliceFromFront(2, rotationDirection);
+                        CycleMapSliceFromFront(3, rotationDirection);
+                        CycleMapSliceFromFront(4, rotationDirection);
                     }
                 }
 
@@ -352,7 +352,7 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromFront(0, rotationDirection);
+                        CycleMapSliceFromFront(0, rotationDirection);
                     }
                 }
 
@@ -364,8 +364,8 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromFront(0, rotationDirection);
-                        CycleSliceFromFront(1, rotationDirection);
+                        CycleMapSliceFromFront(0, rotationDirection);
+                        CycleMapSliceFromFront(1, rotationDirection);
                     }
                 }
 
@@ -374,7 +374,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromFront(1, rotationDirection);
+                        CycleMapSliceFromFront(1, rotationDirection);
                     }
                 }
 
@@ -383,7 +383,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromFront(2, rotationDirection);
+                        CycleMapSliceFromFront(2, rotationDirection);
                     }
                 }
 
@@ -392,7 +392,7 @@ namespace Rubix.UI
                 {
                     if (doStep)
                     {
-                        CycleSliceFromFront(3, rotationDirection);
+                        CycleMapSliceFromFront(3, rotationDirection);
                     }
                 }
 
@@ -404,8 +404,8 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromFront(3, rotationDirection);
-                        CycleSliceFromFront(4, rotationDirection);
+                        CycleMapSliceFromFront(3, rotationDirection);
+                        CycleMapSliceFromFront(4, rotationDirection);
                     }
                 }
 
@@ -417,7 +417,7 @@ namespace Rubix.UI
 
                     if (doStep)
                     {
-                        CycleSliceFromFront(4, rotationDirection);
+                        CycleMapSliceFromFront(4, rotationDirection);
                     }
                 }
             }
@@ -427,7 +427,7 @@ namespace Rubix.UI
         // and reset the panel rotation back to zero.
         // NOTE: If outer faces are not moved, there is nothing to do,
         //       because all the "steps" (5) have happened.
-        public void FinishAnimation()
+        public void FinishMapAnimation()
         {
             // X axis --------------------------------------
 
@@ -437,14 +437,14 @@ namespace Rubix.UI
                 // First slice from right.
                 if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                 {
-                    RotateFaceCW90(rightPanel, rotationDirection);
+                    RotateMapFaceCW90(rightPanel, rotationDirection);
                     rightPanel.transform.localEulerAngles = Vector3.zero;
                 }
 
                 // Fifth slice from right.
                 if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                 {
-                    RotateFaceACW90(leftPanel, rotationDirection);
+                    RotateMapFaceACW90(leftPanel, rotationDirection);
                     leftPanel.transform.localEulerAngles = Vector3.zero;
                 }
             }
@@ -457,14 +457,14 @@ namespace Rubix.UI
                 // First slice from top.
                 if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                 {
-                    RotateFaceCW90(upPanel, rotationDirection);
+                    RotateMapFaceCW90(upPanel, rotationDirection);
                     upPanel.transform.localEulerAngles = Vector3.zero;
                 }
 
                 // Last slice from top.
                 if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                 {
-                    RotateFaceACW90(downPanel, rotationDirection);
+                    RotateMapFaceACW90(downPanel, rotationDirection);
                     downPanel.transform.localEulerAngles = Vector3.zero;
                 }
             }
@@ -477,14 +477,14 @@ namespace Rubix.UI
                 // First slice from front.
                 if (cubeSlices == CubeSlices.s0 || cubeSlices == CubeSlices.s01 || cubeSlices == CubeSlices.s01234)
                 {
-                    RotateFaceACW90(frontPanel, rotationDirection);
+                    RotateMapFaceACW90(frontPanel, rotationDirection);
                     frontPanel.transform.localEulerAngles = Vector3.zero;
                 }
 
                 // Last slice from front.
                 if (cubeSlices == CubeSlices.s4 || cubeSlices == CubeSlices.s34 || cubeSlices == CubeSlices.s01234)
                 {
-                    RotateFaceCW90(backPanel, rotationDirection);
+                    RotateMapFaceCW90(backPanel, rotationDirection);
                     backPanel.transform.localEulerAngles = Vector3.zero;
                 }
             }
@@ -497,7 +497,7 @@ namespace Rubix.UI
         // X axis
 
         // nSlice = 0 is Right. nSlice = 4 is Left.
-        public void CycleSliceFromRight(int nSlice, RotationDirection rotationDirection)
+        public void CycleMapSliceFromRight(int nSlice, RotationDirection rotationDirection)
         {
             FaceletData[] a = new FaceletData[20];
 
@@ -534,7 +534,7 @@ namespace Rubix.UI
         // Y axis
 
         // nSlice = 0 is Top. nSlice = 4 is Bottom.
-        public void CycleSliceFromTop(int nSlice, RotationDirection rotationDirection)
+        public void CycleMapSliceFromTop(int nSlice, RotationDirection rotationDirection)
         {
             FaceletData[] a = new FaceletData[20];    // An array of the little "facelet" panels.
 
@@ -581,7 +581,7 @@ namespace Rubix.UI
         // Z axis
 
         // nSlice = 0 is Front. nSlice = 4 is Back.
-        public void CycleSliceFromFront(int nSlice, RotationDirection direction)
+        public void CycleMapSliceFromFront(int nSlice, RotationDirection direction)
         {
             FaceletData[] a = new FaceletData[20];
 
@@ -630,11 +630,11 @@ namespace Rubix.UI
         }
 
 
-        public void RotateFaceCW90(FacePanel face, RotationDirection direction)
+        public void RotateMapFaceCW90(FacePanel face, RotationDirection direction)
         {
             if (direction == RotationDirection.reverse)
             {
-                RotateFaceACW90(face, RotationDirection.normal);
+                RotateMapFaceACW90(face, RotationDirection.normal);
                 return;
             }
 
@@ -692,11 +692,11 @@ namespace Rubix.UI
         }
 
 
-        public void RotateFaceACW90(FacePanel face, RotationDirection direction)
+        public void RotateMapFaceACW90(FacePanel face, RotationDirection direction)
         {
             if (direction == RotationDirection.reverse)
             {
-                RotateFaceCW90(face, RotationDirection.normal);
+                RotateMapFaceCW90(face, RotationDirection.normal);
                 return;
             }
 
