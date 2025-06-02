@@ -249,9 +249,9 @@ namespace Rubix.Main
         }
 
 
-        public void OnResetView2(InputAction.CallbackContext context)
+        public void OnResetView(InputAction.CallbackContext context)
         {
-            NJK.Log("OnResetView2");
+            NJK.Log("OnResetView");
 
             if (context.phase != InputActionPhase.Started)
                 return;
@@ -264,9 +264,9 @@ namespace Rubix.Main
         }
 
 
-        public void OnResetConfiguration2(InputAction.CallbackContext context)
+        public void OnResetConfiguration(InputAction.CallbackContext context)
         {
-            NJK.Log("OnResetConfiguration2");
+            NJK.Log("OnResetConfiguration");
 
             if (context.phase != InputActionPhase.Started)
                 return;
