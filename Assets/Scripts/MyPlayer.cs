@@ -251,8 +251,6 @@ namespace Rubix.Main
 
         public void OnResetView(InputAction.CallbackContext context)
         {
-            NJK.Log("OnResetView");
-
             if (context.phase != InputActionPhase.Started)
                 return;
 
@@ -266,8 +264,6 @@ namespace Rubix.Main
 
         public void OnResetConfiguration(InputAction.CallbackContext context)
         {
-            NJK.Log("OnResetConfiguration");
-
             if (context.phase != InputActionPhase.Started)
                 return;
 
@@ -280,7 +276,7 @@ namespace Rubix.Main
         }
 
 
-        public void OnReassemble1(InputAction.CallbackContext context)
+        public void OnReassemble(InputAction.CallbackContext context)
         {
             if (context.phase != InputActionPhase.Started)
                 return;
@@ -289,10 +285,8 @@ namespace Rubix.Main
 
             movesPanel.ClearMoves();
 
-            myCube.ReassembleCube1();
+            myCube.ReassembleCube();
             faceMapPanel.ResetMap();
-
-            NJK.Log("Reassemble1");
         }
 
 
@@ -350,8 +344,6 @@ namespace Rubix.Main
 
         public void OnEscape(InputAction.CallbackContext context)
         {
-            NJK.Log($"OnEscape {context.phase}");
-
             Application.Quit();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
@@ -361,18 +353,18 @@ namespace Rubix.Main
 
         public void OnMouseClick(InputAction.CallbackContext context)
         {
-            NJK.Log($"OnMouseClick {context.phase}");
+//            NJK.Log($"OnMouseClick {context.phase}");
 
             if (context.phase != InputActionPhase.Started)
                 return;
+
             mouseManager.UpdateDirect();    // <><><>
-            NJK.Log("OnClick");
         }
 
 
         public void OnMouseDelta(InputAction.CallbackContext context)
         {
-            NJK.Log($"OnMouseDelta {context.phase}");
+//            NJK.Log($"OnMouseDelta {context.phase}");
 
             mouseManager.UpdateDirect();    // <><><>
 

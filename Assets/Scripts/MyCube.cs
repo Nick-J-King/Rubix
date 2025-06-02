@@ -242,9 +242,10 @@ namespace Rubix.GUI
             isAnimating = false;
         }
 
-        public void ReassembleCube1()
+        public void ReassembleCube()
         {
             ResetCube();
+            /*
             return;
 
             Rigidbody rb;
@@ -275,6 +276,7 @@ namespace Rubix.GUI
 
             isAnimating = false;
             StartCoroutine("IReassembleCube");
+            */
         }
 
 

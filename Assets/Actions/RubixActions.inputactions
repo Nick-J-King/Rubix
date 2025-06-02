@@ -288,7 +288,7 @@
                     "name": "ToggleControlsPanelViewable",
                     "type": "Button",
                     "id": "a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Tap",
                     "initialStateCheck": false
@@ -348,7 +348,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Reassemble1",
+                    "name": "Reassemble",
                     "type": "Button",
                     "id": "46a9082e-f0bc-4c51-bf46-948e8cd41952",
                     "expectedControlType": "",
@@ -625,7 +625,7 @@
                 {
                     "name": "",
                     "id": "e6cd1832-c87c-4df9-a9f5-99d08a18b4b3",
-                    "path": "<Keyboard>/0",
+                    "path": "<Keyboard>/equals",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -636,7 +636,18 @@
                 {
                     "name": "",
                     "id": "bdf22ecf-ee38-44fe-9482-a2551f537782",
-                    "path": "<Keyboard>/minus",
+                    "path": "<Keyboard>/delete",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Destroy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34a011d8-e189-4cd5-a4bf-cfba7a2182ff",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -724,7 +735,7 @@
                 {
                     "name": "",
                     "id": "247b7b55-f906-4818-81c6-9365fc2143f3",
-                    "path": "<Keyboard>/9",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -779,11 +790,11 @@
                 {
                     "name": "",
                     "id": "2ab5aaba-4230-469c-a43d-7aee99588da0",
-                    "path": "<Keyboard>/equals",
+                    "path": "<Keyboard>/minus",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Reassemble1",
+                    "action": "Reassemble",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

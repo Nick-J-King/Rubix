@@ -376,7 +376,7 @@ namespace Rubix.Actions
                     ""name"": ""ToggleControlsPanelViewable"",
                     ""type"": ""Button"",
                     ""id"": ""a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
@@ -436,7 +436,7 @@ namespace Rubix.Actions
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Reassemble1"",
+                    ""name"": ""Reassemble"",
                     ""type"": ""Button"",
                     ""id"": ""46a9082e-f0bc-4c51-bf46-948e8cd41952"",
                     ""expectedControlType"": """",
@@ -713,7 +713,7 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""e6cd1832-c87c-4df9-a9f5-99d08a18b4b3"",
-                    ""path"": ""<Keyboard>/0"",
+                    ""path"": ""<Keyboard>/equals"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -724,7 +724,18 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""bdf22ecf-ee38-44fe-9482-a2551f537782"",
-                    ""path"": ""<Keyboard>/minus"",
+                    ""path"": ""<Keyboard>/delete"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Destroy"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34a011d8-e189-4cd5-a4bf-cfba7a2182ff"",
+                    ""path"": ""<Keyboard>/backspace"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -812,7 +823,7 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""247b7b55-f906-4818-81c6-9365fc2143f3"",
-                    ""path"": ""<Keyboard>/9"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -867,11 +878,11 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""2ab5aaba-4230-469c-a43d-7aee99588da0"",
-                    ""path"": ""<Keyboard>/equals"",
+                    ""path"": ""<Keyboard>/minus"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Reassemble1"",
+                    ""action"": ""Reassemble"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -981,7 +992,7 @@ namespace Rubix.Actions
             m_Player_MouseDelta = m_Player.FindAction("MouseDelta", throwIfNotFound: true);
             m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
             m_Player_MouseClick = m_Player.FindAction("MouseClick", throwIfNotFound: true);
-            m_Player_Reassemble1 = m_Player.FindAction("Reassemble1", throwIfNotFound: true);
+            m_Player_Reassemble = m_Player.FindAction("Reassemble", throwIfNotFound: true);
         }
 
         ~@RubixActions()
@@ -1100,7 +1111,7 @@ namespace Rubix.Actions
         private readonly InputAction m_Player_MouseDelta;
         private readonly InputAction m_Player_Debug;
         private readonly InputAction m_Player_MouseClick;
-        private readonly InputAction m_Player_Reassemble1;
+        private readonly InputAction m_Player_Reassemble;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1265,9 +1276,9 @@ namespace Rubix.Actions
             /// </summary>
             public InputAction @MouseClick => m_Wrapper.m_Player_MouseClick;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Reassemble1".
+            /// Provides access to the underlying input action "Player/Reassemble".
             /// </summary>
-            public InputAction @Reassemble1 => m_Wrapper.m_Player_Reassemble1;
+            public InputAction @Reassemble => m_Wrapper.m_Player_Reassemble;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1408,9 +1419,9 @@ namespace Rubix.Actions
                 @MouseClick.started += instance.OnMouseClick;
                 @MouseClick.performed += instance.OnMouseClick;
                 @MouseClick.canceled += instance.OnMouseClick;
-                @Reassemble1.started += instance.OnReassemble1;
-                @Reassemble1.performed += instance.OnReassemble1;
-                @Reassemble1.canceled += instance.OnReassemble1;
+                @Reassemble.started += instance.OnReassemble;
+                @Reassemble.performed += instance.OnReassemble;
+                @Reassemble.canceled += instance.OnReassemble;
             }
 
             /// <summary>
@@ -1536,9 +1547,9 @@ namespace Rubix.Actions
                 @MouseClick.started -= instance.OnMouseClick;
                 @MouseClick.performed -= instance.OnMouseClick;
                 @MouseClick.canceled -= instance.OnMouseClick;
-                @Reassemble1.started -= instance.OnReassemble1;
-                @Reassemble1.performed -= instance.OnReassemble1;
-                @Reassemble1.canceled -= instance.OnReassemble1;
+                @Reassemble.started -= instance.OnReassemble;
+                @Reassemble.performed -= instance.OnReassemble;
+                @Reassemble.canceled -= instance.OnReassemble;
             }
 
             /// <summary>
@@ -1911,12 +1922,12 @@ namespace Rubix.Actions
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMouseClick(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Reassemble1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Reassemble" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnReassemble1(InputAction.CallbackContext context);
+            void OnReassemble(InputAction.CallbackContext context);
         }
     }
 }

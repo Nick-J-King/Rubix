@@ -922,8 +922,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 139313360}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSpace
+        m_TargetAssemblyTypeName: Rubix.Main.MyPlayer, Rubix
+        m_MethodName: OnResetView
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1227,7 +1227,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 139313360}
         m_TargetAssemblyTypeName: Rubix.Main.MyPlayer, Rubix
-        m_MethodName: OnReassemble1
+        m_MethodName: OnReassemble
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1238,7 +1238,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 46a9082e-f0bc-4c51-bf46-948e8cd41952
-    m_ActionName: 'Player/Reassemble1[/Keyboard/pageUp]'
+    m_ActionName: 'Player/Reassemble[/Keyboard/minus]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
