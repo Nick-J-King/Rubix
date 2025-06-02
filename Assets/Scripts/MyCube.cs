@@ -78,7 +78,9 @@ namespace Rubix.GUI
         // Handy shared data...
 
         readonly int[] stdTriangles = new int[] { 0, 1, 2, 0, 2, 3 };
+            // Used to construct a square from triangles.
 
+        // Used to map textures to squares.
         readonly Vector2[] stdUV = new Vector2[]
         {
             new Vector2(0,0),
@@ -87,6 +89,7 @@ namespace Rubix.GUI
             new Vector2(1,0)
         };
 
+        // "Basis" vectors from the origin, Plus/Minus from origin.
         readonly Vector3 vMMM = new  Vector3(-0.5f, -0.5f, -0.5f);
         readonly Vector3 vMMP = new  Vector3(-0.5f, -0.5f, 0.5f);
         readonly Vector3 vMPM = new  Vector3(-0.5f, 0.5f, -0.5f);
@@ -98,6 +101,7 @@ namespace Rubix.GUI
 
 
         // Load up the 25 textures to be used on the cubelet faces.
+        // Has the plain black numbers on a white background.
         void Awake()
         {
             for (int x = 0; x < 5; x++)
@@ -240,6 +244,9 @@ namespace Rubix.GUI
 
         public void ReassembleCube1()
         {
+            ResetCube();
+            return;
+
             Rigidbody rb;
 
             rb = innerSphere.GetComponent<Rigidbody>();
@@ -564,7 +571,10 @@ namespace Rubix.GUI
             return cData;
         }
 
-
+        /// <summary>
+        /// Recalculate the Bounds and Normals of the given mesh.
+        /// </summary>
+        /// <param name="mf">The mesh to recalculate.</param>
         void RecalculateMesh(MeshFilter mf)
         {
             mf.mesh.RecalculateBounds();
@@ -675,9 +685,10 @@ namespace Rubix.GUI
             }
         }
 
-
-        // The controller tells us to finish the current animation.
-        // Adjust the actual arrangement of Cubelets in the 3D array.
+        /// <summary>
+        /// The controller tells us to finish the current animation.
+        /// Adjust the actual arrangement of Cubelets in the 3D array.
+        /// </summary>
         public void FinishAnimation()
         {
             switch (_cubeAxis)
@@ -711,6 +722,7 @@ namespace Rubix.GUI
         {
             if (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutXAxisSlice(0, direction);
+
             if (cubeSlicesIn == CubeSlices.s1 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutXAxisSlice(1, direction);
 
@@ -719,6 +731,7 @@ namespace Rubix.GUI
 
             if (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutXAxisSlice(3, direction);
+
             if (cubeSlicesIn == CubeSlices.s4 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutXAxisSlice(4, direction);
         }
@@ -728,6 +741,7 @@ namespace Rubix.GUI
         {
             if (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutYAxisSlice(0, direction);
+
             if (cubeSlicesIn == CubeSlices.s1 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutYAxisSlice(1, direction);
 
@@ -736,6 +750,7 @@ namespace Rubix.GUI
 
             if (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutYAxisSlice(3, direction);
+
             if (cubeSlicesIn == CubeSlices.s4 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutYAxisSlice(4, direction);
         }
@@ -745,6 +760,7 @@ namespace Rubix.GUI
         {
             if (cubeSlicesIn == CubeSlices.s0 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutZAxisSlice(0, direction);
+
             if (cubeSlicesIn == CubeSlices.s1 || cubeSlicesIn == CubeSlices.s01 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutZAxisSlice(1, direction);
 
@@ -753,6 +769,7 @@ namespace Rubix.GUI
 
             if (cubeSlicesIn == CubeSlices.s3 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutZAxisSlice(3, direction);
+
             if (cubeSlicesIn == CubeSlices.s4 || cubeSlicesIn == CubeSlices.s34 || cubeSlicesIn == CubeSlices.s01234)
                 RotateCubeletArrayAboutZAxisSlice(4, direction);
         }

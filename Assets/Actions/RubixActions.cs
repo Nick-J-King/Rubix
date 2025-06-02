@@ -439,7 +439,7 @@ namespace Rubix.Actions
                     ""name"": ""Reassemble1"",
                     ""type"": ""Button"",
                     ""id"": ""46a9082e-f0bc-4c51-bf46-948e8cd41952"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -724,7 +724,7 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""bdf22ecf-ee38-44fe-9482-a2551f537782"",
-                    ""path"": ""<Keyboard>/end"",
+                    ""path"": ""<Keyboard>/minus"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -867,7 +867,7 @@ namespace Rubix.Actions
                 {
                     ""name"": """",
                     ""id"": ""2ab5aaba-4230-469c-a43d-7aee99588da0"",
-                    ""path"": ""<Keyboard>/pageUp"",
+                    ""path"": ""<Keyboard>/equals"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

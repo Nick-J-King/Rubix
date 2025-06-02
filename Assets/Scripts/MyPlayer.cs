@@ -349,7 +349,7 @@ namespace Rubix.Main
             NJK.Log($"OnEscape {context.phase}");
 
             Application.Quit();
-            //EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
         }
 
 

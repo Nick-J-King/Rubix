@@ -11,7 +11,8 @@
                     "id": "ae5b5b8b-cae4-4a97-b7dd-7f1f10b4d482",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OuterR",
@@ -19,7 +20,8 @@
                     "id": "f0bfe440-2844-4bea-a91d-b5a6eb8497f9",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OuterU",
@@ -27,7 +29,8 @@
                     "id": "c26ec892-9b3f-45cd-8459-a58b37d520ee",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OuterF",
@@ -35,7 +38,8 @@
                     "id": "baa08c4a-0379-41a2-8c54-6d9edabe7161",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OuterD",
@@ -43,7 +47,8 @@
                     "id": "a63a76c4-25f2-4a9e-9eea-559ec75a8e56",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OuterB",
@@ -51,7 +56,8 @@
                     "id": "062a89a2-3d1e-4ec0-b870-d302719568df",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "BothL",
@@ -59,7 +65,8 @@
                     "id": "c3e6a427-f758-4312-b3b8-1f369b505b21",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "BothR",
@@ -67,7 +74,8 @@
                     "id": "7854076d-a11f-4271-a133-6ad63164d1b8",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "BothU",
@@ -75,7 +83,8 @@
                     "id": "90c845d9-8760-48fc-904e-51af76366331",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "BothD",
@@ -83,7 +92,8 @@
                     "id": "fe45b102-cac1-457d-aa70-baa850290896",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "BothF",
@@ -91,7 +101,8 @@
                     "id": "783786bd-0524-46aa-8be7-f837f9d0723e",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "BothB",
@@ -99,7 +110,8 @@
                     "id": "0ed8bb1a-9a50-49db-ae36-b9b1e5fd9126",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InnerL",
@@ -107,7 +119,8 @@
                     "id": "2550e55a-30f0-4d94-972a-ac42de5cf41f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InnerR",
@@ -115,7 +128,8 @@
                     "id": "cd822229-ef5e-47de-b7f9-c4001dddb5f1",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InnerU",
@@ -123,7 +137,8 @@
                     "id": "12c041a9-72ba-41e1-8867-821da66d6195",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InnerD",
@@ -131,7 +146,8 @@
                     "id": "e59f87b1-30ee-461d-90c7-d40957771d5c",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InnerF",
@@ -139,7 +155,8 @@
                     "id": "93b7e54f-950b-42bb-a52c-fdb2d55738d7",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "InnerB",
@@ -147,7 +164,8 @@
                     "id": "59d3d1f3-0480-4a71-bfc7-e6cc0af7ddf6",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MidLR",
@@ -155,7 +173,8 @@
                     "id": "4b5c5dc8-948c-48d3-9715-a988dd4ff56c",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MidUD",
@@ -163,7 +182,8 @@
                     "id": "fd9cf6d5-26f0-4e02-a32c-1a4b2cc7aaad",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MidFB",
@@ -171,7 +191,8 @@
                     "id": "aa5e3d08-59c7-4c41-8d06-255179a6d268",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "AllLR",
@@ -179,7 +200,8 @@
                     "id": "bb19e40a-4a5b-4e3e-97f1-72fb84ec4b62",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "AllUD",
@@ -187,7 +209,8 @@
                     "id": "4ecaa6b5-f4af-41d6-bf33-ddf9b87b6d18",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "AllFB",
@@ -195,7 +218,8 @@
                     "id": "2634f9b3-22f4-4022-b44b-f4f4ba83629e",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Escape",
@@ -203,7 +227,8 @@
                     "id": "ec3db5d2-f04c-425b-8997-f52471555d0d",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ResetView",
@@ -211,7 +236,8 @@
                     "id": "1cdae035-f1b0-4807-8176-88310a8b3fa6",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ResetConfiguration",
@@ -219,7 +245,8 @@
                     "id": "e7d2b206-3664-4b8e-abb5-5f8e0520aa07",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Destroy",
@@ -227,7 +254,8 @@
                     "id": "c452cf2a-9248-49dc-aa66-ea9fc950779f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Random",
@@ -235,7 +263,8 @@
                     "id": "7f626715-ff38-4c3d-9bc5-c6a86a330211",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ToggleFaceMapViewable",
@@ -243,7 +272,8 @@
                     "id": "bdb7300c-10eb-44ea-a1bf-1898f276771e",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ToggleMovesPanelViewable",
@@ -251,7 +281,8 @@
                     "id": "b33312da-a2a6-410c-97d4-9a94dc2b1c92",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ToggleControlsPanelViewable",
@@ -259,7 +290,8 @@
                     "id": "a4220d12-44a5-4fda-b2a6-a1c8faa9a7aa",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "CycleFaceMapTextures",
@@ -267,7 +299,8 @@
                     "id": "c3f55fd4-1f8c-4903-85ad-c9d96089d9b4",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "CycleCubeTextures",
@@ -275,7 +308,8 @@
                     "id": "4ad3ada0-fee8-4543-82c6-918d6e083ca6",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Zoom",
@@ -283,7 +317,8 @@
                     "id": "577621ae-37ee-47a6-9617-74dad8e85e36",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MouseDelta",
@@ -291,7 +326,8 @@
                     "id": "ff800e9e-7e20-4011-ae90-28c79c1fce01",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Debug",
@@ -299,7 +335,8 @@
                     "id": "1b031401-9f6e-4c22-ac0b-ff830c4794de",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Tap"
+                    "interactions": "Tap",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MouseClick",
@@ -307,15 +344,17 @@
                     "id": "a7173be4-975e-4913-9e33-4bdab601b3ed",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Reassemble1",
                     "type": "Button",
                     "id": "46a9082e-f0bc-4c51-bf46-948e8cd41952",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -597,7 +636,7 @@
                 {
                     "name": "",
                     "id": "bdf22ecf-ee38-44fe-9482-a2551f537782",
-                    "path": "<Keyboard>/end",
+                    "path": "<Keyboard>/minus",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -740,7 +779,7 @@
                 {
                     "name": "",
                     "id": "2ab5aaba-4230-469c-a43d-7aee99588da0",
-                    "path": "<Keyboard>/pageUp",
+                    "path": "<Keyboard>/equals",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

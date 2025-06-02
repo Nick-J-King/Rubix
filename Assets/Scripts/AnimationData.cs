@@ -20,7 +20,11 @@ namespace Rubix.Animation
         public MoveType moveType;
 
 
-        // Is the move the same, OR similar?
+        /// <summary>
+        /// Is the given move the same, OR similar to this one?
+        /// </summary>
+        /// <param name="animationSpecification">Given move to check</param>
+        /// <returns>Returns true if similar</returns>
         public bool IsSimilarMove(AnimationSpecification animationSpecification)
         {
             if (animationSpecification.moveType == MoveType.noMove)
