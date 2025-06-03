@@ -5,21 +5,21 @@ namespace Rubix.GUI
 {
     public class MainCamera : MonoBehaviour
     {
-        Camera _camera;
-        float _azimuth = 0.0f;
-        float _elevation = 0.0f;
+        private Camera _camera;
+        private float _azimuth = 0.0f;
+        private float _elevation = 0.0f;
 
-        readonly Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-        readonly Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
-        Rect _cameraPixelRect = new Rect();
+        private readonly Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+        private readonly Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
+        private Rect _cameraPixelRect = new Rect();
 
-        const float _rotateAmount = 1.0f;
-        float _orbitDeltaAzimuth = 0.0f;
+        private const float RotateAmount = 1.0f;
+        private float _orbitDeltaAzimuth = 0.0f;
 
-        bool _doOrbitCamera = false;
+        private bool _doOrbitCamera = false;
 
 
-        void Awake()
+        private void Awake()
         {
             _camera = gameObject.GetComponent<Camera>();
 
@@ -27,7 +27,7 @@ namespace Rubix.GUI
         }
 
 
-        void Update()
+        private void Update()
         {
             if (_doOrbitCamera)
             {
@@ -61,23 +61,24 @@ namespace Rubix.GUI
         {
             if (!_doOrbitCamera)
             { 
-                _azimuth += lookDelta.x * _rotateAmount;
+                _azimuth += lookDelta.x * RotateAmount;
             }
-            _elevation += -lookDelta.y * _rotateAmount;
+            _elevation += -lookDelta.y * RotateAmount;
 
             RecalculateCamera();
         }
-
-
-        void OrbitCamera()
+        
+        
+        // Orbit the camera one update. 
+        private void OrbitCamera()
         {
-            _azimuth += _orbitDeltaAzimuth * _rotateAmount;
+            _azimuth += _orbitDeltaAzimuth * RotateAmount;
 
             RecalculateCamera();
         }
 
 
-        void RecalculateCamera()
+        private void RecalculateCamera()
         {
             while (_azimuth >= 360.0f) _azimuth -= 360.0f;
             while (_azimuth < 0.0f) _azimuth += 360.0f;
@@ -89,7 +90,7 @@ namespace Rubix.GUI
         }
 
 
-        void ApplyCameraAzimuthElevation()
+        private void ApplyCameraAzimuthElevation()
         {
             Quaternion rotation = Quaternion.Euler(_elevation, _azimuth, 0.0f);
 
@@ -100,6 +101,10 @@ namespace Rubix.GUI
         }
 
 
+        /// <summary>
+        /// Moves the viewport the Main Camera maps to by shifting the left edge.
+        /// </summary>
+        /// <param name="move">Units to move the viewport's left edge.</param>
         public void MoveViewport(float move)
         {
             _cameraPixelRect.x = _camera.pixelRect.x + move;

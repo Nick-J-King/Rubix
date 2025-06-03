@@ -26,7 +26,7 @@ namespace Rubix.Data
         }
 
 
-        public void ApplyTo(Transform transform)
+        public void Apply(Transform transform)
         {
             transform.localPosition = localPosition;
             transform.localEulerAngles = localEulerAngles;
@@ -34,19 +34,19 @@ namespace Rubix.Data
         }
 
 
-        public void ApplyScaleTo(Transform transform)
+        public void ApplyScale(Transform transform)
         {
             transform.localScale = localScale;
         }
 
 
-        public void ApplyTranslationTo(Transform transform)
+        public void ApplyTranslation(Transform transform)
         {
             transform.localPosition = localPosition;
         }
 
 
-        public void ApplyRotationTo(Transform transform)
+        public void ApplyRotation(Transform transform)
         {
             transform.localEulerAngles = localEulerAngles;
         }

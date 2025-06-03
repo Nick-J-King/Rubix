@@ -216,7 +216,7 @@ namespace Rubix.GUI
             rb.useGravity = false;
             rb.isKinematic = true;
 
-            _origSphereTransformData.ApplyTo(innerSphere.transform);
+            _origSphereTransformData.Apply(innerSphere.transform);
 
             for (int x = 0; x < 5; x++)
             {
@@ -228,7 +228,7 @@ namespace Rubix.GUI
                         {
                             _cubeletData[x, y, z] = _origCubeletData[x, y, z];
 
-                            _origTransformData[x, y, z].ApplyTo(_cubeletData[x, y, z].cubelet.transform);
+                            _origTransformData[x, y, z].Apply(_cubeletData[x, y, z].cubelet.transform);
 
                             rb = _cubeletData[x, y, z].cubelet.GetComponent<Rigidbody>();
                             rb.useGravity = false;
@@ -249,7 +249,7 @@ namespace Rubix.GUI
             rb.useGravity = false;
             rb.isKinematic = true;
 
-            _origSphereTransformData.ApplyTo(innerSphere.transform);
+            _origSphereTransformData.Apply(innerSphere.transform);
 
             for (int x = 0; x < 5; x++)
             {
@@ -282,7 +282,7 @@ namespace Rubix.GUI
             rb.useGravity = false;
             rb.isKinematic = true;
 
-            _origSphereTransformData.ApplyTo(innerSphere.transform);
+            _origSphereTransformData.Apply(innerSphere.transform);
 
             for (int x = 0; x < 5; x++)
             {
@@ -294,7 +294,7 @@ namespace Rubix.GUI
                         {
                             _cubeletData[x, y, z] = _origCubeletData[x, y, z];
 
-                            _origTransformData[x, y, z].ApplyTranslationTo(_cubeletData[x, y, z].cubelet.transform);
+                            _origTransformData[x, y, z].ApplyTranslation(_cubeletData[x, y, z].cubelet.transform);
                         }
                     }
                 }

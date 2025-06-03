@@ -774,13 +774,13 @@ namespace Rubix.UI
                 imgs[i].color = imgs[i + 1].color;
                 imgs[i].sprite = imgs[i + 1].sprite;
                 TransformData t = new TransformData(fd[i + 1].facelet.transform);
-                t.ApplyRotationTo(fd[i].facelet.transform);
+                t.ApplyRotation(fd[i].facelet.transform);
                 fd[i].spriteNumber = fd[i + 1].spriteNumber;
 
             }
             imgs[3].color = c0;
             imgs[3].sprite = s0;
-            t0.ApplyRotationTo(fd[3].facelet.transform);
+            t0.ApplyRotation(fd[3].facelet.transform);
             fd[3].spriteNumber = n0;
         }
 
@@ -804,12 +804,12 @@ namespace Rubix.UI
                 imgs[i + 1].color = imgs[i].color;
                 imgs[i + 1].sprite = imgs[i].sprite;
                 TransformData t = new TransformData(fd[i].facelet.transform);
-                t.ApplyRotationTo(fd[i + 1].facelet.transform);
+                t.ApplyRotation(fd[i + 1].facelet.transform);
                 fd[i + 1].spriteNumber = fd[i].spriteNumber;
             }
             imgs[0].color = c3;
             imgs[0].sprite = s3;
-            t3.ApplyRotationTo(fd[0].facelet.transform);
+            t3.ApplyRotation(fd[0].facelet.transform);
             fd[0].spriteNumber = n3;
         }
 
@@ -833,12 +833,12 @@ namespace Rubix.UI
                 imgs[i].color = imgs[i + 1].color;
                 imgs[i].sprite = imgs[i + 1].sprite;
                 TransformData t = new TransformData(fd[i + 1].facelet.transform);
-                t.ApplyRotationTo(fd[i].facelet.transform);
+                t.ApplyRotation(fd[i].facelet.transform);
                 fd[i].spriteNumber = fd[i + 1].spriteNumber;
             }
             imgs[19].color = c0;
             imgs[19].sprite = s0;
-            t0.ApplyRotationTo(fd[19].facelet.transform);
+            t0.ApplyRotation(fd[19].facelet.transform);
             fd[19].spriteNumber = n0;
         }
 
@@ -862,12 +862,12 @@ namespace Rubix.UI
                 imgs[i + 1].color = imgs[i].color;
                 imgs[i + 1].sprite = imgs[i].sprite;
                 TransformData t = new TransformData(fd[i].facelet.transform);
-                t.ApplyRotationTo(fd[i + 1].facelet.transform);
+                t.ApplyRotation(fd[i + 1].facelet.transform);
                 fd[i + 1].spriteNumber = fd[i].spriteNumber;
             }
             imgs[0].color = c19;
             imgs[0].sprite = s19;
-            t19.ApplyRotationTo(fd[0].facelet.transform);
+            t19.ApplyRotation(fd[0].facelet.transform);
             fd[0].spriteNumber = n19;
         }
     }
