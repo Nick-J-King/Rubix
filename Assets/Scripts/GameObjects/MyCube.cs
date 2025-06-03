@@ -244,12 +244,8 @@ namespace Rubix.GUI
 
         public void ReassembleCube()
         {
-            ResetCube();
-            /*
-            return;
-
             Rigidbody rb;
-
+            
             rb = innerSphere.GetComponent<Rigidbody>();
             rb.useGravity = false;
             rb.isKinematic = true;
@@ -276,7 +272,6 @@ namespace Rubix.GUI
 
             isAnimating = false;
             StartCoroutine("IReassembleCube");
-            */
         }
 
 
