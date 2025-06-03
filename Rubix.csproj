@@ -11,7 +11,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>Rubix</RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{7e49b843-caea-3b54-000d-8fa1dc92967e}</ProjectGuid>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
@@ -46,20 +46,20 @@
     <Analyzer Include="/Applications/Unity/Hub/Editor/6000.1.5f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/Data/TransformData.cs" />
-    <Compile Include="Assets/Scripts/UI/MyMove.cs" />
-    <Compile Include="Assets/Scripts/UI/ControlsPanel.cs" />
-    <Compile Include="Assets/Scripts/NJK.cs" />
-    <Compile Include="Assets/Scripts/AnimationController.cs" />
-    <Compile Include="Assets/Scripts/GUI/MainCamera.cs" />
-    <Compile Include="Assets/Scripts/UI/FacePanel.cs" />
-    <Compile Include="Assets/Scripts/MyPlayer.cs" />
-    <Compile Include="Assets/Scripts/Data/AnimationData.cs" />
-    <Compile Include="Assets/Scripts/UI/FaceMapPanel.cs" />
-    <Compile Include="Assets/Scripts/UI/DragWindow.cs" />
-    <Compile Include="Assets/Scripts/MouseManager.cs" />
-    <Compile Include="Assets/Scripts/GUI/MyCube.cs" />
-    <Compile Include="Assets/Scripts/UI/MovesPanel.cs" />
+    <Compile Include="Assets/Scripts/Rubix/MyPlayer.cs" />
+    <Compile Include="Assets/Scripts/Rubix/UI/MovesPanel.cs" />
+    <Compile Include="Assets/Scripts/Rubix/UI/ControlsPanel.cs" />
+    <Compile Include="Assets/Scripts/Rubix/UI/MyMove.cs" />
+    <Compile Include="Assets/Scripts/Rubix/GUI/MainCamera.cs" />
+    <Compile Include="Assets/Scripts/Rubix/UI/DragWindow.cs" />
+    <Compile Include="Assets/Scripts/Rubix/Data/AnimationData.cs" />
+    <Compile Include="Assets/Scripts/Rubix/UI/FacePanel.cs" />
+    <Compile Include="Assets/Scripts/Rubix/AnimationController.cs" />
+    <Compile Include="Assets/Scripts/Rubix/Data/TransformData.cs" />
+    <Compile Include="Assets/Scripts/Rubix/MouseManager.cs" />
+    <Compile Include="Assets/Scripts/Rubix/NJK.cs" />
+    <Compile Include="Assets/Scripts/Rubix/UI/FaceMapPanel.cs" />
+    <Compile Include="Assets/Scripts/Rubix/GUI/MyCube.cs" />
     <None Include="Assets/Scripts/Rubix.asmdef" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/6000.1.5f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>

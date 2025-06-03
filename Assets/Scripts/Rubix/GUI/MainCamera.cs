@@ -9,8 +9,8 @@ namespace Rubix.GUI
         float _azimuth = 0.0f;
         float _elevation = 0.0f;
 
-        Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-        Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
+        readonly Rect _fullView = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
+        readonly Vector3 _initialPosition = new Vector3(0.0f, 0.0f, -10.0f);
         Rect _cameraPixelRect = new Rect();
 
         const float _rotateAmount = 1.0f;

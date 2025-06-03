@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Rubix.Data;
-using Rubix.Data;
 
 
 namespace Rubix.UI

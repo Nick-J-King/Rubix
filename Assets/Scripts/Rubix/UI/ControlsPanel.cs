@@ -1,5 +1,4 @@
-﻿using Rubix.Data;
-using Rubix.GUI;
+﻿using Rubix.GUI;
 
 
 namespace Rubix.UI

@@ -65,7 +65,7 @@ namespace Rubix.GUI
 
         readonly CubeletData[,,] _origCubeletData  = new CubeletData[5, 5, 5];
             // Pointers from the array indices to the original Cubelets.
-            // As rotations are performed, these ones stay put.
+            // As rotations are performed, these stay put.
 
         readonly TransformData[,,] _origTransformData = new TransformData[5, 5, 5];
             // A quick record of the original Cubelet positions by array indices.
