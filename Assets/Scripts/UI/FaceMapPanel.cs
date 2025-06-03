@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Rubix.Animation;
+using Rubix.Data;
 using Rubix.Data;
 
 

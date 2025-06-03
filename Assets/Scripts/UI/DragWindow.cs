@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using Rubix.Animation;
+using Rubix.Data;
 
 
 namespace Rubix.UI
