@@ -421,7 +421,7 @@ namespace Rubix.Actions
                     ""name"": ""Debug"",
                     ""type"": ""Button"",
                     ""id"": ""1b031401-9f6e-4c22-ac0b-ff830c4794de"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
